@@ -1,4 +1,7 @@
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 public class SimpleUnit extends Unit {
 
@@ -7,26 +10,15 @@ public class SimpleUnit extends Unit {
      * @param owner
      * @param locationToSet
      */
-    public SimpleUnit(Player owner, Location locationToSet){
-        super(owner, locationToSet);
-    }
-
-    /**
-     * @param owner
-     */
-    public SimpleUnit(Player owner){
-        super(owner, new Location(0,0));
+    public SimpleUnit(Player owner, Point topLeftCorner, Point targetToSet){
+        super(owner, topLeftCorner, 1);
+        this.target=targetToSet;
     }
 
     //________________MÉTHODES_______________//
 
     @Override
-    public void moveTo(Location location) {
-        // TODO Implement this method
-    }
-
-    @Override
-    public void print(Graphics g) {
+    public void moveTo(Point location) {
         // TODO Implement this method
     }
 }

@@ -1,4 +1,7 @@
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Soldier extends Unit {
     
@@ -8,18 +11,20 @@ public class Soldier extends Unit {
      * @param locationToSet
      * Position initiale de l’unité
      */
-    public Soldier(Player owner, Location locationToSet){
-        super(owner, locationToSet);
+    public Soldier(Player owner, Point topLeftCorner){
+        super(owner, topLeftCorner, 2);
     }
     
+    //________________MÉTHODES_______________//
 
     @Override
-    public void moveTo(Location location) {
+    public void moveTo(Point location) {
         // TODO Implement this method
     }
 
     @Override
     public void print(Graphics g) {
-        // TODO Implement this method
+        g.setColor(color);
+        g.fillOval(hitBox.x*Finals.scale, hitBox.y*Finals.scale, hitBox.width*Finals.scale, hitBox.height*Finals.scale);
     }
 }
