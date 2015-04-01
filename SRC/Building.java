@@ -18,7 +18,8 @@ public class Building extends Item{
     //________________METHODES_______________//
     
     public boolean isDestroyed(){
-        if(life<=0){return true;
+        if(life<=0){
+		return true;
         }else{
         	return false;
         }
