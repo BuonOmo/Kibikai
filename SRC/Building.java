@@ -1,42 +1,47 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Building extends Item{
     protected int level;
-
-    /**
-     * @param owner
-     * @param levelToSet
-     * @param locationOfTheCenter
+    // _____________CONSTRUCTEURS______________//
+    
+    /** @param owner 
+     * @param levelToSet Choix du level de base
      */
-    public Building(Player owner, int levelToSet, Location locationOfTheCenter){
-        super(owner,locationOfTheCenter);
-        level = levelToSet;
-        
+    public Building(Player owner, Point topLeftCorner){
+        super(owner, topLeftCorner,2);
+        life = hitBox.height*hitBox.height*Finals.LIFE;      
     }
+    //________________METHODES_______________//
     
     public boolean isDestroyed(){
-        return false;
-        //TODO implémenter cette méthode
+        if(life<=0){
+		return true;
+        }else{
+        	return false;
+        }
     }
 
-    /**
-     * @param levelToSet
-     */
-    public void setLevel(int levelToSet){
-        level = levelToSet;
-    }
-    
-    public int getLevel(){
-        return level;
-    }
 
     /**
-     * @param g
+     *  Cree une unité simple et la rajoute dans le tableau du joueur. elle se dirige au target
      */
-    public void print(Graphics g){
-        g.setColor(color); //comment appelle-t’on la couleur du joueur qui se situe dans Item ?
-        int l = (level + 1) * Finals.SIDE;
-        g.fillRoundRect(location.x, location.y, l, l, l/5, l/5);
+    public void GoAndProcreate(){
+    	//Choix du point de spawn adapte au point de ralliement
+    	Point spawnPoint = new Point();
+    	if(target.getX()<=hitBox.x){
+    		spawnPoint.x=hitBox.x-Finals.SIDE-1;
+    	}else{
+    		spawnPoint.x=hitBox.x+hitBox.width+1;
+    	}
+    	if(target.getY()<=hitBox.y){
+    		spawnPoint.y=hitBox.y-Finals.SIDE-1;
+    	}else{
+    		spawnPoint.y=hitBox.y+hitBox.height+1;
+    	}
+    	owner.units.add(new SimpleUnit(owner,spawnPoint, target));
     }
 }
