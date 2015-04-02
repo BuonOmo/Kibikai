@@ -1,8 +1,8 @@
 public interface Finals {
     /**
-     * Taille du coté d’une unité simple en metres.
+     * Taille du coté d’une unité simple en centi-metres.
      */
-    public final static int SIDE = 10;
+    public final static int SIDE = 100;
     
     /**
      * Angle de Balayage en degrés.
@@ -15,12 +15,17 @@ public interface Finals {
     public final static int LIFE = 3;
     
     /**
-     * Taille de la carte en metres.
+     * Taille de la carte en centi-metres.
      */
-    public final static int WIDTH = 2000, HEIGTH = 1000;
+    public final static int WIDTH = 200000, HEIGTH = 100000;
     
     /**
-     * Echelle (distance en metre*scale = distance en pixel).
+     * distance unitaire d’un deplacement en centi-metres;
+     */
+    public final static int DISTANCE_TO_MOVE = 10;
+    
+    /**
+     * Echelle (distance en centi-metre*scale = distance en pixel).
      */
     public static int scale = 5;
     

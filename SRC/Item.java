@@ -11,6 +11,8 @@ public abstract class Item {
     Color color;
     Rectangle hitBox;
     Player owner;
+    static LinkedList<Item> aliveItems = new LinkedList<Item>();
+    static LinkedList<Item> deadItems = new LinkedList<Item>();
     
     // _____________CONSTRUCTEURS______________//
     
@@ -18,10 +20,12 @@ public abstract class Item {
      * @param owner Possesseur de lâ€™objet
      * @param hitBoxToSet
      */
-    public Item(Player ownerToSet, Rectangle hitBoxToSet){
+    public Item(Player ownerToSet, Rectangle hitBoxToSet, Point targetToSet){
         color = ownerToSet.color;
         owner = ownerToSet;
         hitBox = hitBoxToSet;
+        target = targetToSet;
+        aliveItems.add(this);
     }
 
     /**
@@ -30,11 +34,11 @@ public abstract class Item {
      * @param width largeur de la hitBox
      * @param height hauteur de la hitBox
      */
-    public Item(Player owner, Point topLeftCorner,int width, int height){
-        color = owner.color;
+    public Item(Player ownerToSet, Point topLeftCorner,int width, int height){
+        super(ownerToSet, new Rectangle(topLeftCorner, new Dimension(Finals.SIDE*width,Finals.SIDE*height)),topLeftCorner);
+        color = ownerToSet.color;
         hitBox = new Rectangle(topLeftCorner, new Dimension(Finals.SIDE*width,Finals.SIDE*height));
         target = topLeftCorner;
-        
     }
     
     /**
@@ -58,12 +62,12 @@ public abstract class Item {
     public void isAttacked(){
         life--;
     }
-    
+
     /**
      * @param g
      */
     /**
-     * Retourne une liste des unités dans le perimetre entourant l'unité.
+     * Retourne une liste des unitï¿½s dans le perimetre entourant l'unitï¿½.
      * @param radius : Rayon delimitant le perimetre de scan.
      * 
      */
@@ -76,6 +80,11 @@ public abstract class Item {
     	}
     	return otherUnits;   	
     }
+    public double distanceTo(Point p){
+        double x = hitBox.getCenterX(), y = hitBox.getCenterY();
+        
+        return Math.sqrt((p.x - x)*(p.x - x) + (p.y -y)*(p.y-y));   
+    }
     
     public double distanceTo(Unit other){
     	double d;
@@ -87,6 +96,16 @@ public abstract class Item {
     	return d;
     }
     
+    public boolean isDestructed(){
+        if (life <= 0){
+            if (!deadItems.contains(this)){
+                deadItems.add(this);
+                aliveItems.remove(this);
+            }
+            return true;
+        }
+        return false;
+    }
     
     public void print(Graphics g){
         g.setColor(color);

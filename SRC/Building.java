@@ -17,13 +17,6 @@ public class Building extends Item{
     }
     //________________METHODES_______________//
     
-    public boolean isDestroyed(){
-        if(life<=0){return true;
-        }else{
-        	return false;
-        }
-    }
-    
     /**
      *  Cree une unité simple et la rajoute dans le tableau du joueur. elle se dirige au target
      */
