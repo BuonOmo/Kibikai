@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.LinkedList;
 
 public abstract class Item {
     Point target;
@@ -54,13 +55,39 @@ public abstract class Item {
     /**
      * Diminue la vie.
      */
-    public void IsAttacked(){
+    public void isAttacked(){
         life--;
     }
     
     /**
      * @param g
      */
+    /**
+     * Retourne une liste des unités dans le perimetre entourant l'unité.
+     * @param radius : Rayon delimitant le perimetre de scan.
+     * 
+     */
+    public LinkedList<Unit> scanPerimeter(int radius, Player player){
+    	LinkedList<Unit> otherUnits = new LinkedList<Unit>();
+    	for(int i=0;i<player.units.size();i++){
+    		if(this.distanceTo(player.units.get(i))<=radius){
+    			otherUnits.add(player.units.get(i));
+    		}
+    	}
+    	return otherUnits;   	
+    }
+    
+    public double distanceTo(Unit other){
+    	double d;
+    	double x1= this.hitBox.getX();
+    	double y1=this.hitBox.getY();
+    	double x2=other.hitBox.getX();
+    	double y2=other.hitBox.getY();
+    	d=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+    	return d;
+    }
+    
+    
     public void print(Graphics g){
         g.setColor(color);
         // TODO virer ce putain de 3 et mettre un truc cohÃ©rant pour les arcs de cercle

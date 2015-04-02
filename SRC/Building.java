@@ -18,20 +18,18 @@ public class Building extends Item{
     //________________METHODES_______________//
     
     public boolean isDestroyed(){
-        if(life<=0){
-		return true;
+        if(life<=0){return true;
         }else{
         	return false;
         }
     }
-
-
+    
     /**
      *  Cree une unité simple et la rajoute dans le tableau du joueur. elle se dirige au target
      */
     public void GoAndProcreate(){
     	//Choix du point de spawn adapte au point de ralliement
-    	Point spawnPoint = new Point();
+    	Point spawnPoint = new Point();      
     	if(target.getX()<=hitBox.x){
     		spawnPoint.x=hitBox.x-Finals.SIDE-1;
     	}else{
