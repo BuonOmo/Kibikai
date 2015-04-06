@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Point2D;
+
 import java.util.LinkedList;
 
 public abstract class Item {
@@ -80,6 +82,12 @@ public abstract class Item {
     	}
     	return otherUnits;   	
     }
+    
+    /**
+     * 
+     * @param p 
+     * @return distance du centre de l’unité au point p en double
+     */
     public double distanceTo(Point p){
         double x = hitBox.getCenterX(), y = hitBox.getCenterY();
         
@@ -94,6 +102,10 @@ public abstract class Item {
     	double y2=other.hitBox.getY();
     	d=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
     	return d;
+    }
+    
+    public Point2D getCenter(){
+        return new Point2D.Double(hitBox.getCenterX(),hitBox.getCenterY());
     }
     
     public boolean isDestructed(){

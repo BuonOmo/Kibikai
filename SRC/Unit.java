@@ -2,6 +2,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import java.awt.geom.Point2D;
+
 import java.util.LinkedList;
 
 public abstract class Unit extends Item {
@@ -45,43 +47,46 @@ public abstract class Unit extends Item {
      *
      * @return vecteur de déplacement unitaire
      */
-    public Point getShortTarget(){
+    public Point2D getShortTarget(double alpha){
         
-        Point shortTarget;
-        shortTarget = new Point();
-
-        int i = 0;
-        int x, y;
-        x = 
-            (int) ((double) (target.x - hitBox.getCenterX()) * (double) Finals.DISTANCE_TO_MOVE /
-                   this.distanceTo(target) + hitBox.getCenterX());
-        y =
-            (int) ((double) (target.y - hitBox.getCenterY()) * (double) Finals.DISTANCE_TO_MOVE /
-                    this.distanceTo(target) + hitBox.getCenterY());
-        double alpha;
-
-        do{
-            alpha = (double)Finals.ALPHA*Math.pow(-1.0, i);
-            shortTarget.setLocation( Math.cos(alpha)*x, Math.sin(alpha)*y);
-            i++;
-        }while(!canMoveTo(shortTarget));
+        Point2D shortTarget;
+        shortTarget = new Point2D.Double();
+        
+        double x, y;
+        x = (double) (target.x - hitBox.getCenterX()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
+        y = (double) (target.y - hitBox.getCenterY()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
+        
+        shortTarget.setLocation( Math.cos(alpha)*x+hitBox.getCenterX(), Math.sin(alpha)*y+hitBox.getCenterY());
         return shortTarget;
     }
+
     
-    public void moveTo(Point location){
-        
+    /**
+     * @param shortTarget
+     * @return angle du déplacement par rapport à la droite Objet-Cible
+     */
+    public double findAngle(Point2D shortTarget){
+        return 1;
     }
     
-    public boolean canMoveTo(Point shortTarget){
+    public double[] angle possible..............................................
+    /**
+     * @param shortTarget
+     * @return l’unitée peut faire un déplacement unitaire
+     */
+    public boolean canMove(){
         double r;
         r = this.distanceTo(new Point((int) hitBox.getX(), (int) hitBox.getY()));
 
         LinkedList<Item> obstacle;
         obstacle = new LinkedList<>(aliveItems);
         obstacle.remove(this);
-        for(int i=0 ; i <= obstacle.size() ; i++)
-            if (true) //*************************************************** à finir de coder en gérant l’intersection *******************************//
-                return false;
+        
+        for(double i=0 ; Math.abs(i*Math.pow(-1.0,i)*Finals.ALPHA)<= 180 ; i++){
+            for (int j=0; j <= obstacle.size(); j++){
+                
+            }
+        }
         
         return true;
     }
