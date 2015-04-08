@@ -37,7 +37,7 @@ public abstract class Item {
      * @param height hauteur de la hitBox
      */
     public Item(Player ownerToSet, Point topLeftCorner,int width, int height){
-        super(ownerToSet, new Rectangle(topLeftCorner, new Dimension(Finals.SIDE*width,Finals.SIDE*height)),topLeftCorner);
+        this(ownerToSet, new Rectangle(topLeftCorner, new Dimension(Finals.SIDE*width,Finals.SIDE*height)),topLeftCorner);
         color = ownerToSet.color;
         hitBox = new Rectangle(topLeftCorner, new Dimension(Finals.SIDE*width,Finals.SIDE*height));
         target = topLeftCorner;
