@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 
 public class Building extends Item{
     protected int level;
@@ -13,7 +14,7 @@ public class Building extends Item{
      */
     public Building(Player owner, Point topLeftCorner){
         super(owner, topLeftCorner,2);
-        life = hitBox.height*hitBox.height*Finals.LIFE;      
+        life = hitBox.getHeight()*hitBox.getHeight()*Finals.LIFE;      
     }
     //________________METHODES_______________//
     
@@ -22,16 +23,16 @@ public class Building extends Item{
      */
     public void GoAndProcreate(){
     	//Choix du point de spawn adapte au point de ralliement
-    	Point spawnPoint = new Point();      
-    	if(target.getX()<=hitBox.x){
-    		spawnPoint.x=hitBox.x-Finals.SIDE-1;
+    	Point2D spawnPoint = new Point2D.Double();      
+    	if(target.getX()<=hitBox.getX()){
+    		spawnPoint.x=hitBox.getX()-Finals.SIDE-1;
     	}else{
-    		spawnPoint.x=hitBox.x+hitBox.width+1;
+    		spawnPoint.x=hitBox.getX()+hitBox.getWidth()+1;
     	}
-    	if(target.getY()<=hitBox.y){
-    		spawnPoint.y=hitBox.y-Finals.SIDE-1;
+    	if(target.getY()<=hitBox.getY()){
+    		spawnPoint.y=hitBox.getY()-Finals.SIDE-1;
     	}else{
-    		spawnPoint.y=hitBox.y+hitBox.height+1;
+    		spawnPoint.y=hitBox.getY()+hitBox.getHeight()+1;
     	}
     	owner.units.add(new SimpleUnit(owner,spawnPoint, target));
     }

@@ -39,7 +39,7 @@ public abstract class Unit extends Item {
      * @param targetToSet Point d’arrivée de l’unité (objectif)
      * 
      */
-    public void setTarget(Point targetToSet){
+    public void setTarget(Point2D targetToSet){
         target = targetToSet;
     }
     
@@ -53,8 +53,8 @@ public abstract class Unit extends Item {
         shortTarget = new Point2D.Double();
         
         double x, y;
-        x = (double) (target.x - hitBox.getCenterX()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
-        y = (double) (target.y - hitBox.getCenterY()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
+        x = (double) (target.getX() - hitBox.getCenterX()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
+        y = (double) (target.getY() - hitBox.getCenterY()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
         
         shortTarget.setLocation( Math.cos(alpha)*x+hitBox.getCenterX(), Math.sin(alpha)*y+hitBox.getCenterY());
         return shortTarget;
@@ -69,7 +69,8 @@ public abstract class Unit extends Item {
         return 1;
     }
     
-    //public double[] angle possible..............................................
+    //public double[] angle possible.........................................
+    
     /**
      * @param shortTarget
      * @return l’unitée peut faire un déplacement unitaire

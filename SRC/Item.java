@@ -5,13 +5,15 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
+import java.awt.geom.Rectangle2D;
+
 import java.util.LinkedList;
 
 public abstract class Item {
-    Point target;
-    int life;
+    Point2D target;
+    double life;
     Color color;
-    Rectangle hitBox;
+    Rectangle2D hitBox;
     Player owner;
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
     static LinkedList<Item> deadItems = new LinkedList<Item>();
@@ -22,7 +24,7 @@ public abstract class Item {
      * @param owner Possesseur de l’objet
      * @param hitBoxToSet
      */
-    public Item(Player ownerToSet, Rectangle hitBoxToSet, Point targetToSet){
+    public Item(Player ownerToSet, Rectangle2D hitBoxToSet, Point2D targetToSet){
         color = ownerToSet.color;
         owner = ownerToSet;
         hitBox = hitBoxToSet;
@@ -36,24 +38,18 @@ public abstract class Item {
      * @param width largeur de la hitBox
      * @param height hauteur de la hitBox
      */
-    public Item(Player ownerToSet, Point topLeftCorner,int width, int height){
-        this(ownerToSet, new Rectangle(topLeftCorner, new Dimension(Finals.SIDE*width,Finals.SIDE*height)),topLeftCorner);
-        color = ownerToSet.color;
-        hitBox = new Rectangle(topLeftCorner, new Dimension(Finals.SIDE*width,Finals.SIDE*height));
-        target = topLeftCorner;
+    public Item(Player ownerToSet, Point2D topLeftCorner,int width, int height){
+        this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), width, height), topLeftCorner);
     }
     
     /**
-     * Constructeur pour une hitBox carré
-     * @param owner Possesseur de l’objet
+     * Constructeur pour une hitBox carré.
+     * @param ownerToSet Possesseur de l’objet
      * @param topLeftCorner
      * @param side coté de la hitBox
      */
-    public Item(Player owner, Point topLeftCorner,int side){
-        color = owner.color;
-        hitBox = new Rectangle(topLeftCorner, new Dimension(Finals.SIDE*side,Finals.SIDE*side));
-        target = topLeftCorner;
-        
+    public Item(Player ownerToSet, Point topLeftCorner,int side){
+        this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), side, side), topLeftCorner);
     }
     
     //________________MÉTHODES_______________//
@@ -88,10 +84,10 @@ public abstract class Item {
      * @param p 
      * @return distance du centre de l’unité au point p en double
      */
-    public double distanceTo(Point p){
+    public double distanceTo(Point2D p){
         double x = hitBox.getCenterX(), y = hitBox.getCenterY();
         
-        return Math.sqrt((p.x - x)*(p.x - x) + (p.y -y)*(p.y-y));   
+        return Math.sqrt((p.getX() - x)*(p.getX() - x) + (p.getY() -y)*(p.getY()-y));   
     }
     
     public double distanceTo(Unit other){
@@ -122,6 +118,11 @@ public abstract class Item {
     public void print(Graphics g){
         g.setColor(color);
         // TODO virer ce putain de 3 et mettre un truc cohérant pour les arcs de cercle
-        g.fillRoundRect(hitBox.x*Finals.scale, hitBox.y*Finals.scale, hitBox.width*Finals.scale, hitBox.height*Finals.scale,3*Finals.scale,3*Finals.scale);
+        g.fillRoundRect( (int)(hitBox.getX()*Finals.scale), 
+                         (int)(hitBox.getY()*Finals.scale), 
+                         (int)(hitBox.getWidth()*Finals.scale), 
+                         (int)(hitBox.getHeight()*Finals.scale),
+                         3*Finals.scale,
+                         3*Finals.scale);
     }
 }

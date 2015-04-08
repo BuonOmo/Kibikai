@@ -16,9 +16,6 @@ public class SimpleUnit extends Unit {
     }
 
     //________________MÉTHODES_______________//
-
-    @Override
-    public void moveTo(Point location) {
-        // TODO Implement this method
-    }
+    
+    
 }

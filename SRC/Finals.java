@@ -12,7 +12,7 @@ public interface Finals {
     /**
      * Quantité de "vie" d’une unité simple en secondes d’attaque.
      */
-    public final static int LIFE = 3;
+    public final static double LIFE = 3;
     
     /**
      * Taille de la carte en metres.
