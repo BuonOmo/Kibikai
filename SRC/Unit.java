@@ -69,7 +69,7 @@ public abstract class Unit extends Item {
         return 1;
     }
     
-    public double[] angle possible..............................................
+    //public double[] angle possible..............................................
     /**
      * @param shortTarget
      * @return l’unitée peut faire un déplacement unitaire

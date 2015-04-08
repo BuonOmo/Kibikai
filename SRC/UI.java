@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -11,6 +12,7 @@ import javax.swing.*;
 
 
 
+@SuppressWarnings("serial")
 public class UI extends JFrame{
 	
 	/*Timer timer;
@@ -18,6 +20,8 @@ public class UI extends JFrame{
 	BufferedImage ArrierePlan;
 	Graphics buffer;
 	Rectangle Ecran;
+	
+	Building base1;
 	
 	final int screenHeight;
 	final int screenWidth;
@@ -44,6 +48,7 @@ public class UI extends JFrame{
 	    //Set the background on WHITE
 	    frame.getContentPane().setBackground(Color.WHITE);
 	    
+	    /* Boutons pour tester le Layout
 	    //Put the components on the right place
 	    frame.setLayout(new GridBagLayout());
 	    GridBagConstraints c = new GridBagConstraints();
@@ -60,6 +65,10 @@ public class UI extends JFrame{
 	    cadre.add(map);
 	    
 	    frame.add(cadre);
+	    */
+	    Point origine = new Point (0,0);
+	    Player p1 = new Player (Color.GREEN, base1, "Player one RPZ" );
+	    Unit unite = new Unit(p1, origine, 10) ;
 	    
 	    //JFrame properties
 	    frame.setTitle("LUCA");
@@ -68,14 +77,11 @@ public class UI extends JFrame{
 		
 	}
 	
-	/*public void paint(Graphics g) {
+	public void paint(Graphics g) {
 			
-			for (int k=0; k<Objets.size(); k++) {
-				Objet O = (Objet) Objets.get(k);
-				O.draw(temps, buffer);
-			}
+			unite.draw();
 			g.drawImage(ArrierePlan,0,0,this);
-	}*/
+	}
 	
 	
 	
