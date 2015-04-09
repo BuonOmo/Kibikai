@@ -82,7 +82,7 @@ public abstract class Unit extends Item {
     public boolean canMove(){
         double r;
         r = this.distanceTo(new Point((int) hitBox.getX(), (int) hitBox.getY()));
-        r = this.distanceTo(new Point2D(hitBox.getX(), hitBox.getY()));
+        r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
 
         LinkedList<Item> obstacle;
         obstacle = new LinkedList<>(aliveItems);
