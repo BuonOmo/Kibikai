@@ -12,7 +12,7 @@ public class Building extends Item{
     /** @param owner 
      * @param levelToSet Choix du level de base
      */
-    public Building(Player owner, Point topLeftCorner){
+    public Building(Player owner, Point2D topLeftCorner){
         super(owner, topLeftCorner,2);
         life = hitBox.getHeight()*hitBox.getHeight()*Finals.LIFE;      
     }
@@ -23,17 +23,25 @@ public class Building extends Item{
      */
     public void GoAndProcreate(){
     	//Choix du point de spawn adapte au point de ralliement
-    	Point2D spawnPoint = new Point2D.Double();      
+    	Point2D spawnPoint = new Point2D.Double();
+        double x,y;
     	if(target.getX()<=hitBox.getX()){
-    		spawnPoint.x=hitBox.getX()-Finals.SIDE-1;
+    	    x = hitBox.getX()-Finals.SIDE-1;
+    	    if(target.getY()<=hitBox.getY()){
+    	            y=hitBox.getY()-Finals.SIDE-1;
+    	    }else{
+    	            y=hitBox.getY()+hitBox.getHeight()+1;
+    	    }
     	}else{
-    		spawnPoint.x=hitBox.getX()+hitBox.getWidth()+1;
-    	}
-    	if(target.getY()<=hitBox.getY()){
-    		spawnPoint.y=hitBox.getY()-Finals.SIDE-1;
-    	}else{
-    		spawnPoint.y=hitBox.getY()+hitBox.getHeight()+1;
-    	}
+            x=hitBox.getX()+hitBox.getWidth()+1;
+            if(target.getY()<=hitBox.getY()){
+                    y=hitBox.getY()-Finals.SIDE-1;
+            }else{
+                    y=hitBox.getY()+hitBox.getHeight()+1;
+            }
+        }
+        
+        spawnPoint.setLocation(x, y);
     	owner.units.add(new SimpleUnit(owner,spawnPoint, target));
     }
 }

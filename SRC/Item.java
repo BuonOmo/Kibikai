@@ -48,7 +48,7 @@ public abstract class Item {
      * @param topLeftCorner
      * @param side coté de la hitBox
      */
-    public Item(Player ownerToSet, Point topLeftCorner,int side){
+    public Item(Player ownerToSet, Point2D topLeftCorner,int side){
         this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), side, side), topLeftCorner);
     }
     

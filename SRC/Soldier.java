@@ -12,7 +12,7 @@ public class Soldier extends Unit {
      * Position initiale de l’unité
      */
     public Soldier(Player owner, Point topLeftCorner){
-        super(owner, topLeftCorner, 2);
+        super(owner, topLeftCorner, 2, null);
     }
     
     //________________MÉTHODES_______________//
