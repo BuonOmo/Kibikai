@@ -1,4 +1,4 @@
-public interface Finals {
+﻿public interface Finals {
     /**
      * Taille du coté d’une unité simple en metres.
      */
@@ -28,5 +28,16 @@ public interface Finals {
      * Echelle (distance en metre*scale = distance en pixel).
      */
     public static int scale = 5;
+    /**
+     * IA, Discount factor, at?snuation 
+     */
+     public final static double IA_GAMMA = 0.9;
+        
+     /**
+      * IA, Learning rate, taut d'apparentissage
+      */
+        
+     public final static double IA_ALPHA = 0.9;
+
     
 }
