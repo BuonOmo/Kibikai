@@ -12,19 +12,16 @@ public class Soldier extends Unit {
      * Position initiale de l’unité
      */
     public Soldier(Player owner, Point topLeftCorner){
-        super(owner, topLeftCorner, 2);
+        super(owner, topLeftCorner, 2, null);
     }
     
     //________________MÉTHODES_______________//
 
-    @Override
-    public void moveTo(Point location) {
-        // TODO Implement this method
-    }
 
     @Override
     public void print(Graphics g) {
         g.setColor(color);
-        g.fillOval(hitBox.x*Finals.scale, hitBox.y*Finals.scale, hitBox.width*Finals.scale, hitBox.height*Finals.scale);
+        g.fillOval((int) (hitBox.getX() * Finals.scale), (int) (hitBox.getY() * Finals.scale),
+                   (int) (hitBox.getWidth() * Finals.scale), (int) (hitBox.getHeight() * Finals.scale));
     }
 }

@@ -3,11 +3,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -19,12 +19,13 @@ public class UI extends JFrame{
 	
 	/*Timer timer;
 	long time;*/
-	BufferedImage ArrierePlan;
+        BufferedImage ArrierePlan;
 	Graphics buffer;
 	Rectangle Ecran;
 	
 	Building base1;
 	Rectangle hitBox;
+	Unit simpleUnit;
 	
 	final int screenHeight;
 	final int screenWidth;
@@ -70,12 +71,10 @@ public class UI extends JFrame{
 	    
 	    frame.add(cadre);
 	    */
-	    
-	    
-	    Point origine = new Point (50,50);
-	    //Player p1 = new Player (Color.GREEN, base1, "Player one RPZ" );
-	    //Unit unite = new Unit(p1, origine, 10) ;
-	    hitBox = new Rectangle (10,10);
+
+	    Point2D origine = new Point2D.Double(0,0);
+	    Player p1 = new Player (Color.GREEN, base1, "Player one RPZ" );
+	    simpleUnit = new SimpleUnit(p1, origine, null) ;
 	    
 	    //JFrame properties
 	    frame.setTitle("LUCA");
@@ -85,13 +84,16 @@ public class UI extends JFrame{
 	}
 	
 	public void paint(Graphics g) {
+
 		g.drawImage(ArrierePlan,0,0,this);
 		g.setColor(Color.RED);
         g.fillRoundRect(hitBox.x*Finals.scale, hitBox.y*Finals.scale, 
         		hitBox.width*Finals.scale, hitBox.height*Finals.scale,3*Finals.scale,3*Finals.scale);
         buffer.setColor(Color.BLACK); 
 		buffer.drawString("HELLOOOOOOO",50, Ecran.height-20);
-		
+			
+			simpleUnit.print(g);
+			g.drawImage(ArrierePlan,0,0,this);
 	}
 	
 	/*private class TimerAction implements ActionListener {
