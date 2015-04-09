@@ -5,13 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-<<<<<<< HEAD
 import java.awt.geom.Rectangle2D;
-=======
-
-import java.awt.geom.Rectangle2D;
-
->>>>>>> 68bd363f169de0b33a24b208136e724a23a91112
 import java.util.LinkedList;
 
 public abstract class Item {
