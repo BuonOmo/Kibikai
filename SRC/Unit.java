@@ -1,13 +1,12 @@
 import java.awt.Point;
-
+import java.awt.Shape;
 import java.awt.geom.Point2D;
-
 import java.util.LinkedList;
-
+import java.awt.geom.*;
+import java.lang.Object;
 public abstract class Unit extends Item {
-    //***TEST Charles
     
-    
+   
     /**
      * @param owner
      * @param topLeftCorner
@@ -58,7 +57,17 @@ public abstract class Unit extends Item {
         shortTarget.setLocation( Math.cos(alpha)*x+hitBox.getCenterX(), Math.sin(alpha)*y+hitBox.getCenterY());
         return shortTarget;
     }
-
+    
+    public Point2D getIntersect(Item other){
+    	 //double x = this.getCenter().getX();
+    	// double y = this.getCenter().getY();
+         Circle2D zone = new Circle2D(this.getCenter(),Finals.DISTANCE_TO_MOVE);
+    	
+         //x = other.getCenter().getX();
+    	 //y = other.getCenter().getY();
+    	 Circle2D obstacle = new Circle2D(other.getCenter(),Finals.DISTANCE_TO_MOVE);
+    	return circlesIntersections(zone, obstacle);   	 
+    }
     
     /**
      * @param shortTarget
@@ -76,7 +85,6 @@ public abstract class Unit extends Item {
      */
     public boolean canMove(){
         double r;
-        r = this.distanceTo(new Point((int) hitBox.getX(), (int) hitBox.getY()));
         r = this.distanceTo(new Point2D(hitBox.getX(), hitBox.getY()));
 
         LinkedList<Item> obstacle;
