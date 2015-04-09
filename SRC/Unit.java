@@ -64,12 +64,8 @@ public abstract class Unit extends Item {
      * @return angle du déplacement par rapport à la droite Objet-Cible
      */
     public double findAngle(Point2D shortTarget){
-<<<<<<< HEAD
-        Point2D zero = getShortTarget(0.0);
-=======
         Point2D zero;
         zero = getShortTarget(0.0);
->>>>>>> d560f65f8c37e25aa2b5b1402fd578f2b9ee2262
         zero.setLocation(zero.getX()-hitBox.getCenterX(), zero.getY()-hitBox.getCenterY());
 
         Point2D sT;
