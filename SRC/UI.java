@@ -3,9 +3,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ public class UI extends JFrame{
 	
 	/*Timer timer;
 	long time;*/
-	BufferedImage ArrierePlan;
+        BufferedImage ArrierePlan;
 	Graphics buffer;
 	Rectangle Ecran;
 	
@@ -66,9 +66,9 @@ public class UI extends JFrame{
 	    
 	    frame.add(cadre);
 	    */
-	    Point origine = new Point (0,0);
+	    Point2D origine = new Point2D.Double(0,0);
 	    Player p1 = new Player (Color.GREEN, base1, "Player one RPZ" );
-	    Unit unite = new Unit(p1, origine, 10) ;
+	    Unit simpleUnit = new SimpleUnit(p1, origine, null) ;
 	    
 	    //JFrame properties
 	    frame.setTitle("LUCA");
@@ -79,7 +79,7 @@ public class UI extends JFrame{
 	
 	public void paint(Graphics g) {
 			
-			unite.draw();
+			simpleUnit.print();
 			g.drawImage(ArrierePlan,0,0,this);
 	}
 	
