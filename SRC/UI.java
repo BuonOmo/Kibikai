@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
@@ -22,6 +24,8 @@ public class UI extends JFrame{
 	Rectangle Ecran;
 	
 	Building base1;
+	Rectangle hitBox;
+	Unit simpleUnit;
 	
 	final int screenHeight;
 	final int screenWidth;
@@ -49,6 +53,7 @@ public class UI extends JFrame{
 	    frame.getContentPane().setBackground(Color.WHITE);
 	    
 	    /* Boutons pour tester le Layout
+	    
 	    //Put the components on the right place
 	    frame.setLayout(new GridBagLayout());
 	    GridBagConstraints c = new GridBagConstraints();
@@ -66,9 +71,10 @@ public class UI extends JFrame{
 	    
 	    frame.add(cadre);
 	    */
+
 	    Point2D origine = new Point2D.Double(0,0);
 	    Player p1 = new Player (Color.GREEN, base1, "Player one RPZ" );
-	    Unit simpleUnit = new SimpleUnit(p1, origine, null) ;
+	    simpleUnit = new SimpleUnit(p1, origine, null) ;
 	    
 	    //JFrame properties
 	    frame.setTitle("LUCA");
@@ -78,10 +84,25 @@ public class UI extends JFrame{
 	}
 	
 	public void paint(Graphics g) {
+
+		g.drawImage(ArrierePlan,0,0,this);
+		g.setColor(Color.RED);
+        g.fillRoundRect(hitBox.x*Finals.scale, hitBox.y*Finals.scale, 
+        		hitBox.width*Finals.scale, hitBox.height*Finals.scale,3*Finals.scale,3*Finals.scale);
+        buffer.setColor(Color.BLACK); 
+		buffer.drawString("HELLOOOOOOO",50, Ecran.height-20);
 			
-			simpleUnit.print();
+			simpleUnit.print(g);
 			g.drawImage(ArrierePlan,0,0,this);
 	}
+	
+	/*private class TimerAction implements ActionListener {
+		// ActionListener appelee tous les 100 millisecondes
+		public void actionPerformed(ActionEvent e) {
+			boucle_principale_jeu();
+			temps++;
+		}
+	}*/
 	
 	
 	

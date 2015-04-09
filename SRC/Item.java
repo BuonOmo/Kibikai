@@ -1,8 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
+<<<<<<< HEAD
+=======
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.geom.Dimension2D;
+>>>>>>> d560f65f8c37e25aa2b5b1402fd578f2b9ee2262
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
 import java.util.LinkedList;
 
 public abstract class Item {
