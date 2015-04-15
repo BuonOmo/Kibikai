@@ -1,4 +1,4 @@
-﻿public interface Finals {
+public interface Finals {
     /**
      * Taille du coté d’une unité simple en metres.
      */
@@ -38,6 +38,10 @@
       */
         
      public final static double IA_ALPHA = 0.9;
-
+     
+    /**
+     * Group disance max entre deux unti� pour qu'elle soit consid�rer comme compactes 
+     */
+     public final static double Group_compactDim = 10;
     
 }

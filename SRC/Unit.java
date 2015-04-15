@@ -87,7 +87,7 @@ public abstract class Unit extends Item {
         r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
 
         LinkedList<Item> obstacle;
-        obstacle = new LinkedList<>(aliveItems);
+        obstacle = new LinkedList<Item>(aliveItems);
         obstacle.remove(this);
         
         for(double i=0 ; Math.abs(i*Math.pow(-1.0,i)*Finals.ALPHA)<= 180 ; i++){

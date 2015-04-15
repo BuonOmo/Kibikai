@@ -2,54 +2,59 @@ import java.awt.geom.Point2D;
 
 import java.util.LinkedList;
 
-public class SoldierGroup {
-    private LinkedList<Soldier> groupUnits;
-    private double compactdim;
-    public static LinkedList<SoldierGroup> groupList;
-    public IASoldier iaSoldieur; 
+public class SimpleUnitGroup extends UnitGroup {
+    protected LinkedList<SimpleUnit> groupUnits;
+    public static LinkedList<SimpleUnitGroup> groupSimpleUnitList;
+    public IASimpleUnit iaSimpleUnit; 
+    protected Player owner;
 
-    public SoldierGroup(Soldier s) {
-        groupUnits = new LinkedList<Soldier>();
+    public SimpleUnitGroup(SimpleUnit s) {
+        groupUnits = new LinkedList<SimpleUnit>();
         groupUnits.add(s);
-        iaSoldieur =new IASoldier();
+        iaSimpleUnit =new IASimpleUnit();
+        owner = s.owner;
+        LinkedList<Unit> toSuper = new LinkedList<Unit>();
+        toSuper.addAll(groupUnits);
+        super.setall(toSuper,iaSimpleUnit,owner);
     }
-    public SoldierGroup( LinkedList<Soldier> grpU ) {
-        groupUnits = new LinkedList<Soldier>(grpU);
-        iaSoldieur =new IASoldier();
+    public SimpleUnitGroup( LinkedList<SimpleUnit> grpU ) {
+        groupUnits = new LinkedList<SimpleUnit>(grpU);
+        iaSimpleUnit =new IASimpleUnit();
+        owner=null;
+        LinkedList<Unit> toSuper = new LinkedList<Unit>();
+        toSuper.addAll(groupUnits);
+        super.setall(toSuper,iaSimpleUnit,owner);
+    }
+    public SimpleUnitGroup (LinkedList<SimpleUnit> grpUnit ,Player ownerToSet) {
+    owner = ownerToSet;
+    groupUnits = new LinkedList<SimpleUnit>(grpUnit);
+    iaSimpleUnit =new IASimpleUnit();
+    for (int i=grpUnit.size()-1 ;i >= 0;i--){
+        if (grpUnit.get(i).owner!=owner)grpUnit.remove(i);
+        }
+        LinkedList<Unit> toSuper = new LinkedList<Unit>();
+        toSuper.addAll(groupUnits);
+        super.setall(toSuper,iaSimpleUnit,owner);
     }
 
-    /**
-     * @return postion du Centre des masse du group
-     */
-    public Point2D GetPsosition(){
-        double X=0;
-        double Y=0;
-        for (int i = 0; i<groupUnits.size();i++){
-            X=+groupUnits.get(i).getCenter().getX();
-            Y=+groupUnits.get(i).getCenter().getY();
-        }
-        X=X/this.groupUnits.size();
-        Y=Y/this.groupUnits.size();
-        return new Point2D.Double(X,Y);
-    }
-    public LinkedList<SoldierGroup> divideInDenseGroups (){
-        LinkedList<SoldierGroup> toReturn = new LinkedList<SoldierGroup>();
+    public LinkedList<SimpleUnitGroup> divideInDenseGroups (){
+        LinkedList<SimpleUnitGroup> toReturn = new LinkedList<SimpleUnitGroup>();
         toReturn.add(this);
         while (toReturn.getLast().groupUnits.size() != 0){
-            SoldierGroup toAdd = toReturn.getLast().densePart();
+            SimpleUnitGroup toAdd = toReturn.getLast().densePart();
             toReturn.add(toAdd);
         }
         toReturn.remove(toReturn.size()-1);
         return toReturn ;
     }
-    public SoldierGroup densePart() {
-        LinkedList<Soldier> copactGrp = new LinkedList<Soldier> ();
-        LinkedList<Soldier> rest = new LinkedList<Soldier> (groupUnits);
+    public SimpleUnitGroup densePart() {
+        LinkedList<SimpleUnit> copactGrp = new LinkedList<SimpleUnit> ();
+        LinkedList<SimpleUnit> rest = new LinkedList<SimpleUnit> (groupUnits);
         densePartOfListe (copactGrp,rest,rest.get(0));
         groupUnits=copactGrp;
-        return new SoldierGroup(rest);
+        return new SimpleUnitGroup(rest,owner);
     }
-    private void densePartOfListe (LinkedList<Soldier> copactGrp,LinkedList<Soldier> rest ,Soldier s ){
+    private void densePartOfListe (LinkedList<SimpleUnit> copactGrp,LinkedList<SimpleUnit> rest ,SimpleUnit s ){
         rest.remove(s);
         copactGrp.add(s);
         if (rest.size()!=0) {
@@ -64,7 +69,5 @@ public class SoldierGroup {
     public boolean isDense(){
         if (this.densePart().groupUnits.size()==0) return true ;
         return false ;
-        
-        
     }
 }
