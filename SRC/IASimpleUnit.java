@@ -1,9 +1,12 @@
 public class IASimpleUnit extends IAUnite {
-    public SimpleUnitGroup simpleUnitGroup ;
-    public IASimpleUnit(SimpleUnitGroup simpleUnitGroupToSet) {
-        simpleUnitGroup=simpleUnitGroupToSet;
-        super.setAll(simpleUnitGroupToSet);
+    public IASimpleUnit() {
+        super();
     }
+
+    public void execut() {
+        
+    }
+
     public int calculateStaite() {
         return 0;
     }

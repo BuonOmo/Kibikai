@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 
 public abstract class Unit extends Item {
-    public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
+
     
     
     /**

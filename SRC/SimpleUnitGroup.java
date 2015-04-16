@@ -11,7 +11,7 @@ public class SimpleUnitGroup extends UnitGroup {
     public SimpleUnitGroup(SimpleUnit s) {
         groupUnits = new LinkedList<SimpleUnit>();
         groupUnits.add(s);
-        iaSimpleUnit =new IASimpleUnit(this);
+        iaSimpleUnit =new IASimpleUnit();
         owner = s.owner;
         LinkedList<Unit> toSuper = new LinkedList<Unit>();
         toSuper.addAll(groupUnits);
@@ -19,7 +19,7 @@ public class SimpleUnitGroup extends UnitGroup {
     }
     public SimpleUnitGroup( LinkedList<SimpleUnit> grpU ) {
         groupUnits = new LinkedList<SimpleUnit>(grpU);
-        iaSimpleUnit =new IASimpleUnit(this);
+        iaSimpleUnit =new IASimpleUnit();
         owner=null;
         LinkedList<Unit> toSuper = new LinkedList<Unit>();
         toSuper.addAll(groupUnits);
@@ -28,7 +28,7 @@ public class SimpleUnitGroup extends UnitGroup {
     public SimpleUnitGroup (LinkedList<SimpleUnit> grpUnit ,Player ownerToSet) {
     owner = ownerToSet;
     groupUnits = new LinkedList<SimpleUnit>(grpUnit);
-    iaSimpleUnit =new IASimpleUnit(this);
+    iaSimpleUnit =new IASimpleUnit();
     for (int i=grpUnit.size()-1 ;i >= 0;i--){
         if (grpUnit.get(i).owner!=owner)grpUnit.remove(i);
         }

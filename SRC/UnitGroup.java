@@ -28,10 +28,7 @@ public abstract class UnitGroup {
     /**
      * @return postion du Centre des masse du group
      */
-    /*
-     * travailler les Update pour amélioré la vitesse
-     */
-    public Point2D getPsosition(){
+    public Point2D GetPsosition(){
         double X=0;
         double Y=0;
         for (int i = 0; i < groupUnits.size();i++){
@@ -41,20 +38,6 @@ public abstract class UnitGroup {
         X=X/this.groupUnits.size();
         Y=Y/this.groupUnits.size();
         return new Point2D.Double(X,Y);
-    }
-    public double distanceTo(Point2D p){
-        Point2D p2 = this.getPsosition();
-        return Math.sqrt((p.getX() - p2.getX())*(p.getX() - p2.getX()) + (p.getY() -p2.getY())*(p.getY() -p2.getY()));   
-    }
-    public double distanceTo(Item i){
-        Point2D p = i.getCenter();
-        Point2D p2 = this.getPsosition();
-        return Math.sqrt((p.getX() - p2.getX())*(p.getX() - p2.getX()) + (p.getY() -p2.getY())*(p.getY() -p2.getY()));   
-    }
-    public double distanceTo(UnitGroup ug){
-        Point2D p = ug.getPsosition();
-        Point2D p2 = this.getPsosition();
-        return Math.sqrt((p.getX() - p2.getX())*(p.getX() - p2.getX()) + (p.getY() -p2.getY())*(p.getY() -p2.getY()));   
     }
 
     public Player getOwner(){
