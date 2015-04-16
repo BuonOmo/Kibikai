@@ -11,7 +11,7 @@ public class SoldierGroup extends UnitGroup {
     public SoldierGroup(Soldier s) {
         groupUnits = new LinkedList<Soldier>();
         groupUnits.add(s);
-        iaSoldier =new IASoldier();
+        iaSoldier =new IASoldier(this);
         owner = s.owner;
         LinkedList<Unit> toSuper = new LinkedList<Unit>();
         toSuper.addAll(groupUnits);
@@ -19,7 +19,7 @@ public class SoldierGroup extends UnitGroup {
     }
     public SoldierGroup( LinkedList<Soldier> grpU ) {
         groupUnits = new LinkedList<Soldier>(grpU);
-        iaSoldier =new IASoldier();
+        iaSoldier =new IASoldier(this);
         owner=null;
         LinkedList<Unit> toSuper = new LinkedList<Unit>();
         toSuper.addAll(groupUnits);
@@ -28,7 +28,7 @@ public class SoldierGroup extends UnitGroup {
     public SoldierGroup ( LinkedList<Soldier> grpUnit ,Player ownerToSet) {
         owner = ownerToSet;
         groupUnits = new LinkedList<Soldier>(grpUnit);
-        iaSoldier =new IASoldier();
+        iaSoldier =new IASoldier(this);
         for (int i=grpUnit.size()-1 ;i >= 0;i--){
             if (grpUnit.get(i).owner!=owner)grpUnit.remove(i);
         }

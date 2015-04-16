@@ -102,6 +102,7 @@ public abstract class Item {
     }
     
     public boolean isDestructed(){
+        //a fair au niveau Unit et Batiment ne pas oublier de tréter Plyer.Units et Plyer.deadUnits//
         if (life <= 0){
             if (!deadItems.contains(this)){
                 deadItems.add(this);

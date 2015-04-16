@@ -6,7 +6,7 @@ public class Player {
     Color color;
     Building base;
     LinkedList<Unit> units;
-    
+    LinkedList<Unit> deadUnits; //a tréter avec la future class Unit.isDestructed()//
     public Player(Color colorToSet, Building baseToSet, String nameToSet){
         color = colorToSet;
         base = baseToSet;
