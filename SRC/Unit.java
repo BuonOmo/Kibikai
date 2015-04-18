@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.awt.geom.*;
 import java.lang.Object;
 public abstract class Unit extends Item {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> origin/master
     
    
     /**
@@ -74,11 +78,17 @@ public abstract class Unit extends Item {
      * @return angle du déplacement par rapport à la droite Objet-Cible
      */
     public double findAngle(Point2D shortTarget){
-        return 1;
+        Point2D zero;
+        zero = getShortTarget(0.0);
+        zero.setLocation(zero.getX()-hitBox.getCenterX(), zero.getY()-hitBox.getCenterY());
+
+        Point2D sT;
+        sT = new Point2D.Double(shortTarget.getX() - hitBox.getCenterX(), shortTarget.getY() - hitBox.getCenterY());
+
+        return Math.acos((zero.getX()*sT.getX()+ zero.getY()*sT.getY())/(Finals.DISTANCE_TO_MOVE*Finals.DISTANCE_TO_MOVE));
     }
     
-    //public double[] angle possible.........................................
-    
+        
     /**
      * @param shortTarget
      * @return l’unitée peut faire un déplacement unitaire
