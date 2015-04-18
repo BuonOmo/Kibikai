@@ -2,11 +2,18 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
+<<<<<<< HEAD
 import java.awt.geom.*;
 import java.lang.Object;
 public abstract class Unit extends Item {
 <<<<<<< HEAD
 =======
+=======
+
+
+public abstract class Unit extends Item {
+    public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
+>>>>>>> 0391b1001a27cd79afee7343d962b5114a1aee74
     
 >>>>>>> origin/master
     
@@ -95,10 +102,15 @@ public abstract class Unit extends Item {
      */
     public boolean canMove(){
         double r;
+<<<<<<< HEAD
         r = this.distanceTo(new Point2D(hitBox.getX(), hitBox.getY()));
+=======
+        r = this.distanceTo(new Point((int) hitBox.getX(), (int) hitBox.getY()));
+        r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
+>>>>>>> 0391b1001a27cd79afee7343d962b5114a1aee74
 
         LinkedList<Item> obstacle;
-        obstacle = new LinkedList<>(aliveItems);
+        obstacle = new LinkedList<Item>(aliveItems);
         obstacle.remove(this);
         
         for(double i=0 ; Math.abs(i*Math.pow(-1.0,i)*Finals.ALPHA)<= 180 ; i++){

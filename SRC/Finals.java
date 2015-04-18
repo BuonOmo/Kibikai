@@ -28,5 +28,20 @@ public interface Finals {
      * Echelle (distance en metre*scale = distance en pixel).
      */
     public static int scale = 5;
+    /**
+     * IA, Discount factor, at?snuation 
+     */
+     public final static double IA_GAMMA = 0.9;
+        
+     /**
+      * IA, Learning rate, taut d'apparentissage
+      */
+        
+     public final static double IA_ALPHA = 0.9;
+     
+    /**
+     * Group disance max entre deux untié pour qu'elle soit considérer comme compactes 
+     */
+     public final static double Group_compactDim = 10;
     
 }

@@ -8,24 +8,25 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
-
-
 @SuppressWarnings("serial")
 public class UI extends JFrame{
 	
-	/*Timer timer;
-	long time;*/
-        BufferedImage ArrierePlan;
+	Timer timer;
+	//long time;
+	BufferedImage ArrierePlan;
 	Graphics buffer;
 	Rectangle Ecran;
 	
 	Building base1;
 	Rectangle hitBox;
 	Unit simpleUnit;
+	
+	Canvas canvas;
 	
 	final int screenHeight;
 	final int screenWidth;
@@ -37,7 +38,7 @@ public class UI extends JFrame{
 	public UI(){
 		
 		JFrame frame = new JFrame();
-		
+
 		//Size of the screen, have to go in the finals ??
 		Toolkit tk = Toolkit.getDefaultToolkit();
 	    Dimension screenSize = tk.getScreenSize();
@@ -51,6 +52,8 @@ public class UI extends JFrame{
 	    
 	    //Set the background on WHITE
 	    frame.getContentPane().setBackground(Color.WHITE);
+	    canvas = new Canvas();
+	    frame.getContentPane().add(canvas);
 	    
 	    /* Boutons pour tester le Layout
 	    
@@ -71,43 +74,32 @@ public class UI extends JFrame{
 	    
 	    frame.add(cadre);
 	    */
-
-	    Point2D origine = new Point2D.Double(0,0);
-	    Player p1 = new Player (Color.GREEN, base1, "Player one RPZ" );
-	    simpleUnit = new SimpleUnit(p1, origine, null) ;
 	    
 	    //JFrame properties
 	    frame.setTitle("LUCA");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
+		timer = new Timer(100, new TimerAction());
 	}
 	
-	public void paint(Graphics g) {
-
-		g.drawImage(ArrierePlan,0,0,this);
-		g.setColor(Color.RED);
-        g.fillRoundRect(hitBox.x*Finals.scale, hitBox.y*Finals.scale, 
-        		hitBox.width*Finals.scale, hitBox.height*Finals.scale,3*Finals.scale,3*Finals.scale);
-        buffer.setColor(Color.BLACK); 
-		buffer.drawString("HELLOOOOOOO",50, Ecran.height-20);
-			
-			simpleUnit.print(g);
-			g.drawImage(ArrierePlan,0,0,this);
-	}
-	
-	/*private class TimerAction implements ActionListener {
+	private class TimerAction implements ActionListener {
+		int i = 0;
+		boolean retour = true;
 		// ActionListener appelee tous les 100 millisecondes
 		public void actionPerformed(ActionEvent e) {
-			boucle_principale_jeu();
-			temps++;
+			canvas.simpleUnit.hitBox.setRect(new Rectangle2D.Double(i,10,10,10));
+			if(retour) i+=5;
+			else i-=5;
+			if(i > 100) retour = false;
+			if (i < 1) retour = true;
+			
+			canvas.repaint();
 		}
-	}*/
-	
-	
+	}
 	
 	public static void main (String[] args){
 		UI gui = new UI();
+		gui.timer.start();
 	}
 
 }
