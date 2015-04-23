@@ -61,15 +61,74 @@ public abstract class Unit extends Item implements Finals {
         return shortTarget;
     }
     
-    public Point2D getIntersect(Item other){
-    	 //double x = this.getCenter().getX();
-    	// double y = this.getCenter().getY();
-         //Circle2D zone = new Circle2D(this.getCenter(),Finals.DISTANCE_TO_MOVE);
-    	
-         //x = other.getCenter().getX();
-    	 //y = other.getCenter().getY();
-    	 //Circle2D obstacle = new Circle2D(other.getCenter(),Finals.DISTANCE_TO_MOVE);
-    	return new Point2D.Double(); /*circlesIntersections(zone, obstacle)*/ ;   	 
+    /**
+         * Donne les points intersection entre deux items.
+         * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, sinon tableau vide renvoyé).
+         * @return tableau de Point 2D contenant les intersections entres les deux cerles entourant les items.
+         */
+    public Point2D.Double[] getIntersect(Item other){
+                        
+        double x0 = this.getCenter().getX();
+        double y0 = this.getCenter().getY();
+        double x1 = other.getCenter().getX();
+        double y1 = other.getCenter().getY();
+        
+        double x0Coin = this.hitBox.getX();
+        double y0Coin = this.hitBox.getY();
+        double x1Coin = other.hitBox.getX();
+        double y1Coin = other.hitBox.getY();
+        
+        double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
+        double R1 = Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
+        
+        double deltaX = x0-x1;
+        double deltaY = y0-y1;
+             
+        double Xa;
+        double Ya;
+        double Xb;
+        double Yb;
+        
+        if(y1!=y0){
+             
+            double N = (R1*R1-R0*R0-x1*x1+x0*x0-y1*y1+y0*y0)/(2*deltaY);
+            double A = (deltaX/deltaY)*(deltaX/deltaY)+1;
+            double B = 2*(y0-N)*(deltaX/deltaY)-2*x0;
+            double C = y0*y0+x0*x0+N*N-R0*R0-2*y0*N;
+             
+            double DELTA = B*B-4*A*C;
+             
+            if(DELTA>=0){
+                DELTA = Math.sqrt(DELTA);
+                Xa=(-B-DELTA)/(2*A);
+                Ya=N-Xa*(deltaX/deltaY);
+                Xb=(-B+DELTA)/(2*A);
+                Yb=N-Xb*(deltaX/deltaY);
+                Point2D.Double[] Intersects = {new Point2D.Double(Xa,Ya) , new Point2D.Double(Xb,Yb)};
+                return Intersects;
+            }
+            else{
+                return null;
+            }
+             
+        }
+        else{
+            Xa=(R1*R1-R0*R0-x1*x1+x0*x0)/(2*deltaX);        
+            double A = 1;
+            double B = -2*y1;
+            double C = x1*x1+Xa*Xa-2*x1*Xa-R1*R1;
+            double DELTA = B*B - 4*A*C;
+            if(DELTA>=0){
+                DELTA = Math.sqrt(DELTA);
+                Ya=(-B-DELTA)/(2*A);
+                Yb=(-B+DELTA)/(2*A);
+                Point2D.Double[] Intersects = {new Point2D.Double(Xa,Ya) , new Point2D.Double(Xa,Yb)};
+                return Intersects;
+            }
+            else{
+                return null;
+            } 
+        }       
     }
     
     /**
