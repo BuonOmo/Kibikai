@@ -1,22 +1,15 @@
-import java.awt.Point;
-import java.awt.Shape;
 import java.awt.geom.Point2D;
+
 import java.util.LinkedList;
-<<<<<<< HEAD
-import java.awt.geom.*;
-import java.lang.Object;
-public abstract class Unit extends Item {
-<<<<<<< HEAD
-=======
-=======
 
 
-public abstract class Unit extends Item {
+
+import java.util.Collection;
+
+//import math.geom2d.conic.Circle2D;
+
+public abstract class Unit extends Item implements Finals {
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
->>>>>>> 0391b1001a27cd79afee7343d962b5114a1aee74
-    
->>>>>>> origin/master
-    
    
     /**
      * @param owner
@@ -37,7 +30,6 @@ public abstract class Unit extends Item {
     public Unit(Player owner, Point2D topLeftCorner,int side, Point2D targetToSet){
         super(owner, topLeftCorner, side);
         target = targetToSet;
-        
     }
     
     //________________MÉTHODES_______________//
@@ -62,8 +54,8 @@ public abstract class Unit extends Item {
         shortTarget = new Point2D.Double();
         
         double x, y;
-        x = (double) (target.getX() - hitBox.getCenterX()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
-        y = (double) (target.getY() - hitBox.getCenterY()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
+        x = (double) (target.getX() - hitBox.getCenterX()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
+        y = (double) (target.getY() - hitBox.getCenterY()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
         
         shortTarget.setLocation( Math.cos(alpha)*x+hitBox.getCenterX(), Math.sin(alpha)*y+hitBox.getCenterY());
         return shortTarget;
@@ -72,12 +64,12 @@ public abstract class Unit extends Item {
     public Point2D getIntersect(Item other){
     	 //double x = this.getCenter().getX();
     	// double y = this.getCenter().getY();
-         Circle2D zone = new Circle2D(this.getCenter(),Finals.DISTANCE_TO_MOVE);
+         //Circle2D zone = new Circle2D(this.getCenter(),Finals.DISTANCE_TO_MOVE);
     	
          //x = other.getCenter().getX();
     	 //y = other.getCenter().getY();
-    	 Circle2D obstacle = new Circle2D(other.getCenter(),Finals.DISTANCE_TO_MOVE);
-    	return circlesIntersections(zone, obstacle);   	 
+    	 //Circle2D obstacle = new Circle2D(other.getCenter(),Finals.DISTANCE_TO_MOVE);
+    	return new Point2D.Double(); /*circlesIntersections(zone, obstacle)*/ ;   	 
     }
     
     /**
@@ -92,7 +84,7 @@ public abstract class Unit extends Item {
         Point2D sT;
         sT = new Point2D.Double(shortTarget.getX() - hitBox.getCenterX(), shortTarget.getY() - hitBox.getCenterY());
 
-        return Math.acos((zero.getX()*sT.getX()+ zero.getY()*sT.getY())/(Finals.DISTANCE_TO_MOVE*Finals.DISTANCE_TO_MOVE));
+        return Math.acos((zero.getX()*sT.getX()+ zero.getY()*sT.getY())/(DISTANCE_TO_MOVE*DISTANCE_TO_MOVE));
     }
     
         
@@ -102,18 +94,13 @@ public abstract class Unit extends Item {
      */
     public boolean canMove(){
         double r;
-<<<<<<< HEAD
-        r = this.distanceTo(new Point2D(hitBox.getX(), hitBox.getY()));
-=======
-        r = this.distanceTo(new Point((int) hitBox.getX(), (int) hitBox.getY()));
         r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
->>>>>>> 0391b1001a27cd79afee7343d962b5114a1aee74
 
         LinkedList<Item> obstacle;
         obstacle = new LinkedList<Item>(aliveItems);
         obstacle.remove(this);
         
-        for(double i=0 ; Math.abs(i*Math.pow(-1.0,i)*Finals.ALPHA)<= 180 ; i++){
+        for(double i=0 ; Math.abs(i*Math.pow(-1.0,i)*ALPHA)<= 180 ; i++){
             for (int j=0; j <= obstacle.size(); j++){
                 
             }
