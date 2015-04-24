@@ -21,4 +21,14 @@ public class SimpleUnit extends Unit {
     public void createSoldier(){
         // TODO implémenter cette méthode
     }
+    
+    public void heal(Item toHeal){
+        if (isFarAway)
+            move(toHeal);
+        else{
+            // on peut soigner plus que la vie original de chaque Item, met-on un max ?
+            toHeal.life+= life;
+            this.isDestructed();
+        }
+    }
 }

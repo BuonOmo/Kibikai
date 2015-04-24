@@ -62,10 +62,11 @@ public abstract class Unit extends Item implements Finals {
     }
     
     /**
-         * Donne les points intersection entre deux items.
-         * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, sinon tableau vide renvoyé).
-         * @return tableau de Point 2D contenant les intersections entres les deux cerles entourant les items.
-         */
+     * Donne les points intersection entre deux items.
+     * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, sinon tableau vide renvoyé).
+     * @return tableau de Point 2D contenant les intersections entres les deux cerles entourant les items.
+     */
+    @SuppressWarnings("oracle.jdeveloper.java.null-array-return")
     public Point2D.Double[] getIntersect(Item other){
                         
         double x0 = this.getCenter().getX();

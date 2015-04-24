@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 
 import java.util.LinkedList;
 
-public abstract class Item {
+public abstract class Item implements Finals{
     Point2D target;
     double life;
     Color color;
@@ -87,7 +87,7 @@ public abstract class Item {
         return Math.sqrt((p.getX() - x)*(p.getX() - x) + (p.getY() -y)*(p.getY()-y));   
     }
     
-    public double distanceTo(Unit other){
+    public double distanceTo(Item other){
     	double d;
     	double x1= this.hitBox.getX();
     	double y1=this.hitBox.getY();
@@ -102,7 +102,7 @@ public abstract class Item {
     }
     
     public boolean isDestructed(){
-        //a fair au niveau Unit et Batiment ne pas oublier de tréter Plyer.Units et Plyer.deadUnits//
+        //a fair au niveau Unit et Batiment ne pas oublier de trï¿½ter Plyer.Units et Plyer.deadUnits//
         if (life <= 0){
             if (!deadItems.contains(this)){
                 deadItems.add(this);
