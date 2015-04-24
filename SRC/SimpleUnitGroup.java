@@ -66,8 +66,21 @@ public class SimpleUnitGroup extends UnitGroup {
                 
         
     }
+    public void add(SimpleUnitGroup sg){
+        if (sg.owner==this.owner){
+            if (this.owner==IA.computer){
+                this.groupUnits.addAll(sg.getgroupUnits());
+                this.groupSimpleUnitList.remove(sg);
+            }
+            else this.groupUnits.addAll(sg.getgroupUnits());
+        }
+    }
     public boolean isDense(){
         if (this.densePart().groupUnits.size()==0) return true ;
         return false ;
     }
+    public LinkedList<SimpleUnit> getgroupUnits(){
+        return groupUnits;
+    }
+
 }
