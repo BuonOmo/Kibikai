@@ -44,7 +44,8 @@ public abstract class Unit extends Item implements Finals {
     }
     
     /**
-     * permet de trouver le vecteur unitaire de déplacement en fonction d’un angle alpha par rapport au vecteur unité/objectif
+     * permet de trouver le vecteur unitaire de déplacement en fonction d’un angle alpha par rapport au vecteur unité/objectif.
+     * @param alpha angle du déplacement par rapport à la droite Objet-Cible
      * @return vecteur de déplacement unitaire
      */
     public Point2D getShortTarget(double alpha){
@@ -61,7 +62,7 @@ public abstract class Unit extends Item implements Finals {
     }
     
     /**
-     * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle
+     * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
      * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, sinon tableau vide renvoyé).
      * @return tableau de Point 2D contenant les intersections entres les deux cerles entourant les items.
      */
@@ -134,14 +135,24 @@ public abstract class Unit extends Item implements Finals {
 
 
     /**
-     * Vérifie si getIntersect renvoi un tableau ou null
+     * Vérifie s’il y a intersection entre un Item et la nouvelle position (fictive) de l’unité.
      * @param other autre Item
      * @return true s’il y a intersection
      */
     public boolean intersects(Item other){
-        if (getIntersect(other) == null)
-            return false;
-        return true;
+        // rayon de l’unité
+        double r;
+        r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
+        
+        // rayon de l’autre objet
+        double rOther;
+        rOther = other.distanceTo(new Point2D.Double(other.hitBox.getX(), other.hitBox.getY()));
+        
+        if (DISTANCE_TO_MOVE + r + rOther > distanceTo(other))
+            return true;
+        
+        return false;
+        
     }
     
     /**
@@ -162,23 +173,21 @@ public abstract class Unit extends Item implements Finals {
     
     
     /**
-     * @param shortTarget
+     * @param obstacle liste de tout les obstacles possible
+     * @param shortTarget vecteur unitaire de déplacement
      * @return l’unitée peut faire un déplacement unitaire
      */
     public Item findObstacle(LinkedList<Item> obstacle,Point2D shortTarget){
-        // rayon de l’unité
-        double r;
-        r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
+
+        for(int i = 0 ; i<= obstacle.size() ; i++)
+            if (this.intersects(obstacle.get(i)))
+                return obstacle.get(i);
         
-        
-        do{
-            
-            
-        }while(false);   
         return null;
     }
 
     /**
+     * Vérifie si l’unité peut se déplacer.
      * @return point d’arrivée du déplacement unitaire (null si l’unité est coincée
      */
     public Point2D canMove(){
@@ -221,7 +230,7 @@ public abstract class Unit extends Item implements Finals {
             obstacle.remove(toAvoid);
             
             //setAlpha et setBeta
-            for (int i=0;i<2;i++){
+            for (int i=0 ; i<2 ;i++){
                 temp = findAngle(getIntersect(toAvoid)[i]);
                 if (temp < 0){
                     beta = (temp < beta) ? temp : beta;
@@ -232,9 +241,14 @@ public abstract class Unit extends Item implements Finals {
             }
             
         }while(alpha < 180.0 || beta > -180.0);  // mettre un "et" logique ici ?
+        
         return null;
     }
     
     public void move(){
+        hitBox.setRect(hitBox.getX() + canMove().getX() - hitBox.getCenterX(), 
+                       hitBox.getY() + canMove().getY() - hitBox.getCenterY(), 
+                       hitBox.getWidth(), 
+                       hitBox.getHeight() );
     }
 }
