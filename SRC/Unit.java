@@ -33,7 +33,9 @@ public abstract class Unit extends Item implements Finals {
     }
     
     //________________MÉTHODES_______________//
-    
+   
+   
+    //_______MÉTHODES POUR LE DÉPLACEMENT____//
     /**
      * Permet de déplacer une unité vers un point donné.
      *
@@ -45,7 +47,7 @@ public abstract class Unit extends Item implements Finals {
     }
     
     /**
-     *
+     * permet de trouver le vecteur unitaire de déplacement en fonction d’un angle alpha par rapport au vecteur unité/objectif
      * @return vecteur de déplacement unitaire
      */
     public Point2D getShortTarget(double alpha){
@@ -62,7 +64,7 @@ public abstract class Unit extends Item implements Finals {
     }
     
     /**
-     * Donne les points intersection entre deux items.
+     * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle
      * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, sinon tableau vide renvoyé).
      * @return tableau de Point 2D contenant les intersections entres les deux cerles entourant les items.
      */
@@ -79,8 +81,10 @@ public abstract class Unit extends Item implements Finals {
         double x1Coin = other.hitBox.getX();
         double y1Coin = other.hitBox.getY();
         
-        double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
-        double R1 = Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
+        //double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
+        double R0 = DISTANCE_TO_MOVE;
+        //double R1 = Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
+        double R1 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0)) + Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
         
         double deltaX = x0-x1;
         double deltaY = y0-y1;
@@ -99,7 +103,7 @@ public abstract class Unit extends Item implements Finals {
              
             double DELTA = B*B-4*A*C;
              
-            if(DELTA>=0){
+            if(DELTA>0){ //mettre >= si on veut qu’il retourne lorsqu’il y a une seule intersection
                 DELTA = Math.sqrt(DELTA);
                 Xa=(-B-DELTA)/(2*A);
                 Ya=N-Xa*(deltaX/deltaY);
@@ -119,7 +123,7 @@ public abstract class Unit extends Item implements Finals {
             double B = -2*y1;
             double C = x1*x1+Xa*Xa-2*x1*Xa-R1*R1;
             double DELTA = B*B - 4*A*C;
-            if(DELTA>=0){
+            if(DELTA>0){ //mettre >= si on veut qu’il retourne lorsqu’il y a une seule intersection
                 DELTA = Math.sqrt(DELTA);
                 Ya=(-B-DELTA)/(2*A);
                 Yb=(-B+DELTA)/(2*A);
@@ -130,6 +134,18 @@ public abstract class Unit extends Item implements Finals {
                 return null;
             } 
         }       
+    }
+
+
+    /**
+     * Vérifie si getIntersect renvoi un tableau ou null
+     * @param other autre Item
+     * @return true s’il y a intersection
+     */
+    public boolean intersects(Item other){
+        if (getIntersect(other) == null)
+            return false;
+        return true;
     }
     
     /**
@@ -146,26 +162,64 @@ public abstract class Unit extends Item implements Finals {
 
         return Math.acos((zero.getX()*sT.getX()+ zero.getY()*sT.getY())/(DISTANCE_TO_MOVE*DISTANCE_TO_MOVE));
     }
-    
         
+    
+    
     /**
      * @param shortTarget
      * @return l’unitée peut faire un déplacement unitaire
      */
-    public boolean canMove(){
+    public Item findObstacle(LinkedList<Item> obstacle,Point2D shortTarget){
+        // rayon de l’unité
         double r;
         r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
+        
+        
+        do{
+            
+            
+        }while(false);   
+        return null;
+    }
+    
+    public boolean canMove(){
+        // rayon de l’unité
+        double r;
+        r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
+        
+        // angle de déplacement positif minimum
+        double alpha;
+        alpha = 0;
 
+        // angle de déplacement négatif minimum
+        double beta;
+        beta = 0;
+        
+        // liste des obstacles à contourner
         LinkedList<Item> obstacle;
         obstacle = new LinkedList<Item>(aliveItems);
         obstacle.remove(this);
         
-        for(double i=0 ; Math.abs(i*Math.pow(-1.0,i)*ALPHA)<= 180 ; i++){
-            for (int j=0; j <= obstacle.size(); j++){
-                
-            }
-        }
+        Point2D shortTarget;
         
+        Item toAvoid;
+        
+        do{            
+            // setShortTarget pour le minimum des deux angles
+            shortTarget = getShortTarget((Math.abs(alpha) < Math.abs(beta)) ? alpha : beta);
+            
+            toAvoid = findObstacle(obstacle, shortTarget);
+            
+            if (toAvoid == null)
+                return true;
+            
+            obstacle.remove(toAvoid);
+            
+            //setAlpha et setBeta
+            getIntersect(toAvoid);    
+            
+            
+        }while(false); 
         return true;
     }
 }

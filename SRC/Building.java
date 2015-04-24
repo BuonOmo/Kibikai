@@ -14,7 +14,7 @@ public class Building extends Item{
      */
     public Building(Player owner, Point2D topLeftCorner){
         super(owner, topLeftCorner,2);
-        life = hitBox.getHeight()*hitBox.getHeight()*Finals.LIFE;      
+        life = hitBox.getHeight()*hitBox.getHeight()*LIFE;      
     }
     //________________METHODES_______________//
     
@@ -43,5 +43,12 @@ public class Building extends Item{
         
         spawnPoint.setLocation(x, y);
     	owner.units.add(new SimpleUnit(owner,spawnPoint, target));
+    }
+    
+    /**
+     * Méthode permettant l’évolution d’un batiment
+     */
+    public void grow(){
+        //TODO implémenter cette méthode
     }
 }
