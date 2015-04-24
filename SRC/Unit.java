@@ -4,9 +4,6 @@ import java.util.LinkedList;
 
 
 
-import java.util.Collection;
-
-//import math.geom2d.conic.Circle2D;
 
 public abstract class Unit extends Item implements Finals {
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
@@ -68,7 +65,6 @@ public abstract class Unit extends Item implements Finals {
      * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, sinon tableau vide renvoyé).
      * @return tableau de Point 2D contenant les intersections entres les deux cerles entourant les items.
      */
-    @SuppressWarnings("oracle.jdeveloper.java.null-array-return")
     public Point2D.Double[] getIntersect(Item other){
                         
         double x0 = this.getCenter().getX();
@@ -181,8 +177,12 @@ public abstract class Unit extends Item implements Finals {
         }while(false);   
         return null;
     }
-    
-    public boolean canMove(){
+
+    /**
+     * @return point d’arrivée du déplacement unitaire (null si l’unité est coincée
+     */
+    public Point2D canMove(){
+        
         // rayon de l’unité
         double r;
         r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
@@ -200,26 +200,41 @@ public abstract class Unit extends Item implements Finals {
         obstacle = new LinkedList<Item>(aliveItems);
         obstacle.remove(this);
         
+        // vecteur unitaire de déplacement
         Point2D shortTarget;
         
+        // obstacle rencontré
         Item toAvoid;
+        
+        // variable temporaire pour simplifier les calculs
+        double temp;
         
         do{            
             // setShortTarget pour le minimum des deux angles
-            shortTarget = getShortTarget((Math.abs(alpha) < Math.abs(beta)) ? alpha : beta);
+            shortTarget = getShortTarget((alpha < Math.abs(beta)) ? alpha : beta);
             
             toAvoid = findObstacle(obstacle, shortTarget);
             
             if (toAvoid == null)
-                return true;
+                return shortTarget;
             
             obstacle.remove(toAvoid);
             
             //setAlpha et setBeta
-            getIntersect(toAvoid);    
+            for (int i=0;i<2;i++){
+                temp = findAngle(getIntersect(toAvoid)[i]);
+                if (temp < 0){
+                    beta = (temp < beta) ? temp : beta;
+                }
+                else{
+                    alpha = (temp > alpha) ? temp : alpha;
+                }
+            }
             
-            
-        }while(false); 
-        return true;
+        }while(alpha < 180.0 || beta > -180.0);  // mettre un "et" logique ici ?
+        return null;
+    }
+    
+    public void move(){
     }
 }

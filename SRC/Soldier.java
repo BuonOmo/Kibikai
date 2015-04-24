@@ -8,6 +8,7 @@ public class Soldier extends Unit {
     /**
      * @param owner
      * Détenteur de l’unité
+     * @param topLeftCorner
      * @param locationToSet
      * Position initiale de l’unité
      */
