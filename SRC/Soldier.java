@@ -2,18 +2,25 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 
 public class Soldier extends Unit {
     
     /**
-     * @param owner
-     * Détenteur de l’unité
-     * @param topLeftCorner
-     * @param locationToSet
-     * Position initiale de l’unité
+     * @param owner Détenteur de l’unité
+     * @param topLeftCorner position de l’unité
      */
-    public Soldier(Player owner, Point topLeftCorner){
-        super(owner, topLeftCorner, 2, null);
+    public Soldier(Player owner, Point2D topLeftCorner){
+        super(owner, topLeftCorner, 2);
+    }
+    
+    /**
+     * @param owner Détenteur de l’unité
+     * @param topLeftCorner position de l’unité
+     */
+    public Soldier(Player owner, Point2D topLeftCorner, Point2D targetToSet){
+        super(owner, topLeftCorner, 2, targetToSet);
+        
     }
     
     //________________MÉTHODES_______________//

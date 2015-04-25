@@ -19,19 +19,34 @@ public abstract class Unit extends Item {
     }
     
     /**
-     * Constructeur pour une hitBox carré
+     * @param owner Possesseur de l’objet
+     * @param topLeftCorner
+     * @param side coté de la hitBox
+     */
+    public Unit(Player owner, Point2D topLeftCorner,int side){
+        super(owner, topLeftCorner, side);
+        setTarget();
+    }
+    
+    /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
      * @param side coté de la hitBox
      */
     public Unit(Player owner, Point2D topLeftCorner,int side, Point2D targetToSet){
         super(owner, topLeftCorner, side);
-        target = targetToSet;
+        setTarget(targetToSet);
     }
     
     //________________MÉTHODES_______________//
    
-   
+    /**
+     * arrête le mouvement d’une unité.
+     */
+    public void setTarget(){
+        target = this.getCenter();
+    }
+    
     //_______MÉTHODES POUR LE DÉPLACEMENT____//
     
     /**

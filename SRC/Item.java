@@ -76,12 +76,13 @@ public abstract class Item implements Finals{
     public void setTarget(Item targetToSet){
         target = targetToSet.getCenter();
     }
+    
 
     /**
      * @param g
      */
     /**
-     * Retourne une liste des unit�s dans le perimetre entourant l'unit�.
+     * Retourne une liste des unités dans le perimetre entourant l'unité.
      * @param radius : Rayon delimitant le perimetre de scan.
      * 
      */
@@ -139,6 +140,10 @@ public abstract class Item implements Finals{
         }
     }
     
+    public boolean isDead(){
+        return (life <= 0);
+    }
+    
     public void print(Graphics g){
         g.setColor(color);
         // TODO virer ce putain de 3 et mettre un truc cohérant pour les arcs de cercle
@@ -148,5 +153,25 @@ public abstract class Item implements Finals{
                          (int)(hitBox.getHeight()*Finals.scale),
                          3*Finals.scale,
                          3*Finals.scale);
+    }
+
+    /**
+     * gère les problèmes rencontrés par des objets
+     * @param type type d’erreur
+     */
+    public void error (int type){
+        
+        String msg;
+        
+        switch (type){
+            
+            // erreur dans SimpleUnit.heal().
+            case 1:
+                msg = "l’objet à soigner est mort";
+            break;
+            
+            default:
+                msg = "erreur non identifiée";
+        }
     }
 }
