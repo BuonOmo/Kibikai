@@ -12,6 +12,7 @@ public abstract class Item implements Finals{
     Color color;
     Rectangle2D hitBox;
     Player owner;
+    double radius;
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
     static LinkedList<Item> deadItems = new LinkedList<Item>();
     
@@ -27,6 +28,7 @@ public abstract class Item implements Finals{
         hitBox = hitBoxToSet;
         target = targetToSet;
         aliveItems.add(this);
+        radius = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
     }
 
     /**
@@ -49,6 +51,7 @@ public abstract class Item implements Finals{
         this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), side, side), topLeftCorner);
     }
     
+    
     //________________MÉTHODES_______________//
     
     /**
@@ -56,6 +59,22 @@ public abstract class Item implements Finals{
      */
     public void isAttacked(){
         life--;
+        if (life <= 0)
+            this.isDestructed();
+    }
+    
+    /**
+     * Permet de déplacer une unité vers un point donné.
+     *
+     * @param targetToSet Point d’arrivée de l’unité (objectif)
+     * 
+     */
+    public void setTarget(Point2D targetToSet){
+        target = targetToSet;
+    }
+    
+    public void setTarget(Item targetToSet){
+        target = targetToSet.getCenter();
     }
 
     /**
@@ -96,21 +115,28 @@ public abstract class Item implements Finals{
     	d=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
     	return d;
     }
+
+    /**
+     * @param other unité proche
+     * @param range portée de l’attaque ou du soin (ou autre)
+     * @return vraie si proche
+     */
+    public boolean isCloseTo(Item other, double range){
+        if (distanceTo(other) <= radius + other.radius + range)
+            return true;
+        return false;
+    }
     
     public Point2D getCenter(){
         return new Point2D.Double(hitBox.getCenterX(),hitBox.getCenterY());
     }
     
-    public boolean isDestructed(){
-        //a fair au niveau Unit et Batiment ne pas oublier de tr�ter Plyer.Units et Plyer.deadUnits//
-        if (life <= 0){
-            if (!deadItems.contains(this)){
-                deadItems.add(this);
-                aliveItems.remove(this);
-            }
-            return true;
+    public void isDestructed(){
+        //a fair au niveau Unit et Batiment ne pas oublier de tr�ter Plyer.Units et Plyer.deadUnits
+        if (!deadItems.contains(this)){
+            deadItems.add(this);
+            aliveItems.remove(this);
         }
-        return false;
     }
     
     public void print(Graphics g){

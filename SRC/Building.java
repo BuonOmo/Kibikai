@@ -9,12 +9,13 @@ public class Building extends Item{
     protected int level;
     // _____________CONSTRUCTEURS______________//
     
-    /** @param owner 
-     * @param levelToSet Choix du level de base
+    /**
+     * @param owner possesseur
+     * @param topLeftCorner situation du batiment
      */
     public Building(Player owner, Point2D topLeftCorner){
         super(owner, topLeftCorner,2);
-        life = hitBox.getHeight()*hitBox.getHeight()*LIFE;      
+        life = Math.pow(level + 1, 2)*LIFE;      
     }
     //________________METHODES_______________//
     
@@ -26,16 +27,16 @@ public class Building extends Item{
     	Point2D spawnPoint = new Point2D.Double();
         double x,y;
     	if(target.getX()<=hitBox.getX()){
-    	    x = hitBox.getX()-Finals.SIDE-1;
+    	    x = hitBox.getX()-SIDE-1;
     	    if(target.getY()<=hitBox.getY()){
-    	            y=hitBox.getY()-Finals.SIDE-1;
+    	            y=hitBox.getY()-SIDE-1;
     	    }else{
     	            y=hitBox.getY()+hitBox.getHeight()+1;
     	    }
     	}else{
             x=hitBox.getX()+hitBox.getWidth()+1;
             if(target.getY()<=hitBox.getY()){
-                    y=hitBox.getY()-Finals.SIDE-1;
+                    y=hitBox.getY()-SIDE-1;
             }else{
                     y=hitBox.getY()+hitBox.getHeight()+1;
             }
@@ -46,9 +47,17 @@ public class Building extends Item{
     }
     
     /**
-     * Méthode permettant l’évolution d’un batiment
+     * Méthode permettant l’évolution d’un batiment.
      */
     public void grow(){
-        //TODO implémenter cette méthode
+        
+        level+= 1;
+        //TODO gerer les intersection avant de faire la méthode grow
+        hitBox.setRect(hitBox.getX() - SIDE/2.0, 
+                       hitBox.getY() - SIDE/2.0, 
+                       hitBox.getWidth() + SIDE, 
+                       hitBox.getHeight() + SIDE);
+        
+        life = Math.pow(level + 1, 2)*LIFE;
     }
 }

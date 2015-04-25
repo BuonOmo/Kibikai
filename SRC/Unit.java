@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 
 
-public abstract class Unit extends Item implements Finals {
+public abstract class Unit extends Item {
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
    
     /**
@@ -33,15 +33,6 @@ public abstract class Unit extends Item implements Finals {
    
    
     //_______MÉTHODES POUR LE DÉPLACEMENT____//
-    /**
-     * Permet de déplacer une unité vers un point donné.
-     *
-     * @param targetToSet Point d’arrivée de l’unité (objectif)
-     * 
-     */
-    public void setTarget(Point2D targetToSet){
-        target = targetToSet;
-    }
     
     /**
      * permet de trouver le vecteur unitaire de déplacement en fonction d’un angle alpha par rapport au vecteur unité/objectif.
@@ -81,11 +72,11 @@ public abstract class Unit extends Item implements Finals {
         //double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
         double R0 = DISTANCE_TO_MOVE;
         //double R1 = Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
-        double R1 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0)) + Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
+        double R1 = radius + other.radius;
         
         double deltaX = x0-x1;
         double deltaY = y0-y1;
-             
+        
         double Xa;
         double Ya;
         double Xb;
@@ -140,15 +131,8 @@ public abstract class Unit extends Item implements Finals {
      * @return true s’il y a intersection
      */
     public boolean intersects(Item other){
-        // rayon de l’unité
-        double r;
-        r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
         
-        // rayon de l’autre objet
-        double rOther;
-        rOther = other.distanceTo(new Point2D.Double(other.hitBox.getX(), other.hitBox.getY()));
-        
-        if (DISTANCE_TO_MOVE + r + rOther > distanceTo(other))
+        if (DISTANCE_TO_MOVE + radius + other.radius > distanceTo(other))
             return true;
         
         return false;
@@ -191,11 +175,7 @@ public abstract class Unit extends Item implements Finals {
      * @return point d’arrivée du déplacement unitaire (null si l’unité est coincée
      */
     public Point2D canMove(){
-        
-        // rayon de l’unité
-        double r;
-        r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
-        
+                
         // angle de déplacement positif minimum
         double alpha;
         alpha = 0;
@@ -232,12 +212,9 @@ public abstract class Unit extends Item implements Finals {
             //setAlpha et setBeta
             for (int i=0 ; i<2 ;i++){
                 temp = findAngle(getIntersect(toAvoid)[i]);
-                if (temp < 0){
-                    beta = (temp < beta) ? temp : beta;
-                }
-                else{
-                    alpha = (temp > alpha) ? temp : alpha;
-                }
+                
+                beta = (temp < beta) ? temp : beta;
+                alpha = (temp > alpha) ? temp : alpha;
             }
             
         }while(alpha < 180.0 || beta > -180.0);  // mettre un "et" logique ici ?

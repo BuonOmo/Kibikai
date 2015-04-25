@@ -1,4 +1,3 @@
-import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
 public class SimpleUnit extends Unit {
@@ -23,8 +22,8 @@ public class SimpleUnit extends Unit {
     }
     
     public void heal(Item toHeal){
-        if (isFarAway)
-            move(toHeal);
+        if (!this.isCloseTo(toHeal, HEALING_RANGE))
+            setTarget(toHeal);
         else{
             // on peut soigner plus que la vie original de chaque Item, met-on un max ?
             toHeal.life+= life;

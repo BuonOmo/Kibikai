@@ -2,46 +2,52 @@ public interface Finals {
     /**
      * Taille du coté d’une unité simple en metres.
      */
-    public final static double SIDE = 1;
+    public static final double SIDE = 1;
     
     /**
      * Angle de Balayage en degrés.
      */
-    public final static int ALPHA = 4;
+    public static final int ALPHA = 4;
+    
+    /**
+     * Porté d’un soin.
+     */
+    public static final double HEALING_RANGE = 1;
     
     /**
      * Quantité de "vie" d’une unité simple en secondes d’attaque.
      */
-    public final static double LIFE = 3;
+    public static final double LIFE = 3;
     
     /**
      * Taille de la carte en metres.
      */
-    public final static int WIDTH = 2000, HEIGTH = 1000;
+    public static final int WIDTH = 2000, HEIGTH = 1000;
     
     /**
      * distance unitaire d’un deplacement en metres;
      */
-    public final static double DISTANCE_TO_MOVE = 0.1;
+    public static final double DISTANCE_TO_MOVE = 0.1;
     
     /**
      * Echelle (distance en metre*scale = distance en pixel).
      */
     public static int scale = 5;
+    
     /**
-     * IA, Discount factor, at?snuation 
+     * IA, Discount factor, aténuation. 
      */
-     public final static double IA_GAMMA = 0.9;
+     public static final double IA_GAMMA = 0.9;
         
      /**
-      * IA, Learning rate, taut d'apparentissage
+      * IA, Learning rate, taux d'apparentissage.
       */
         
-     public final static double IA_ALPHA = 0.9;
+     public static final double IA_ALPHA = 0.9;
      
     /**
-     * Group disance max entre deux unti� pour qu'elle soit consid�rer comme compactes 
+     * Group disance max entre deux unités pour qu'elles soient considérées comme compactes. 
      */
-     public final static double Group_compactDim = 10;
+     public static final double Group_compactDim = 10;
     
 }
