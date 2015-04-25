@@ -22,12 +22,12 @@ public class SimpleUnit extends Unit {
     }
     
     public void heal(Item toHeal){
-        if (!this.isCloseTo(toHeal, HEALING_RANGE))
-            setTarget(toHeal);
-        else{
+        if (this.isCloseTo(toHeal, HEALING_RANGE)) {
             // on peut soigner plus que la vie original de chaque Item, met-on un max ?
-            toHeal.life+= life;
+            toHeal.life += life;
             this.isDestructed();
+        } else {
+            setTarget(toHeal);
         }
     }
 }
