@@ -132,7 +132,7 @@ public abstract class Item implements Finals{
     }
     
     public void isDestructed(){
-        //a fair au niveau Unit et Batiment ne pas oublier de tr�ter Plyer.Units et Plyer.deadUnits
+        //a fair au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
             deadItems.add(this);
             aliveItems.remove(this);
