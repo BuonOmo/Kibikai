@@ -2,6 +2,16 @@ import java.awt.geom.Point2D;
 
 public class SimpleUnit extends Unit {
 
+    /**
+     * objet à construire, null s’il n’y en a pas
+     */
+    Item toBuild;
+    
+    /**
+     * objet à soigner, null s’il n’y en a pas
+     */
+    Item toHeal;
+    
     //___________________CONSTRUCTEURS__________________//
     
     /**

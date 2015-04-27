@@ -72,15 +72,14 @@ public abstract class Item implements Finals{
     public void setTarget(Point2D targetToSet){
         target = targetToSet;
     }
-    
+
+    /**
+     * @param targetToSet 
+     */
     public void setTarget(Item targetToSet){
         target = targetToSet.getCenter();
     }
     
-
-    /**
-     * @param g
-     */
     /**
      * Retourne une liste des unités dans le perimetre entourant l'unité.
      * @param radius : Rayon delimitant le perimetre de scan.
