@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
+import java.util.LinkedList;
+
 public class Soldier extends Unit {
     
     /**
@@ -26,10 +28,45 @@ public class Soldier extends Unit {
     //________________MÉTHODES_______________//
 
 
+    public void attack(){
+
+        Item toAttack;
+        toAttack = getEnemyToAttack();
+
+        toAttack.life-= DAMAGE;
+        
+        if (toAttack.life <= 0)
+            toAttack.isDestructed();
+    }
+    
+    public Item getEnemyToAttack(){
+        //TODO gerer la priorité entre attaquer une US, une UM ou un BA ? et gerer une liste d’ennemis ?
+        //LinkedList<Item> enemies;
+        //enemies = new LinkedList();
+        //enemies.addAll(aliveItems);
+        if (targetI != null && targetI.isCloseTo(this, ATTACK_RANGE))
+            return targetI;
+        for (Item enemy : aliveItems)
+            if (enemy.owner != owner && enemy.isCloseTo(this, ATTACK_RANGE))
+                return enemy;
+        return null;
+        
+
+    }
+    
     @Override
     public void print(Graphics g) {
         g.setColor(color);
-        g.fillOval((int) (hitBox.getX() * Finals.scale), (int) (hitBox.getY() * Finals.scale),
-                   (int) (hitBox.getWidth() * Finals.scale), (int) (hitBox.getHeight() * Finals.scale));
+        g.fillOval((int) (hitBox.getX() * scale),
+                   (int) (hitBox.getY() * scale),
+                   (int) (hitBox.getWidth() * scale),
+                   (int) (hitBox.getHeight() * scale));
     }
+    
+    public void execute() {
+        setTarget(targetI);
+        move();
+        attack();
+    }
+    
 }

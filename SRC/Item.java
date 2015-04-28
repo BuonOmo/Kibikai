@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 public abstract class Item implements Finals{
     Point2D target;
+    Item targetI;
     double life;
     Color color;
     Rectangle2D hitBox;
@@ -54,8 +55,9 @@ public abstract class Item implements Finals{
     
     //________________MÉTHODES_______________//
     
+    //___________________________Obsolète
     /**
-     * Diminue la vie.
+     * Diminue la vie. 
      */
     public void isAttacked(){
         life--;
@@ -70,6 +72,7 @@ public abstract class Item implements Finals{
      * 
      */
     public void setTarget(Point2D targetToSet){
+        targetI = null;
         target = targetToSet;
     }
 
@@ -77,7 +80,10 @@ public abstract class Item implements Finals{
      * @param targetToSet 
      */
     public void setTarget(Item targetToSet){
-        target = targetToSet.getCenter();
+        if (targetToSet != null){
+            targetI = targetToSet;
+            target = targetToSet.getCenter();
+        }
     }
     
     /**

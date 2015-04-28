@@ -22,7 +22,7 @@ public class Building extends Item{
     /**
      *  Cree une unité simple et la rajoute dans le tableau du joueur. elle se dirige au target
      */
-    public void GoAndProcreate(){
+    public void goAndProcreate(){
     	//Choix du point de spawn adapte au point de ralliement
     	Point2D spawnPoint = new Point2D.Double();
         double x,y;
@@ -59,5 +59,13 @@ public class Building extends Item{
                        hitBox.getHeight() + SIDE);
         
         life = Math.pow(level + 1, 2)*LIFE;
+    }
+    
+    public void execute(int time){
+        
+        // j’ai choisi 30 car il divisible par level (pour level <= 6)
+        if ((double)time %(1/ (double)level)*30 == 0)
+            goAndProcreate();
+        
     }
 }

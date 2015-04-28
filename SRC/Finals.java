@@ -10,6 +10,11 @@ public interface Finals {
     public static final int ALPHA = 4;
     
     /**
+     * Porté d’une attaque.
+     */
+    public static final double ATTACK_RANGE = 1.5;
+    
+    /**
      * Porté d’un soin.
      */
     public static final double HEALING_RANGE = 1;
@@ -18,6 +23,11 @@ public interface Finals {
      * Quantité de "vie" d’une unité simple en secondes d’attaque.
      */
     public static final double LIFE = 3;
+    
+    /**
+     * Dégat fait par tour de jeu par une unité militaire
+     */
+    public static final double DAMAGE = 0.5;
     
     /**
      * Taille de la carte en metres.

@@ -1,16 +1,6 @@
 import java.awt.geom.Point2D;
 
 public class SimpleUnit extends Unit {
-
-    /**
-     * objet à construire, null s’il n’y en a pas
-     */
-    Item toBuild;
-    
-    /**
-     * objet à soigner, null s’il n’y en a pas
-     */
-    Item toHeal;
     
     //___________________CONSTRUCTEURS__________________//
     
@@ -33,24 +23,30 @@ public class SimpleUnit extends Unit {
     }
 
     /**
-     * @param toHeal Objet à soigner
+     * soin de la 'targetI'
      */
-    public void heal(Item toHeal){
+    public void heal(){
         
-        if (toHeal.isDead()){
+        if (targetI.isDead()){
             
             setTarget();
             error(1);
         }
         
         else { 
-            if (this.isCloseTo(toHeal, HEALING_RANGE)) {
+            if (this.isCloseTo(targetI, HEALING_RANGE)) {
                 // on peut soigner plus que la vie original de chaque Item, met-on un max ?
-                toHeal.life += life;
+                targetI.life += life;
                 this.isDestructed();
             } else {
-                setTarget(toHeal);
+                setTarget(targetI);
             }
         }
+    }
+    
+    public void execute(){
+        setTarget(targetI);
+        move();
+        heal();
     }
 }
