@@ -38,7 +38,7 @@ public abstract class Item implements Finals{
      * @param width largeur de la hitBox
      * @param height hauteur de la hitBox
      */
-    public Item(Player ownerToSet, Point2D topLeftCorner,int width, int height){
+    public Item(Player ownerToSet, Point2D topLeftCorner,double width, double height){
         this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), width, height), topLeftCorner);
     }
     
@@ -48,7 +48,7 @@ public abstract class Item implements Finals{
      * @param topLeftCorner
      * @param side coté de la hitBox
      */
-    public Item(Player ownerToSet, Point2D topLeftCorner,int side){
+    public Item(Player ownerToSet, Point2D topLeftCorner,double side){
         this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), side, side), topLeftCorner);
     }
     

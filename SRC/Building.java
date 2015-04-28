@@ -6,16 +6,25 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
 public class Building extends Item{
-    protected int level;
+    
     // _____________CONSTRUCTEURS______________//
+
+    /**
+     * @param owner possesseur
+     * @param topLeftCorner position du batiment
+     * @param side taille (i.d. niveau) du batiment
+     */
+    public Building(Player owner, Point2D topLeftCorner, double side){
+        super(owner, topLeftCorner, side);
+        life = Math.pow(side, 2)*LIFE;
+    }
     
     /**
      * @param owner possesseur
-     * @param topLeftCorner situation du batiment
+     * @param topLeftCorner postion du batiment
      */
     public Building(Player owner, Point2D topLeftCorner){
-        super(owner, topLeftCorner,2);
-        life = Math.pow(level + 1, 2)*LIFE;      
+        this(owner, topLeftCorner,2);      
     }
     //________________METHODES_______________//
     
@@ -47,24 +56,40 @@ public class Building extends Item{
     }
     
     /**
-     * Méthode permettant l’évolution d’un batiment.
+     * Méthode permettant le soin et l’amélioration d’un batiment
      */
-    public void grow(){
+    public void increase(){
         
-        level+= 1;
-        //TODO gerer les intersection avant de faire la méthode grow
-        hitBox.setRect(hitBox.getX() - SIDE/2.0, 
-                       hitBox.getY() - SIDE/2.0, 
-                       hitBox.getWidth() + SIDE, 
-                       hitBox.getHeight() + SIDE);
+        //TODO gerer les intersection lors du grandissement
+        double newSide = Math.sqrt( Math.pow(hitBox.getHeight(),2) + Math.pow(SIDE, 2));
+        double shift = (newSide - hitBox.getHeight())/4.0;
+        hitBox.setRect(hitBox.getX() - shift/2, 
+                       hitBox.getY() - shift/2, 
+                       newSide, 
+                       newSide);
         
-        life = Math.pow(level + 1, 2)*LIFE;
+        life = Math.pow(newSide, 2)*LIFE;
+    }
+    
+    /**
+     * Méthode permettant la destruction et la regression d’un batiment
+     */
+    public void decrease(){
+        
+        life-= DAMAGE;
+        
+        double newSide = Math.sqrt(life/LIFE);
+        double shift = (newSide - hitBox.getHeight())/4.0;
+        hitBox.setRect(hitBox.getX() - shift/2, 
+                       hitBox.getY() - shift/2, 
+                       newSide, 
+                       newSide);
     }
     
     public void execute(int time){
         
-        // j’ai choisi 30 car il divisible par level (pour level <= 6)
-        if ((double)time %(1/ (double)level)*30 == 0)
+        //TODO formule à changer
+        if (time %(int)(36.0/life) == 0)
             goAndProcreate();
         
     }

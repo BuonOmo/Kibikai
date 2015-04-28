@@ -32,14 +32,16 @@ public class SimpleUnit extends Unit {
             setTarget();
             error(1);
         }
-        
-        else { 
-            if (this.isCloseTo(targetI, HEALING_RANGE)) {
-                // on peut soigner plus que la vie original de chaque Item, met-on un max ?
-                targetI.life += life;
-                this.isDestructed();
-            } else {
-                setTarget(targetI);
+        else if (this.isCloseTo(targetI, HEALING_RANGE)) {
+                
+            if (targetI.getClass().getName() == "Building"){
+                ((Building)targetI).increase();
+            }
+            
+            else{
+            // on peut soigner plus que la vie original de chaque Item, met-on un max ?
+            targetI.life += life;
+            this.isDestructed();
             }
         }
     }

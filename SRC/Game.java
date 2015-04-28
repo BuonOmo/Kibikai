@@ -11,6 +11,7 @@ public class Game implements Finals {
     
     public static void test(){
         Item a = new SimpleUnit(new Player(null,null,null), new Point2D.Double());
+        System.out.println(a.getClass());
     }
 
 }

@@ -32,11 +32,19 @@ public class Soldier extends Unit {
 
         Item toAttack;
         toAttack = getEnemyToAttack();
-
-        toAttack.life-= DAMAGE;
         
-        if (toAttack.life <= 0)
-            toAttack.isDestructed();
+        if (toAttack != null){
+            if (toAttack.getClass().getName() == "Building"){
+                ((Building)toAttack).decrease();
+            }
+            
+            else{
+                toAttack.life-= DAMAGE;
+                
+                if (toAttack.life <= 0)
+                    toAttack.isDestructed();
+            }
+        }
     }
     
     public Item getEnemyToAttack(){
