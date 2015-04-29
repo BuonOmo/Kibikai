@@ -86,7 +86,8 @@ public abstract class Item implements Finals{
     /**
      * Retourne une liste des unités dans le perimetre entourant l'unité.
      * @param radius : Rayon delimitant le perimetre de scan.
-     * 
+     * @param player
+     * @return unités dans le périmetre.
      */
     public LinkedList<Unit> scanPerimeter(int radius, Player player){
     	LinkedList<Unit> otherUnits = new LinkedList<Unit>();
@@ -145,6 +146,8 @@ public abstract class Item implements Finals{
     public boolean isDead(){
         return (life <= 0);
     }
+    
+    public abstract void execute();
     
     public void print(Graphics g){
         g.setColor(color);
