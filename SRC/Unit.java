@@ -47,6 +47,16 @@ public abstract class Unit extends Item {
         target = this.getCenter();
     }
     
+    /**
+     * Gère le déplacement d’une unité.
+     */
+    public void move(){
+        hitBox.setRect(hitBox.getX() + canMove().getX() - hitBox.getCenterX(), 
+                       hitBox.getY() + canMove().getY() - hitBox.getCenterY(), 
+                       hitBox.getWidth(), 
+                       hitBox.getHeight() );
+    }
+    
     //_______MÉTHODES POUR LE DÉPLACEMENT____//
     
     /**
@@ -178,9 +188,9 @@ public abstract class Unit extends Item {
      */
     public Item findObstacle(LinkedList<Item> obstacle,Point2D shortTarget){
 
-        for(int i = 0 ; i<= obstacle.size() ; i++)
-            if (this.intersects(obstacle.get(i)))
-                return obstacle.get(i);
+        for(Item element : obstacle)
+            if (this.intersects(element))
+                return element;
         
         return null;
     }
@@ -235,12 +245,5 @@ public abstract class Unit extends Item {
         }while(alpha < 180.0 || beta > -180.0);  // mettre un "et" logique ici ?
         
         return null;
-    }
-    
-    public void move(){
-        hitBox.setRect(hitBox.getX() + canMove().getX() - hitBox.getCenterX(), 
-                       hitBox.getY() + canMove().getY() - hitBox.getCenterY(), 
-                       hitBox.getWidth(), 
-                       hitBox.getHeight() );
     }
 }

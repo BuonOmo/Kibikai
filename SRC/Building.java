@@ -86,6 +86,24 @@ public class Building extends Item{
                        newSide);
     }
     
+    /**
+     * Gère la vie d’un batiment et sa taille.
+     * @param amount vie ajoutée (- pour en enlever)
+     */
+    public void getLife(double amount){
+        life+= amount;
+        
+        //TODO gerer les intersection lors du grandissement
+        double newSide = Math.sqrt(life/LIFE);
+        double shift = (newSide - hitBox.getHeight())/4.0;
+        hitBox.setRect(hitBox.getX() - shift/2, 
+                       hitBox.getY() - shift/2, 
+                       newSide, 
+                       newSide);
+        if (life <=0)
+            this.isDestructed();
+    }
+    
     public void execute(int time){
         
         //TODO formule à changer

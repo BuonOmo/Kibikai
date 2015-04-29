@@ -14,37 +14,29 @@ public class Soldier extends Unit {
      */
     public Soldier(Player owner, Point2D topLeftCorner){
         super(owner, topLeftCorner, 2);
-    }
-    
-    /**
-     * @param owner Détenteur de l’unité
-     * @param topLeftCorner position de l’unité
-     */
-    public Soldier(Player owner, Point2D topLeftCorner, Point2D targetToSet){
-        super(owner, topLeftCorner, 2, targetToSet);
-        
+        life = LIFE*2;
     }
     
     //________________MÉTHODES_______________//
 
-
+    /**
+     * Gère la vie d’une unité (et pour un batiment sa taille).
+     * @param amount vie ajoutée (- pour en enlever)
+     */
+    public void getLife(double amount){
+        life+= amount;
+        if (life <=0)
+            this.isDestructed();
+        else  if (life >= LIFE*3)
+            life = LIFE*3;
+    }
+    
     public void attack(){
 
         Item toAttack;
         toAttack = getEnemyToAttack();
         
-        if (toAttack != null){
-            if (toAttack.getClass().getName() == "Building"){
-                ((Building)toAttack).decrease();
-            }
-            
-            else{
-                toAttack.life-= DAMAGE;
-                
-                if (toAttack.life <= 0)
-                    toAttack.isDestructed();
-            }
-        }
+        toAttack.getLife(- DAMAGE);
     }
     
     public Item getEnemyToAttack(){
@@ -67,8 +59,8 @@ public class Soldier extends Unit {
         g.setColor(color);
         g.fillOval((int) (hitBox.getX() * scale),
                    (int) (hitBox.getY() * scale),
-                   (int) (hitBox.getWidth() * scale),
-                   (int) (hitBox.getHeight() * scale));
+                   (int) (2 * radius * scale),
+                   (int) (2 * radius * scale));
     }
     
     public void execute() {

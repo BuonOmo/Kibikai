@@ -10,10 +10,12 @@ public class SimpleUnit extends Unit {
      */
     public SimpleUnit(Player owner, Point2D topLeftCorner, Point2D targetToSet){
         super(owner, topLeftCorner, 1, targetToSet);
+        life = LIFE;
     }
     
     public SimpleUnit(Player owner, Point2D topLeftCorner){
         super(owner, topLeftCorner, 1);
+        life = LIFE;
     }
 
     //_____________________MÉTHODES____________________//
@@ -23,25 +25,30 @@ public class SimpleUnit extends Unit {
     }
 
     /**
+     * Gère la vie d’une US, son max étant LIFE.
+     * @param amount vie ajoutée (- pour en enlever)
+     */
+    public void getLife(double amount){
+        life+= amount;
+        if (life <=0)
+            this.isDestructed();
+        else  if (life >= LIFE)
+            life = LIFE;
+    }
+    
+    /**
      * soin de la 'targetI'
      */
     public void heal(){
-        
-        if (targetI.isDead()){
-            
-            setTarget();
-            error(1);
-        }
-        else if (this.isCloseTo(targetI, HEALING_RANGE)) {
-                
-            if (targetI.getClass().getName() == "Building"){
-                ((Building)targetI).increase();
-            }
-            
-            else{
-            // on peut soigner plus que la vie original de chaque Item, met-on un max ?
-            targetI.life += life;
-            this.isDestructed();
+        if (targetI != null) {
+            if (targetI.isDead()) {
+
+                setTarget();
+                error(1);
+            } else if (this.isCloseTo(targetI, HEALING_RANGE)) {
+
+                targetI.getLife(life);
+                this.isDestructed();
             }
         }
     }

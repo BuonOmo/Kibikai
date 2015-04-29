@@ -55,15 +55,12 @@ public abstract class Item implements Finals{
     
     //________________MÉTHODES_______________//
     
-    //___________________________Obsolète
+    
     /**
-     * Diminue la vie. 
+     * Gère la vie d’une unité (et pour un batiment sa taille).
+     * @param amount vie ajoutée (- pour en enlever)
      */
-    public void isAttacked(){
-        life--;
-        if (life <= 0)
-            this.isDestructed();
-    }
+    public abstract void getLife(double amount);
     
     /**
      * Permet de déplacer une unité vers un point donné.
@@ -93,9 +90,9 @@ public abstract class Item implements Finals{
      */
     public LinkedList<Unit> scanPerimeter(int radius, Player player){
     	LinkedList<Unit> otherUnits = new LinkedList<Unit>();
-    	for(int i=0;i<player.units.size();i++){
-    		if(this.distanceTo(player.units.get(i))<=radius){
-    			otherUnits.add(player.units.get(i));
+        for(Unit i : player.units){
+    		if(this.distanceTo(i)<=radius){
+    			otherUnits.add(i);
     		}
     	}
     	return otherUnits;   	
@@ -170,7 +167,7 @@ public abstract class Item implements Finals{
         
         switch (type){
             
-            // erreur dans SimpleUnit.heal().
+            // erreur dans SimpleUnit.heal()
             case 1:
                 msg = "l’objet à soigner est mort";
             break;
