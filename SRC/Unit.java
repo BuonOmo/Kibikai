@@ -1,22 +1,12 @@
-import java.awt.Point;
-import java.awt.Shape;
 import java.awt.geom.Point2D;
+
 import java.util.LinkedList;
-<<<<<<< HEAD
-import java.awt.geom.*;
-import java.lang.Object;
-public abstract class Unit extends Item {
-<<<<<<< HEAD
-=======
-=======
+
+
 
 
 public abstract class Unit extends Item {
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
->>>>>>> 0391b1001a27cd79afee7343d962b5114a1aee74
-    
->>>>>>> origin/master
-    
    
     /**
      * @param owner
@@ -29,20 +19,26 @@ public abstract class Unit extends Item {
     }
     
     /**
-     * Constructeur pour une hitBox carré
+     * @param owner Possesseur de l’objet
+     * @param topLeftCorner
+     * @param side coté de la hitBox
+     */
+    public Unit(Player owner, Point2D topLeftCorner,int side){
+        super(owner, topLeftCorner, side);
+        setTarget();
+    }
+    
+    /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
      * @param side coté de la hitBox
      */
     public Unit(Player owner, Point2D topLeftCorner,int side, Point2D targetToSet){
         super(owner, topLeftCorner, side);
-        target = targetToSet;
-        
+        setTarget(targetToSet);
     }
     
     //________________MÉTHODES_______________//
-<<<<<<< HEAD
-=======
    
     /**
      * arrête le mouvement d’une unité.
@@ -50,20 +46,23 @@ public abstract class Unit extends Item {
     public void stop(){
         target = this.getCenter();
     }
->>>>>>> 0ab86c38f6a62a01bec60c6e6376a093184f3176
     
     /**
-     * Permet de déplacer une unité vers un point donné.
-     *
-     * @param targetToSet Point d’arrivée de l’unité (objectif)
-     * 
+     * Gère le déplacement d’une unité.
      */
-    public void setTarget(Point2D targetToSet){
-        target = targetToSet;
+    public void move(){
+        hitBox.setRect(hitBox.getX() + canMove().getX() - hitBox.getCenterX(), 
+                       hitBox.getY() + canMove().getY() - hitBox.getCenterY(), 
+                       hitBox.getWidth(), 
+                       hitBox.getHeight() );
     }
     
+    //_______MÉTHODES POUR LE DÉPLACEMENT____//
+    
     /**
-     *
+     * permet de trouver le vecteur unitaire de déplacement en fonction 
+     * d’un angle alpha par rapport au vecteur unité/objectif.
+     * @param alpha angle du déplacement par rapport à la droite Objet-Cible
      * @return vecteur de déplacement unitaire
      */
     public Point2D getShortTarget(double alpha){
@@ -72,81 +71,99 @@ public abstract class Unit extends Item {
         shortTarget = new Point2D.Double();
         
         double x, y;
-        x = (double) (target.getX() - hitBox.getCenterX()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
-        y = (double) (target.getY() - hitBox.getCenterY()) * (double) Finals.DISTANCE_TO_MOVE / this.distanceTo(target);
+        x = (double) (target.getX() - hitBox.getCenterX()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
+        y = (double) (target.getY() - hitBox.getCenterY()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
         
         shortTarget.setLocation( Math.cos(alpha)*x+hitBox.getCenterX(), Math.sin(alpha)*y+hitBox.getCenterY());
         return shortTarget;
     }
     
-    
     /**
-     * Donne les points intersection entre deux items.
-     * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, sinon tableau vide renvoy�).
+     * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
+     * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, 
+     * sinon tableau vide renvoyé).
      * @return tableau de Point 2D contenant les intersections entres les deux cerles entourant les items.
      */
     public Point2D.Double[] getIntersect(Item other){
-    		
-    	 double x0 = this.getCenter().getX();
-    	 double y0 = this.getCenter().getY();
-    	 double x1 = other.getCenter().getX();
-    	 double y1 = other.getCenter().getY();
-    	 
-    	 double x0Coin = this.hitBox.getX();
-     	 double y0Coin = this.hitBox.getY();
-     	 double x1Coin = other.hitBox.getX();
-     	 double y1Coin = other.hitBox.getY();
-     	  
-    	 double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
-    	 double R1 = Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
-    	 
-    	 double deltaX = x0-x1;
-		 double deltaY = y0-y1;
-		 
-    	 double Xa;
-    	 double Ya;
-    	 double Xb;
-    	 double Yb;
+                        
+        double x0 = this.getCenter().getX();
+        double y0 = this.getCenter().getY();
+        double x1 = other.getCenter().getX();
+        double y1 = other.getCenter().getY();
+        
+        double x0Coin = this.hitBox.getX();
+        double y0Coin = this.hitBox.getY();
+        double x1Coin = other.hitBox.getX();
+        double y1Coin = other.hitBox.getY();
+        
+        //double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
+        double R0 = DISTANCE_TO_MOVE;
+        //double R1 = Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
+        double R1 = radius + other.radius;
+        
+        double deltaX = x0-x1;
+        double deltaY = y0-y1;
+        
+        double Xa;
+        double Ya;
+        double Xb;
+        double Yb;
+        
+        if(y1!=y0){
+             
+            double N = (R1*R1-R0*R0-x1*x1+x0*x0-y1*y1+y0*y0)/(2*deltaY);
+            double A = (deltaX/deltaY)*(deltaX/deltaY)+1;
+            double B = 2*(y0-N)*(deltaX/deltaY)-2*x0;
+            double C = y0*y0+x0*x0+N*N-R0*R0-2*y0*N;
+             
+            double DELTA = B*B-4*A*C;
+             
+            if(DELTA>0){ //mettre >= si on veut qu’il retourne lorsqu’il y a une seule intersection
+                DELTA = Math.sqrt(DELTA);
+                Xa=(-B-DELTA)/(2*A);
+                Ya=N-Xa*(deltaX/deltaY);
+                Xb=(-B+DELTA)/(2*A);
+                Yb=N-Xb*(deltaX/deltaY);
+                Point2D.Double[] Intersects = {new Point2D.Double(Xa,Ya) , new Point2D.Double(Xb,Yb)};
+                return Intersects;
+            }
+            else{
+                return null;
+            }
+             
+        }
+        else{
+            Xa=(R1*R1-R0*R0-x1*x1+x0*x0)/(2*deltaX);        
+            double A = 1;
+            double B = -2*y1;
+            double C = x1*x1+Xa*Xa-2*x1*Xa-R1*R1;
+            double DELTA = B*B - 4*A*C;
+            if(DELTA>0){ //mettre >= si on veut qu’il retourne lorsqu’il y a une seule intersection
+                DELTA = Math.sqrt(DELTA);
+                Ya=(-B-DELTA)/(2*A);
+                Yb=(-B+DELTA)/(2*A);
+                Point2D.Double[] Intersects = {new Point2D.Double(Xa,Ya) , new Point2D.Double(Xa,Yb)};
+                return Intersects;
+            }
+            else{
+                return null;
+            } 
+        }       
+    }
 
-    	 if(y1!=y0){
-    		 
-    		 double N = (R1*R1-R0*R0-x1*x1+x0*x0-y1*y1+y0*y0)/(2*deltaY);
-    		 double A = (deltaX/deltaY)*(deltaX/deltaY)+1;
-    		 double B = 2*(y0-N)*(deltaX/deltaY)-2*x0;
-    		 double C = y0*y0+x0*x0+N*N-R0*R0-2*y0*N;
-    		 
-    		 double DELTA = B*B-4*A*C;
-    		 
-    		 if(DELTA>=0){
-    			 DELTA = Math.sqrt(DELTA);
-    			 Xa=(-B-DELTA)/(2*A);
-    			 Ya=N-Xa*(deltaX/deltaY);
-    			 Xb=(-B+DELTA)/(2*A);
-    			 Yb=N-Xb*(deltaX/deltaY);
-    			 Point2D.Double[] Intersects = {new Point2D.Double(Xa,Ya) , new Point2D.Double(Xb,Yb)};
-    			 return Intersects;
-    		 }else{
-    			 Point2D.Double[] Intersects = new Point2D.Double[];
-    			 return Intersects;
-    		 }
-    		 
-    	 }else{
-    		 Xa=(R1*R1-R0*R0-x1*x1+x0*x0)/(2*deltaX);	 
-    		 double A = 1;
-    		 double B = -2*y1;
-    		 double C = x1*x1+Xa*Xa-2*x1*Xa-R1*R1;
-    		 double DELTA = B*B - 4*A*C;
-    		 if(DELTA>=0){
-    			 DELTA = Math.sqrt(DELTA);
-    			 Ya=(-B-DELTA)/(2*A);
-    			 Yb=(-B+DELTA)/(2*A);
-    			 Point2D.Double[] Intersects = {new Point2D.Double(Xa,Ya) , new Point2D.Double(Xa,Yb)};
-    			 return Intersects;
-    		 }else {
-    			 Point2D.Double[] Intersects = new Point2D.Double[];
-    			 return Intersects;
-    		 } 
-    	 }	 
+
+    /**
+     * Vérifie s’il y a intersection entre un Item et la nouvelle position (fictive) de l’unité.
+     * @param other autre Item
+     * @return true s’il y a intersection
+     */
+    public boolean intersects(Item other){
+        
+        if (DISTANCE_TO_MOVE + radius + other.radius > distanceTo(other))
+            return true;
+        
+        return false;
+        
     }
     
     /**
@@ -159,35 +176,77 @@ public abstract class Unit extends Item {
         zero.setLocation(zero.getX()-hitBox.getCenterX(), zero.getY()-hitBox.getCenterY());
 
         Point2D sT;
-        sT = new Point2D.Double(shortTarget.getX() - hitBox.getCenterX(), shortTarget.getY() - hitBox.getCenterY());
+        sT = new Point2D.Double(shortTarget.getX() - hitBox.getCenterX(),
+        			shortTarget.getY() - hitBox.getCenterY());
 
-        return Math.acos((zero.getX()*sT.getX()+ zero.getY()*sT.getY())/(Finals.DISTANCE_TO_MOVE*Finals.DISTANCE_TO_MOVE));
+        return Math.acos((zero.getX()*sT.getX()+ zero.getY()*sT.getY())/(DISTANCE_TO_MOVE*DISTANCE_TO_MOVE));
     }
-    
         
+    
+    
     /**
-     * @param shortTarget
+     * @param obstacle liste de tout les obstacles possible
+     * @param shortTarget vecteur unitaire de déplacement
      * @return l’unitée peut faire un déplacement unitaire
      */
-    public boolean canMove(){
-        double r;
-<<<<<<< HEAD
-        r = this.distanceTo(new Point2D(hitBox.getX(), hitBox.getY()));
-=======
-        r = this.distanceTo(new Point((int) hitBox.getX(), (int) hitBox.getY()));
-        r = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
->>>>>>> 0391b1001a27cd79afee7343d962b5114a1aee74
+    public Item findObstacle(LinkedList<Item> obstacle,Point2D shortTarget){
 
+        for(Item element : obstacle)
+            if (this.intersects(element))
+                return element;
+        
+        return null;
+    }
+
+    /**
+     * Vérifie si l’unité peut se déplacer.
+     * @return point d’arrivée du déplacement unitaire (null si l’unité est coincée
+     */
+    public Point2D canMove(){
+                
+        // angle de déplacement positif minimum
+        double alpha;
+        alpha = 0;
+
+        // angle de déplacement négatif minimum
+        double beta;
+        beta = 0;
+        
+        // liste des obstacles à contourner
         LinkedList<Item> obstacle;
         obstacle = new LinkedList<Item>(aliveItems);
         obstacle.remove(this);
         
-        for(double i=0 ; Math.abs(i*Math.pow(-1.0,i)*Finals.ALPHA)<= 180 ; i++){
-            for (int j=0; j <= obstacle.size(); j++){
-                
-            }
-        }
+        // vecteur unitaire de déplacement
+        Point2D shortTarget;
         
-        return true;
+        // obstacle rencontré
+        Item toAvoid;
+        
+        // variable temporaire pour simplifier les calculs
+        double temp;
+        
+        do{            
+            // setShortTarget pour le minimum des deux angles
+            shortTarget = getShortTarget((alpha < Math.abs(beta)) ? alpha : beta);
+            
+            toAvoid = findObstacle(obstacle, shortTarget);
+            
+            if (toAvoid == null)
+                return shortTarget;
+            
+            obstacle.remove(toAvoid);
+            
+            //setAlpha et setBeta
+            for (int i=0 ; i<2 ;i++){
+                temp = findAngle(getIntersect(toAvoid)[i]);
+                
+                beta = (temp < beta) ? temp : beta;
+                alpha = (temp > alpha) ? temp : alpha;
+            }
+            
+        }while(alpha < 180.0 || beta > -180.0);  // mettre un "et" logique ici ?
+        
+        return null;
     }
 }
