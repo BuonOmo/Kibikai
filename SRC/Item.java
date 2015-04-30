@@ -83,9 +83,10 @@ public abstract class Item implements Finals{
         }
     }
     
-    public void setTarget(){
+
+    public void setTarget (){
         if (targetI != null)
-        	target = targetI.getCenter();
+            target = targetI.getCenter();
     }
     
     /**
