@@ -92,15 +92,13 @@ public class UI extends JFrame{
 			else i-=5;
 			if(i > 100) retour = false;
 			if (i < 1) retour = true;
-			movingThings();
-			Game.run();
+			
+			canvas.s1.setTarget();
+			canvas.s1.move();
 			canvas.repaint();
 		}
 	}
-	
-	public void movingThings (){
-		canvas.s1.setTarget(new Point2D.Double(0, 100));
-	}
+
 	
 	public static void main (String[] args){
 		UI gui = new UI();
