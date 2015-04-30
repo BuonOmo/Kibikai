@@ -83,6 +83,11 @@ public abstract class Item implements Finals{
         }
     }
     
+    public void setTarget(){
+        if (targetI != null)
+        	target = targetI.getCenter();
+    }
+    
     /**
      * Retourne une liste des unités dans le perimetre entourant l'unité.
      * @param radius : Rayon delimitant le perimetre de scan.

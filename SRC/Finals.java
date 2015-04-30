@@ -42,7 +42,7 @@ public interface Finals {
     /**
      * Echelle (distance en metre*scale = distance en pixel).
      */
-    public static int scale = 5;
+    public static int scale = 7;
     
     /**
      * IA, Discount factor, aténuation. 

@@ -19,6 +19,7 @@ public class Canvas extends JComponent{
 		hitBox = new Rectangle2D.Double (0,0, 10, 10);
 		simpleUnit = new SimpleUnit(P1, new Point2D.Double(50,50), null);
 		s1 = new Soldier(P2, new Point2D.Double(100,100));
+		b1 = new Building(P1, new Point2D.Double(20, 50), 15);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -28,6 +29,7 @@ public class Canvas extends JComponent{
 				(int)hitBox.getWidth()*Finals.scale, (int)hitBox.getHeight()*Finals.scale,3*Finals.scale,3*Finals.scale);
 		simpleUnit.print(g);
 		s1.print(g);
+		b1.print(g);
 	}
 	
 }

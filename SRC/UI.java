@@ -87,14 +87,19 @@ public class UI extends JFrame{
 		boolean retour = true;
 
 		public void actionPerformed(ActionEvent e) {
-			canvas.simpleUnit.hitBox.setRect(new Rectangle2D.Double(i,10,10,10));
+			canvas.simpleUnit.hitBox.setRect(new Rectangle2D.Double(i,10,5,5));
 			if(retour) i+=5;
 			else i-=5;
 			if(i > 100) retour = false;
 			if (i < 1) retour = true;
-			
+			movingThings();
+			Game.run();
 			canvas.repaint();
 		}
+	}
+	
+	public void movingThings (){
+		canvas.s1.setTarget(new Point2D.Double(0, 100));
 	}
 	
 	public static void main (String[] args){
