@@ -142,7 +142,7 @@ public abstract class Item implements Finals{
     }
     
     public void isDestructed(){
-        //a fair au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
+        //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
             deadItems.add(this);
             aliveItems.remove(this);
@@ -157,7 +157,7 @@ public abstract class Item implements Finals{
     
     public void print(Graphics g){
         g.setColor(color);
-        // TODO virer ce putain de 3 et mettre un truc cohérant pour les arcs de cercle
+        // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
         g.fillRoundRect( (int)(hitBox.getX()*Finals.scale), 
                          (int)(hitBox.getY()*Finals.scale), 
                          (int)(hitBox.getWidth()*Finals.scale), 
