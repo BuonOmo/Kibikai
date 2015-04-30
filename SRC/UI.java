@@ -17,7 +17,7 @@ import javax.swing.*;
 public class UI extends JFrame{
 	
 	Timer timer;
-	//long time;
+	static long time;
 	BufferedImage ArrierePlan;
 	Graphics buffer;
 	Rectangle Ecran;

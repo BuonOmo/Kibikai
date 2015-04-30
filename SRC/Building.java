@@ -104,10 +104,10 @@ public class Building extends Item{
             this.isDestructed();
     }
     
-    public void execute(int time){
+    public void execute(){
         
         //TODO formule à changer
-        if (time %(int)(36.0/life) == 0)
+        if (UI.time %(int)(36.0/life) == 0)
             goAndProcreate();
         
     }
