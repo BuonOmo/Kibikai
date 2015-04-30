@@ -131,6 +131,6 @@ public class IA {
 				 i++;
 			 }
 		 scanner.close();
-		 qIASoldier = qIASimpleUnitLoading;
+		 qIASimpleUnit = qIASimpleUnitLoading;
     }
 }
