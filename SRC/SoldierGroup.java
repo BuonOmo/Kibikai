@@ -47,6 +47,10 @@ public class SoldierGroup extends UnitGroup {
         toReturn.remove(toReturn.size()-1);
         return toReturn ;
     }
+    /*
+     * garde la parti danse du group
+     * et retourne la parti non danse
+     */
     public SoldierGroup densePart() {
         LinkedList<Soldier> copactGrp = new LinkedList<Soldier> ();
         LinkedList<Soldier> rest = new LinkedList<Soldier> (groupUnits);
