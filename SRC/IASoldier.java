@@ -19,18 +19,20 @@ public class  IASoldier extends IAUnite {
              * attaquer le qg addversaire
              */
             soldierGroup.setTarget(IA.player.base.getCenter());
+            break;
         case 2:
             /*
-             * allé défandre le qg allié 
+             * allï¿½ dï¿½fandre le qg alliï¿½ 
              */
             soldierGroup.setTarget(IA.computer.base.getCenter());
+            break;
         case 3:
             /*
              * attaque timide 
              */
             if (soldierPlyaerInZone1.size()>soldierComputerInZone1.size()){
                 /*
-                 * ajouter soldierGroup au group allié le plus proche 
+                 * ajouter soldierGroup au group alliï¿½ le plus proche 
                  */
                 double distence =  SoldierGroup.groupSoldierList.get(0).distanceTo(soldierGroup);
                 SoldierGroup group = SoldierGroup.groupSoldierList.get(0);
@@ -45,7 +47,7 @@ public class  IASoldier extends IAUnite {
             else {
                 if (soldierPlyaerInZone1.size()!= 0){
                 /*
-                 * se réunire 
+                 * se rï¿½unire 
                  */
                 soldierGroup.setTarget(soldierGroup.getPsosition());
                 }
@@ -64,13 +66,17 @@ public class  IASoldier extends IAUnite {
                             }
                         soldierGroup.setTarget(soldier.getCenter());
                         }
-                    
+                    }
                 }
                     
             }
+                break;
         case 4:
+                break;
         case 5:
+                break;
         case 6:
+                break;
         default: 
         }
     }
