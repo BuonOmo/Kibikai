@@ -1,6 +1,5 @@
-import java.awt.geom.Point2D;
-
 import java.util.LinkedList;
+
 
 public class SimpleUnitGroup extends UnitGroup {
     protected LinkedList<SimpleUnit> groupUnits;
@@ -79,8 +78,10 @@ public class SimpleUnitGroup extends UnitGroup {
         if (this.densePart().groupUnits.size()==0) return true ;
         return false ;
     }
+    /*
     public LinkedList<SimpleUnit> getgroupUnits(){
         return groupUnits;
     }
+    */
 
 }

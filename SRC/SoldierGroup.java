@@ -83,7 +83,8 @@ public class SoldierGroup extends UnitGroup {
         if (this.densePart().groupUnits.size()==0) return true ;
         return false ;      
     }
-    public LinkedList<Soldier> getgroupUnits(){
+   /* public LinkedList<Soldier> getgroupUnits(){
         return groupUnits;
     }
+   */
 }

@@ -44,7 +44,8 @@ public class IA {
                 if (className == "SimpleUnit"){
                     LinkedList <IAHistObj> histoList = ((Soldier)AllUnit.get(i)).histoList;
                     histoList.add(new IAHistObj(0,0,0));
-                    for (int j = histoList.size()-1;j>=0;j--) rinforceQ(qIASimpleUnit,histoList,j);
+                    for (int j = histoList.size()-1;j>=0;j--)IA.rinforceQ(qIASimpleUnit, histoList, j);
+                    
             } 
         }
         saveQIASoldierANDSimpleUnit();
