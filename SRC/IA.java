@@ -57,7 +57,10 @@ public class IA {
         Qsa= Q[histoList.get(index).Stait][histoList.get(index).Action]+Alpa*(histoList.get(index).Reward+Gamma*Q[histoList.get(index+1).Stait][histoList.get(index+1).Action]-Q[histoList.get(index).Stait][histoList.get(index).Action]);
         Q[histoList.get(index).Stait][histoList.get(index).Action]=Qsa;
     }
-    public static void saveQIASoldier(){        
+    public static void saveQIASoldier(){  
+    	
+    	
+    	
     }
     public static void saveQIASimpelUnite(){
     }

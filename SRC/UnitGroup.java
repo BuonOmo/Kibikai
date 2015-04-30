@@ -64,6 +64,8 @@ public abstract class UnitGroup {
         for(int i= 0; i<groupUnits.size();i++){
             groupUnits.get(i).setTarget(targetToSet);
         }
-        
+    }
+    public LinkedList<Unit> getgroupUnits(){
+        return groupUnits;
     }
 }

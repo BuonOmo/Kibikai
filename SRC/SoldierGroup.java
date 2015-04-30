@@ -66,8 +66,20 @@ public class SoldierGroup extends UnitGroup {
                 
         
     }
+    public void add(SoldierGroup sg){
+        if (sg.owner==this.owner){
+            if (this.owner==IA.computer){
+                this.groupUnits.addAll(sg.getgroupUnits());
+                this.groupSoldierList.remove(sg);
+            }
+            else this.groupUnits.addAll(sg.getgroupUnits());
+        }
+    }
     public boolean isDense(){
         if (this.densePart().groupUnits.size()==0) return true ;
         return false ;      
+    }
+    public LinkedList<Soldier> getgroupUnits(){
+        return groupUnits;
     }
 }
