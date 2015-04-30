@@ -41,6 +41,16 @@ public abstract class Unit extends Item {
     }
     
     //________________MÉTHODES_______________//
+<<<<<<< HEAD
+=======
+   
+    /**
+     * arrête le mouvement d’une unité.
+     */
+    public void stop(){
+        target = this.getCenter();
+    }
+>>>>>>> 0ab86c38f6a62a01bec60c6e6376a093184f3176
     
     /**
      * Permet de déplacer une unité vers un point donné.
