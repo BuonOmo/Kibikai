@@ -43,7 +43,7 @@ public class SimpleUnit extends Unit {
         if (targetI != null) {
             if (targetI.isDead()) {
 
-                setTarget();
+                stop();
                 error(1);
             } else if (this.isCloseTo(targetI, HEALING_RANGE)) {
 

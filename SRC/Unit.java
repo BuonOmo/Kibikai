@@ -43,7 +43,7 @@ public abstract class Unit extends Item {
     /**
      * arrête le mouvement d’une unité.
      */
-    public void setTarget(){
+    public void stop(){
         target = this.getCenter();
     }
     
