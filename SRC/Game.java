@@ -7,7 +7,7 @@ public class Game implements Finals {
     /**
      * méthode appelée à chaque "tour de jeu".
      */
-    public static void running(){
+    public static void run(){
         
         //TODO ajouter les récuperation des Input
         for (Item element : Item.aliveItems)

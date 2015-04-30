@@ -85,7 +85,7 @@ public class UI extends JFrame{
 	private class TimerAction implements ActionListener {
 		int i = 0;
 		boolean retour = true;
-		// ActionListener appelee tous les 100 millisecondes
+
 		public void actionPerformed(ActionEvent e) {
 			canvas.simpleUnit.hitBox.setRect(new Rectangle2D.Double(i,10,10,10));
 			if(retour) i+=5;
