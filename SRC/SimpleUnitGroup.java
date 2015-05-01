@@ -2,11 +2,12 @@ import java.util.LinkedList;
 
 
 public class SimpleUnitGroup extends UnitGroup {
-    protected LinkedList<SimpleUnit> groupUnits;
     public static LinkedList<SimpleUnitGroup> groupSimpleUnitList;
     public IASimpleUnit iaSimpleUnit; 
     protected Player owner;
-
+    
+    //_______________CONSTRUCTEURS_____________//
+    
     public SimpleUnitGroup(SimpleUnit s) {
         groupUnits = new LinkedList<SimpleUnit>();
         groupUnits.add(s);
@@ -25,17 +26,19 @@ public class SimpleUnitGroup extends UnitGroup {
         super.setall(toSuper,iaSimpleUnit,owner);
     }
     public SimpleUnitGroup (LinkedList<SimpleUnit> grpUnit ,Player ownerToSet) {
-    owner = ownerToSet;
-    groupUnits = new LinkedList<SimpleUnit>(grpUnit);
-    iaSimpleUnit =new IASimpleUnit(this);
-    for (int i=grpUnit.size()-1 ;i >= 0;i--){
-        if (grpUnit.get(i).owner!=owner)grpUnit.remove(i);
+        owner = ownerToSet;
+        groupUnits = new LinkedList<SimpleUnit>(grpUnit);
+        iaSimpleUnit =new IASimpleUnit(this);
+        for (int i=grpUnit.size()-1 ;i >= 0;i--){
+            if (grpUnit.get(i).owner!=owner)grpUnit.remove(i);
         }
         LinkedList<Unit> toSuper = new LinkedList<Unit>();
         toSuper.addAll(groupUnits);
         super.setall(toSuper,iaSimpleUnit,owner);
     }
-
+    
+    //___________________________METHODES_______________________//
+    
     public LinkedList<SimpleUnitGroup> divideInDenseGroups (){
         LinkedList<SimpleUnitGroup> toReturn = new LinkedList<SimpleUnitGroup>();
         toReturn.add(this);
@@ -78,10 +81,10 @@ public class SimpleUnitGroup extends UnitGroup {
         if (this.densePart().groupUnits.size()==0) return true ;
         return false ;
     }
-    /*
+    
+    @override
     public LinkedList<SimpleUnit> getgroupUnits(){
-        return groupUnits;
+        return (SimpleUnit)groupUnits;
     }
-    */
 
 }
