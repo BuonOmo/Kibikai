@@ -19,6 +19,11 @@ public interface Finals {
      */
     public static final double HEALING_RANGE = 1;
     
+    
+    /**
+     * 
+     */
+    public static final double CREATION_RANGE = 2;
     /**
      * Quantité de "vie" d’une unité simple en secondes d’attaque.
      */

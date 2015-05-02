@@ -6,7 +6,7 @@ public class SimpleUnitGroup extends UnitGroup {
     //__________________CONSTRUCTEURS__________________//
     
     public SimpleUnitGroup(SimpleUnit us) {
-        super(u);
+        super(us);
     }
     
     public SimpleUnitGroup( LinkedList<SimpleUnit> grpUs ) {
@@ -62,14 +62,26 @@ public class SimpleUnitGroup extends UnitGroup {
             if (owner==IA.computer){
                 this.group.addAll(sg.getGroup());
                 // inutile ?_________________________________________________??
-                this.groupSimpleUnitList.remove(sg);
+                //this.groupSimpleUnitList.remove(sg);
             }
             else this.group.addAll(sg.getGroup());
         }
+    }
+    
+    public void add(SimpleUnit us){
+        if (us.owner==owner){
+            if (owner==IA.computer){
+                this.group.add(us);
+                // inutile ?_________________________________________________??
+                //this.groupSimpleUnitList.remove(sg);
+            }
+            else this.group.add(us);
+        }
+    
     }
     public boolean isDense(){
         if (this.densePart().group.size()==0) return true ;
         return false ;
     }
-
+    
 }
