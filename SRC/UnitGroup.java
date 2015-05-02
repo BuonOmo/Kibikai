@@ -43,7 +43,7 @@ public abstract class UnitGroup {
      * @param iaToSet Intelligence artificielle du groupe
      * @param ownerToSet possesseur du groupe
      */
-    public UnitGroup (Collection units, IAUnite iaToSet, Player ownerToSet){
+    public UnitGroup (Collection units, Player ownerToSet){
         this(units);
         
         owner = ownerToSet;

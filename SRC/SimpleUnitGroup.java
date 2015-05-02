@@ -2,53 +2,47 @@ import java.util.LinkedList;
 
 
 public class SimpleUnitGroup extends UnitGroup { 
+
+    //__________________CONSTRUCTEURS__________________//
     
-    //_______________CONSTRUCTEURS_____________//
-    
-    public SimpleUnitGroup(SimpleUnit s) {
-        super(s);
-        LinkedList<Unit> toSuper = new LinkedList<Unit>();
-        toSuper.addAll(groupUnits);
-    }
-    public SimpleUnitGroup( LinkedList<SimpleUnit> grpU ) {
-        groupUnits = new LinkedList<SimpleUnit>(grpU);
-        iaSimpleUnit =new IASimpleUnit(this);
-        owner=null;
-        LinkedList<Unit> toSuper = new LinkedList<Unit>();
-        toSuper.addAll(groupUnits);
-        super.setall(toSuper,iaSimpleUnit,owner);
-    }
-    public SimpleUnitGroup (LinkedList<SimpleUnit> grpUnit ,Player ownerToSet) {
-        owner = ownerToSet;
-        groupUnits = new LinkedList<SimpleUnit>(grpUnit);
-        iaSimpleUnit =new IASimpleUnit(this);
-        for (Unit i : grpUnit){
-            if (i.owner!=owner)grpUnit.remove(i);
-        }
-        LinkedList<Unit> toSuper = new LinkedList<Unit>();
-        toSuper.addAll(groupUnits);
-        super.setall(toSuper,iaSimpleUnit,owner);
+    public SimpleUnitGroup(SimpleUnit us) {
+        super(u);
     }
     
-    //___________________________METHODES_______________________//
+    public SimpleUnitGroup( LinkedList<SimpleUnit> grpUs ) {
+        super(grpUs);
+    }
+    
+    public SimpleUnitGroup (LinkedList<SimpleUnit> grpUs, Player o) {
+        super(grpUs, o);
+    }
+    
+    //_________________________METHODES_______________________//
     
     public LinkedList<SimpleUnitGroup> divideInDenseGroups (){
         LinkedList<SimpleUnitGroup> toReturn = new LinkedList<SimpleUnitGroup>();
         toReturn.add(this);
-        while (toReturn.getLast().groupUnits.size() != 0){
+        while (toReturn.getLast().group.size() != 0){
             SimpleUnitGroup toAdd = toReturn.getLast().densePart();
             toReturn.add(toAdd);
         }
         toReturn.remove(toReturn.size()-1);
         return toReturn ;
     }
+    
+    // quel est l’objectif (précis) de cette méthode
     public SimpleUnitGroup densePart() {
         LinkedList<SimpleUnit> copactGrp = new LinkedList<SimpleUnit> ();
-        LinkedList<SimpleUnit> rest = new LinkedList<SimpleUnit> (groupUnits);
+        LinkedList<SimpleUnit> rest = new LinkedList(group);
         densePartOfListe (copactGrp,rest,rest.get(0));
-        groupUnits=copactGrp;
+        
+        // inutile ? 
+        /*group.clear();
+        group.addAll(copactGrp);
+        groupU = copactGrp;*/
         return new SimpleUnitGroup(rest,owner);
     }
+    
     private void densePartOfListe (LinkedList<SimpleUnit> copactGrp,LinkedList<SimpleUnit> rest ,SimpleUnit s ){
         rest.remove(s);
         copactGrp.add(s);
@@ -61,23 +55,21 @@ public class SimpleUnitGroup extends UnitGroup {
                 
         
     }
+    
+    // quel est l’interet de groupSimpleUnitList ?
     public void add(SimpleUnitGroup sg){
-        if (sg.owner==this.owner){
-            if (this.owner==IA.computer){
-                this.groupUnits.addAll(sg.getgroupUnits());
+        if (sg.owner==owner){
+            if (owner==IA.computer){
+                this.group.addAll(sg.getGroup());
+                // inutile ?_________________________________________________??
                 this.groupSimpleUnitList.remove(sg);
             }
-            else this.groupUnits.addAll(sg.getgroupUnits());
+            else this.group.addAll(sg.getGroup());
         }
     }
     public boolean isDense(){
-        if (this.densePart().groupUnits.size()==0) return true ;
+        if (this.densePart().group.size()==0) return true ;
         return false ;
-    }
-    
-    @override
-    public LinkedList<SimpleUnit> getgroupUnits(){
-        return (SimpleUnit)groupUnits;
     }
 
 }
