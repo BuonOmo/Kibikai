@@ -1,21 +1,14 @@
 import java.util.LinkedList;
 
 
-public class SimpleUnitGroup extends UnitGroup {
-    public static LinkedList<SimpleUnitGroup> groupSimpleUnitList;
-    public IASimpleUnit iaSimpleUnit; 
-    protected Player owner;
+public class SimpleUnitGroup extends UnitGroup { 
     
     //_______________CONSTRUCTEURS_____________//
     
     public SimpleUnitGroup(SimpleUnit s) {
-        groupUnits = new LinkedList<SimpleUnit>();
-        groupUnits.add(s);
-        iaSimpleUnit =new IASimpleUnit(this);
-        owner = s.owner;
+        super(s);
         LinkedList<Unit> toSuper = new LinkedList<Unit>();
         toSuper.addAll(groupUnits);
-        super.setall(toSuper,iaSimpleUnit,owner);
     }
     public SimpleUnitGroup( LinkedList<SimpleUnit> grpU ) {
         groupUnits = new LinkedList<SimpleUnit>(grpU);
@@ -29,8 +22,8 @@ public class SimpleUnitGroup extends UnitGroup {
         owner = ownerToSet;
         groupUnits = new LinkedList<SimpleUnit>(grpUnit);
         iaSimpleUnit =new IASimpleUnit(this);
-        for (int i=grpUnit.size()-1 ;i >= 0;i--){
-            if (grpUnit.get(i).owner!=owner)grpUnit.remove(i);
+        for (Unit i : grpUnit){
+            if (i.owner!=owner)grpUnit.remove(i);
         }
         LinkedList<Unit> toSuper = new LinkedList<Unit>();
         toSuper.addAll(groupUnits);

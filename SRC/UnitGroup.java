@@ -1,71 +1,118 @@
 import java.awt.geom.Point2D;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 public abstract class UnitGroup {
-    protected LinkedList<Unit> groupUnits;
+    
+    //_______________ATTRIBUTS_________________//
+    
+    protected LinkedList<Unit> group;
     protected double compactdim;
-    public IAUnite iaUnite; 
     protected Player owner;
-    public UnitGroup (){
-        
-    }
-    public void setall(LinkedList<Unit> groupUnitsToSet, IAUnite iaUniteToSet, Player ownerToSet) {
-        groupUnits=groupUnitsToSet;
-        iaUnite=iaUniteToSet;
-        owner=ownerToSet;
+    
+    //_______________CONSTRUCTEURS______________//
+
+
+    /**
+     * Constructeur pour une seul unité.
+     * @param u unité
+     * @param iaToSet Intelligence artificielle du groupe
+     */
+    public UnitGroup (Unit u){
+        group = new LinkedList<Unit>();
+        group.add(u);
+        owner = u.owner;
         compactdim = Finals.Group_compactDim;
     }
-
-
+    
+    /**
+     * Constructeur pour un groupe  d’unité.
+     * @param units groupe d’unités
+     * @param iaToSet Intelligence artificielle du groupe
+     */
+    public UnitGroup (Collection units){
+        group = new LinkedList<Unit>(units);
+        owner = null;
+        compactdim = Finals.Group_compactDim;
+    }
+    
+    /**
+     * Constructeur pour un groupe  d’unité ayant un possesseur attitré
+     * @param units groupe d’unités
+     * @param iaToSet Intelligence artificielle du groupe
+     * @param ownerToSet possesseur du groupe
+     */
+    public UnitGroup (Collection units, IAUnite iaToSet, Player ownerToSet){
+        this(units);
+        
+        owner = ownerToSet;
+        for (Unit i : group)
+            if (i.owner!=owner)
+                group.remove(i);
+        
+    }
+    
+    //_______________MÉTHODES______________//
+   
 
     public int numberUnit(){
-        return groupUnits.size();
+        return group.size();
     }
-    public LinkedList<Unit> getGroupUnits(){
-        return groupUnits;
+    public LinkedList<Unit> getGroup(){
+        return group;
     }
+    
     /**
-     * @return postion du Centre des masse du group
+     * @return postion du Centre des masse du groupe
      */
-    /*
-     * travailler les Update pour am�lior� la vitesse
-     */
-    public Point2D getPsosition(){
+     // travailler les Update pour am�lior� la vitesse
+    public Point2D getPosition(){
         double X=0;
         double Y=0;
-        for (int i = 0; i < groupUnits.size();i++){
-            X=+groupUnits.get(i).getCenter().getX();
-            Y=+groupUnits.get(i).getCenter().getY();
+        for (Unit i : group){
+            X=+i.getCenter().getX();
+            Y=+i.getCenter().getY();
         }
-        X=X/this.groupUnits.size();
-        Y=Y/this.groupUnits.size();
+        X=X/this.group.size();
+        Y=Y/this.group.size();
         return new Point2D.Double(X,Y);
     }
+
+
+    /**
+     * @param p position sur la carte
+     * @return distance à une position
+     */
     public double distanceTo(Point2D p){
-        Point2D p2 = this.getPsosition();
-        return Math.sqrt((p.getX() - p2.getX())*(p.getX() - p2.getX()) + (p.getY() -p2.getY())*(p.getY() -p2.getY()));   
-    }
-    public double distanceTo(Item i){
-        Point2D p = i.getCenter();
-        Point2D p2 = this.getPsosition();
-        return Math.sqrt((p.getX() - p2.getX())*(p.getX() - p2.getX()) + (p.getY() -p2.getY())*(p.getY() -p2.getY()));   
-    }
-    public double distanceTo(UnitGroup ug){
-        Point2D p = ug.getPsosition();
-        Point2D p2 = this.getPsosition();
-        return Math.sqrt((p.getX() - p2.getX())*(p.getX() - p2.getX()) + (p.getY() -p2.getY())*(p.getY() -p2.getY()));   
+        return p.distance(getPosition());   
     }
 
+    /**
+     * @param i objet sur la carte
+     * @return distance à un objet
+     */
+    public double distanceTo(Item i){
+        return i.getCenter().distance(getPosition());   
+    }
+
+    /**
+     * @param ug groupe d’unités
+     * @return distance à un autre groupe d’unités
+     */
+    public double distanceTo(UnitGroup ug){
+        return ug.getPosition().distance(getPosition());   
+    }
+
+    /**
+     * @return possesseur
+     */
     public Player getOwner(){
         return owner;
     }
+    
     public void  setTarget(Point2D targetToSet){
-        for(int i= 0; i<groupUnits.size();i++){
-            groupUnits.get(i).setTarget(targetToSet);
-        }
-    }
-    public LinkedList<Unit> getgroupUnits(){
-        return groupUnits;
+        for(Unit i : group)
+            i.setTarget(targetToSet);
     }
 }

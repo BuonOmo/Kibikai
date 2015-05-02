@@ -73,10 +73,10 @@ public class SoldierGroup extends UnitGroup {
     public void add(SoldierGroup sg){
         if (sg.owner==this.owner){
             if (this.owner==IA.computer){
-                this.groupUnits.addAll(sg.getgroupUnits());
+                this.groupUnits.addAll(sg.getGroup());
                 this.groupSoldierList.remove(sg);
             }
-            else this.groupUnits.addAll(sg.getgroupUnits());
+            else this.groupUnits.addAll(sg.getGroup());
         }
     }
     public boolean isDense(){

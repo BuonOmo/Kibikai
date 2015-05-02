@@ -14,14 +14,14 @@ public class IASoldier extends IAUnite {
         if (soldierPlyaerInZone1.size()==0) state= 2;
         else state=1;
         /*
-         * superiorité sunmérique en zonne 2 
+         * superioritï¿½ sunmï¿½rique en zonne 2 
          */
         if (soldierPlyaerInZone2.size()>soldierComputerInZone2.size()) state= 2*1+state;
         else state=2*2+state;
         if (true);
         return 0;
     }
-
+    
     public int chooseStrategy(int staite) {
         return 0;
     }
@@ -111,7 +111,7 @@ public class IASoldier extends IAUnite {
                             }
                             else{
                                 /*
-                                 * ajouter soldierGroup au group allié le plus proche 
+                                 * ajouter soldierGroup au group alliï¿½ le plus proche 
                                  */
                                 double distence =  SoldierGroup.groupSoldierList.get(0).distanceTo(soldierGroup);
                                 SoldierGroup group = SoldierGroup.groupSoldierList.get(0);
