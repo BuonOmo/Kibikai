@@ -5,6 +5,8 @@ public class SimpleUnit extends Unit {
     //_____________________ATTRIBUTS____________________//
     
     boolean creating;
+    SimpleUnit builder1, builder2;
+    SimpleUnitGroup builders;
     
     //___________________CONSTRUCTEURS__________________//
     
@@ -16,33 +18,56 @@ public class SimpleUnit extends Unit {
         super(owner, topLeftCorner, 1, targetToSet);
         life = LIFE;
         creating = false;
+        builder1 = null;
+        builder2 = null;
+    }
+
+    /**
+     * @param owner
+     * @param targetToSet
+     * @param topLeftCorner
+     */
+    public SimpleUnit(Player owner, Item targetToSet, Point2D topLeftCorner){
+        this(owner, topLeftCorner, targetToSet.getCenter());
+        setTarget(targetToSet);
     }
     
+    /**
+     * @param owner
+     * @param topLeftCorner
+     */
     public SimpleUnit(Player owner, Point2D topLeftCorner){
-        super(owner, topLeftCorner, 1);
-        life = LIFE;
-        creating = false;
+        this(owner, topLeftCorner, null);
     }
 
     //_____________________MÉTHODES____________________//
     
     // _______________________________________________________________________ ne peut pas marcher
     public void createSoldier(Point2D t, SimpleUnit u1, SimpleUnit u2){
-        creating = true;
-        SimpleUnitGroup toCreate = new SimpleUnitGroup(this);
-        toCreate.add(u1);
-        toCreate.add(u2);
-        toCreate.setTarget(t);
-        if (toCreate.distanceTo(target) <= CREATION_RANGE){
-            this.isDestructed();
-            u1.isDestructed();
-            u2.isDestructed();
-            //TODO gerer les conflits à la création ______________________________________________?
-            owner.units.add(new Soldier(owner, target));
-        }
+        if (!creating)
+            setBuilders(u1, u2, t);
+            
+        else createSoldier();
             
     }
-
+    
+    public void createSoldier(){
+        if (builders.distanceTo(target) <= CREATION_RANGE){
+            builders.isDestructed();
+            //TODO gerer les conflits à la création ______________________________________________?
+            owner.units.add(new Soldier(owner, target));
+        } 
+    }
+    
+    public void setBuilders(SimpleUnit u1,SimpleUnit u2, Point2D t){
+        creating = true;
+        builders = new SimpleUnitGroup(this);
+        builders.add(u1);
+        builders.add(u2);
+        builder1 = u1;
+        builder2 = u2;
+        builders.setTarget(t);
+    }
     /**
      * Gère la vie d’une US, son max étant LIFE.
      * @param amount vie ajoutée (- pour en enlever)
@@ -75,6 +100,9 @@ public class SimpleUnit extends Unit {
     public void execute(){
         setTarget(targetI);
         move();
-        heal();
+        if (creating)
+            createSoldier();
+        else
+            heal();
     }
 }

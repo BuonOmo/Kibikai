@@ -20,7 +20,7 @@ public abstract class UnitGroup {
      * @param iaToSet Intelligence artificielle du groupe
      */
     public UnitGroup (Unit u){
-        group = new LinkedList<Unit>();
+        group = new LinkedList<>();
         group.add(u);
         owner = u.owner;
         compactdim = Finals.Group_compactDim;
@@ -32,7 +32,7 @@ public abstract class UnitGroup {
      * @param iaToSet Intelligence artificielle du groupe
      */
     public UnitGroup (Collection units){
-        group = new LinkedList<Unit>(units);
+        group = new LinkedList<>(units);
         owner = null;
         compactdim = Finals.Group_compactDim;
     }
@@ -103,7 +103,11 @@ public abstract class UnitGroup {
     public double distanceTo(UnitGroup ug){
         return ug.getPosition().distance(getPosition());   
     }
-
+    
+    public void isDestructed(){
+        for (Unit u : group)
+            u.isDestructed();
+    }
     /**
      * @return possesseur
      */
