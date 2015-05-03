@@ -42,7 +42,6 @@ public class SimpleUnit extends Unit {
 
     //_____________________MÉTHODES____________________//
     
-    // _______________________________________________________________________ ne peut pas marcher
     public void createSoldier(Point2D t, SimpleUnit u1, SimpleUnit u2){
         if (!creating)
             setBuilders(u1, u2, t);

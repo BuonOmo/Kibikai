@@ -63,7 +63,7 @@ public class IASoldier extends IAUnite {
                 /*
                  * se r�unire 
                  */
-                soldierGroup.setTarget(soldierGroup.getPsosition());
+                soldierGroup.setTarget(soldierGroup.getPosition());
                 }
             }
             if (soldierPlyaerInZone1.size()== 0){
@@ -72,11 +72,11 @@ public class IASoldier extends IAUnite {
                 }
                 else{
                     if (soldierPlyaerInZone2.size()!= 0){
-                        double distence =  soldierPlyaerInZone2.get(0).distanceTo(soldierGroup.getPsosition());
+                        double distence =  soldierPlyaerInZone2.get(0).distanceTo(soldierGroup.getPosition());
                         Soldier soldier =  soldierPlyaerInZone2.get(0);
                         for (int i = 1; i>soldierPlyaerInZone2.size();i++ ){
-                            if (soldierPlyaerInZone2.get(i).distanceTo(soldierGroup.getPsosition())<distence){
-                                distence = soldierPlyaerInZone2.get(i).distanceTo(soldierGroup.getPsosition());
+                            if (soldierPlyaerInZone2.get(i).distanceTo(soldierGroup.getPosition())<distence){
+                                distence = soldierPlyaerInZone2.get(i).distanceTo(soldierGroup.getPosition());
                                 soldier =soldierPlyaerInZone2.get(i);
                             }
                             
@@ -86,7 +86,7 @@ public class IASoldier extends IAUnite {
                 }
                 if (soldierPlyaerInZone2.size()== 0){
                     if (soldierPlyaerInZone2.size()== 0){
-                        soldierGroup.setTarget(soldierGroup.getPsosition());
+                        soldierGroup.setTarget(soldierGroup.getPosition());
                     }
                     else {
                         SoldierGroup plyaerZone3 = new SoldierGroup(soldierPlyaerInZone3,IA.player);
@@ -94,16 +94,16 @@ public class IASoldier extends IAUnite {
                         /*
                          * on cherche le plus petit group de soldierPlyaerInZone3 
                          */
-                        int size = plyaerZone3Groups.get(0).groupUnits.size();
+                        int size = plyaerZone3Groups.get(0).group.size();
                         SoldierGroup smolerSoldierGroup = plyaerZone3Groups.get(0);
                         for (int i =1 ; i > plyaerZone3Groups.size();i++){
-                            if (plyaerZone3Groups.get(i).groupUnits.size()<size){
-                                size = plyaerZone3Groups.get(i).groupUnits.size();
+                            if (plyaerZone3Groups.get(i).group.size()<size){
+                                size = plyaerZone3Groups.get(i).group.size();
                                 smolerSoldierGroup = plyaerZone3Groups.get(i);
                             }
                         }
-                        if (smolerSoldierGroup.groupUnits.size()<soldierGroup.groupUnits.size()){
-                            soldierGroup.setTarget(smolerSoldierGroup.getPsosition());
+                        if (smolerSoldierGroup.group.size()<soldierGroup.group.size()){
+                            soldierGroup.setTarget(smolerSoldierGroup.getPosition());
                         }
                         else{
                             if (soldierPlyaerInZone3.size()>soldierComputerInZone3.size()) {
