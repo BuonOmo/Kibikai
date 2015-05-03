@@ -66,7 +66,7 @@ public abstract class UnitGroup {
     /**
      * @return postion du Centre des masse du groupe
      */
-     // travailler les Update pour am�lior� la vitesse
+     // travailler les Update pour ameliorer la vitesse
     public Point2D getPosition(){
         double X=0;
         double Y=0;

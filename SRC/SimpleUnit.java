@@ -1,5 +1,7 @@
 import java.awt.geom.Point2D;
 
+import java.util.LinkedList;
+
 public class SimpleUnit extends Unit {
     
     //_____________________ATTRIBUTS____________________//
@@ -7,6 +9,9 @@ public class SimpleUnit extends Unit {
     boolean creating;
     SimpleUnit builder1, builder2;
     SimpleUnitGroup builders;
+    
+    static LinkedList<SimpleUnit> aliveSimpleUnits = new LinkedList<>();
+    static LinkedList<SimpleUnit> deadSimpleUnits = new LinkedList<>();
     
     //___________________CONSTRUCTEURS__________________//
     
@@ -20,6 +25,7 @@ public class SimpleUnit extends Unit {
         creating = false;
         builder1 = null;
         builder2 = null;
+        aliveSimpleUnits.add(this);
     }
 
     /**
@@ -46,18 +52,40 @@ public class SimpleUnit extends Unit {
         if (!creating)
             setBuilders(u1, u2, t);
             
-        else createSoldier();
+        else build();
+            
+    }
+    
+    public void createSoldier(SimpleUnit u1, SimpleUnit u2){
+        if (!creating)
+            setBuilders(u1, u2);
+            
+        else build();
             
     }
     
     public void createSoldier(){
+        if (!creating){
+            SimpleUnit theTwo[] = getTwoClosestSimpleUnits();
+            setBuilders(theTwo[0], theTwo[1]);
+        }
+        else build();
+            
+    }
+    
+    public void build(){
         if (builders.distanceTo(target) <= CREATION_RANGE){
             builders.isDestructed();
             //TODO gerer les conflits à la création ______________________________________________?
             owner.units.add(new Soldier(owner, target));
         } 
     }
-    
+
+    /**
+     * @param u1
+     * @param u2
+     * @param t position du soldat à créer
+     */
     public void setBuilders(SimpleUnit u1,SimpleUnit u2, Point2D t){
         creating = true;
         builders = new SimpleUnitGroup(this);
@@ -66,6 +94,35 @@ public class SimpleUnit extends Unit {
         builder1 = u1;
         builder2 = u2;
         builders.setTarget(t);
+    }
+    
+    /**
+     * @param u1
+     * @param u2
+     * @param t position du soldat à créer
+     */
+    public void setBuilders(SimpleUnit u1,SimpleUnit u2){
+        creating = true;
+        builders = new SimpleUnitGroup(this);
+        builders.add(u1);
+        builders.add(u2);
+        builder1 = u1;
+        builder2 = u2;
+        builders.setTarget(builders.getPosition());
+    }
+    
+    public SimpleUnit[] getTwoClosestSimpleUnits(){
+        LinkedList<SimpleUnit> toCheck = new LinkedList<>(aliveSimpleUnits);
+        toCheck.remove(this);
+        SimpleUnit[] toReturn = {toCheck.getFirst(),toCheck.getFirst()};
+        for (SimpleUnit i : toCheck){
+            if (distanceTo(i)<= distanceTo(toReturn[0])){
+                toReturn[1] = toReturn[0];
+                toReturn[0] = i;
+            }
+            
+        }
+        return toReturn;
     }
     /**
      * Gère la vie d’une US, son max étant LIFE.
@@ -96,11 +153,21 @@ public class SimpleUnit extends Unit {
         }
     }
     
+    public void isDestructed(){
+        //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
+        if (!deadItems.contains(this)){
+            deadItems.add(this);
+            aliveItems.remove(this);
+            deadSimpleUnits.add(this);
+            aliveSimpleUnits.remove(this);
+        }
+    }
+    
     public void execute(){
         setTarget(targetI);
         move();
         if (creating)
-            createSoldier();
+            build();
         else
             heal();
     }
