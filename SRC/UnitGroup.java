@@ -54,11 +54,18 @@ public abstract class UnitGroup {
     }
     
     //_______________MÉTHODES______________//
-   
 
+
+    /**
+     * @return taille du groupe
+     */
     public int numberUnit(){
         return group.size();
     }
+
+    /**
+     * @return toutes les unités du groupe
+     */
     public LinkedList<Unit> getGroup(){
         return group;
     }

@@ -141,6 +141,22 @@ public abstract class Item implements Finals{
         return new Point2D.Double(hitBox.getCenterX(),hitBox.getCenterY());
     }
     
+    public Item[] getNClosestItem(int n){
+        LinkedList<Item> toCheck = new LinkedList<>(aliveItems);
+        toCheck.remove(this);
+        Item[] toReturn = new Item[n];
+        toReturn[0] = toCheck.getFirst();
+        for (Item i : toCheck){
+            if (distanceTo(i)<= distanceTo(toReturn[0])){
+                for (int j = 0; j<n-1; j++)
+                    toReturn[j+1] = toReturn[j];
+                toReturn[0] = i;
+            }
+            
+        }
+        return toReturn;
+    }
+    
     public void isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){

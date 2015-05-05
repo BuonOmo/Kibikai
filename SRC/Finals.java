@@ -42,7 +42,7 @@ public interface Finals {
     /**
      * distance unitaire d’un deplacement en metres;
      */
-    public static final double DISTANCE_TO_MOVE = 0.1;
+    public static final double DISTANCE_TO_MOVE = 0.5;
     
     /**
      * Echelle (distance en metre*scale = distance en pixel).

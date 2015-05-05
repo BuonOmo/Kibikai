@@ -124,6 +124,7 @@ public class SimpleUnit extends Unit {
         }
         return toReturn;
     }
+    
     /**
      * Gère la vie d’une US, son max étant LIFE.
      * @param amount vie ajoutée (- pour en enlever)
