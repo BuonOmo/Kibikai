@@ -2,6 +2,8 @@ import java.util.LinkedList;
 
 
 public class SimpleUnitGroup extends UnitGroup { 
+    
+    static LinkedList<SimpleUnitGroup> list = new LinkedList<>();
 
     //__________________CONSTRUCTEURS__________________//
     
@@ -31,6 +33,7 @@ public class SimpleUnitGroup extends UnitGroup {
     }
     
     // quel est l’objectif (précis) de cette méthode
+    // faire deux méthodes détachées (getDensePart part et densePart)
     public SimpleUnitGroup densePart() {
         LinkedList<SimpleUnit> copactGrp = new LinkedList<SimpleUnit> ();
         LinkedList<SimpleUnit> rest = new LinkedList(group);
@@ -46,6 +49,7 @@ public class SimpleUnitGroup extends UnitGroup {
     private void densePartOfListe (LinkedList<SimpleUnit> copactGrp,LinkedList<SimpleUnit> rest ,SimpleUnit s ){
         rest.remove(s);
         copactGrp.add(s);
+        // modifier le if
         if (rest.size()!=0) {
                 int restSize = rest.size();
             for (int i = restSize-1 ;i>=0;i--){
@@ -61,8 +65,7 @@ public class SimpleUnitGroup extends UnitGroup {
         if (sg.owner==owner){
             if (owner==IA.computer){
                 this.group.addAll(sg.getGroup());
-                // inutile ?_________________________________________________??
-                //this.groupSimpleUnitList.remove(sg);
+                list.remove(sg);
             }
             else this.group.addAll(sg.getGroup());
         }

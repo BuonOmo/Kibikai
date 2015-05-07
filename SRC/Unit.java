@@ -179,7 +179,9 @@ public abstract class Unit extends Item {
         sT = new Point2D.Double(shortTarget.getX() - hitBox.getCenterX(),
         			shortTarget.getY() - hitBox.getCenterY());
 
-        return Math.acos((zero.getX()*sT.getX()+ zero.getY()*sT.getY())/(DISTANCE_TO_MOVE*DISTANCE_TO_MOVE));
+        return Math.acos(((zero.getX()-hitBox.getCenterX())*(sT.getX()-hitBox.getCenterX()) + 
+                          (zero.getY() - hitBox.getCenterY())*(sT.getY() - hitBox.getCenterY()))
+                         /(DISTANCE_TO_MOVE*DISTANCE_TO_MOVE));
     }
         
     
