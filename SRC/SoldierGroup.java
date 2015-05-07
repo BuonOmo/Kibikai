@@ -3,13 +3,18 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class SoldierGroup extends UnitGroup {
-    // inutile ?_________________________________________________________????
-    public static LinkedList<SoldierGroup> groupSoldierList;
+    
+    //______________ATTRIBUTS__________________//
+    
+    public static LinkedList<SoldierGroup> list;
     
     //_______________CONSTRUCTEURS______________//
 
     public SoldierGroup(Soldier soldier) {
         super(soldier);
+        if (soldier.owner == IA.computer);
+            list.add(this);
+            
     }
     public SoldierGroup( LinkedList<Soldier> soldiers ) {
         super(soldiers);
@@ -38,8 +43,8 @@ public class SoldierGroup extends UnitGroup {
         LinkedList<Soldier> copactGrp = new LinkedList<Soldier> ();
         LinkedList<Soldier> rest = new LinkedList (group);
         densePartOfListe (copactGrp,rest,rest.get(0));
-        // inutile ?______________________________________________________________________??
-        //group=copactGrp;
+        group.clear();
+        group.addAll(copactGrp);
         return new SoldierGroup(rest,owner);
     }
     private void densePartOfListe (LinkedList<Soldier> copactGrp,LinkedList<Soldier> rest ,Soldier s ){
@@ -54,20 +59,22 @@ public class SoldierGroup extends UnitGroup {
                 
         
     }
+    
     public void add(SoldierGroup sg){
         if (sg.owner==this.owner){
             if (this.owner==IA.computer){
                 this.group.addAll(sg.getGroup());
-                // inutile ?_____________________________________________________???
-                this.groupSoldierList.remove(sg);
+                list.remove(sg);
             }
             else this.group.addAll(sg.getGroup());
         }
     }
+    
     public boolean isDense(){
         if (this.densePart().group.size()==0) return true ;
         return false ;      
     }
+    
    /* public LinkedList<Soldier> getgroup(){
         return group;
     }

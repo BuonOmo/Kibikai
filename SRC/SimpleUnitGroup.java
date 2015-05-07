@@ -9,6 +9,8 @@ public class SimpleUnitGroup extends UnitGroup {
     
     public SimpleUnitGroup(SimpleUnit us) {
         super(us);
+        if (us.owner == IA.computer);
+            list.add(this);
     }
     
     public SimpleUnitGroup( LinkedList<SimpleUnit> grpUs ) {
@@ -17,6 +19,8 @@ public class SimpleUnitGroup extends UnitGroup {
     
     public SimpleUnitGroup (LinkedList<SimpleUnit> grpUs, Player o) {
         super(grpUs, o);
+        if (o == IA.computer);
+            list.add(this);
     }
     
     //_________________________METHODES_______________________//
@@ -38,11 +42,9 @@ public class SimpleUnitGroup extends UnitGroup {
         LinkedList<SimpleUnit> copactGrp = new LinkedList<SimpleUnit> ();
         LinkedList<SimpleUnit> rest = new LinkedList(group);
         densePartOfListe (copactGrp,rest,rest.get(0));
-        
-        // inutile ? 
-        /*group.clear();
+
+        group.clear();
         group.addAll(copactGrp);
-        groupU = copactGrp;*/
         return new SimpleUnitGroup(rest,owner);
     }
     
@@ -60,7 +62,6 @@ public class SimpleUnitGroup extends UnitGroup {
         
     }
     
-    // quel est l’interet de groupSimpleUnitList ?
     public void add(SimpleUnitGroup sg){
         if (sg.owner==owner){
             if (owner==IA.computer){
@@ -73,15 +74,14 @@ public class SimpleUnitGroup extends UnitGroup {
     
     public void add(SimpleUnit us){
         if (us.owner==owner){
-            if (owner==IA.computer){
+            if (owner==IA.computer)
                 this.group.add(us);
-                // inutile ?_________________________________________________??
-                //this.groupSimpleUnitList.remove(sg);
-            }
+                
             else this.group.add(us);
         }
     
     }
+    
     public boolean isDense(){
         if (this.densePart().group.size()==0) return true ;
         return false ;
