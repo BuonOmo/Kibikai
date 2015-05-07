@@ -18,8 +18,9 @@ public class Canvas extends JComponent{
 		Player P2 = new Player (Color.RED, b1, "Player two FTW" );
 		hitBox = new Rectangle2D.Double (0,0, 10, 10);
 		simpleUnit = new SimpleUnit(P1, new Point2D.Double(50,50), null);
-		s1 = new Soldier(P2, new Point2D.Double(100,100));
-		b1 = new Building(P1, new Point2D.Double(20, 50), 15);
+		s1 = new Soldier(P2, new Point2D.Double(50,20));
+		b1 = new Building(P1, new Point2D.Double(10, 20));
+		//s1.setTarget(b1);
 	}
 	
 	public void paintComponent(Graphics g) {
