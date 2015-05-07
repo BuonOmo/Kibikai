@@ -1,17 +1,13 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -34,6 +30,7 @@ public class UI extends JFrame{
 	final int screenHeight;
 	final int screenWidth;
 	
+	//essais pour les setTarget
 	double tX;
 	double tY;
 	
@@ -81,8 +78,8 @@ public class UI extends JFrame{
 	    frame.add(cadre);
 	    */
 	    
-	    tX=0;
-	    tY=0;
+	    tX=20;
+	    tY=20;
 	    
 	    //JFrame properties
 	    frame.setTitle("LUCA");
@@ -93,14 +90,15 @@ public class UI extends JFrame{
 	
 	public class CustomMouseListener implements MouseListener{
 		
-		public void mousePressed(MouseEvent e) {
-			
-		}
+		public void mousePressed(MouseEvent e) {}
 		public void mouseReleased(MouseEvent e) {}
 		public void mouseEntered(MouseEvent e) {}
 		public void mouseExited(MouseEvent e) {}
 		public void mouseClicked(MouseEvent e) {
-			canvas.s1.setTarget(new Point2D.Double(e.getX(), e.getY()));
+			tX=e.getX();
+			tY=e.getY();
+			System.out.println("C'est bon, ça marche");
+			//canvas.s1.setTarget(new Point2D.Double(e.getX(), e.getY()));
 		}    
 	}
 	
