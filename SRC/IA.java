@@ -18,13 +18,14 @@ public class IA {
         loadQIASimpleUnite();
     }
     public static void execut(){
-        for (int i=0; i<SoldierGroup.groupSoldierList.size();i++){
-            if (SoldierGroup.groupSoldierList.get(i).getOwner()==computer);
-            SoldierGroup.groupSoldierList.get(i).iaSoldier.execut();
+        for (int i=0; i<SoldierGroup.list.size();i++){
+            if (SoldierGroup.list.get(i).getOwner()==computer);
+            SoldierGroup.list.get(i).iaSoldier.execut();
         }
-        for (int i=0; i<SimpleUnitGroup.groupSimpleUnitList.size();i++){
-            if (SimpleUnitGroup.groupSimpleUnitList.get(i).getOwner()==computer);
-            SimpleUnitGroup.groupSimpleUnitList.get(i).iaSimpleUnit.execut();
+        
+        for (int i=0; i<SimpleUnitGroup.list.size();i++){
+            if (SimpleUnitGroup.list.get(i).getOwner()==computer);
+            SimpleUnitGroup.list.get(i).iaSimpleUnit.execut();
         }
     }
    
@@ -66,7 +67,7 @@ public class IA {
     
     
     public static void saveQIASoldierANDSimpleUnit() throws IOException{  
-    	// Crée ou rase à neuf les fichiers de sauvegarde
+    	// Crï¿½e ou rase ï¿½ neuf les fichiers de sauvegarde
     	 File saveFileSol = new File("SaveqIASoldier.txt");
 		 File saveFileSU = new File("SaveqIASimpleUnite.txt");
 		 
