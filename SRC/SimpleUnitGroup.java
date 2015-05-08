@@ -2,25 +2,31 @@ import java.util.LinkedList;
 
 
 public class SimpleUnitGroup extends UnitGroup { 
+    //_____________ATTRIBUTS____________//
     
     static LinkedList<SimpleUnitGroup> list = new LinkedList<>();
+    IASimpleUnit ia;
 
     //__________________CONSTRUCTEURS__________________//
     
     public SimpleUnitGroup(SimpleUnit us) {
         super(us);
-        if (us.owner == IA.computer);
+        if (us.owner == IA.computer){
             list.add(this);
+            ia = new IASimpleUnit(this);
+        }
     }
     
-    public SimpleUnitGroup( LinkedList<SimpleUnit> grpUs ) {
+    private SimpleUnitGroup( LinkedList<SimpleUnit> grpUs ) {
         super(grpUs);
     }
     
     public SimpleUnitGroup (LinkedList<SimpleUnit> grpUs, Player o) {
         super(grpUs, o);
-        if (o == IA.computer);
+        if (o == IA.computer){
             list.add(this);
+            ia = new IASimpleUnit(this);
+        }
     }
     
     //_________________________METHODES_______________________//

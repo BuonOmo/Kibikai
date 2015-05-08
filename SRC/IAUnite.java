@@ -9,9 +9,9 @@ public abstract class IAUnite  {
     public LinkedList<Soldier> soldierComputerInZone2;
     public LinkedList<Soldier> soldierComputerInZone1;
     public LinkedList<SimpleUnit> simpleUnitPlyaerInZone3;
-    public double R3; //ajouteé a finals//
-    public double R2; //ajouteé a finals//
-    public double R1; //ajouteé a finals//
+    public double R3; //ajouteï¿½ a finals//
+    public double R2; //ajouteï¿½ a finals//
+    public double R1; //ajouteï¿½ a finals//
     public IAUnite() {
         soldierPlyaerInZone3= new LinkedList<Soldier>();
         soldierPlyaerInZone2= new LinkedList<Soldier>();
@@ -53,8 +53,8 @@ public abstract class IAUnite  {
         soldierPlyaerInZone1.clear();
         for (int i = 0; i< soldierPlyaerInZone2.size();i++){
             if (soldierPlyaerInZone2.get(i).getClass().getName()=="Soldier"){
-                for (int j = 0; j<unitGroup.groupUnits.size(); j++ ){
-                    if (unitGroup.groupUnits.get(j).distanceTo(soldierPlyaerInZone1.get(i))<R1) { 
+                for (int j = 0; j<unitGroup.group.size(); j++ ){
+                    if (unitGroup.group.get(j).distanceTo(soldierPlyaerInZone1.get(i))<R1) { 
                         soldierPlyaerInZone1.add(soldierPlyaerInZone2.get(i));
                         break;
                     }
@@ -76,8 +76,8 @@ public abstract class IAUnite  {
         soldierComputerInZone1.clear();
         for (int i = 0; i< soldierComputerInZone2.size();i++){
             if (soldierComputerInZone2.get(i).getClass().getName()=="Soldier"){
-                for (int j = 0; j<unitGroup.groupUnits.size(); j++ ){
-                    if (unitGroup.groupUnits.get(j).distanceTo(soldierComputerInZone1.get(i))<R1) { 
+                for (int j = 0; j<unitGroup.group.size(); j++ ){
+                    if (unitGroup.group.get(j).distanceTo(soldierComputerInZone1.get(i))<R1) { 
                         soldierComputerInZone1.add(soldierComputerInZone2.get(i));
                         break;
                     }

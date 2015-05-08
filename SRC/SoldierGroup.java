@@ -7,20 +7,29 @@ public class SoldierGroup extends UnitGroup {
     //______________ATTRIBUTS__________________//
     
     public static LinkedList<SoldierGroup> list;
+    IASoldier ia;
     
     //_______________CONSTRUCTEURS______________//
 
     public SoldierGroup(Soldier soldier) {
         super(soldier);
-        if (soldier.owner == IA.computer);
+        if (soldier.owner == IA.computer){
             list.add(this);
+            ia = new IASoldier(this);
+        }
             
     }
-    public SoldierGroup( LinkedList<Soldier> soldiers ) {
+    
+    private SoldierGroup( LinkedList<Soldier> soldiers ) {
         super(soldiers);
     }
+    
     public SoldierGroup ( LinkedList<Soldier> soldiers ,Player ownerToSet) {
         super(soldiers, ownerToSet);
+        if (owner == IA.computer){
+            list.add(this);
+            ia = new IASoldier(this);
+        }
     }
     
     //_______________MÉTHODES______________//

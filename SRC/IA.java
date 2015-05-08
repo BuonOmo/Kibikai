@@ -18,14 +18,12 @@ public class IA {
         loadQIASimpleUnite();
     }
     public static void execut(){
-        for (int i=0; i<SoldierGroup.list.size();i++){
-            if (SoldierGroup.list.get(i).getOwner()==computer);
-            SoldierGroup.list.get(i).iaSoldier.execut();
+        for (SoldierGroup element : SoldierGroup.list){
+            element.ia.execut();
         }
         
-        for (int i=0; i<SimpleUnitGroup.list.size();i++){
-            if (SimpleUnitGroup.list.get(i).getOwner()==computer);
-            SimpleUnitGroup.list.get(i).iaSimpleUnit.execut();
+        for (SimpleUnitGroup element : SimpleUnitGroup.list){
+            element.ia.execut();
         }
     }
    
