@@ -51,19 +51,20 @@ public abstract class Unit extends Item {
      * Gère le déplacement d’une unité.
      */
     public void move(){
+        // deplace l’objet de la distance renvoyée par canMove
         hitBox.setRect(hitBox.getX() + canMove().getX() - hitBox.getCenterX(), 
                        hitBox.getY() + canMove().getY() - hitBox.getCenterY(), 
                        hitBox.getWidth(), 
                        hitBox.getHeight() );
     }
     
-    //_______MÉTHODES POUR LE DÉPLACEMENT____//
+    //________MÉTHODES POUR LE DÉPLACEMENT______//
     
     /**
-     * permet de trouver le vecteur unitaire de déplacement en fonction 
+     * permet de trouver le point d’arrivée du déplacement en fonction 
      * d’un angle alpha par rapport au vecteur unité/objectif.
      * @param alpha angle du déplacement par rapport à la droite Objet-Cible
-     * @return vecteur de déplacement unitaire
+     * @return point d’arrivé du déplacement
      */
     public Point2D getShortTarget(double alpha){
         
@@ -79,6 +80,24 @@ public abstract class Unit extends Item {
     }
     
     /**
+     * permet de trouver le vecteur unitaire de déplacement en fonction 
+     * d’un angle alpha par rapport au vecteur unité/objectif.
+     * @param alpha angle du déplacement par rapport à la droite Objet-Cible
+     * @return vecteur de déplacement unitaire
+     */
+    public Point2D getShortVector(double alpha){
+        
+        Point2D shortTarget;
+        shortTarget = new Point2D.Double();
+        
+        double x, y;
+        x = (double) (target.getX() - hitBox.getCenterX()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
+        y = (double) (target.getY() - hitBox.getCenterY()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
+        
+        shortTarget.setLocation( Math.cos(alpha)*x, Math.sin(alpha)*y);
+        return shortTarget;
+    }
+    /**
      * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
      * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection, 
      * sinon tableau vide renvoyé).
@@ -90,11 +109,12 @@ public abstract class Unit extends Item {
         double y0 = this.getCenter().getY();
         double x1 = other.getCenter().getX();
         double y1 = other.getCenter().getY();
-        
+        /*
         double x0Coin = this.hitBox.getX();
         double y0Coin = this.hitBox.getY();
         double x1Coin = other.hitBox.getX();
         double y1Coin = other.hitBox.getY();
+        */
         
         //double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
         double R0 = DISTANCE_TO_MOVE;
@@ -237,10 +257,12 @@ public abstract class Unit extends Item {
             if (toAvoid == null)
                 return shortTarget;
             
+            // enleve l’obstacle de la liste des obstacles une fois qu’il a été traité
             obstacle.remove(toAvoid);
             
             //setAlpha et setBeta
             for (int i=0 ; i<2 ;i++){
+                // les deux angles possible de contournement de l’obstacle
                 temp = findAngle(getIntersect(toAvoid)[i]);
                 
                 beta = (temp < beta) ? temp : beta;
@@ -249,6 +271,7 @@ public abstract class Unit extends Item {
             
         }while(alpha < 180.0 || beta > -180.0);  // mettre un "et" logique ici ?
         
+        // impossible de se déplacer
         return null;
     }
 }

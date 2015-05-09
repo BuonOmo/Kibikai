@@ -77,10 +77,8 @@ public abstract class Item implements Finals{
      * @param targetToSet 
      */
     public void setTarget(Item targetToSet){
-        if (targetToSet != null){
-            targetI = targetToSet;
-            target = targetToSet.getCenter();
-        }
+        targetI = targetToSet;
+        target = targetToSet.getCenter();
     }
     
 
@@ -118,18 +116,19 @@ public abstract class Item implements Finals{
     
     public double distanceTo(Item other){
     	double d;
-    	double x1= this.hitBox.getX();
-    	double y1=this.hitBox.getY();
-    	double x2=other.hitBox.getX();
-    	double y2=other.hitBox.getY();
+    	double x1= this.hitBox.getCenterX();
+    	double y1=this.hitBox.getCenterY();
+    	double x2=other.hitBox.getCenterX();
+    	double y2=other.hitBox.getCenterY();
     	d=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
     	return d;
     }
 
     /**
+     * 
      * @param other unité proche
      * @param range portée de l’attaque ou du soin (ou autre)
-     * @return vraie si proche
+     * @return vraie si la distance entre les deux extremités des objets sont plus petites que range
      */
     public boolean isCloseTo(Item other, double range){
         if (distanceTo(other) <= radius + other.radius + range)
@@ -141,7 +140,8 @@ public abstract class Item implements Finals{
         return new Point2D.Double(hitBox.getCenterX(),hitBox.getCenterY());
     }
     
-    public Item[] getNClosestItem(int n){
+    
+    public Item[] getNClosestObject(int n, String type){
         LinkedList<Item> toCheck = new LinkedList<>(aliveItems);
         toCheck.remove(this);
         Item[] toReturn = new Item[n];
@@ -164,7 +164,10 @@ public abstract class Item implements Finals{
             aliveItems.remove(this);
         }
     }
-    
+
+    /**
+     * @return vraie si la vie est en dessous de 0
+     */
     public boolean isDead(){
         return (life <= 0);
     }
