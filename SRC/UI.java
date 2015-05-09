@@ -41,7 +41,8 @@ public class UI extends JFrame{
 	public UI(){
 		
 		JFrame frame = new JFrame();
-
+		frame.addMouseListener(new CustomMouseListener());
+		
 		//Size of the screen, have to go in the finals ??
 		Toolkit tk = Toolkit.getDefaultToolkit();
 	    Dimension screenSize = tk.getScreenSize();
@@ -89,7 +90,7 @@ public class UI extends JFrame{
 	}
 	
 	public class CustomMouseListener implements MouseListener{
-		
+	
 		public void mousePressed(MouseEvent e) {}
 		public void mouseReleased(MouseEvent e) {}
 		public void mouseEntered(MouseEvent e) {}
@@ -97,8 +98,8 @@ public class UI extends JFrame{
 		public void mouseClicked(MouseEvent e) {
 			tX=e.getX();
 			tY=e.getY();
-			System.out.println("C'est bon, ça marche");
-			//canvas.s1.setTarget(new Point2D.Double(e.getX(), e.getY()));
+			System.out.println("C'est bon, ça marche "+ tX + ", " + tY);
+			canvas.s1.setTarget(new Point2D.Double(e.getX()/Finals.scale, e.getY()/Finals.scale));
 		}    
 	}
 	
