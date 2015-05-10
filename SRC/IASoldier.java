@@ -1,10 +1,10 @@
 import java.util.LinkedList;
 
 public class IASoldier extends IAUnite {
-    public SoldierGroup soldierGroup ;
+
     public IASoldier(SoldierGroup soldierGroupToSet) {
-        soldierGroup=soldierGroupToSet;
-        super.setAll(soldierGroupToSet);
+       
+        super(soldierGroupToSet);
     }
     public int calculateStaite() {
         int state =0;
@@ -53,7 +53,7 @@ public class IASoldier extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
-        return 0;
+        return 1;
     }
 
     public void applyStrategy(int strategy) {
@@ -62,13 +62,13 @@ public class IASoldier extends IAUnite {
             /*
              * attaquer le qg addversaire
              */
-            soldierGroup.setTarget(IA.player.base.getCenter());
+            unitGroup.setTarget(IA.player.base.getCenter());
             break;
         case 2:
             /*
              * all� d�fandre le qg alli� 
              */
-            soldierGroup.setTarget(IA.computer.base.getCenter());
+            unitGroup.setTarget(IA.computer.base.getCenter());
             break;
         case 3:
             /*
@@ -78,45 +78,45 @@ public class IASoldier extends IAUnite {
                 /*
                  * ajouter soldierGroup au group alli� le plus proche 
                  */
-                double distence =  SoldierGroup.list.get(0).distanceTo(soldierGroup);
+                double distence =  SoldierGroup.list.get(0).distanceTo(unitGroup);
                 SoldierGroup group = SoldierGroup.list.get(0);
                 for(int i =1 ;i < SoldierGroup.list.size();i++){
-                    if (distence >SoldierGroup.list.get(i).distanceTo(soldierGroup)){
-                        distence=SoldierGroup.list.get(i).distanceTo(soldierGroup);
+                    if (distence >SoldierGroup.list.get(i).distanceTo(unitGroup)){
+                        distence=SoldierGroup.list.get(i).distanceTo(unitGroup);
                         group = SoldierGroup.list.get(i);
                     }
                 }
-                group.add(soldierGroup);
+                group.add(unitGroup);//c'est la merde !!
             }
             else {
                 if (soldierPlyaerInZone1.size()!= 0){
                 /*
                  * se r�unire 
                  */
-                soldierGroup.setTarget(soldierGroup.getPosition());
+                unitGroup.setTarget(unitGroup.getPosition());
                 }
             }
             if (soldierPlyaerInZone1.size()== 0){
                 if (soldierPlyaerInZone2.size()>soldierComputerInZone2.size()) {
-                    soldierGroup.setTarget(IA.computer.base.getCenter());
+                    unitGroup.setTarget(IA.computer.base.getCenter());
                 }
                 else{
                     if (soldierPlyaerInZone2.size()!= 0){
-                        double distence =  soldierPlyaerInZone2.get(0).distanceTo(soldierGroup.getPosition());
+                        double distence =  soldierPlyaerInZone2.get(0).distanceTo(unitGroup.getPosition());
                         Soldier soldier =  soldierPlyaerInZone2.get(0);
                         for (int i = 1; i>soldierPlyaerInZone2.size();i++ ){
-                            if (soldierPlyaerInZone2.get(i).distanceTo(soldierGroup.getPosition())<distence){
-                                distence = soldierPlyaerInZone2.get(i).distanceTo(soldierGroup.getPosition());
+                            if (soldierPlyaerInZone2.get(i).distanceTo(unitGroup.getPosition())<distence){
+                                distence = soldierPlyaerInZone2.get(i).distanceTo(unitGroup.getPosition());
                                 soldier =soldierPlyaerInZone2.get(i);
                             }
                             
                         }
-                    soldierGroup.setTarget(soldier.getCenter());
+                    unitGroup.setTarget(soldier.getCenter());
                     }
                 }
                 if (soldierPlyaerInZone2.size()== 0){
                     if (soldierPlyaerInZone2.size()== 0){
-                        soldierGroup.setTarget(soldierGroup.getPosition());
+                        unitGroup.setTarget(unitGroup.getPosition());
                     }
                     else {
                         SoldierGroup plyaerZone3 = new SoldierGroup(soldierPlyaerInZone3,IA.player);
@@ -132,26 +132,26 @@ public class IASoldier extends IAUnite {
                                 smolerSoldierGroup = plyaerZone3Groups.get(i);
                             }
                         }
-                        if (smolerSoldierGroup.group.size()<soldierGroup.group.size()){
-                            soldierGroup.setTarget(smolerSoldierGroup.getPosition());
+                        if (smolerSoldierGroup.group.size()<unitGroup.group.size()){
+                            unitGroup.setTarget(smolerSoldierGroup.getPosition());
                         }
                         else{
                             if (soldierPlyaerInZone3.size()>soldierComputerInZone3.size()) {
-                                soldierGroup.setTarget(IA.computer.base.getCenter());
+                                unitGroup.setTarget(IA.computer.base.getCenter());
                             }
                             else{
                                 /*
                                  * ajouter soldierGroup au group alli� le plus proche 
                                  */
-                                double distence =  SoldierGroup.list.get(0).distanceTo(soldierGroup);
+                                double distence =  SoldierGroup.list.get(0).distanceTo(unitGroup);
                                 SoldierGroup group = SoldierGroup.list.get(0);
                                 for(int i =1 ;i < SoldierGroup.list.size();i++){
-                                    if (distence >SoldierGroup.list.get(i).distanceTo(soldierGroup)){
-                                        distence=SoldierGroup.list.get(i).distanceTo(soldierGroup);
+                                    if (distence >SoldierGroup.list.get(i).distanceTo(unitGroup)){
+                                        distence=SoldierGroup.list.get(i).distanceTo(unitGroup);
                                         group = SoldierGroup.list.get(i);
                                     }
                                 }
-                                group.add(soldierGroup);
+                                group.add(unitGroup);//c'est la merde ici aussi !!
                             }
                         }
                         

@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public abstract class IAUnite  {
-    private UnitGroup unitGroup;
+    protected UnitGroup unitGroup;
     public LinkedList<Soldier> soldierPlyaerInZone3;
     public LinkedList<Soldier> soldierPlyaerInZone2;
     public LinkedList<Soldier> soldierPlyaerInZone1;
@@ -12,7 +12,8 @@ public abstract class IAUnite  {
     public double R3; //ajoute� a finals//
     public double R2; //ajoute� a finals//
     public double R1; //ajoute� a finals//
-    public IAUnite() {
+    public IAUnite(UnitGroup unitGroupToSet) {
+        unitGroup =unitGroupToSet;
         soldierPlyaerInZone3= new LinkedList<Soldier>();
         soldierPlyaerInZone2= new LinkedList<Soldier>();
         soldierPlyaerInZone1= new LinkedList<Soldier>();
@@ -21,12 +22,11 @@ public abstract class IAUnite  {
         soldierComputerInZone1= new LinkedList<Soldier>();
         simpleUnitPlyaerInZone3 = new LinkedList<SimpleUnit>();
     }
-    public void setAll(UnitGroup unitGroupToSet){
-        unitGroup =unitGroupToSet;
-    }
     public void execut(){
         updateZone ();
-        applyStrategy (chooseStrategy(calculateStaite()));
+        int state =calculateStaite();
+        int Strategy= chooseStrategy(state);
+        applyStrategy (Strategy);
     }
     public abstract int calculateStaite ();
     public abstract int chooseStrategy (int staite);

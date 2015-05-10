@@ -54,8 +54,8 @@ public class IA {
      * @param histoList
      * @param index
      */
-    public static void rinforceQ(double [][] Q,LinkedList <IAHistObj> histoList,int index ){
-        double Qsa;
+    public static void rinforceQ(Double [][] Q,LinkedList <IAHistObj> histoList,int index ){
+        Double Qsa;
         Qsa= Q[histoList.get(index).Stait][histoList.get(index).Action]+Alpa*(histoList.get(index).Reward+Gamma*Q[histoList.get(index+1).Stait][histoList.get(index+1).Action]-Q[histoList.get(index).Stait][histoList.get(index).Action]);
         Q[histoList.get(index).Stait][histoList.get(index).Action]=Qsa;
     }
