@@ -64,43 +64,105 @@ public class IA {
     
     
     
-    public static void saveQIASoldierANDSimpleUnit() throws IOException{  
+    public static void saveQIASoldierANDSimpleUnit(){  
     	// Cr�e ou rase � neuf les fichiers de sauvegarde
     	 File saveFileSol = new File("SaveqIASoldier.txt");
 		 File saveFileSU = new File("SaveqIASimpleUnite.txt");
 		 
 		 if(!saveFileSol.exists()){
-			 saveFileSol.createNewFile();
+			 try {
+				saveFileSol.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		 }else{
 			 saveFileSol.delete();
-			 saveFileSol.createNewFile();
+			 try {
+				saveFileSol.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		 }
 		 if(!saveFileSU.exists()){
-			 saveFileSU.createNewFile();
+			 try {
+				saveFileSU.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		 }else{
 			 saveFileSU.delete();
-			 saveFileSU.createNewFile();
+			 try {
+				saveFileSU.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		 }
 		 //Initialise les FileWriter
-		 FileWriter scribeSol = new FileWriter(saveFileSol);
-		 FileWriter scribeSu = new FileWriter(saveFileSU);
+		 FileWriter scribeSol;
+		try {
+			scribeSol = new FileWriter(saveFileSol);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 FileWriter scribeSu;
+		try {
+			scribeSu = new FileWriter(saveFileSU);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 //Ecrit la hauteur et la lareur du tableau sur les deux premieres lignes des fichiers
-		 scribeSol.write(""+qIASoldier.length+"\n"+qIASoldier[0].length+"\n");
-		 scribeSol.write(""+qIASimpleUnit.length+"\n"+qIASimpleUnit[0].length+"\n");
+		 try {
+			scribeSol.write(""+qIASoldier.length+"\n"+qIASoldier[0].length+"\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+			scribeSol.write(""+qIASimpleUnit.length+"\n"+qIASimpleUnit[0].length+"\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 //Copie les information en format String, a raison d'une valeur par ligne
 		 for(int i=0;i<qIASoldier.length;i++){
 			 for(int k=0;k<qIASoldier[0].length;k++){
-				 scribeSol.write(""+qIASoldier[i][k]+"\n");
+				 try {
+					scribeSol.write(""+qIASoldier[i][k]+"\n");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			 }
 		 }
 		 for(int i=0;i<qIASimpleUnit.length;i++){
 			 for(int k=0;k<qIASimpleUnit[0].length;k++){
-				 scribeSu.write(""+qIASimpleUnit[i][k]+"\n");
+				 try {
+					scribeSu.write(""+qIASimpleUnit[i][k]+"\n");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			 }
 		 }
 		 //Ferme les FileWriter
-		 scribeSol.close();
-		 scribeSu.close();
+		 try {
+			scribeSol.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 try {
+			scribeSu.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
     }
     private static void loadQIASoldier() throws FileNotFoundException{   	
