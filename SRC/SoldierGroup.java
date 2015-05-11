@@ -69,14 +69,19 @@ public class SoldierGroup extends UnitGroup {
         
     }
     
-    public void add(SoldierGroup sg){
-        if (sg.owner==this.owner){
-            if (this.owner==IA.computer){
-                this.group.addAll(sg.getGroup());
-                list.remove(sg);
+    public boolean add(UnitGroup sg){
+        String className = sg.getClass().getName();
+        if (className == "SoldierGroup"){
+            if (sg.owner==this.owner){
+                if (this.owner==IA.computer){
+                    this.group.addAll(sg.getGroup());
+                    list.remove(sg);
+                }
+                else this.group.addAll(sg.getGroup());
             }
-            else this.group.addAll(sg.getGroup());
+        return true;
         }
+        else return false; 
     }
     
     public boolean isDense(){

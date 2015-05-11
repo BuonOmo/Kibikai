@@ -21,7 +21,7 @@ public class IASoldier extends IAUnite {
         /*
          * bat compiuter (+0;4)
          */
-        for (Soldier i : IA.player.units){
+        for (Soldier i : IA.player.soldiers){
             if (IA.computer.base.isCloseTo(i,Finals.ATTACK_RANGE)){
                 state=4+state;
                 break;
@@ -35,7 +35,7 @@ public class IASoldier extends IAUnite {
         /*
          * bat player est attaquer ()
          */
-        for (Soldier i : IA.computer.units){
+        for (Soldier i : IA.computer.soldiers){
             if (IA.player.base.isCloseTo(i,Finals.ATTACK_RANGE)){
                 state=8+state;
                 break;

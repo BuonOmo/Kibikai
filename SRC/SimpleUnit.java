@@ -10,8 +10,8 @@ public class SimpleUnit extends Unit {
     SimpleUnit builder1, builder2;
     SimpleUnitGroup builders;
     
-    static LinkedList<SimpleUnit> aliveSimpleUnits = new LinkedList<>();
-    static LinkedList<SimpleUnit> deadSimpleUnits = new LinkedList<>();
+    static LinkedList<SimpleUnit> aliveSimpleUnits = new LinkedList<SimpleUnit>();
+    static LinkedList<SimpleUnit> deadSimpleUnits = new LinkedList<SimpleUnit>();
     
     //___________________CONSTRUCTEURS__________________//
     
@@ -112,7 +112,7 @@ public class SimpleUnit extends Unit {
     }
     
     public SimpleUnit[] getTwoClosestSimpleUnits(){
-        LinkedList<SimpleUnit> toCheck = new LinkedList<>(aliveSimpleUnits);
+        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(aliveSimpleUnits);
         toCheck.remove(this);
         SimpleUnit[] toReturn = {toCheck.getFirst(),toCheck.getFirst()};
         for (SimpleUnit i : toCheck){

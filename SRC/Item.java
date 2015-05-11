@@ -142,7 +142,7 @@ public abstract class Item implements Finals{
     
     
     public Item[] getNClosestObject(int n, String type){
-        LinkedList<Item> toCheck = new LinkedList<>(aliveItems);
+        LinkedList<Item> toCheck = new LinkedList<Item>(aliveItems);
         toCheck.remove(this);
         Item[] toReturn = new Item[n];
         toReturn[0] = toCheck.getFirst();

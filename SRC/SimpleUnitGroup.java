@@ -4,7 +4,7 @@ import java.util.LinkedList;
 public class SimpleUnitGroup extends UnitGroup { 
     //_____________ATTRIBUTS____________//
     
-    static LinkedList<SimpleUnitGroup> list = new LinkedList<>();
+    static LinkedList<SimpleUnitGroup> list = new LinkedList<SimpleUnitGroup>();
     IASimpleUnit ia;
 
     //__________________CONSTRUCTEURS__________________//
