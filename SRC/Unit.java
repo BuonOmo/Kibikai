@@ -52,8 +52,8 @@ public abstract class Unit extends Item {
      */
     public void move(){
         // deplace l’objet de la distance renvoyée par canMove
-        hitBox.setRect(hitBox.getX() + canMove().getX() - hitBox.getCenterX(), 
-                       hitBox.getY() + canMove().getY() - hitBox.getCenterY(), 
+        hitBox.setRect(hitBox.getX() + getVector().getX(), 
+                       hitBox.getY() + getVector().getY(), 
                        hitBox.getWidth(), 
                        hitBox.getHeight() );
     }
@@ -82,20 +82,12 @@ public abstract class Unit extends Item {
     /**
      * permet de trouver le vecteur unitaire de déplacement en fonction 
      * d’un angle alpha par rapport au vecteur unité/objectif.
-     * @param alpha angle du déplacement par rapport à la droite Objet-Cible
      * @return vecteur de déplacement unitaire
      */
-    public Point2D getShortVector(double alpha){
+    public Point2D getVector(){
         
-        Point2D shortTarget;
-        shortTarget = new Point2D.Double();
-        
-        double x, y;
-        x = (double) (target.getX() - hitBox.getCenterX()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
-        y = (double) (target.getY() - hitBox.getCenterY()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
-        
-        shortTarget.setLocation( Math.cos(alpha)*x, Math.sin(alpha)*y);
-        return shortTarget;
+        return new Point2D.Double( (target.getX() - hitBox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target), 
+                                   (target.getY() - hitBox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target));
     }
     /**
      * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
