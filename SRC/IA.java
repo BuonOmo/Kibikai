@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class IA {
     public static double Gamma = Finals.IA_GAMMA;
     public static double Alpa = Finals.IA_ALPHA;
-    public static Double [][] qIASoldier;
-    public static Double [][] qIASimpleUnit;
+    public static Double [][] qIASoldier ;
+    public static Double [][] qIASimpleUnit ;
     public static Player computer;
     public static Player player;//le joueur est adversaire de l'IA//
     
@@ -47,7 +47,12 @@ public class IA {
                     
             } 
         }
-        saveQIASoldierANDSimpleUnit();
+        try {
+                            saveQIASoldierANDSimpleUnit();
+                        } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
     }
     /**
      * @param Q
@@ -64,107 +69,45 @@ public class IA {
     
     
     
-    public static void saveQIASoldierANDSimpleUnit(){  
-    	// Cr�e ou rase � neuf les fichiers de sauvegarde
-    	 File saveFileSol = new File("SaveqIASoldier.txt");
-		 File saveFileSU = new File("SaveqIASimpleUnite.txt");
-		 
-		 if(!saveFileSol.exists()){
-			 try {
-				saveFileSol.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 }else{
-			 saveFileSol.delete();
-			 try {
-				saveFileSol.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 }
-		 if(!saveFileSU.exists()){
-			 try {
-				saveFileSU.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 }else{
-			 saveFileSU.delete();
-			 try {
-				saveFileSU.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 }
-		 //Initialise les FileWriter
-		 FileWriter scribeSol;
-		try {
-			scribeSol = new FileWriter(saveFileSol);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 FileWriter scribeSu;
-		try {
-			scribeSu = new FileWriter(saveFileSU);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 //Ecrit la hauteur et la lareur du tableau sur les deux premieres lignes des fichiers
-		 try {
-			scribeSol.write(""+qIASoldier.length+"\n"+qIASoldier[0].length+"\n");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 try {
-			scribeSol.write(""+qIASimpleUnit.length+"\n"+qIASimpleUnit[0].length+"\n");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 //Copie les information en format String, a raison d'une valeur par ligne
-		 for(int i=0;i<qIASoldier.length;i++){
-			 for(int k=0;k<qIASoldier[0].length;k++){
-				 try {
-					scribeSol.write(""+qIASoldier[i][k]+"\n");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			 }
-		 }
-		 for(int i=0;i<qIASimpleUnit.length;i++){
-			 for(int k=0;k<qIASimpleUnit[0].length;k++){
-				 try {
-					scribeSu.write(""+qIASimpleUnit[i][k]+"\n");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			 }
-		 }
-		 //Ferme les FileWriter
-		 try {
-			scribeSol.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 try {
-			scribeSu.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public static void saveQIASoldierANDSimpleUnit() throws IOException{  
+           // Cr?e ou rase ? neuf les fichiers de sauvegarde
+            File saveFileSol = new File("SaveqIASoldier.txt");
+                    File saveFileSU = new File("SaveqIASimpleUnite.txt");
+                    
+                    if(!saveFileSol.exists()){
+                            saveFileSol.createNewFile();
+                    }else{
+                            saveFileSol.delete();
+                            saveFileSol.createNewFile();
+                    }
+                    if(!saveFileSU.exists()){
+                            saveFileSU.createNewFile();
+                    }else{
+                            saveFileSU.delete();
+                            saveFileSU.createNewFile();
+                    }
+                    //Initialise les FileWriter
+                    FileWriter scribeSol = new FileWriter(saveFileSol);
+                    FileWriter scribeSu = new FileWriter(saveFileSU);
+                    //Ecrit la hauteur et la lareur du tableau sur les deux premieres lignes des fichiers
+                    scribeSol.write(""+qIASoldier.length+"\n"+qIASoldier[0].length+"\n");
+                    scribeSol.write(""+qIASimpleUnit.length+"\n"+qIASimpleUnit[0].length+"\n");
+                    //Copie les information en format String, a raison d'une valeur par ligne
+                    for(int i=0;i<qIASoldier.length;i++){
+                            for(int k=0;k<qIASoldier[0].length;k++){
+                                    scribeSol.write(""+qIASoldier[i][k]+"\n");
+                            }
+                    }
+                    for(int i=0;i<qIASimpleUnit.length;i++){
+                            for(int k=0;k<qIASimpleUnit[0].length;k++){
+                                    scribeSu.write(""+qIASimpleUnit[i][k]+"\n");
+                            }
+                    }
+                    //Ferme les FileWriter
+                    scribeSol.close();
+                    scribeSu.close();
 
-    }
+       }
     private static void loadQIASoldier() throws FileNotFoundException{   	
     	 Scanner scanner = new Scanner(new File("SaveqIASoldier.txt")); 	 
 		 int nBLignes = Integer.parseInt(scanner.nextLine());
@@ -180,6 +123,7 @@ public class IA {
 		 scanner.close();
 		 qIASoldier = qIASoldierLoading;        
     }
+
     private static void loadQIASimpleUnite() throws FileNotFoundException{
     	 Scanner scanner = new Scanner(new File("SaveqIASimpleUnit.txt")); 	 
 		 int nBLignes = Integer.parseInt(scanner.nextLine());
