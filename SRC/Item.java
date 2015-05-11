@@ -64,9 +64,7 @@ public abstract class Item implements Finals{
     
     /**
      * Permet de déplacer une unité vers un point donné.
-     *
      * @param targetToSet Point d’arrivée de l’unité (objectif)
-     * 
      */
     public void setTarget(Point2D targetToSet){
         targetI = null;
@@ -197,11 +195,11 @@ public abstract class Item implements Finals{
             
             // erreur dans SimpleUnit.heal()
             case 1:
-                msg = "l’objet à soigner est mort";
+                msg = "l'objet a�soigner est mort";
             break;
             
             default:
-                msg = "erreur non identifiée";
+                msg = "erreur non identifiee";
         }
     }
 }

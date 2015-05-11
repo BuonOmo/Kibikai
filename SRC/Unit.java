@@ -7,7 +7,6 @@ import java.util.LinkedList;
 
 public abstract class Unit extends Item {
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
-   
     /**
      * @param owner
      * @param topLeftCorner
@@ -16,8 +15,7 @@ public abstract class Unit extends Item {
      */
     public Unit(Player owner, Point2D topLeftCorner,int width, int height){
         super(owner, topLeftCorner, width, height);
-    }
-    
+    }   
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
@@ -46,7 +44,7 @@ public abstract class Unit extends Item {
     public void stop(){
         target = this.getCenter();
     }
-    
+ 
     /**
      * Gère le déplacement d’une unité.
      */

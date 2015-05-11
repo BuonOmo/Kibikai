@@ -6,7 +6,10 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
 public class Building extends Item{
-    
+	// _____________VARIABLE______________//
+	
+    boolean destructed;
+	
     // _____________CONSTRUCTEURS______________//
 
     /**
@@ -17,6 +20,7 @@ public class Building extends Item{
     public Building(Player owner, Point2D topLeftCorner, double side){
         super(owner, topLeftCorner, side);
         life = Math.pow(side, 2)*LIFE;
+        destructed = false;
     }
     
     /**
@@ -24,7 +28,8 @@ public class Building extends Item{
      * @param topLeftCorner postion du batiment
      */
     public Building(Player owner, Point2D topLeftCorner){
-        this(owner, topLeftCorner,2);      
+        this(owner, topLeftCorner,2);
+        destructed = false;
     }
     //________________METHODES_______________//
     
@@ -77,13 +82,17 @@ public class Building extends Item{
     public void decrease(){
         
         life-= DAMAGE;
-        
+        if((life)>0){
         double newSide = Math.sqrt(life/LIFE);
         double shift = (newSide - hitBox.getHeight())/4.0;
         hitBox.setRect(hitBox.getX() - shift/2, 
                        hitBox.getY() - shift/2, 
                        newSide, 
                        newSide);
+        }else{
+        	destructed = true;
+        	/// TODO gerer la defaite du player en arretant le jeu et en lancant une derniere fois l'execute des IA pour prendre la defaite/victoire en compte.
+        }
     }
     
     /**

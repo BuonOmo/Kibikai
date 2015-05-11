@@ -7,4 +7,10 @@ public class IAHistObj {
         Action=ac;
         Reward=re;
     }
+    public IAHistObj(int st, int ac) {
+        this(st,ac,0.0);
+    }
+    public void setReward(double recompense){
+    	Reward = recompense;
+    }
 }
