@@ -2,6 +2,9 @@ import java.util.LinkedList;
 
 public abstract class IAUnite  {
     protected UnitGroup unitGroup;
+    public UnitGroup previousUnitGroup;
+    public double previousLife;
+    public double previousDamages;
     public LinkedList<Soldier> soldierPlyaerInZone3;
     public LinkedList<Soldier> soldierPlyaerInZone2;
     public LinkedList<Soldier> soldierPlyaerInZone1;
@@ -13,7 +16,7 @@ public abstract class IAUnite  {
     public double R2; //ajoute� a finals//
     public double R1; //ajoute� a finals//
     public IAUnite(UnitGroup unitGroupToSet) {
-        unitGroup =unitGroupToSet;
+        unitGroup =unitGroupToSet;  
         soldierPlyaerInZone3= new LinkedList<Soldier>();
         soldierPlyaerInZone2= new LinkedList<Soldier>();
         soldierPlyaerInZone1= new LinkedList<Soldier>();
@@ -21,6 +24,11 @@ public abstract class IAUnite  {
         soldierComputerInZone2= new LinkedList<Soldier>();
         soldierComputerInZone1= new LinkedList<Soldier>();
         simpleUnitPlyaerInZone3 = new LinkedList<SimpleUnit>();
+        //Pour comparaison avec tour N-1
+        previousUnitGroup.getGroup().addAll(unitGroup.getGroup());
+        previousLife = previousUnitGroup.getQuantityOfLife();
+        previousDamages = 0.0;
+        //TODO intaliser previousDamages initiaux
     }
     public void execut(){
         updateZone ();
@@ -85,4 +93,38 @@ public abstract class IAUnite  {
             }
         }
     }
+    
+    public void createHisto(int state, int strategy){
+    	
+    	
+    	//calcul de la recompense en comparant previousUnitGroup et UnitGroup   	
+		int deadUnits = this.previousUnitGroup.areDeadNow();
+		double lifeVariation = this.previousUnitGroup.getQuantityOfLife() - previousLife;
+		double damagesVariation = this.previousUnitGroup.getQuantityOfDamages() - previousDamages;
+		double recompense = damagesVariation*Finals.R_GIVEN_DAMAGES + lifeVariation*Finals.R_RECEIVED_DAMAGES - deadUnits*Finals.R_DEAD;
+		
+		// Changer AUTRE_Joueur en le joueur adverse du possesseur du groupe d'unites
+		if( AUTRE_JOUEUR.base.destructed){recompense =+ Finals.R_VICTORY;}
+		
+		if(unitGroup.getGroup().get(0).owner.base.destructed){recompense =+ Finals.R_DEFEAT;}  //R_DEFEAT<0
+		
+		Unit unite;	
+    	for(int i=0;i<this.unitGroup.getGroup().size();i++){
+    		unite = this.unitGroup.getGroup().get(i);
+    		
+    		//On modifie le parametre recompense du dernier IAHistObj
+    		unite.histoList.getLast().setReward(recompense);
+    		//On cree le nouveau IAHistObj pour l'etat actuel
+    		unite.histoList.add(new IAHistObj(state, strategy));
+
+    	}
+    		//on nettoie et enregistre a nouvau l'unit group pour le calcul de recompense qui suivra
+    		this.previousUnitGroup.getGroup().clear();
+    		this.previousUnitGroup.getGroup().addAll(this.unitGroup.getGroup());
+    		previousLife = this.previousUnitGroup.getQuantityOfLife();
+    		previousDamages = this.previousUnitGroup.getQuantityOfDamages();
+    	
+    }
+
+
 }

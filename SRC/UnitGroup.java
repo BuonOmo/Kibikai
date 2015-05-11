@@ -126,4 +126,38 @@ public abstract class UnitGroup {
         for(Unit i : group)
             i.setTarget(targetToSet);
     }
+    /**
+     * Pour voir les unites tuees d'un tour a l'autre de l'execution de l'IA
+     * @return nombre d'unite du groupe qui sont mortes à present
+     */
+    public int areDeadNow(){
+    	int mortes=0;
+    	for(int i=0;i<this.getGroup().size();i++){
+    		if(this.getGroup().get(i).isDead()){
+    			mortes++;
+    		}
+    	}
+    	return mortes;
+    }
+    /**
+     * @return la quantite de vie cumulee de toutes les unites du UnitGroup
+     */
+    public double getQuantityOfLife(){
+    	double quantity = 0.0;
+    	for(int i=0;i<this.getGroup().size();i++){
+    		quantity=+this.getGroup().get(i).life;
+    	}
+    	return quantity;
+    }
+    /**
+     * @return la quantite de dommages cumulee de toutes les unites du UnitGroup
+     */
+    public double getQuantityOfDamages(){
+    	double quantity = 0.0;
+    	//Si notation ci dessous compile c'est bon! Adrien a toi de voir. Ou alors mettre damage commun a toutes les unites, et egal a 0 a a creation.
+    	for(Soldier s : this.getGroup()){
+    		quantity=+s.damage;
+    	}
+    	return quantity;
+    }
 }
