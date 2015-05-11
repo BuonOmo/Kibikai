@@ -87,9 +87,10 @@ public class Window extends JFrame{
 		buffer.fillRect(screenWidth*3/4, screenHeight*3/4,screenWidth*3/4+frameWidth,screenHeight*3/4+frameHeight);
 		g.drawImage(ArrierePlan,0,0,this);
 	}*/
-	
+	/*
 	public static void main (String[] args){
 		Window wind = new Window();
 	}
+*/
 
 }

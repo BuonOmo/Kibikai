@@ -86,8 +86,13 @@ public abstract class Unit extends Item {
      */
     public Point2D getVector(){
         
-        return new Point2D.Double( (target.getX() - hitBox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target), 
-                                   (target.getY() - hitBox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target));
+        // evite le tremblement
+        if (distanceTo(target)>DISTANCE_TO_MOVE)
+            return new Point2D.Double( (target.getX() - hitBox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target), 
+                                       (target.getY() - hitBox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target));
+        else
+            return new Point2D.Double( (target.getX() - hitBox.getCenterX()), 
+                                       (target.getY() - hitBox.getCenterY()));
     }
     /**
      * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
