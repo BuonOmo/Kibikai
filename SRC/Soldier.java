@@ -8,6 +8,12 @@ import java.util.LinkedList;
 
 public class Soldier extends Unit {
     
+    //_____________ATTRIBUTS____________//
+    
+    int damage;
+
+    //__________________CONSTRUCTEURS__________________//
+    
     /**
      * @param owner Détenteur de l’unité
      * @param topLeftCorner position de l’unité
@@ -15,6 +21,7 @@ public class Soldier extends Unit {
     public Soldier(Player owner, Point2D topLeftCorner){
         super(owner, topLeftCorner, 2);
         life = LIFE*2;
+        damage = 0;
     }
     
     //________________MÉTHODES_______________//
@@ -37,6 +44,8 @@ public class Soldier extends Unit {
         toAttack = getEnemyToAttack();
         
         toAttack.getLife(- DAMAGE);
+        damage+= DAMAGE;
+        // on peut infliger plus de dégats qu’il ne reste de vie à une unité
     }
     
     public Item getEnemyToAttack(){
