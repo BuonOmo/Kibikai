@@ -7,6 +7,9 @@ public class IASoldier extends IAUnite {
         super(soldierGroupToSet);
     }
     public int calculateStaite() {
+        /*
+         * état de la carte autoure du groupe entre (0;432)
+         */
         int state =0;
         /*
          * geurre zonne 1 (+0;1)
@@ -19,7 +22,7 @@ public class IASoldier extends IAUnite {
         if (soldierPlyaerInZone2.size()>soldierComputerInZone2.size());
         else state=2+state;
         /*
-         * bat compiuter (+0;4)
+         * bat compiuter  est attaquer (+0;4)
          */
         for (Soldier i : IA.player.soldiers){
             if (IA.computer.base.isCloseTo(i,Finals.ATTACK_RANGE)){
@@ -28,28 +31,49 @@ public class IASoldier extends IAUnite {
             }
         }
         /*
-         * unitï¿½ Simple plyer isoler de dans zonne 3
+         * unite Simple plyer isoler de dans zonne 3(+0;8)
          */
-
-        
-        /*
-         * bat player est attaquer ()
-         */
-        for (Soldier i : IA.computer.soldiers){
-            if (IA.player.base.isCloseTo(i,Finals.ATTACK_RANGE)){
+        for (SimpleUnit i : simpleUnitPlyaerInZone3){
+            boolean isIsolate = true;
+            for (Soldier j : soldierPlyaerInZone3){
+                if (!i.isCloseTo(j, Finals.ATTACK_RANGE*2))isIsolate=false;    
+            }
+            if (isIsolate){
                 state=8+state;
                 break;
             }
         }
         
+        /*
+         * bat player est attaquer (+ 0;16;32)
+         */
+        int nbComputerSoldiersCloseToBat =0;
+        int nbPlayerSoldiersCloseToBat =0;
+        for (Soldier i : IA.computer.soldiers){
+            if (IA.player.base.isCloseTo(i,Finals.ATTACK_RANGE)){
+                state=8+state;
+                nbComputerSoldiersCloseToBat++;
+            }
+        }
+        for (Soldier i : IA.player.soldiers){
+            if (IA.player.base.isCloseTo(i,Finals.ATTACK_RANGE)){
+                state=8+state;
+                nbPlayerSoldiersCloseToBat++;
+            }
+        }
+        if (nbPlayerSoldiersCloseToBat<nbComputerSoldiersCloseToBat)state=16+state;
+        
         
         /*
-         * superioritï¿½ numï¿½rique (+casi ï¿½gale ) en zonne 3 
+         * superiorite numerique (oucasi egale ) en zonne 3 (+0;48;96)
          */
-        if (soldierPlyaerInZone3.size()*0.8>soldierComputerInZone3.size())state= 2*3*1+state;
-        else if (soldierPlyaerInZone3.size()*1.5>soldierComputerInZone3.size())state=2*3*2+state;
-        else state = 2;//?
-        return 0;
+        if (soldierPlyaerInZone3.size()*0.8>soldierComputerInZone3.size())state= 48+state;
+        else if (soldierPlyaerInZone3.size()*1.5>soldierComputerInZone3.size())state=96+state;
+
+
+        if (unitGroup.numberUnit()<(double)Finals.Nb_max_of_Soldier*0.2)state= 144+state;
+        else if (unitGroup.numberUnit()<(double)Finals.Nb_max_of_Soldier*0.08)state= 288+state;
+        return state;
     }
 
     public int chooseStrategy(int staite) {
@@ -80,13 +104,13 @@ public class IASoldier extends IAUnite {
                  */
                 double distence =  SoldierGroup.list.get(0).distanceTo(unitGroup);
                 SoldierGroup group = SoldierGroup.list.get(0);
-                for(int i =1 ;i < SoldierGroup.list.size();i++){
-                    if (distence >SoldierGroup.list.get(i).distanceTo(unitGroup)){
-                        distence=SoldierGroup.list.get(i).distanceTo(unitGroup);
-                        group = SoldierGroup.list.get(i);
+                for (SoldierGroup i : SoldierGroup.list ){
+                    if (distence >i.distanceTo(unitGroup)){
+                        distence=i.distanceTo(unitGroup);
+                        group = i;
                     }
                 }
-                group.add(unitGroup);//c'est la merde !!
+                group.add(unitGroup);
             }
             else {
                 if (soldierPlyaerInZone1.size()!= 0){
@@ -145,13 +169,13 @@ public class IASoldier extends IAUnite {
                                  */
                                 double distence =  SoldierGroup.list.get(0).distanceTo(unitGroup);
                                 SoldierGroup group = SoldierGroup.list.get(0);
-                                for(int i =1 ;i < SoldierGroup.list.size();i++){
-                                    if (distence >SoldierGroup.list.get(i).distanceTo(unitGroup)){
-                                        distence=SoldierGroup.list.get(i).distanceTo(unitGroup);
-                                        group = SoldierGroup.list.get(i);
+                                for(SoldierGroup i : SoldierGroup.list){
+                                    if (distence >i.distanceTo(unitGroup)){
+                                        distence=i.distanceTo(unitGroup);
+                                        group = i;
                                     }
                                 }
-                                group.add(unitGroup);//c'est la merde ici aussi !!
+                                group.add(unitGroup);
                             }
                         }
                         
