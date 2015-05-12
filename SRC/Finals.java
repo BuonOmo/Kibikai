@@ -78,5 +78,5 @@ public interface Finals {
     /**
      * nombre de soldat max !!
      */
-    public static final double Nb_max_of_Soldier = 50;
+    public static final double NUMBER_MAX_OF_SOLDIER = 50;
 }

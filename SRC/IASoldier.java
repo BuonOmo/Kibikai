@@ -8,7 +8,7 @@ public class IASoldier extends IAUnite {
     }
     public int calculateStaite() {
         /*
-         * état de la carte autoure du groupe entre (0;432)
+         * ï¿½tat de la carte autoure du groupe entre (0;432)
          */
         int state =0;
         /*
@@ -71,8 +71,8 @@ public class IASoldier extends IAUnite {
         else if (soldierPlyaerInZone3.size()*1.5>soldierComputerInZone3.size())state=96+state;
 
 
-        if (unitGroup.numberUnit()<(double)Finals.Nb_max_of_Soldier*0.2)state= 144+state;
-        else if (unitGroup.numberUnit()<(double)Finals.Nb_max_of_Soldier*0.08)state= 288+state;
+        if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SOLDIER*0.2)state= 144+state;
+        else if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SOLDIER*0.08)state= 288+state;
         return state;
     }
 
