@@ -75,4 +75,8 @@ public interface Finals {
      public static final double R_VICTORY = 10;
      public static final double R_DEFEAT = -10;
     
+    /**
+     * nombre de soldat max !!
+     */
+    public static final double Nb_max_of_Soldier = 50;
 }
