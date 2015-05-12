@@ -9,8 +9,8 @@ public class Player {
     LinkedList<Soldier> soldiers;
     LinkedList<SimpleUnit> simpleUnits;
     LinkedList<Unit> deadUnits; //a traiter avec la future class Unit.isDestructed()//
-    public Player(Color colorToSet, Building baseToSet, String nameToSet){
-        color = colorToSet;
+    public Player(Color c, Building baseToSet, String nameToSet){
+        color = new Color(c.getRed(), c.getGreen(), c.getBlue(), 125);
         base = baseToSet;
         name = nameToSet;
     }
