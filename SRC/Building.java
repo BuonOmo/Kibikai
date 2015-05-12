@@ -114,7 +114,7 @@ public class Building extends Item{
     
     public void execute(){
         
-        if ((2.0*UNIT_PER_SECOND/hitBox.getHeight())%(UI.time) == 0)
+        if ((2.0 * UNIT_PER_SECOND / hitBox.getHeight())%(UI.time) == 0)
             goAndProcreate();
         
     }

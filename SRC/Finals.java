@@ -33,10 +33,10 @@ public interface Finals {
         
         //___________________BUILDING_____________________//
         
-        /**
-         * Nombre d’US par secondes crées à l’origine par BA
-         */
-        public static final double UNIT_PER_SECONDE = 0.2;
+            /**
+             * Nombre d’US par secondes crées à l’origine par BA
+             */
+            public static final double UNIT_PER_SECOND = 0.2;
         
         //______________________UNIT______________________//
            
