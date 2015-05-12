@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
 public class Building extends Item{
 	// _____________VARIABLE______________//
 	
-    boolean destructed;
+    boolean destructed; // attribut inutile, il y a déja une méthode isDestructed qui revoit vrai si il est mort
 	
     // _____________CONSTRUCTEURS______________//
 
@@ -29,7 +29,6 @@ public class Building extends Item{
      */
     public Building(Player owner, Point2D topLeftCorner){
         this(owner, topLeftCorner,2);
-        destructed = false;
     }
     //________________METHODES_______________//
     
@@ -115,8 +114,7 @@ public class Building extends Item{
     
     public void execute(){
         
-        //TODO formule à changer
-        if (UI.time %(int)(36.0/life) == 0)
+        if ((2.0*UNIT_PER_SECOND/hitBox.getHeight())%(UI.time) == 0)
             goAndProcreate();
         
     }
