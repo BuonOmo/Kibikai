@@ -149,15 +149,11 @@ public abstract class UnitGroup {
     	}
     	return quantity;
     }
+    
     /**
      * @return la quantite de dommages cumulee de toutes les unites du UnitGroup
      */
     public double getQuantityOfDamages(){
-    	double quantity = 0.0;
-    	//Si notation ci dessous compile c'est bon! Adrien a toi de voir. Ou alors mettre damage commun a toutes les unites, et egal a 0 a a creation.
-    	for(Soldier s : this.getGroup()){
-    		quantity=+s.damage;
-    	}
-    	return quantity;
+    	return 0.0;
     }
 }
