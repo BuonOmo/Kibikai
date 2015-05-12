@@ -104,7 +104,7 @@ public abstract class IAUnite  {
 		double recompense = damagesVariation*Finals.R_GIVEN_DAMAGES + lifeVariation*Finals.R_RECEIVED_DAMAGES - deadUnits*Finals.R_DEAD;
 		
 		// Changer AUTRE_Joueur en le joueur adverse du possesseur du groupe d'unites
-		if( AUTRE_JOUEUR.base.destructed){recompense =+ Finals.R_VICTORY;}
+		//if( AUTRE_JOUEUR.base.destructed){recompense =+ Finals.R_VICTORY;}
 		
 		if(unitGroup.getGroup().get(0).owner.base.destructed){recompense =+ Finals.R_DEFEAT;}  //R_DEFEAT<0
 		

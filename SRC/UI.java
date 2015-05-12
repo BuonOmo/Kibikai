@@ -100,6 +100,7 @@ public class UI extends JFrame{
 			tY=e.getY();
 			System.out.println("C'est bon, ça marche "+ tX + ", " + tY);
 			canvas.s1.setTarget(new Point2D.Double(e.getX()/Finals.scale, e.getY()/Finals.scale));
+                        //canvas.simpleUnit.setTarget(new Point2D.Double(e.getX()/Finals.scale, e.getY()/Finals.scale));
 		}    
 	}
 	
@@ -110,7 +111,8 @@ public class UI extends JFrame{
 			
 			//canvas.s1.setTarget(new Point2D.Double(0,50));
 			//canvas.s1.setTarget(new Point2D.Double(tX, tY));
-			canvas.s1.move();
+			canvas.s1.execute();
+                        canvas.b1.getLife(0.4);
 			canvas.repaint();
 		}
 	}

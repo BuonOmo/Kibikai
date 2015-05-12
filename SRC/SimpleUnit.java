@@ -165,7 +165,7 @@ public class SimpleUnit extends Unit {
     }
     
     public void execute(){
-        setTarget(targetI);
+        actualiseTarget();
         move();
         if (creating)
             build();

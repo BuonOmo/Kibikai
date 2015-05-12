@@ -52,16 +52,17 @@ public class Soldier extends Unit {
         Item toAttack;
         toAttack = getEnemyToAttack();
         
-        damage+= (toAttack.life < DAMAGE) ? toAttack.life : DAMAGE;
+        if (toAttack != null){
         
-        toAttack.getLife(- DAMAGE);
+            damage+= (toAttack.life < DAMAGE) ? toAttack.life : DAMAGE;
+            toAttack.getLife(- DAMAGE);
+        
+        }
     }
     
     public Item getEnemyToAttack(){
         //TODO gerer la priorité entre attaquer une US, une UM ou un BA ? et gerer une liste d’ennemis ?
-        //LinkedList<Item> enemies;
-        //enemies = new LinkedList();
-        //enemies.addAll(aliveItems);
+   
         if (targetI != null && targetI.isCloseTo(this, ATTACK_RANGE))
             return targetI;
         for (Item enemy : aliveItems)
@@ -82,7 +83,7 @@ public class Soldier extends Unit {
     }
     
     public void execute() {
-        setTarget(targetI);
+        //actualiseTarget();
         move();
         attack();
     }

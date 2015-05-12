@@ -23,7 +23,6 @@ public abstract class Unit extends Item {
      */
     public Unit(Player owner, Point2D topLeftCorner,int side){
         super(owner, topLeftCorner, side);
-        setTarget();
     }
     
     /**
@@ -54,6 +53,16 @@ public abstract class Unit extends Item {
                        hitBox.getY() + getVector().getY(), 
                        hitBox.getWidth(), 
                        hitBox.getHeight() );
+    }
+    
+    public abstract void execute();
+    
+    /**
+     * Permet de suivre une cible mouvante.
+     */
+    public void actualiseTarget (){
+        if (targetI != null)
+            target = targetI.getCenter();
     }
     
     //________MÉTHODES POUR LE DÉPLACEMENT______//
