@@ -17,11 +17,20 @@ public class Soldier extends Unit {
     /**
      * @param owner Détenteur de l’unité
      * @param topLeftCorner position de l’unité
+     * @param lifeToSet vie du soldat à sa création (et non sa vie max)
+     */
+    public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet){
+        super(owner, topLeftCorner, 2);
+        life = lifeToSet;
+        damage = 0;
+    }
+    
+    /**
+     * @param owner Détenteur de l’unité
+     * @param topLeftCorner position de l’unité
      */
     public Soldier(Player owner, Point2D topLeftCorner){
-        super(owner, topLeftCorner, 2);
-        life = LIFE*2;
-        damage = 0;
+        this(owner, topLeftCorner, LIFE*2);
     }
     
     //________________MÉTHODES_______________//

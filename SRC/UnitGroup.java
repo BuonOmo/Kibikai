@@ -128,7 +128,7 @@ public abstract class UnitGroup {
     }
     /**
      * Pour voir les unites tuees d'un tour a l'autre de l'execution de l'IA
-     * @return nombre d'unite du groupe qui sont mortes à present
+     * @return nombre d'unite du groupe qui sont mortes ï¿½ present
      */
     public int areDeadNow(){
     	int mortes=0;
@@ -144,8 +144,8 @@ public abstract class UnitGroup {
      */
     public double getQuantityOfLife(){
     	double quantity = 0.0;
-    	for(int i=0;i<this.getGroup().size();i++){
-    		quantity=+this.getGroup().get(i).life;
+        for(Unit i : getGroup()){
+    		quantity+= i.life;
     	}
     	return quantity;
     }
