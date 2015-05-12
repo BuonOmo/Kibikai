@@ -43,9 +43,9 @@ public class Soldier extends Unit {
         Item toAttack;
         toAttack = getEnemyToAttack();
         
+        damage+= (toAttack.life < DAMAGE) ? toAttack.life : DAMAGE;
+        
         toAttack.getLife(- DAMAGE);
-        damage+= DAMAGE;
-        // on peut infliger plus de dégats qu’il ne reste de vie à une unité
     }
     
     public Item getEnemyToAttack(){

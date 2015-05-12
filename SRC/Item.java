@@ -7,6 +7,9 @@ import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 
 public abstract class Item implements Finals{
+    
+    //______________ATTRIBUTS________________//
+    
     Point2D target;
     Item targetI;
     double life;
@@ -195,7 +198,7 @@ public abstract class Item implements Finals{
             
             // erreur dans SimpleUnit.heal()
             case 1:
-                msg = "l'objet a soigner est mort";
+                msg = "l'objet aï¿½soigner est mort";
             break;
             
             default:
