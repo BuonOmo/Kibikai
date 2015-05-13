@@ -15,6 +15,7 @@ public abstract class Unit extends Item {
      */
     public Unit(Player owner, Point2D topLeftCorner,int width, int height){
         super(owner, topLeftCorner, width, height);
+        owner.units.add(this);
     }   
     /**
      * @param owner Possesseur de l’objet
@@ -22,7 +23,7 @@ public abstract class Unit extends Item {
      * @param side coté de la hitBox
      */
     public Unit(Player owner, Point2D topLeftCorner,int side){
-        super(owner, topLeftCorner, side);
+        this(owner, topLeftCorner, side, side);
     }
     
     /**

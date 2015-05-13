@@ -56,7 +56,7 @@ public class Building extends Item{
         }
         
         spawnPoint.setLocation(x, y);
-    	owner.units.add(new SimpleUnit(owner,spawnPoint, target));
+    	new SimpleUnit(owner,spawnPoint, target);
     }
     
     /**

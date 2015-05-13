@@ -26,6 +26,7 @@ public class SimpleUnit extends Unit {
         builder1 = null;
         builder2 = null;
         aliveSimpleUnits.add(this);
+        owner.simpleUnits.add(this);
     }
 
     /**
@@ -77,7 +78,7 @@ public class SimpleUnit extends Unit {
         if (builders.distanceTo(target) <= CREATION_RANGE){
             builders.isDestructed();
             //TODO gerer les conflits à la création ______________________________________________?
-            owner.units.add(new Soldier(owner, target, builders.getQuantityOfLife()));
+            new Soldier(owner, target, builders.getQuantityOfLife());
         } 
     }
 
