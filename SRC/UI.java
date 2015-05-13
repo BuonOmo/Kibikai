@@ -49,10 +49,16 @@ public class UI extends JFrame{
 	    screenHeight = screenSize.height;
 	    screenWidth = screenSize.width;
 	    
+	    // Plein ecran (à tester)
+	    frame.setUndecorated(true);
+	    frame.setExtendedState(fenetrePhotos.MAXIMIZED_BOTH);
+	    
+	    /*
 	    //Location and size of the frame
 	    frame.setSize(screenWidth, screenHeight); //Wide screen
 	    frame.setResizable(false);
 	    frame.setLocation(0,0);
+	    */
 	    
 	    //Set the background on WHITE
 	    frame.getContentPane().setBackground(Color.WHITE);
