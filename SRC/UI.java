@@ -51,7 +51,7 @@ public class UI extends JFrame{
 	    
 	    // Plein ecran (à tester)
 	    frame.setUndecorated(true);
-	    frame.setExtendedState(fenetrePhotos.MAXIMIZED_BOTH);
+	    frame.setExtendedState(frame.MAXIMIZED_BOTH);
 	    
 	    /*
 	    //Location and size of the frame
