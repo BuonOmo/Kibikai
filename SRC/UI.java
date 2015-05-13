@@ -105,7 +105,7 @@ public class UI extends JFrame{
 			tX=e.getX();
 			tY=e.getY();
 			System.out.println("C'est bon, ça marche "+ tX + ", " + tY);
-			canvas.s1.setTarget(new Point2D.Double(e.getX()/Finals.scale, e.getY()/Finals.scale));
+			canvas.P1.base.goAndProcreate();
                         //canvas.simpleUnit.setTarget(new Point2D.Double(e.getX()/Finals.scale, e.getY()/Finals.scale));
 		}    
 	}

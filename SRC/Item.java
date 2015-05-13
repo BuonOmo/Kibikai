@@ -83,6 +83,14 @@ public abstract class Item implements Finals{
     }
     
     /**
+     * Permet de suivre une cible mouvante.
+     */
+    public void actualiseTarget (){
+        if (targetI != null)
+            target = targetI.getCenter();
+    }
+    
+    /**
      * Retourne une liste des unités dans le perimetre entourant l'unité.
      * @param radius : Rayon delimitant le perimetre de scan.
      * @param player

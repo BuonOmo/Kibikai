@@ -40,8 +40,10 @@ public class Building extends Item{
      *  Cree une unité simple et la rajoute dans le tableau du joueur. elle se dirige au target
      */
     public void goAndProcreate(){
-    	//Choix du point de spawn adapte au point de ralliement
+    	/*
+        //Choix du point de spawn adapte au point de ralliement
     	Point2D spawnPoint = new Point2D.Double();
+        
         double x,y;
     	if(target.getX()<=hitBox.getX()){
     	    x = hitBox.getX()-SIDE-1;
@@ -60,7 +62,8 @@ public class Building extends Item{
         }
         
         spawnPoint.setLocation(x, y);
-    new SimpleUnit(owner,spawnPoint, target);
+        */
+        new SimpleUnit(owner,getCenter(), target);
     }
     
     /**
@@ -118,8 +121,15 @@ public class Building extends Item{
     
     public void execute(){
         
-        if ((2.0 * UNIT_PER_SECOND / hitBox.getHeight())%(UI.time) == 0){
-            goAndProcreate();
+        actualiseTarget();
+        
+        // TODO trouver une variable time qui marche............................
+        if (life > LIFE){
+            if (UI.time%1000 == 0){
+            //if ((2.0 * UNIT_PER_SECOND / hitBox.getHeight())%(UI.time) == 0){
+                //goAndProcreate();
+                System.out.println("Ici alpha, vous m’entendez ? "+ UI.time + aliveItems);
+            }
         }
     }
 }

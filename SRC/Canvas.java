@@ -40,7 +40,10 @@ public class Canvas extends JComponent{
         new Soldier(P2, new Point2D.Double(90,40));
         P1.soldiers.get(1).setTarget(P2.soldiers.get(0));
         P2.soldiers.get(0).setTarget(P1.base);
-        
+        for (int i= 0; i<1; i++){
+            new SimpleUnit(P1, P1.base, new Point2D.Double(20.0, 5.0 +2.0*(double)i*Finals.SIDE));
+        }
+        new SimpleUnit(P1, P1.soldiers.get(1), new Point2D.Double(5,10));
     }
     
     public void paintComponent(Graphics g) {
