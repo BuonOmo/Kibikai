@@ -84,7 +84,7 @@ public class Soldier extends Unit {
     }
     
     public void execute() {
-        //actualiseTarget();
+        actualiseTarget();
         move();
         attack();
     }

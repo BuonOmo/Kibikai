@@ -120,7 +120,7 @@ public class UI extends JFrame{
                         //canvas.s1.execute();
                         //canvas.b1.getLife(0.4);
                         
-                        canvas.P1.soldiers.get(0).execute();
+                        Game.run();
                         
 			canvas.repaint();
 		}

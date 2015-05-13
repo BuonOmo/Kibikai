@@ -29,8 +29,18 @@ public class Canvas extends JComponent{
         */
         
         //P1.base.goAndProcreate();
+        
+        /* ____________________________________________________   Decomenter pour voir une magnifique bataille
         new Soldier(P1, new Point2D.Double(20,20));
         P1.soldiers.get(0).setTarget(P2.base);
+        */
+        
+        new Soldier(P1, new Point2D.Double(20,20));
+        new Soldier(P1, new Point2D.Double(15,20));
+        new Soldier(P2, new Point2D.Double(90,40));
+        P1.soldiers.get(1).setTarget(P2.soldiers.get(0));
+        P2.soldiers.get(0).setTarget(P1.base);
+        
     }
     
     public void paintComponent(Graphics g) {
