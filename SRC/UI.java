@@ -117,8 +117,11 @@ public class UI extends JFrame{
 			
 			//canvas.s1.setTarget(new Point2D.Double(0,50));
 			//canvas.s1.setTarget(new Point2D.Double(tX, tY));
-                        canvas.s1.execute();
-                        canvas.b1.getLife(0.4);
+                        //canvas.s1.execute();
+                        //canvas.b1.getLife(0.4);
+                        
+                        canvas.P1.soldiers.get(0).execute();
+                        
 			canvas.repaint();
 		}
 	}

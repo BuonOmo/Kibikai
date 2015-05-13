@@ -5,7 +5,12 @@ public interface Finals {
         /**
          * nombre de soldat max !!
          */
-        public static final double NUMBER_MAX_OF_SOLDIER = 50;
+        public static final int NUMBER_MAX_OF_SOLDIER = 50;
+        
+        /**
+         * nombre de US max !!
+         */
+        public static final int NUMBER_MAX_OF_SIMPLEUNIT = 70;
         
        //______________________terrain______________________//
            

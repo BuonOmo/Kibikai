@@ -12,12 +12,14 @@ public class Canvas extends JComponent{
     Building b1;
     Building b2;
     Soldier s1;
+    Player P1;
+    Player P2;
     
     
     public Canvas(){
         
-        Player P1 = new Player (Color.GREEN, new Point2D.Double(10,10), "Player one RPZ" );
-        Player P2 = new Player (Color.RED, new Point2D.Double(100,50), "Player two FTW" );
+        P1 = new Player (Color.GREEN, new Point2D.Double(10,10), "Player one RPZ" );
+        P2 = new Player (Color.RED, new Point2D.Double(100,50), "Player two FTW" );
         /*
         hitBox = new Rectangle2D.Double (0,0, 10, 10);
         simpleUnit = new SimpleUnit(P1, new Point2D.Double(50,50), null);
@@ -27,6 +29,8 @@ public class Canvas extends JComponent{
         */
         
         //P1.base.goAndProcreate();
+        new Soldier(P1, new Point2D.Double(20,20));
+        P1.soldiers.get(0).setTarget(P2.base);
     }
     
     public void paintComponent(Graphics g) {
