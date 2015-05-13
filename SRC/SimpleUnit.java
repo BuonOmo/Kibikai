@@ -26,7 +26,7 @@ public class SimpleUnit extends Unit {
         builder1 = null;
         builder2 = null;
         aliveSimpleUnits.add(this);
-        owner.simpleUnits.add(this);
+        //owner.simpleUnits.add(this);
     }
 
     /**

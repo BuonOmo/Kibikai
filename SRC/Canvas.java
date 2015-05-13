@@ -26,7 +26,7 @@ public class Canvas extends JComponent{
         //s1.setTarget(u1);
         */
         
-        
+        //P1.base.goAndProcreate();
     }
     
     public void paintComponent(Graphics g) {

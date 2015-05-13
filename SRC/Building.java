@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
+import java.security.acl.Owner;
+
 public class Building extends Item{
 	// _____________VARIABLE______________//
 	
@@ -57,7 +59,7 @@ public class Building extends Item{
         }
         
         spawnPoint.setLocation(x, y);
-    	new SimpleUnit(owner,spawnPoint, target);
+    new SimpleUnit(owner,spawnPoint, target);
     }
     
     /**
