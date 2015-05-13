@@ -17,7 +17,7 @@ public class Canvas extends JComponent{
     public Canvas(){
         
         Player P1 = new Player (Color.GREEN, new Point2D.Double(10,10), "Player one RPZ" );
-        Player P2 = new Player (Color.RED, new Point2D.Double(10,10), "Player two FTW" );
+        Player P2 = new Player (Color.RED, new Point2D.Double(100,50), "Player two FTW" );
         /*
         hitBox = new Rectangle2D.Double (0,0, 10, 10);
         simpleUnit = new SimpleUnit(P1, new Point2D.Double(50,50), null);

@@ -21,6 +21,7 @@ public class Building extends Item{
         super(owner, topLeftCorner, side);
         life = Math.pow(side, 2)*LIFE;
         destructed = false;
+        target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
     }
     
     /**

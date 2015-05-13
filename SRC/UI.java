@@ -49,7 +49,7 @@ public class UI extends JFrame{
 	    screenHeight = screenSize.height;
 	    screenWidth = screenSize.width;
 	    
-	    // Plein ecran (à tester)
+	    // Plein ecran
 	    frame.setUndecorated(true);
 	    frame.setExtendedState(frame.MAXIMIZED_BOTH);
 	    
@@ -117,7 +117,7 @@ public class UI extends JFrame{
 			
 			//canvas.s1.setTarget(new Point2D.Double(0,50));
 			//canvas.s1.setTarget(new Point2D.Double(tX, tY));
-			canvas.s1.execute();
+                        canvas.s1.execute();
                         canvas.b1.getLife(0.4);
 			canvas.repaint();
 		}
