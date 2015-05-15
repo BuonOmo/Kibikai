@@ -42,6 +42,16 @@ public class IASimpleUnit extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
+        Double  sommeR=0.0;
+        for (int i = 0; i<5;i++){
+            sommeR = sommeR +Math.exp(IA.qIASimpleUnit[staite][i]);
+        }
+        Double Rdm= Math.random()*sommeR;
+        for (int i = 0; i<5;i++){
+            if (Rdm<Math.exp(IA.qIASimpleUnit[staite][i]))return i+1;
+            Rdm=Rdm-Math.exp(IA.qIASimpleUnit[staite][i]);
+        }
+        
         return 0;
     }
 

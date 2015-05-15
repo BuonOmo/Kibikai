@@ -78,13 +78,23 @@ public class IASoldier extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
-        int strategy =1;
 
-        presentStrategy=strategy;
-        return strategy;
+        Double  sommeR=0.0;
+        for (int i = 0; i<6;i++){
+            sommeR = sommeR +Math.exp(IA.qIASoldier[staite][i]);
+        }
+        Double Rdm= Math.random()*sommeR;
+        for (int i = 0; i<6;i++){
+            if (Rdm<Math.exp(IA.qIASoldier[staite][i]))return i+1;
+            Rdm=Rdm-Math.exp(IA.qIASoldier[staite][i]);
+        }
+        
+        return 0;
+
     }
 
     public void applyStrategy(int strategy) {
+        presentStrategy=strategy;
         switch (strategy){
         case 1:
             /*

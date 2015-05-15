@@ -25,10 +25,9 @@ public abstract class IAUnite  {
         soldierComputerInZone1= new LinkedList<Soldier>();
         simpleUnitPlyaerInZone3 = new LinkedList<SimpleUnit>();
         //Pour comparaison avec tour N-1
-        previousUnitGroup.getGroup().addAll(unitGroup.getGroup());
+        previousUnitGroup= unitGroup;
         previousLife = previousUnitGroup.getQuantityOfLife();
-        previousDamages = 0.0;
-        //TODO intaliser previousDamages initiaux
+        previousDamages =previousUnitGroup.getQuantityOfDamages();
     }
     public void execut(){
         updateZone ();
