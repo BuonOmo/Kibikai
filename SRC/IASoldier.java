@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 
 public class IASoldier extends IAUnite {
+    public int presentStrategy;
 
     public IASoldier(SoldierGroup soldierGroupToSet) {
        
@@ -77,7 +78,10 @@ public class IASoldier extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
-        return 1;
+        int strategy =1;
+
+        presentStrategy=strategy;
+        return strategy;
     }
 
     public void applyStrategy(int strategy) {

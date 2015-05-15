@@ -24,7 +24,7 @@ public class Player implements Finals{
         color = new Color(c.getRed(), c.getGreen(), c.getBlue(), 125);
         base = new Building(this, baseLocation);
         name = nameToSet;
-        soldiers = new ArrayList<>(NUMBER_MAX_OF_SOLDIER);
-        simpleUnits = new ArrayList<>(NUMBER_MAX_OF_SIMPLEUNIT);
+        soldiers = new ArrayList<Soldier>(NUMBER_MAX_OF_SOLDIER);
+        simpleUnits = new ArrayList<SimpleUnit>(NUMBER_MAX_OF_SIMPLEUNIT);
     }
 }

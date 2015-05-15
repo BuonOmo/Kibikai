@@ -91,7 +91,7 @@ public class IA {
                     FileWriter scribeSu = new FileWriter(saveFileSU);
                     //Ecrit la hauteur et la lareur du tableau sur les deux premieres lignes des fichiers
                     scribeSol.write(""+qIASoldier.length+"\n"+qIASoldier[0].length+"\n");
-                    scribeSol.write(""+qIASimpleUnit.length+"\n"+qIASimpleUnit[0].length+"\n");
+                    scribeSu.write(""+qIASimpleUnit.length+"\n"+qIASimpleUnit[0].length+"\n");
                     //Copie les information en format String, a raison d'une valeur par ligne
                     for(int i=0;i<qIASoldier.length;i++){
                             for(int k=0;k<qIASoldier[0].length;k++){
@@ -108,34 +108,31 @@ public class IA {
                     scribeSu.close();
 
        }
-    private static void loadQIASoldier() throws FileNotFoundException{   	
-    	 Scanner scanner = new Scanner(new File("SaveqIASoldier.txt")); 	 
+    public static void loadQIASoldier() throws FileNotFoundException{   	
+    	 Scanner scanner = new Scanner(new File("SaveqIASoldier.txt")); 
 		 int nBLignes = Integer.parseInt(scanner.nextLine());
 		 int nBColonnes = Integer.parseInt(scanner.nextLine());
 		 Double[][] qIASoldierLoading = new Double[nBLignes][nBColonnes];
-		 int i = 0;
-			 while(scanner.hasNextLine()){
-				 for(int k = 0; k<nBLignes;k++){
+			for(int i = 0; i<nBLignes;i++){
+				 for(int k = 0; k<nBColonnes;k++){
 					 qIASoldierLoading[i][k] = Double.parseDouble(scanner.nextLine());
 				 }
-				 i++;
 			 }
 		 scanner.close();
 		 qIASoldier = qIASoldierLoading;        
     }
 
-    private static void loadQIASimpleUnite() throws FileNotFoundException{
-    	 Scanner scanner = new Scanner(new File("SaveqIASimpleUnit.txt")); 	 
+    public static void loadQIASimpleUnite() throws FileNotFoundException{
+    	 Scanner scanner = new Scanner(new File("SaveqIASimpleUnite.txt")); 
+         System.out.println("ca c'est bon");
 		 int nBLignes = Integer.parseInt(scanner.nextLine());
 		 int nBColonnes = Integer.parseInt(scanner.nextLine());
 		 Double[][] qIASimpleUnitLoading = new Double[nBLignes][nBColonnes];
-		 int i = 0;
-			 while(scanner.hasNextLine()){
-				 for(int k = 0; k<nBLignes;k++){
-					 qIASimpleUnitLoading[i][k] = Double.parseDouble(scanner.nextLine());
-				 }
-				 i++;
-			 }
+        for(int i = 0; i<nBLignes;i++){
+                 for(int k = 0; k<nBColonnes;k++){
+                     qIASimpleUnitLoading[i][k] = Double.parseDouble(scanner.nextLine());
+                 }
+         }
 		 scanner.close();
 		 qIASimpleUnit = qIASimpleUnitLoading;
     }

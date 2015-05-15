@@ -156,4 +156,11 @@ public abstract class UnitGroup {
     public double getQuantityOfDamages(){
     	return 0.0;
     }
+    /**
+     * @param u objet a suprimer de group 
+     */
+    public void remouve(Unit u){
+        group.remove(u);
+        
+    }
 }
