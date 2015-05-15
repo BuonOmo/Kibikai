@@ -70,9 +70,9 @@ public class IASimpleUnit extends IAUnite {
             break;
         }
         case 2:{
-            SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(1));
+            SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
             sicition.ia= new IASimpleUnit(sicition);
-            for (int i= unitGroup.group.size(); i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
+            for (int i= unitGroup.group.size()-1; i>=0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
                 if ((i+1)%2==0) {
                     unitGroup.remouve(unitGroup.group.get(i));
                     sicition.add((SimpleUnit)unitGroup.group.get(i));
@@ -81,7 +81,7 @@ public class IASimpleUnit extends IAUnite {
             break;
         }
         case 3:{
-            SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(1));
+            SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
             sicition.ia= new IASimpleUnit(sicition);
             double distence =SoldierGroup.list.get(1).distanceTo(unitGroup);
             SoldierGroup group= new SoldierGroup(null);
@@ -92,7 +92,7 @@ public class IASimpleUnit extends IAUnite {
                 }
             }
             sicition.ia.support=group.ia;
-            for (int i= unitGroup.group.size(); i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
+            for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
                 if ((i+1)%2==0) {
                     unitGroup.remouve(unitGroup.group.get(i));
                     sicition.add((SimpleUnit)unitGroup.group.get(i));

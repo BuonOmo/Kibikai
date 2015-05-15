@@ -20,10 +20,12 @@ public abstract class UnitGroup {
      * @param iaToSet Intelligence artificielle du groupe
      */
     public UnitGroup (Unit u){
+        if (u!=null){
         group = new LinkedList<Unit>();
         group.add(u);
         owner = u.owner;
         compactdim = Finals.Group_compactDim;
+        }
     }
     
     /**

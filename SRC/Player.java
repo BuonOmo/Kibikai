@@ -8,10 +8,10 @@ public class Player implements Finals{
     String name;
     Color color;
     Building base;
-    LinkedList<Unit> units;
-    ArrayList<Soldier> soldiers;
-    ArrayList<SimpleUnit> simpleUnits;
-    LinkedList<Unit> deadUnits; //a traiter avec la future class Unit.isDestructed()//
+    LinkedList<Unit> units = new  LinkedList<Unit> ();
+    ArrayList<Soldier> soldiers = new ArrayList<Soldier> ();
+    ArrayList<SimpleUnit> simpleUnits = new ArrayList<SimpleUnit> ();
+    LinkedList<Unit> deadUnits = new LinkedList<Unit>() ; //a traiter avec la future class Unit.isDestructed()//
     
     @Deprecated
     public Player(Color c, Building baseToSet, String nameToSet){
