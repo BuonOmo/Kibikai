@@ -11,8 +11,12 @@ public class Game implements Finals {
     public static void run(){
         
         //TODO ajouter les récuperation des Input
-        for (Item element : Item.aliveItems)
-            element.execute();
+        for (int i = 0; i < Item.aliveItems.size();i++ )
+            Item.aliveItems.get(i).execute();
+        IA.execut();
+        //for (Item element : Item.aliveItems)
+          //  element.execute();
+
     }
     
     public static void print(Graphics g){

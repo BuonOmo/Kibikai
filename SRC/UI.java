@@ -123,6 +123,8 @@ public class UI extends JFrame{
                         Game.run();
                         
 			canvas.repaint();
+                        time ++;
+                        System.out.println (time);
 		}
 	}
 

@@ -6,18 +6,21 @@ public class SoldierGroup extends UnitGroup {
     
     //______________ATTRIBUTS__________________//
     
-    public static LinkedList<SoldierGroup> list;
+    public static LinkedList<SoldierGroup> list= new LinkedList<SoldierGroup>();
     IASoldier ia;
     
     //_______________CONSTRUCTEURS______________//
 
     public SoldierGroup(Soldier soldier) {
         super(soldier);
+        if (soldier != null){
+
         if (soldier.owner == IA.computer){
             list.add(this);
             ia = new IASoldier(this);
         }
             
+    }
     }
     
     private SoldierGroup( LinkedList<Soldier> soldiers ) {

@@ -13,17 +13,43 @@ public class IA {
     public static Player computer;
     public static Player player;//le joueur est adversaire de l'IA//
     
-    public static void bigining () throws FileNotFoundException{
-        loadQIASoldier();
-        loadQIASimpleUnite();
+    public static void bigining () {
+        
+
+        try {
+                            loadQIASoldier();
+                            loadQIASimpleUnite();
+                        } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                        }
+        for (Item i : Item.aliveItems){
+
+            if (i.owner==IA.computer){
+                System.out.println("ca c'est fait" );
+                if (i.getClass().getName()=="Soldier") { 
+                    new SoldierGroup((Soldier)i);
+                    System.out.println("coucou1");
+                }
+                if (i.getClass().getName()=="SimpleUnit")  
+                    new SimpleUnitGroup((SimpleUnit)i);
+            }
+            
+        }
     }
     public static void execut(){
-        for (SoldierGroup element : SoldierGroup.list){
-            element.ia.execut();
+        //for (SoldierGroup element : SoldierGroup.list){
+        for (int i = 0 ; i<SoldierGroup.list.size();i++ ){
+           // element.ia.execut();
+            if ((UI.time+i)%10==0)
+            SoldierGroup.list.get(i).ia.execut();
         }
         
-        for (SimpleUnitGroup element : SimpleUnitGroup.list){
-            element.ia.execut();
+        //for (SimpleUnitGroup element : SimpleUnitGroup.list){
+        for (int i = 0 ;  i < SimpleUnitGroup.list .size();i++){
+            if ((UI.time+i)%10==0)
+            SimpleUnitGroup.list.get(i).ia.execut();
+            //element.ia.execut();
         }
     }
    
