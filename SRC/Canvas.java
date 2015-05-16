@@ -41,10 +41,13 @@ public class Canvas extends JComponent{
         
         
         for (int i =1 ; i<20; i++){
-            new Soldier(P1, new Point2D.Double(20,20));
-            new Soldier(P1, new Point2D.Double(15,20));
-            new Soldier(P2, new Point2D.Double(90,40));
+           // new Soldier(P1, new Point2D.Double(20,20+i));
+           // new Soldier(P1, new Point2D.Double(15,20+i));
+            new Soldier(P2, new Point2D.Double(90,40+i));
         }
+        for (int i =1; i< 10;i++)
+            new Soldier(P1, new Point2D.Double(20+10*Math.random()*i,10+10*Math.random()*i));
+        
         P1.soldiers.get(1).setTarget(P2.soldiers.get(0));
         P2.soldiers.get(0).setTarget(P1.base);
         //P1.soldiers.get(0).setTarget(new Point2D.Double(100,100));

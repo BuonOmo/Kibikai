@@ -29,7 +29,7 @@ public class IA {
         //for (SoldierGroup element : SoldierGroup.list){
         for (int i = 0 ; i<SoldierGroup.list.size();i++ ){
            // element.ia.execut();
-            if ((UI.time+i)%25==0)
+            if ((UI.time+i)%20==0)
             SoldierGroup.list.get(i).ia.execut();
         }
         
@@ -40,7 +40,7 @@ public class IA {
                 SimpleUnitGroup.list.remove(i);
             if (SimpleUnitGroup.list.get(i).group.size()==0)
                 SimpleUnitGroup.list.remove(i);
-            if ((UI.time+i)%25==0)
+            if ((UI.time+i)%20==0)
             SimpleUnitGroup.list.get(i).ia.execut();
             //element.ia.execut();
         }

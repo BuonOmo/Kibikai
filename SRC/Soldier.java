@@ -85,6 +85,15 @@ public class Soldier extends Unit {
                    (int) (2 * radius * scale),
                    (int) (2 * radius * scale));
     }
+    public void isDestructed(){
+        //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
+        if (!deadItems.contains(this)){
+            deadItems.add(this);
+            aliveItems.remove(this);
+            owner.units.remove(this);
+            owner.soldiers.remove(this);
+        }
+    }
     
     public void execute() {
         actualiseTarget();
