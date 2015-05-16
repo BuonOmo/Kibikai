@@ -10,7 +10,7 @@ public interface Finals {
         /**
          * nombre de US max !!
          */
-        public static final int NUMBER_MAX_OF_SIMPLEUNIT = 70;
+        public static final int NUMBER_MAX_OF_SIMPLEUNIT = 20;
         
        //______________________terrain______________________//
            

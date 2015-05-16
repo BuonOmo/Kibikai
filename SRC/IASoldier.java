@@ -2,6 +2,7 @@ import java.util.LinkedList;
 
 public class IASoldier extends IAUnite {
     public int presentStrategy;
+    public IASimpleUnit support = null;
 
     public IASoldier(SoldierGroup soldierGroupToSet) {
        

@@ -13,8 +13,9 @@ public class SimpleUnitGroup extends UnitGroup {
     public SimpleUnitGroup(SimpleUnit us) {
         super(us);
         if (us.owner == IA.computer){
-            list.add(this);
             ia = new IASimpleUnit(this);
+            list.add(this);
+
         }
     }
     

@@ -64,9 +64,9 @@ public class Building extends Item{
         spawnPoint.setLocation(x, y);
 
         if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT) {
-            SimpleUnit su = new SimpleUnit(owner,getCenter(),new Point.Double(15,15) );
-        if (owner == IA. computer )new SimpleUnitGroup(su);
+            SimpleUnit su = new SimpleUnit(owner,getCenter(),new Point.Double(x,y) );
         }
+
     }
     
     /**

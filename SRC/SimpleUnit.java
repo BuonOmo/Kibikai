@@ -26,7 +26,12 @@ public class SimpleUnit extends Unit {
         builder1 = null;
         builder2 = null;
         aliveSimpleUnits.add(this);
-        //owner.simpleUnits.add(this);
+        if (owner!=null) {
+            owner.simpleUnits.add(this);
+            owner.units.add(this);
+            if (owner == IA.computer) new SimpleUnitGroup(this);
+            }
+                
     }
 
     /**
@@ -162,6 +167,8 @@ public class SimpleUnit extends Unit {
             aliveItems.remove(this);
             deadSimpleUnits.add(this);
             aliveSimpleUnits.remove(this);
+            owner.units.remove(this);
+            owner.simpleUnits.remove(this);
         }
     }
     

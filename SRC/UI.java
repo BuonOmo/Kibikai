@@ -124,7 +124,7 @@ public class UI extends JFrame{
                         
 			canvas.repaint();
                         time ++;
-                        System.out.println (time);
+                        System.out.println ("time : "+time);
 		}
 	}
 

@@ -23,7 +23,10 @@ public class Soldier extends Unit {
         super(owner, topLeftCorner, 2);
         life = lifeToSet;
         damage = 0;
-        owner.soldiers.add(this);
+        if (owner!=null) {
+            owner.soldiers.add(this);
+            if (owner == IA.computer) new SoldierGroup(this);
+            }
     }
     
     /**

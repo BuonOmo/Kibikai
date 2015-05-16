@@ -23,31 +23,24 @@ public class IA {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                         }
-        for (Item i : Item.aliveItems){
-
-            if (i.owner==IA.computer){
-                System.out.println("ca c'est fait" );
-                if (i.getClass().getName()=="Soldier") { 
-                    new SoldierGroup((Soldier)i);
-                    System.out.println("coucou1");
-                }
-                if (i.getClass().getName()=="SimpleUnit")  
-                    new SimpleUnitGroup((SimpleUnit)i);
-            }
-            
-        }
     }
     public static void execut(){
+        System.out.println("IA.execut : nb Sg "+SoldierGroup.list.size());
         //for (SoldierGroup element : SoldierGroup.list){
         for (int i = 0 ; i<SoldierGroup.list.size();i++ ){
            // element.ia.execut();
-            if ((UI.time+i)%10==0)
+            if ((UI.time+i)%25==0)
             SoldierGroup.list.get(i).ia.execut();
         }
         
+        System.out.println("IA.execut : nb Sug "+SimpleUnitGroup.list.size());
         //for (SimpleUnitGroup element : SimpleUnitGroup.list){
         for (int i = 0 ;  i < SimpleUnitGroup.list .size();i++){
-            if ((UI.time+i)%10==0)
+            if (SimpleUnitGroup.list.get(i).ia==null)
+                SimpleUnitGroup.list.remove(i);
+            if (SimpleUnitGroup.list.get(i).group.size()==0)
+                SimpleUnitGroup.list.remove(i);
+            if ((UI.time+i)%25==0)
             SimpleUnitGroup.list.get(i).ia.execut();
             //element.ia.execut();
         }

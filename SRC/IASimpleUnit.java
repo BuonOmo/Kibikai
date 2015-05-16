@@ -65,37 +65,45 @@ public class IASimpleUnit extends IAUnite {
             else{
                 Point2D pts1 = support.unitGroup.getPosition();
                 Point2D pts2 = IA.computer.base.getCenter();
-                unitGroup.setTarget(new Point2D.Double(pts1.getX()+(pts2.getX()-pts1.getX())*40/pts1.distance(pts2),pts1.getY()+(pts2.getY()-pts1.getY())*40/pts1.distance(pts2)));
+                unitGroup.setTarget(new Point2D.Double(pts1.getX()+(pts2.getX()-pts1.getX())*5/pts1.distance(pts2),pts1.getY()+(pts2.getY()-pts1.getY())*5/pts1.distance(pts2)));
             }
             break;
         }
         case 2:{
             SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
+            unitGroup.remouve(unitGroup.group.get(0));
             sicition.ia= new IASimpleUnit(sicition);
             for (int i= unitGroup.group.size()-1; i>=0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
-                if ((i+1)%2==0) {
-                    unitGroup.remouve(unitGroup.group.get(i));
+                if ((i)%2==0) {
                     sicition.add((SimpleUnit)unitGroup.group.get(i));
+                    unitGroup.remouve(unitGroup.group.get(i));
                 } 
             }
+            if (unitGroup.group.size()==0)SimpleUnitGroup.list.remove(unitGroup);
             break;
         }
         case 3:{
-            SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
-            sicition.ia= new IASimpleUnit(sicition);
+
             double distence =SoldierGroup.list.get(1).distanceTo(unitGroup);
             SoldierGroup group= new SoldierGroup(null);
             for( SoldierGroup sg :SoldierGroup.list){
-                if (sg.distanceTo(unitGroup)<distence){
-                    group = sg;
-                    distence =sg.distanceTo(unitGroup);
-                }
+
+                    if (sg.distanceTo(unitGroup)<distence){
+                        group = sg;
+                        distence =sg.distanceTo(unitGroup);
+                    }
             }
-            sicition.ia.support=group.ia;
-            for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
-                if ((i+1)%2==0) {
-                    unitGroup.remouve(unitGroup.group.get(i));
-                    sicition.add((SimpleUnit)unitGroup.group.get(i));
+            if (group.ia!=null){
+                if (group.ia.support == null){
+                    SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
+                    sicition.ia.support=group.ia;
+                    group.ia.support=sicition.ia;
+                }
+                for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
+                    if ((i+1)%2==0) {
+                        unitGroup.remouve(unitGroup.group.get(i));
+                        group.ia.support.unitGroup.group.add((SimpleUnit)unitGroup.group.get(i));
+                    }
                 }
             }
             break;

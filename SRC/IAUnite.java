@@ -95,7 +95,6 @@ public abstract class IAUnite  {
     
     public void createHisto(int state, int strategy){
     	
-    	
     	//calcul de la recompense en comparant previousUnitGroup et UnitGroup   	
 		int deadUnits = this.previousUnitGroup.areDeadNow();
 		double lifeVariation = this.previousUnitGroup.getQuantityOfLife() - previousLife;
