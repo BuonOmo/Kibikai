@@ -39,14 +39,14 @@ public interface Finals {
         //___________________BUILDING_____________________//
         
             /**
-             * Nombre d’US par secondes crées à l’origine par BA
+             * Nombre d’US par secondes crées à l’origine par BA.
              */
             public static final double UNIT_PER_SECOND = 01;
         
         //______________________UNIT______________________//
            
             /**
-             * distance unitaire d’un deplacement en metres;
+             * distance unitaire d’un deplacement en metres.
              */
             public static final double DISTANCE_TO_MOVE = 1;
             
@@ -64,7 +64,7 @@ public interface Finals {
                 public static final double ATTACK_RANGE = 1.5;
                 
                 /**
-                 * Dégat fait par tour de jeu par une UM
+                 * Dégat fait par tour de jeu par une UM.
                  */
                 public static final double DAMAGE = 0.5;
                 
@@ -77,7 +77,7 @@ public interface Finals {
                 
                 
                 /**
-                 * Porté pour la création d’une UM
+                 * Porté pour la création d’une UM.
                  */
                 public static final double CREATION_RANGE = 2;
         
@@ -110,7 +110,7 @@ public interface Finals {
          public static final double R_DEFEAT = -10;
          
          /**
-          * taill des des rayons de Zonne (IA UNIT)
+          * taille des des rayons de Zone (IA UNIT).
           */
          public static final double RAYON_ZONNE_1 = 5;
          public static final double RAYON_ZONNE_2 = 10;

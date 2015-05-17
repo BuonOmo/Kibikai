@@ -20,11 +20,9 @@ public class Game implements Finals {
         
         
         //TODO ajouter les récuperation des Input
-        for (int i = 0; i < Item.aliveItems.size();i++ )
-            Item.aliveItems.get(i).execute();
+        for (Item element : Item.aliveItems)
+            element.execute();
         IA.execut();
-        //for (Item element : Item.aliveItems)
-          //  element.execute();
 
     }
     

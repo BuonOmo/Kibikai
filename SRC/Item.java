@@ -189,7 +189,7 @@ public abstract class Item implements Finals{
     }
 
     /**
-     * gère les problèmes rencontrés par des objets
+     * gère les problèmes rencontrés par des objets (inutile !).
      * @param type type d’erreur
      */
     public void error (int type){

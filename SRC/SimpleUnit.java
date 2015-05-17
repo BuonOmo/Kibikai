@@ -92,7 +92,7 @@ public class SimpleUnit extends Unit {
      * @param u2
      * @param t position du soldat à créer
      */
-    public void setBuilders(SimpleUnit u1,SimpleUnit u2, Point2D t){
+    private void setBuilders(SimpleUnit u1,SimpleUnit u2, Point2D t){
         creating = true;
         builders = new SimpleUnitGroup(this);
         builders.add(u1);
@@ -107,7 +107,7 @@ public class SimpleUnit extends Unit {
      * @param u2
      * @param t position du soldat à créer
      */
-    public void setBuilders(SimpleUnit u1,SimpleUnit u2){
+    private void setBuilders(SimpleUnit u1,SimpleUnit u2){
         creating = true;
         builders = new SimpleUnitGroup(this);
         builders.add(u1);
@@ -117,7 +117,7 @@ public class SimpleUnit extends Unit {
         builders.setTarget(builders.getPosition());
     }
     
-    public SimpleUnit[] getTwoClosestSimpleUnits(){
+    private SimpleUnit[] getTwoClosestSimpleUnits(){
         LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(aliveSimpleUnits);
         toCheck.remove(this);
         SimpleUnit[] toReturn = {toCheck.getFirst(),toCheck.getFirst()};

@@ -24,7 +24,7 @@ public class Building extends Item{
         life = Math.pow(side, 2)*LIFE;
         destructed = false;
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
-        setTarget(new Point2D.Double(30,30)); //(test)
+        setTarget(new Point2D.Double(30,30)); //___________________________________(test)
     }
     
     /**
@@ -40,10 +40,9 @@ public class Building extends Item{
      *  Cree une unité simple et la rajoute dans le tableau du joueur. elle se dirige au target
      */
     public void goAndProcreate(){
-    	
-        //Choix du point de spawn adapte au point de ralliement
-    	Point2D spawnPoint = new Point2D.Double();
         
+        
+        // on laisse tout ce calcul ? parcequ’il sert à rien vu qu’on gère pas les intersections..
         double x,y;
     	if(target.getX()<=hitBox.getX()){
     	    x = hitBox.getX()-SIDE-1;
@@ -61,10 +60,8 @@ public class Building extends Item{
             }
         }
         
-        spawnPoint.setLocation(x, y);
-
         if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT) {
-            SimpleUnit su = new SimpleUnit(owner,getCenter(),new Point.Double(x,y) );
+            new SimpleUnit(owner,getCenter(),new Point.Double(x,y) );
         }
 
     }
@@ -126,14 +123,12 @@ public class Building extends Item{
         
         actualiseTarget();
         
-        // TODO trouver une variable time qui marche............................
-        //if (life > LIFE){
+        // pourquoi ça a été mis en commentaire ? C’est pour éviter les abus et division par 0
+        if (life > LIFE){
 
             if (((UI.time)%((int) 2 /(hitBox.getHeight()*UNIT_PER_SECOND)+1) == 0)){
-                goAndProcreate();
-              //*****System.out.println (Item.aliveItems+owner.toString());
-                
+                goAndProcreate();                
             }
-        //}
+        }
     }
 }
