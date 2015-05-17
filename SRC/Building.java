@@ -131,8 +131,7 @@ public class Building extends Item{
 
             if (((UI.time)%((int) 2 /(hitBox.getHeight()*UNIT_PER_SECOND)+1) == 0)){
                 goAndProcreate();
-                System.out.println("coucou");
-                System.out.println (Item.aliveItems+owner.toString());
+              //*****System.out.println (Item.aliveItems+owner.toString());
                 
             }
         //}

@@ -25,7 +25,7 @@ public class IA {
                         }
     }
     public static void execut(){
-        System.out.println("IA.execut : nb Sg "+SoldierGroup.list.size());
+    	//*****System.out.println("IA.execut : nb Sg "+SoldierGroup.list.size());
         //for (SoldierGroup element : SoldierGroup.list){
         for (int i = 0 ; i<SoldierGroup.list.size();i++ ){
            // element.ia.execut();
@@ -33,7 +33,7 @@ public class IA {
             SoldierGroup.list.get(i).ia.execut();
         }
         
-        System.out.println("IA.execut : nb Sug "+SimpleUnitGroup.list.size());
+      //*****System.out.println("IA.execut : nb Sug "+SimpleUnitGroup.list.size());
         //for (SimpleUnitGroup element : SimpleUnitGroup.list){
         for (int i = 0 ;  i < SimpleUnitGroup.list .size();i++){
             if (SimpleUnitGroup.list.get(i).ia==null)

@@ -38,9 +38,11 @@ public class UI extends JFrame{
 	private JButton downScreen;
 	private JButton map;
 	
+	JFrame frame;
+	
 	public UI(){
 		
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		frame.addMouseListener(new CustomMouseListener());
 		
 		//Size of the screen, have to go in the finals ??
@@ -49,9 +51,11 @@ public class UI extends JFrame{
 	    screenHeight = screenSize.height;
 	    screenWidth = screenSize.width;
 	    
+	    
 	    // Plein ecran
 	    frame.setUndecorated(true);
 	    frame.setExtendedState(frame.MAXIMIZED_BOTH);
+	    
 	    
 	    /*
 	    //Location and size of the frame
@@ -119,12 +123,11 @@ public class UI extends JFrame{
 			//canvas.s1.setTarget(new Point2D.Double(tX, tY));
                         //canvas.s1.execute();
                         //canvas.b1.getLife(0.4);
-                        
-                        Game.run();
-                        
+			Game.run();
+				
 			canvas.repaint();
-                        time ++;
-                        System.out.println ("time : "+time);
+			time ++;
+			//*****System.out.println ("time : "+time);
 		}
 	}
 
