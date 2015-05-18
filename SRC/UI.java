@@ -135,10 +135,19 @@ public class UI extends JFrame{
                 if (leftClicked){
                     for (Item element : Item.aliveItems){
                         if (element.hitBox.contains(tX, tY)){
-                            System.out.println(element+" devrait être selectionné");
+                            System.out.println("UI.CustomMouseListener.mouseClicked : "+element+" devrait être selectionné");
                             hasSelected = true;
                             selected = element;
                             break;
+                        }
+                    }
+                    if (hasSelected){
+                        for (Item element : Item.aliveItems){
+                            if (element.hitBox.contains(tX, tY)){
+                                selected.setTarget(element);
+                                break;
+                            }
+                            selected.setTarget(tX, tY);
                         }
                     }
                 }
