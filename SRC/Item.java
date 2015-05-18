@@ -73,6 +73,14 @@ public abstract class Item implements Finals{
         targetI = null;
         target = targetToSet;
     }
+    
+    public void setTarget(double x, double y){
+        setTarget( new Point2D.Double(x,y));
+    }
+    
+    public void setTarget(int x, int y){
+        setTarget( new Point2D.Double(x, y));
+    }
 
     /**
      * @param targetToSet 

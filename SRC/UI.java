@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
@@ -14,7 +15,7 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class UI extends JFrame{
-	
+        
 	Timer timer;
 	static long time;
 	BufferedImage ArrierePlan;
@@ -100,7 +101,12 @@ public class UI extends JFrame{
 	}
 	
 	public class CustomMouseListener implements MouseListener{
-	
+            
+            boolean hasSelected = false;
+            Item selected;
+            
+	    boolean rightClicked, leftClicked;
+            
             public void mousePressed(MouseEvent e) {}
             public void mouseReleased(MouseEvent e) {}
             public void mouseEntered(MouseEvent e) {}
@@ -108,10 +114,43 @@ public class UI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 tX=e.getX()/Finals.scale;
                 tY=e.getY()/Finals.scale;
-                for (Item element : Item.aliveItems){
-                    if (element.hitBox.contains(tX, tY)){
-                        System.out.println(element+" devrait être selectionné");
-                        break;
+            
+                switch(e.getModifiers()) {
+                    case InputEvent.BUTTON1_MASK: {
+                            leftClicked = true;
+                            break;
+                    }
+                    /**
+                     * Pour le bouton du milieu :
+                    case InputEvent.BUTTON2_MASK: {
+                            System.out.println("That's the MIDDLE button");     
+                            break;
+                    }
+                     */
+                    case InputEvent.BUTTON3_MASK: {
+                            rightClicked = true;     
+                            break;
+                    }
+                }
+                if (leftClicked){
+                    for (Item element : Item.aliveItems){
+                        if (element.hitBox.contains(tX, tY)){
+                            System.out.println(element+" devrait être selectionné");
+                            hasSelected = true;
+                            selected = element;
+                            break;
+                        }
+                    }
+                }
+                if (rightClicked){
+                    if (hasSelected){
+                        for (Item element : Item.aliveItems){
+                            if (element.hitBox.contains(tX, tY)){
+                                selected.setTarget(element);
+                                break;
+                            }
+                            selected.setTarget(tX, tY);
+                        }
                     }
                 }
             }    
