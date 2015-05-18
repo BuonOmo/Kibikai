@@ -116,6 +116,31 @@ public class IASoldier extends IAUnite {
             /*
              * attaque timide 
              */
+            {
+                Unit target = null; 
+                Point2D cdm = unitGroup.getPosition();
+                double distence1 = IA.player.base.distanceTo(cdm);
+                for (Unit u : simpleUnitPlyaerInZone3){
+                    boolean notIsolait = true;
+                    if (u.distanceTo(cdm)<distence1){
+                        for (Unit su : IA.player.units)
+                            if (u.distanceTo(su)<Finals.RAYON_ZONNE_2){
+                                notIsolait = false;
+                                break;
+                            }
+                        if (notIsolait){
+                            distence1=u.distanceTo(cdm);
+                            target = u;
+                        }
+                    }
+                }
+            if (target != null)
+                unitGroup.setTarget(target.getCenter());
+            else{
+               if (target == null)
+                   unitGroup.setTarget(IA.player.base.getCenter());
+               else 
+                    unitGroup.setTarget(target.getCenter());
             if (soldierPlyaerInZone1.size()>soldierComputerInZone1.size()){
                 /*
                  * ajouter soldierGroup au group alli� le plus proche 
@@ -201,8 +226,10 @@ public class IASoldier extends IAUnite {
                     }
 
                 }
+            }
             
                 break;
+            }
         case 4:{
                    Unit target = null; 
                    Point2D cdm = unitGroup.getPosition();
@@ -217,9 +244,10 @@ public class IASoldier extends IAUnite {
                        unitGroup.setTarget(IA.player.base.getCenter());
                    else 
                        unitGroup.setTarget(target.getCenter());
+            break;
         }
 
-                break;
+
         case 5:
 
                 break;
