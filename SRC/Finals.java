@@ -115,5 +115,8 @@ public interface Finals {
          public static final double RAYON_ZONNE_1 = 5;
          public static final double RAYON_ZONNE_2 = 10;
          public static final double RAYON_ZONNE_3 = 100;
+         
+    //____________UI______________________//
+         public static final int SCROLL_BORDER = 50;
     
 }

@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -101,20 +103,20 @@ public class UI extends JFrame{
 	
 	public class CustomMouseListener implements MouseListener{
 	
-            public void mousePressed(MouseEvent e) {}
-            public void mouseReleased(MouseEvent e) {}
-            public void mouseEntered(MouseEvent e) {}
-            public void mouseExited(MouseEvent e) {}
-            public void mouseClicked(MouseEvent e) {
-                tX=e.getX()/Finals.scale;
-                tY=e.getY()/Finals.scale;
-                for (Item element : Item.aliveItems){
-                    if (element.hitBox.contains(tX, tY)){
-                        System.out.println(element+" devrait être selectionné");
-                        break;
-                    }
-                }
-            }    
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				tX=e.getX()/Finals.scale;
+				tY=e.getY()/Finals.scale;
+				for (Item element : Item.aliveItems){
+					if (element.hitBox.contains(tX, tY)){
+						System.out.println(element+" devrait être selectionné");
+						break;
+					}
+				}
+			}    
 	}
 	
 	private class TimerAction implements ActionListener {
@@ -127,10 +129,28 @@ public class UI extends JFrame{
                         //canvas.s1.execute();
                         //canvas.b1.getLife(0.4);
 			Game.run();
-				
+			
+			//Scrolling
+			Point mouse = MouseInfo.getPointerInfo().getLocation();
+			if(mouse.x <= Finals.SCROLL_BORDER){
+				//scroll à gauche
+				System.out.println("Scroll à gauche");
+			}
+			else if(mouse.x >= screenWidth - Finals.SCROLL_BORDER){
+				//scroll à droite
+				System.out.println("Scroll à droite");
+			}
+			if(mouse.y <= Finals.SCROLL_BORDER){
+				//scroll en haut
+				System.out.println("Scroll en haut");
+			}
+			else if(mouse.y >= screenHeight - Finals.SCROLL_BORDER){
+				//scroll en bas
+				System.out.println("Scroll en bas");
+			}
+
 			canvas.repaint();
 			time ++;
-			//*****System.out.println ("time : "+time);
 		}
 	}
 
