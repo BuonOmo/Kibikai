@@ -41,7 +41,7 @@ public interface Finals {
             /**
              * Nombre d’US par secondes crées à l’origine par BA.
              */
-            public static final double UNIT_PER_SECOND = 01;
+            public static final double UNIT_PER_SECOND = 1;
         
         //______________________UNIT______________________//
            
