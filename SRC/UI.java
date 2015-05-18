@@ -106,9 +106,8 @@ public class UI extends JFrame{
             public void mouseEntered(MouseEvent e) {}
             public void mouseExited(MouseEvent e) {}
             public void mouseClicked(MouseEvent e) {
-                tX=e.getX();
-                tY=e.getY();
-                System.out.println("C'est bon, ça marche "+ tX + ", " + tY);
+                tX=e.getX()/Finals.scale;
+                tY=e.getY()/Finals.scale;
                 for (Item element : Item.aliveItems){
                     if (element.hitBox.contains(tX, tY)){
                         System.out.println(element+" devrait être selectionné");

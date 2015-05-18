@@ -111,7 +111,7 @@ public abstract class IAUnite  {
             }
         }
         */
-        System.out.println("==> IAUnit.updateZone : nd soldier player in z3"+soldierPlyaerInZone3.size());
+        //System.out.println("==> IAUnit.updateZone : nd soldier player in z3"+soldierPlyaerInZone3.size());
     }
     
     public void createHisto(int state, int strategy){

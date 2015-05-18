@@ -10,6 +10,7 @@ public class Game implements Finals {
      * méthode appelée à chaque "tour de jeu".
      */
     public static void run(){
+        /*
         System.out.println("Game.run : nb de SU de comp "+IA.computer.simpleUnits.size());
         System.out.println("Game.run : nb de SU de play "+IA.player.simpleUnits.size());
         System.out.println("Game.run : nb de So de play "+IA.player.soldiers.size());
@@ -17,7 +18,7 @@ public class Game implements Finals {
         System.out.println("Game.run : nb de So de comp "+IA.computer.soldiers.size());
         System.out.println("Game.run : nb de U de comp "+IA.computer.units.size());  
         System.out.println("Game.run : nb nb itme en vie "+Item.aliveItems.size());
-        
+        */
         
         
         //TODO ajouter les récuperation des Input
