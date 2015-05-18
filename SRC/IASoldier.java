@@ -1,3 +1,6 @@
+
+import java.awt.geom.Point2D;
+
 import java.util.LinkedList;
 
 public class IASoldier extends IAUnite {
@@ -200,7 +203,21 @@ public class IASoldier extends IAUnite {
                 }
             
                 break;
-        case 4:
+        case 4:{
+                   Unit target = null; 
+                   Point2D cdm = unitGroup.getPosition();
+                   double distence = IA.player.base.distanceTo(cdm);
+                   for (Unit u : soldierPlyaerInZone3){
+                       if (u.distanceTo(cdm)<distence){
+                           distence=u.distanceTo(cdm);
+                           target = u;
+                       }
+                   }
+                   if (target == null)
+                       unitGroup.setTarget(IA.player.base.getCenter());
+                   else 
+                       unitGroup.setTarget(target.getCenter());
+        }
 
                 break;
         case 5:
