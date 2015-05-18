@@ -179,7 +179,6 @@ public abstract class Item implements Finals{
     
     public void print(Graphics g){
         g.setColor(color);
-        g.setColor(new Color(color.getRed(),color.getGreen(),color.getBlue(),color.getAlpha()));
         // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
         g.fillRoundRect( (int)(hitBox.getX()*scale), 
                          (int)(hitBox.getY()*scale), 
@@ -188,7 +187,10 @@ public abstract class Item implements Finals{
                          (10),
                          (10));
     }
-
+    
+    public String toString(){
+        return this.getClass().getName();
+    }
     /**
      * gère les problèmes rencontrés par des objets (inutile !).
      * @param type type d’erreur

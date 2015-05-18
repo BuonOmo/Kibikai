@@ -28,7 +28,6 @@ public class SimpleUnit extends Unit {
         aliveSimpleUnits.add(this);
         if (owner!=null) {
             owner.simpleUnits.add(this);
-            owner.units.add(this);
             if (owner == IA.computer) new SimpleUnitGroup(this);
             }
                 

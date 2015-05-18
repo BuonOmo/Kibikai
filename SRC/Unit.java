@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import java.util.LinkedList;
@@ -27,7 +28,6 @@ public abstract class Unit extends Item {
      */
     public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int side){
         this(owner, topLeftCorner, lifeMAXToSet, side, side);
-        owner.units.add(this);
     }
     
     /**
@@ -72,6 +72,9 @@ public abstract class Unit extends Item {
                        hitBox.getHeight() );
     }
     
+    public Color getColor(){
+        return color;
+    }
     public abstract void execute();
     
     //________MÉTHODES POUR LE DÉPLACEMENT______//

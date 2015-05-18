@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -67,7 +68,7 @@ public class Soldier extends Unit {
     
     @Override
     public void print(Graphics g) {
-        g.setColor(color);
+        g.setColor(getColor());
         g.fillOval((int) (hitBox.getX() * scale),
                    (int) (hitBox.getY() * scale),
                    (int) (2 * radius * scale),
