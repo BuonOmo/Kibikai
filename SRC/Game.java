@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class Game implements Finals {
     
@@ -20,8 +21,8 @@ public class Game implements Finals {
         
         
         //TODO ajouter les récuperation des Input
-        for (Item element : Item.aliveItems)
-            element.execute();
+        for(int i=0; i< Item.aliveItems.size(); i++)
+            Item.aliveItems.get(i).execute();
         IA.execut();
 
     }
