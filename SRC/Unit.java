@@ -48,7 +48,19 @@ public abstract class Unit extends Item {
     public void stop(){
         target = this.getCenter();
     }
- 
+    
+    /**
+     * Gère la vie d’une unité.
+     * @param amount vie ajoutée (- pour en enlever)
+     */
+    public void getLife(double amount){
+        life+= amount;
+        if (life <=0)
+            this.isDestructed();
+        else  if (life >= lifeMAX)
+            life = lifeMAX;
+    }
+    
     /**
      * Gère le déplacement d’une unité.
      */

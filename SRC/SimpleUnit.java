@@ -132,18 +132,6 @@ public class SimpleUnit extends Unit {
     }
     
     /**
-     * Gère la vie d’une US, son max étant LIFE.
-     * @param amount vie ajoutée (- pour en enlever)
-     */
-    public void getLife(double amount){
-        life+= amount;
-        if (life <=0)
-            this.isDestructed();
-        else  if (life >= LIFE)
-            life = LIFE;
-    }
-    
-    /**
      * soin de la 'targetI'
      */
     public void heal(){

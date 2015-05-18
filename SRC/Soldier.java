@@ -38,18 +38,6 @@ public class Soldier extends Unit {
     }
     
     //________________MÉTHODES_______________//
-
-    /**
-     * Gère la vie d’une unité (et pour un batiment sa taille).
-     * @param amount vie ajoutée (- pour en enlever)
-     */
-    public void getLife(double amount){
-        life+= amount;
-        if (life <=0)
-            this.isDestructed();
-        else  if (life >= lifeMAX)
-            life = lifeMAX;
-    }
     
     public void attack(){
 
