@@ -48,7 +48,7 @@ public class SimpleUnit extends Unit {
      * @param topLeftCorner
      */
     public SimpleUnit(Player owner, Point2D topLeftCorner){
-        this(owner, topLeftCorner, null);
+        this(owner, topLeftCorner, topLeftCorner);
     }
 
     //_____________________MÉTHODES____________________//

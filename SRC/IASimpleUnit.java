@@ -84,8 +84,8 @@ public class IASimpleUnit extends IAUnite {
         }
         case 3:{
 
-            double distence =SoldierGroup.list.get(1).distanceTo(unitGroup);
-            SoldierGroup group= new SoldierGroup(null);
+            double distence =10000;
+            SoldierGroup group= null;
             for( SoldierGroup sg :SoldierGroup.list){
 
                     if (sg.distanceTo(unitGroup)<distence){
@@ -109,6 +109,10 @@ public class IASimpleUnit extends IAUnite {
             break;
         }
         case 4:{
+                   if (support == null) unitGroup.setTarget(IA.computer.base);
+                   else{
+                       
+                   }
                    
             break;
         }

@@ -126,7 +126,7 @@ public class Building extends Item{
         // pourquoi ça a été mis en commentaire ? C’est pour éviter les abus et division par 0
         if (life > LIFE){
 
-            if (((UI.time)%((int) 4 /(hitBox.getHeight()*UNIT_PER_SECOND)+1) == 0)){
+            if (((UI.time)%(int) (4 /(hitBox.getHeight()*UNIT_PER_SECOND)+1) == 0)){
                 goAndProcreate();                
             }
         }

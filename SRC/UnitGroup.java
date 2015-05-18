@@ -123,8 +123,19 @@ public abstract class UnitGroup {
     public Player getOwner(){
         return owner;
     }
-    
+
+    /**
+     * @param targetToSet
+     */
     public void  setTarget(Point2D targetToSet){
+        for(Unit i : group)
+            i.setTarget(targetToSet);
+    }
+
+    /**
+     * @param targetToSet
+     */
+    public void  setTarget(Item targetToSet){
         for(Unit i : group)
             i.setTarget(targetToSet);
     }

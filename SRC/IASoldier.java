@@ -231,10 +231,16 @@ public class IASoldier extends IAUnite {
                 break;
             }
         case 4:{
-                   Unit target = null; 
-                   Point2D cdm = unitGroup.getPosition();
-                   double distence = IA.player.base.distanceTo(cdm);
-                   for (Unit u : soldierPlyaerInZone3){
+                   /*
+                    * attaque a tout pris !!
+                    */
+                    Unit target = null; 
+                    Point2D cdm = unitGroup.getPosition();
+                    double distence = IA.player.base.distanceTo(cdm);
+                    LinkedList <Unit> unitPlyaerInZone3 = new LinkedList <Unit>();
+                    unitPlyaerInZone3.addAll(this.simpleUnitPlyaerInZone3);
+                    unitPlyaerInZone3.addAll(this.soldierPlyaerInZone3);
+                   for (Unit u : unitPlyaerInZone3){
                        if (u.distanceTo(cdm)<distence){
                            distence=u.distanceTo(cdm);
                            target = u;
@@ -248,12 +254,38 @@ public class IASoldier extends IAUnite {
         }
 
 
-        case 5:
+        case 5:{
+            SoldierGroup allier =null;
+            double distence = 10000000;
+            for (SoldierGroup sg : SoldierGroup.list ){
+                if ( unitGroup.distanceTo(sg)<distence & unitGroup!=sg){
+                    distence = unitGroup.distanceTo(sg);
+                    allier=sg;
+                }
+            }
+            if (allier != null) {
+                unitGroup.setTarget(allier.getPosition());
+                allier.group.addAll(unitGroup.group);
+                SoldierGroup.list.remove(unitGroup);
+            }
+            
 
                 break;
-        case 6:
+        }
+        case 6:{
+                   SoldierGroup newsg = new SoldierGroup((Soldier)unitGroup.group.getFirst());
+                   int i = 1;
+                   for (Unit u :unitGroup.group){
+                       if (i%2 ==0){
+                           newsg.group.add(u);
+                           unitGroup.remouve(u);
+                       }
+                   }
+                   if (unitGroup.group.size()==0)
+                       SoldierGroup.list.remove(unitGroup);
 
                 break;
+        }
         default: 
         }
     }
