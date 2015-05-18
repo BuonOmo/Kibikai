@@ -20,7 +20,7 @@ public class SimpleUnit extends Unit {
      * @param locationToSet
      */
     public SimpleUnit(Player owner, Point2D topLeftCorner, Point2D targetToSet){
-        super(owner, topLeftCorner, 1, targetToSet);
+        super(owner, topLeftCorner, LIFE, 1, targetToSet);
         life = LIFE;
         creating = false;
         builder1 = null;

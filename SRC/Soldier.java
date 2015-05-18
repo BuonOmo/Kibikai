@@ -20,8 +20,8 @@ public class Soldier extends Unit {
      * @param lifeToSet vie du soldat à sa création (et non sa vie max)
      */
     public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet){
-        super(owner, topLeftCorner, 2);
-        life = lifeToSet;
+        super(owner, topLeftCorner, LIFE*3, 2);
+        life = (lifeToSet < lifeMAX) ? lifeToSet : lifeMAX;
         damage = 0;
         if (owner!=null) {
             owner.soldiers.add(this);
@@ -34,7 +34,7 @@ public class Soldier extends Unit {
      * @param topLeftCorner position de l’unité
      */
     public Soldier(Player owner, Point2D topLeftCorner){
-        this(owner, topLeftCorner, LIFE*2);
+        this(owner, topLeftCorner, LIFE*3);
     }
     
     //________________MÉTHODES_______________//
@@ -47,8 +47,8 @@ public class Soldier extends Unit {
         life+= amount;
         if (life <=0)
             this.isDestructed();
-        else  if (life >= LIFE*3)
-            life = LIFE*3;
+        else  if (life >= lifeMAX)
+            life = lifeMAX;
     }
     
     public void attack(){

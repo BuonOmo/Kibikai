@@ -6,14 +6,17 @@ import java.util.LinkedList;
 
 
 public abstract class Unit extends Item {
+    
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
+    double lifeMAX;
+    
     /**
      * @param owner
      * @param topLeftCorner
      * @param width
      * @param height
      */
-    public Unit(Player owner, Point2D topLeftCorner,int width, int height){
+    public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int width, int height){
         super(owner, topLeftCorner, width, height);
         owner.units.add(this);
     }   
@@ -22,8 +25,8 @@ public abstract class Unit extends Item {
      * @param topLeftCorner
      * @param side coté de la hitBox
      */
-    public Unit(Player owner, Point2D topLeftCorner,int side){
-        this(owner, topLeftCorner, side, side);
+    public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int side){
+        this(owner, topLeftCorner, lifeMAXToSet, side, side);
         owner.units.add(this);
     }
     
@@ -32,8 +35,8 @@ public abstract class Unit extends Item {
      * @param topLeftCorner
      * @param side coté de la hitBox
      */
-    public Unit(Player owner, Point2D topLeftCorner,int side, Point2D targetToSet){
-        this(owner, topLeftCorner, side);
+    public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int side, Point2D targetToSet){
+        this(owner, topLeftCorner, lifeMAXToSet, side);
         setTarget(targetToSet);
     }
     
