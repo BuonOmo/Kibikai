@@ -46,7 +46,7 @@ public class Canvas extends JComponent{
             new Soldier(P2, new Point2D.Double(90,40+i));
         }
         for (int i =1; i< 10;i++){
-            new Soldier(P1, new Point2D.Double(20,5*i));
+            //new Soldier(P1, new Point2D.Double(20,5*i));
             new Soldier(P1, new Point2D.Double(5*i,5));
         }
         
