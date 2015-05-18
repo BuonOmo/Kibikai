@@ -19,6 +19,7 @@ public abstract class Unit extends Item {
      */
     public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int width, int height){
         super(owner, topLeftCorner, width, height);
+        lifeMAX = lifeMAXToSet;
         owner.units.add(this);
     }   
     /**
@@ -61,6 +62,12 @@ public abstract class Unit extends Item {
             life = lifeMAX;
     }
     
+    @Override
+    public Color getColor(){
+        double percent = ((life+lifeMAX/2.0)/(1.5*lifeMAX));
+        return new Color((int)(color.getRed()*percent), (int)(color.getGreen()*percent), (int)(color.getBlue()*percent), color.getAlpha());
+    }
+    
     /**
      * Gère le déplacement d’une unité.
      */
@@ -72,9 +79,7 @@ public abstract class Unit extends Item {
                        hitBox.getHeight() );
     }
     
-    public Color getColor(){
-        return color;
-    }
+    
     public abstract void execute();
     
     //________MÉTHODES POUR LE DÉPLACEMENT______//
