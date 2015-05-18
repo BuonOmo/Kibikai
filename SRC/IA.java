@@ -35,7 +35,7 @@ public class IA {
         
       //*****System.out.println("IA.execut : nb Sug "+SimpleUnitGroup.list.size());
         //for (SimpleUnitGroup element : SimpleUnitGroup.list){
-        for (int i = 0 ;  i < SimpleUnitGroup.list .size();i++){
+        for (int i = 0 ;  i+1 < SimpleUnitGroup.list .size();i++){
             if (SimpleUnitGroup.list.get(i).ia==null)
                 SimpleUnitGroup.list.remove(i);
             if (SimpleUnitGroup.list.get(i).group.size()==0)

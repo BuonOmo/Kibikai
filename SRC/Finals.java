@@ -41,7 +41,7 @@ public interface Finals {
             /**
              * Nombre d’US par secondes crées à l’origine par BA.
              */
-            public static final double UNIT_PER_SECOND = 1;
+            public static final double UNIT_PER_SECOND = 0.2;
         
         //______________________UNIT______________________//
            
@@ -67,7 +67,6 @@ public interface Finals {
                  * Dégat fait par tour de jeu par une UM.
                  */
                 public static final double DAMAGE = 0.5;
-                
             //_________________SIMPLEUNIT_______________//
                 
                 /**

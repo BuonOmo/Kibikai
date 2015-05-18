@@ -108,10 +108,16 @@ public class IASimpleUnit extends IAUnite {
             }
             break;
         }
-        case 4:{
+        case 4:{   
                    if (support == null) unitGroup.setTarget(IA.computer.base);
                    else{
-                       
+                       for (Unit u : support.unitGroup.group){
+                           if (3*Finals.LIFE-u.life>unitGroup.group.getLast().life){
+                               unitGroup.group.getLast().setTarget(u);
+                                unitGroup.group.removeLast();
+                                if (unitGroup.group.size()==0)break;
+                           }
+                       }
                    }
                    
             break;
