@@ -112,8 +112,8 @@ public interface Finals {
          /**
           * taille des des rayons de Zone (IA UNIT).
           */
-         public static final double RAYON_ZONNE_1 = 5;
-         public static final double RAYON_ZONNE_2 = 10;
+         public static final double RAYON_ZONNE_1 = 50;
+         public static final double RAYON_ZONNE_2 = 50;
          public static final double RAYON_ZONNE_3 = 100;
     
 }

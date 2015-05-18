@@ -39,7 +39,7 @@ public abstract class IAUnite  {
     public abstract int chooseStrategy (int staite);
     public abstract void applyStrategy (int strategy);
     public void updateZone (){
-    	//*****System.out.println("IAUnit.updateZone : nd soldier player in z3"+soldierPlyaerInZone3.size());
+
         simpleUnitPlyaerInZone3.clear();
         for (int i = 0; i< IA.player.simpleUnits.size();i++){
             if (IA.player.units.get(i).getClass().getName()=="SimpleUnit"){
@@ -111,6 +111,7 @@ public abstract class IAUnite  {
             }
         }
         */
+        System.out.println("==> IAUnit.updateZone : nd soldier player in z3"+soldierPlyaerInZone3.size());
     }
     
     public void createHisto(int state, int strategy){

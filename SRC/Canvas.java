@@ -45,16 +45,18 @@ public class Canvas extends JComponent{
            // new Soldier(P1, new Point2D.Double(15,20+i));
             new Soldier(P2, new Point2D.Double(90,40+i));
         }
-        for (int i =1; i< 10;i++)
-            new Soldier(P1, new Point2D.Double(20+10*Math.random()*i,10+10*Math.random()*i));
+        for (int i =1; i< 10;i++){
+            new Soldier(P1, new Point2D.Double(20,5*i));
+            new Soldier(P1, new Point2D.Double(5*i,5));
+        }
         
-        P1.soldiers.get(1).setTarget(P2.soldiers.get(0));
-        P2.soldiers.get(0).setTarget(P1.base);
+        //P1.soldiers.get(1).setTarget(P2.soldiers.get(0));
+        //P2.soldiers.get(0).setTarget(P1.base);
         //P1.soldiers.get(0).setTarget(new Point2D.Double(100,100));
         for (int i= 0; i<0; i++){
-            new SimpleUnit(P1, P1.base, new Point2D.Double(20.0, 5.0 +2.0*(double)i*Finals.SIDE));
+            //new SimpleUnit(P1, P1.base, new Point2D.Double(20.0, 5.0 +2.0*(double)i*Finals.SIDE));
         }
-        new SimpleUnit(P1, P1.soldiers.get(0), new Point2D.Double(5,10));
+        // new SimpleUnit(P1, P1.soldiers.get(0), new Point2D.Double(5,10));
 
         IA.bigining();
 
