@@ -8,10 +8,7 @@ import java.awt.geom.Point2D;
 import java.security.acl.Owner;
 
 public class Building extends Item{
-	// _____________VARIABLE______________//
-	
-    boolean destructed; // attribut inutile, il y a déja une méthode isDestructed qui revoit vrai si il est mort
-	
+    
     // _____________CONSTRUCTEURS______________//
 
     /**
@@ -22,7 +19,6 @@ public class Building extends Item{
     public Building(Player owner, Point2D topLeftCorner, double side){
         super(owner, topLeftCorner, side);
         life = Math.pow(side, 2)*LIFE;
-        destructed = false;
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         setTarget(new Point2D.Double(30,30)); //___________________________________(test)
     }
@@ -67,41 +63,6 @@ public class Building extends Item{
     }
     
     /**
-     * Méthode permettant le soin et l’amélioration d’un batiment
-     */
-    public void increase(){
-        
-        //TODO gerer les intersection lors du grandissement
-        double newSide = Math.sqrt( Math.pow(hitBox.getHeight(),2) + Math.pow(SIDE, 2));
-        double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setRect(hitBox.getX() - shift, 
-                       hitBox.getY() - shift, 
-                       newSide, 
-                       newSide);
-        
-        life = Math.pow(newSide, 2)*LIFE;
-    }
-    
-    /**
-     * Méthode permettant la destruction et la regression d’un batiment
-     */
-    public void decrease(){
-        
-        life-= DAMAGE;
-        if((life)>0){
-        double newSide = Math.sqrt(life/LIFE);
-        double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setRect(hitBox.getX() - shift, 
-                       hitBox.getY() - shift, 
-                       newSide, 
-                       newSide);
-        }else{
-        	destructed = true;
-        	/// TODO gerer la defaite du player en arretant le jeu et en lancant une derniere fois l'execute des IA pour prendre la defaite/victoire en compte.
-        }
-    }
-    
-    /**
      * Gère la vie d’un batiment et sa taille.
      * @param amount vie ajoutée (- pour en enlever)
      */
@@ -111,8 +72,8 @@ public class Building extends Item{
         //TODO gerer les intersection lors du grandissement
         double newSide = Math.sqrt(life/LIFE);
         double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setRect(hitBox.getX() - shift, 
-                       hitBox.getY() - shift, 
+        hitBox.setRect(getCenter().getX() - newSide/2.0, 
+                       getCenter().getY() - newSide/2.0, 
                        newSide, 
                        newSide);
         if (life <=0)

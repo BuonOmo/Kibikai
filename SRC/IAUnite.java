@@ -125,7 +125,7 @@ public abstract class IAUnite  {
 		// Changer AUTRE_Joueur en le joueur adverse du possesseur du groupe d'unites
 		//if( AUTRE_JOUEUR.base.destructed){recompense =+ Finals.R_VICTORY;}
 		
-		if(unitGroup.getGroup().get(0).owner.base.destructed){recompense =+ Finals.R_DEFEAT;}  //R_DEFEAT<0
+		if(unitGroup.getGroup().get(0).owner.base.isDead()){recompense =+ Finals.R_DEFEAT;}  //R_DEFEAT<0
 		
 		Unit unite;	
     	for(int i=0;i<this.unitGroup.getGroup().size();i++){
