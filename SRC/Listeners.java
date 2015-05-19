@@ -12,8 +12,9 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class Listeners implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Finals {
-    boolean lClick, rClick;
-    Point2D mouse;
+    static Point2D mouse;
+    static boolean hasSelected;
+    static Item selected;
     //______________MÉTHODES______________//
     
     public static void setMouseLocation(){
@@ -21,11 +22,36 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     }
     
     private void rightClick(){
-        
+        if (hasSelected){
+            for (Item element : Item.aliveItems){
+                if (element.hitBox.contains(mouse)){
+                    selected.setTarget(element);
+                    break;
+                }
+            }
+            selected.setTarget(mouse);
+        }
     }
     
     private void leftClick(){
-        
+        for (Item element : Item.aliveItems){
+            if (element.hitBox.contains(mouse)){
+                System.out.println("UI.CustomMouseListener.mouseClicked : "+element+" devrait être selectionné");
+                hasSelected = true;
+                element.setSelected(true);
+                selected = element;
+                break;
+            }
+        }
+        if (hasSelected){
+            for (Item element : Item.aliveItems){
+                if (element.hitBox.contains(mouse)){
+                    element.setSelected(true);
+                    break;
+                }
+            }
+            selected.setTarget(mouse);
+        }
     }
     
     private Item getItem(LinkedList<Item> list, Point2D p){
@@ -71,37 +97,6 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             case InputEvent.BUTTON3_MASK: {
                 rightClick();
                 break;
-            }
-        }
-        if (leftClicked){
-            for (Item element : Item.aliveItems){
-                if (element.hitBox.contains(tX, tY)){
-                    System.out.println("UI.CustomMouseListener.mouseClicked : "+element+" devrait être selectionné");
-                    hasSelected = true;
-                    element.setSelected(true);
-                    selected = element;
-                    break;
-                }
-            }
-            if (hasSelected){
-                for (Item element : Item.aliveItems){
-                    if (element.hitBox.contains(tX, tY)){
-                        element.setSelected(true);
-                        break;
-                    }
-                }
-                selected.setTarget(tX, tY);
-            }
-        }
-        if (rightClicked){
-            if (hasSelected){
-                for (Item element : Item.aliveItems){
-                    if (element.hitBox.contains(tX, tY)){
-                        selected.setTarget(element);
-                        break;
-                    }
-                }
-                selected.setTarget(tX, tY);
             }
         }
     }
