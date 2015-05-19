@@ -189,21 +189,25 @@ public abstract class Item implements Finals{
     public abstract void execute();
     
     public Color getColor(){
+        if (selected)
+            return new Color(0,255,255,100);
         return color;
     }
     
     public void print(Graphics g){
-        if (selected){
-            g.setColor(new Color(0,255,255));
-            double newSide = hitBox.getHeight()*1.4;
-            double shift = (newSide - hitBox.getHeight())/4.0;
-            g.fillRoundRect( (int)((hitBox.getX() - shift)*scale), 
-                             (int)((hitBox.getY() - shift)*scale), 
+        /*if (selected){
+            
+            double newSide = hitBox.getHeight()*1.2 + SIDE/4.0;
+            
+            g.fillRoundRect( (int)((getCenter().getX() - newSide/2.0)*scale), 
+                             (int)((getCenter().getY() - newSide/2.0)*scale), 
                              (int)newSide*scale, 
                              (int)newSide*scale,
                              (12),
                              (12));
-        }
+            
+        }*/
+        
         g.setColor(getColor());
         // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
         g.fillRoundRect( (int)(hitBox.getX()*scale), 

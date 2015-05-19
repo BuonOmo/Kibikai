@@ -138,6 +138,7 @@ public class UI extends JFrame{
                     if (element.hitBox.contains(tX, tY)){
                         System.out.println("UI.CustomMouseListener.mouseClicked : "+element+" devrait être selectionné");
                         hasSelected = true;
+                        element.setSelected(true);
                         selected = element;
                         break;
                     }
