@@ -64,6 +64,8 @@ public abstract class Unit extends Item {
     
     @Override
     public Color getColor(){
+        if (selected)
+            return new Color(0,255,255,100);
         double percent = ((life+lifeMAX/2.0)/(1.5*lifeMAX));
         return new Color((int)(color.getRed()*percent), (int)(color.getGreen()*percent), (int)(color.getBlue()*percent), color.getAlpha());
     }

@@ -23,10 +23,7 @@ public class UI extends JFrame{
     BufferedImage ArrierePlan;
     Graphics buffer;
     Rectangle Ecran;
-
-    Building base1;
-    Rectangle hitBox;
-    Unit simpleUnit;
+    Listeners listeners;
 
     Canvas canvas;
 
@@ -44,9 +41,11 @@ public class UI extends JFrame{
     JFrame frame;
 
     public UI(){
-
+        canvas = new Canvas();
+        listeners = new Listeners(canvas.P1);
         frame = new JFrame();
-        frame.addMouseListener(new CustomMouseListener());
+        frame.addMouseListener(listeners);
+        frame.addKeyListener(listeners);
 
         //Size of the screen, have to go in the finals ??
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -69,7 +68,6 @@ public class UI extends JFrame{
 
         //Set the background on WHITE
         frame.getContentPane().setBackground(Color.WHITE);
-        canvas = new Canvas();
         frame.getContentPane().add(canvas);
 
         /* Boutons pour tester le Layout
@@ -176,19 +174,19 @@ public class UI extends JFrame{
             Point mouse = MouseInfo.getPointerInfo().getLocation();
             if(mouse.x <= Finals.SCROLL_BORDER){
                     //scroll à gauche
-                    System.out.println("Scroll à gauche");
+                    //System.out.println("Scroll à gauche");
             }
             else if(mouse.x >= screenWidth - Finals.SCROLL_BORDER){
                     //scroll à droite
-                    System.out.println("Scroll à droite");
+                    //System.out.println("Scroll à droite");
             }
             if(mouse.y <= Finals.SCROLL_BORDER){
                     //scroll en haut
-                    System.out.println("Scroll en haut");
+                    //System.out.println("Scroll en haut");
             }
             else if(mouse.y >= screenHeight - Finals.SCROLL_BORDER){
                     //scroll en bas
-                    System.out.println("Scroll en bas");
+                    //System.out.println("Scroll en bas");
             }
 
             canvas.repaint();

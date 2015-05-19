@@ -3,7 +3,7 @@ import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public abstract class UnitGroup {
+public class UnitGroup {
     
     //_______________ATTRIBUTS_________________//
     
@@ -13,7 +13,9 @@ public abstract class UnitGroup {
     
     //_______________CONSTRUCTEURS______________//
 
-
+    public UnitGroup(){
+        group = new LinkedList<Unit>();
+    }
     /**
      * Constructeur pour une seul unité.
      * @param u unité
@@ -175,5 +177,14 @@ public abstract class UnitGroup {
     public void remouve(Unit u){
         group.remove(u);
         
+    }
+    
+    public void add(Unit u){
+        group.add(u);
+    }
+    
+    public void setSelected(Boolean b){
+        for (Unit u : group)
+            u.setSelected(b);
     }
 }

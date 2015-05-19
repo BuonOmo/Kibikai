@@ -47,6 +47,7 @@ public class Canvas extends JComponent{
         }
         for (int i =1; i< 10;i++){
             new SimpleUnit(P1, new Point2D.Double(20,5*i));
+            new SimpleUnit(P1, P1.base, new Point2D.Double(22.5,5*i));
             new Soldier(P1, new Point2D.Double(5*i,5));
         }
         
