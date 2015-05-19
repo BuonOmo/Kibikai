@@ -74,8 +74,8 @@ public class Building extends Item{
         //TODO gerer les intersection lors du grandissement
         double newSide = Math.sqrt( Math.pow(hitBox.getHeight(),2) + Math.pow(SIDE, 2));
         double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setRect(hitBox.getX() - shift/2, 
-                       hitBox.getY() - shift/2, 
+        hitBox.setRect(hitBox.getX() - shift, 
+                       hitBox.getY() - shift, 
                        newSide, 
                        newSide);
         
@@ -91,8 +91,8 @@ public class Building extends Item{
         if((life)>0){
         double newSide = Math.sqrt(life/LIFE);
         double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setRect(hitBox.getX() - shift/2, 
-                       hitBox.getY() - shift/2, 
+        hitBox.setRect(hitBox.getX() - shift, 
+                       hitBox.getY() - shift, 
                        newSide, 
                        newSide);
         }else{
@@ -111,8 +111,8 @@ public class Building extends Item{
         //TODO gerer les intersection lors du grandissement
         double newSide = Math.sqrt(life/LIFE);
         double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setRect(hitBox.getX() - shift/2, 
-                       hitBox.getY() - shift/2, 
+        hitBox.setRect(hitBox.getX() - shift, 
+                       hitBox.getY() - shift, 
                        newSide, 
                        newSide);
         if (life <=0)

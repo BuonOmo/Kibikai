@@ -20,6 +20,8 @@ public abstract class Item implements Finals{
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
     static LinkedList<Item> deadItems = new LinkedList<Item>();
     
+    boolean selected;
+    
     // _____________CONSTRUCTEURS______________//
     
     /**
@@ -33,6 +35,7 @@ public abstract class Item implements Finals{
         target = targetToSet;
         aliveItems.add(this);
         radius = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
+        selected = false;
     }
 
     /**
@@ -190,6 +193,17 @@ public abstract class Item implements Finals{
     }
     
     public void print(Graphics g){
+        if (selected){
+            g.setColor(new Color(0,255,255));
+            double newSide = hitBox.getHeight()*1.4;
+            double shift = (newSide - hitBox.getHeight())/4.0;
+            g.fillRoundRect( (int)((hitBox.getX() - shift)*scale), 
+                             (int)((hitBox.getY() - shift)*scale), 
+                             (int)newSide*scale, 
+                             (int)newSide*scale,
+                             (12),
+                             (12));
+        }
         g.setColor(getColor());
         // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
         g.fillRoundRect( (int)(hitBox.getX()*scale), 
@@ -221,5 +235,9 @@ public abstract class Item implements Finals{
             default:
                 msg = "erreur non identifiee";
         }
+    }
+
+    void setSelected(boolean b) {
+        selected = b;
     }
 }
