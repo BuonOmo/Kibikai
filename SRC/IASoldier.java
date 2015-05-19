@@ -273,7 +273,8 @@ public class IASoldier extends IAUnite {
                 break;
         }
         case 6:{
-                   SoldierGroup newsg = new SoldierGroup((Soldier)unitGroup.group.getFirst());
+                   if (!unitGroup.group.isEmpty()) {
+                       SoldierGroup newsg = new SoldierGroup((Soldier)unitGroup.group.getFirst());
                    int i = 1;
                    for (Unit u :unitGroup.group){
                        if (i%2 ==0){
@@ -283,6 +284,7 @@ public class IASoldier extends IAUnite {
                    }
                    if (unitGroup.group.size()==0)
                        SoldierGroup.list.remove(unitGroup);
+                   }
 
                 break;
         }

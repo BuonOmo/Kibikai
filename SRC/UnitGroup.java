@@ -3,7 +3,7 @@ import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public abstract class UnitGroup {
+public abstract class UnitGroup implements Cloneable {
     
     //_______________ATTRIBUTS_________________//
     
@@ -176,4 +176,22 @@ public abstract class UnitGroup {
         group.remove(u);
         
     }
+    /**
+     *
+     * @return clone de l'obj 
+     */
+    public Object clone() {
+            Object o = null;
+            try {
+                    // On récupère l'instance à renvoyer par l'appel de la 
+                    // méthode super.clone()
+                    o = super.clone();
+            } catch(CloneNotSupportedException cnse) {
+                    // Ne devrait jamais arriver car nous implémentons 
+                    // l'interface Cloneable
+                    cnse.printStackTrace(System.err);
+                }
+                // on renvoie le clone
+                return o;
+            }
 }

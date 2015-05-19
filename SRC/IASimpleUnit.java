@@ -93,7 +93,7 @@ public class IASimpleUnit extends IAUnite {
                         distence =sg.distanceTo(unitGroup);
                     }
             }
-            if (group.ia!=null){
+            if (group!=null){
                 if (group.ia.support == null){
                     SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
                     sicition.ia.support=group.ia;
