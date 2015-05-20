@@ -125,8 +125,9 @@ public class IASimpleUnit extends IAUnite {
         }
             case 5:{ 
                                for (Unit u : unitGroup.group){
-                                   u.setTarget(u.getCenter());
+
                                    SimpleUnit su = (SimpleUnit)u;
+                                   su.setTarget(su.getCenter());
                                    su.createSoldier();
                                }
                         break;
