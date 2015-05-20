@@ -16,13 +16,13 @@ public class Player implements Finals{
     
     @Deprecated
     public Player(Color c, Building baseToSet, String nameToSet){
-        color = new Color(c.getRed(), c.getGreen(), c.getBlue(), 125);
+        color = new Color(c.getRed(), c.getGreen(), c.getBlue(), TRANSPARANCY);
         base = baseToSet;
         name = nameToSet;
     }
     
     public Player(Color c, Point2D baseLocation, String nameToSet){
-        color = new Color(c.getRed(), c.getGreen(), c.getBlue(), 125);
+        color = new Color(c.getRed(), c.getGreen(), c.getBlue(), TRANSPARANCY);
         base = new Building(this, baseLocation);
         name = nameToSet;
         soldiers = new ArrayList<Soldier>(NUMBER_MAX_OF_SOLDIER);

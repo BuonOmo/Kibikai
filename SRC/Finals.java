@@ -12,6 +12,12 @@ public interface Finals {
          */
         public static final int NUMBER_MAX_OF_SIMPLEUNIT = 20;
         
+        
+        /**
+         * transparence des unités (entre 0 et 255).
+         */
+        public static final int TRANSPARANCY = 80;
+        
        //______________________terrain______________________//
            
             /**
