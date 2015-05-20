@@ -10,18 +10,20 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Listeners implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Finals {
     boolean hasSelected, shiftPressed, baseSelected;
     Item canSelect;
     UnitGroup selected;
     Player owner;
-    char lastTypedKey;
+    String typedKeys;
     //_____________CONSTRUCTEUR____________//
     
     public Listeners(Player p){
         owner = p;
         selected=new UnitGroup();
+        typedKeys = "";
     }
     
     //______________MÉTHODES______________//
@@ -43,11 +45,11 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     
     private void leftClick(){
         getItemFromOwner();
-        System.out.println("Listeners.mouseClicked :"+canSelect);
-        select(canSelect);
-        if (canSelect.isNull()){
+        System.out.println("Listeners.leftClicked :"+canSelect);
+        if (canSelect == null) 
             unSelectAll();
-        }
+        else
+            select(canSelect);
         
     }
     
@@ -59,48 +61,46 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     }
     private void select(Item i){
         
-        if (!i.isNull() && i.owner == owner){
+        if (i != null && i.owner == owner){
             
             hasSelected=true;
+            i.setSelected(true);
             
             if (i.getClass().getName() == "Building"){
-                owner.base.setSelected(true);
                 baseSelected = true;
                 
             }
             else{
-                i.setSelected(true);
                 selected.add((Unit)i);
             }
         }
     }
         
     private void getItemFromOwner(){
-        canSelect = null;
-        
-        if (owner.base.hitBox.contains(mouse()))
-            canSelect = owner.base;
-        for (Unit u : owner.units)
-            if (u.hitBox.contains(mouse()))
-                canSelect = u;
+        getItem(owner.items);
     }
     
-    private void getItem(){
+    private void getItemFromAll(){
+        getItem(Item.aliveItems);
+    }
+    
+    private void getItem(LinkedList<Item> list){
         canSelect = null;
         
-        for (Item i : Item.aliveItems)
+        for (Item i : list)
             if (i.hitBox.contains(mouse()))
                 canSelect = i;
     }
     
     
     private void setTarget(){
-        getItem();
-        if (canSelect.isNull())
+        getItemFromAll();
+        if (canSelect == null)
             setTarget(mouse());
         else
             setTarget(canSelect);
     }
+    
     private void setTarget(Item i){
         selected.setTarget(i);
         if (baseSelected)
@@ -122,6 +122,8 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     @Override
     public void keyTyped(KeyEvent e) {
         
+        typedKeys+= e.getKeyChar();
+        
         switch(e.getKeyChar()){
         
         case ('s'):{
@@ -140,10 +142,18 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         }
         case('c'):{
             setTarget();
+            break;
+        }
+            
+        default:{
+            
         }
         }
         
-        lastTypedKey = e.getKeyChar();
+        if (typedKeys.endsWith("ulysse"))
+            cheat(0);
+        if (typedKeys.endsWith("adrien"))
+            cheat(1);
     }
 
     @Override
@@ -189,6 +199,7 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
                 break;
             }
         }
+        
     }
 
     @Override
@@ -224,5 +235,23 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     @Override
     public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
         // TODO Implement this method
+    }
+    
+    
+    //_________POUR_ADRIEN________//
+    
+    private void cheat(int i){
+        switch(i){
+        case 0 :{
+            owner.base.getLife(1000);
+            System.out.println("____Cadeau d’Ulysse____");
+            break;
+        }
+            case 1 :{
+                System.out.println("____Adrien t’as ken_____");
+                System.exit(0);
+                break;
+            }
+        }
     }
 }
