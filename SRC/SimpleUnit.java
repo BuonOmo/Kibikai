@@ -140,7 +140,7 @@ public class SimpleUnit extends Unit {
      * soin de la 'targetI'
      */
     public void heal(){
-        if (targetI != null && this.hasSameOwner(targetI)) {
+        if (targetI != null && targetI.getClass().getName() != "SimpleUnit" && this.hasSameOwner(targetI)) {
             if (targetI.isDead()) {
 
                 stop();

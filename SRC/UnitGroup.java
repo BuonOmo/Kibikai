@@ -206,4 +206,8 @@ public class UnitGroup implements Cloneable {
         for (Unit u : group)
             u.setSelected(b);
     }
+
+    void clear() {
+        group.clear();
+    }
 }

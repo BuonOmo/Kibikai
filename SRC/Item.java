@@ -192,6 +192,10 @@ public abstract class Item implements Finals{
         return (i.owner == owner);
     }
     
+    public boolean isNull(){
+        return (this == null);
+    }
+    
     public abstract void execute();
     
     public Color getColor(){

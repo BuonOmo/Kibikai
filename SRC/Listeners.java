@@ -12,16 +12,15 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class Listeners implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Finals {
-    Point2D mouse;
     boolean hasSelected, shiftPressed, baseSelected;
     Item canSelect;
     UnitGroup selected;
     Player owner;
+    char lastTypedKey;
     //_____________CONSTRUCTEUR____________//
     
     public Listeners(Player p){
         owner = p;
-        mouse = new Point2D.Double(20, 20);
         selected=new UnitGroup();
     }
     
@@ -31,17 +30,14 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         shiftPressed = false;
     }
     
-    public void setMouseLocation(MouseEvent e){
-        mouse.setLocation(new Point2D.Double (e.getX()/scale, e.getY()/scale));
+    public Point2D mouse(){
+        return new Point2D.Double((double)MouseInfo.getPointerInfo().getLocation().getX()/scale, 
+                                  (double)MouseInfo.getPointerInfo().getLocation().getY()/scale);
     }
     
     private void rightClick(){
         if (hasSelected){
-            getItem();
-            if (canSelect != null)
-                setTarget(canSelect);
-            else
-                setTarget(mouse);
+            setTarget();
         }
     }
     
@@ -49,6 +45,9 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         getItemFromOwner();
         System.out.println("Listeners.mouseClicked :"+canSelect);
         select(canSelect);
+        if (canSelect.isNull()){
+            unSelectAll();
+        }
         
     }
     
@@ -56,11 +55,11 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         baseSelected = false;
         selected.setSelected(false);
         hasSelected = false;
+        selected.clear();
     }
     private void select(Item i){
-        if (i != null){
-            if (!shiftPressed)
-                unSelectAll();
+        
+        if (!i.isNull() && i.owner == owner){
             
             hasSelected=true;
             
@@ -79,10 +78,10 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     private void getItemFromOwner(){
         canSelect = null;
         
-        if (owner.base.hitBox.contains(mouse))
+        if (owner.base.hitBox.contains(mouse()))
             canSelect = owner.base;
         for (Unit u : owner.units)
-            if (u.hitBox.contains(mouse))
+            if (u.hitBox.contains(mouse()))
                 canSelect = u;
     }
     
@@ -90,10 +89,18 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         canSelect = null;
         
         for (Item i : Item.aliveItems)
-            if (i.hitBox.contains(mouse))
+            if (i.hitBox.contains(mouse()))
                 canSelect = i;
     }
     
+    
+    private void setTarget(){
+        getItem();
+        if (canSelect.isNull())
+            setTarget(mouse());
+        else
+            setTarget(canSelect);
+    }
     private void setTarget(Item i){
         selected.setTarget(i);
         if (baseSelected)
@@ -113,8 +120,30 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     //_______________ÉCOUTEURS____________//
     
     @Override
-    public void keyTyped(KeyEvent keyEvent) {
-        // TODO Implement this method
+    public void keyTyped(KeyEvent e) {
+        
+        switch(e.getKeyChar()){
+        
+        case ('s'):{
+            unSelectAll();
+            for (Soldier s : owner.soldiers)
+                select(s);
+            break;
+        }
+            
+        case ('u'):{
+            unSelectAll();
+            for (SimpleUnit s : owner.simpleUnits)
+                select(s);
+            break;
+            
+        }
+        case('c'):{
+            setTarget();
+        }
+        }
+        
+        lastTypedKey = e.getKeyChar();
     }
 
     @Override
@@ -139,8 +168,8 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        setMouseLocation(mouseEvent);
-        System.out.println("Listeners.mouseClicked :"+mouse);
+        
+        System.out.println("Listeners.mouseClicked :"+mouse());
         switch(mouseEvent.getModifiers()) {
             case InputEvent.BUTTON1_MASK: {
                 log("mouseClicked","left");
