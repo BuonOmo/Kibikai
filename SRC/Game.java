@@ -6,6 +6,10 @@ import java.util.ListIterator;
 
 public class Game implements Finals {
     
+    //________________ATTRIBUTS_____________//
+    static Player human, computer;
+    
+    
     /**
      * méthode appelée dans UI.
      */
@@ -20,17 +24,18 @@ public class Game implements Finals {
         System.out.println("Game.run : nb nb itme en vie "+Item.aliveItems.size());
         */
         
-        if (UI.time == 0)
-            beginning();
-            
+        if (UI.time == 0){
+            //beginning();
+        }
         else if (Building.buildings.get(1).isDead() || Building.buildings.get(0).isDead())
             end();
         else
             middle();
     }
     
-    public static void beginning(){
-        
+    public static void beginning(Player humanToSet, Player computerToSet){
+        setHuman(humanToSet);
+        setComputer(computerToSet);
     }
     
     public static void middle(){
@@ -47,6 +52,28 @@ public class Game implements Finals {
     public static void print(Graphics g){
         for (Item i : Item.aliveItems)
             i.print(g);
+    }
+    
+    
+    //______________ACCESSEURS__________//
+    
+    static Player getHuman(){
+        return human;
+    }
+    
+    static Player getComputer(){
+        return computer;
+    }
+    
+    
+    //___________MUTATEURS___________//
+    
+    static void setHuman(Player p){
+        human = p;
+    }
+    
+    static void setComputer(Player p){
+        computer = p;
     }
 
 }
