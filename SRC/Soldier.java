@@ -79,6 +79,7 @@ public class Soldier extends Unit {
         if (!deadItems.contains(this)){
             deadItems.add(this);
             aliveItems.remove(this);
+            owner.items.remove(this);
             owner.units.remove(this);
             owner.soldiers.remove(this);
         }

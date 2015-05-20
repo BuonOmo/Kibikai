@@ -154,6 +154,7 @@ public class SimpleUnit extends Unit {
             aliveItems.remove(this);
             deadSimpleUnits.add(this);
             aliveSimpleUnits.remove(this);
+            owner.items.remove(this);
             owner.units.remove(this);
             owner.simpleUnits.remove(this);
         }

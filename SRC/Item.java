@@ -33,6 +33,7 @@ public abstract class Item implements Finals{
         owner = ownerToSet;
         hitBox = hitBoxToSet;
         target = targetToSet;
+        owner.items.add(this);
         aliveItems.add(this);
         radius = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
         selected = false;
@@ -176,6 +177,7 @@ public abstract class Item implements Finals{
         if (!deadItems.contains(this)){
             deadItems.add(this);
             aliveItems.remove(this);
+            owner.items.remove(this);
         }
     }
 

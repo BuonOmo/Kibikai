@@ -8,6 +8,7 @@ public class Player implements Finals{
     String name;
     Color color;
     Building base;
+    LinkedList<Item> items = new LinkedList<Item> ();
     LinkedList<Unit> units = new  LinkedList<Unit> ();
     ArrayList<Soldier> soldiers = new ArrayList<Soldier> ();
     ArrayList<SimpleUnit> simpleUnits = new ArrayList<SimpleUnit> ();
