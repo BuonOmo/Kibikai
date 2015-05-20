@@ -77,6 +77,7 @@ public class Soldier extends Unit {
     public void isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
+            owner.deadUnits.add(this);
             deadItems.add(this);
             aliveItems.remove(this);
             owner.items.remove(this);

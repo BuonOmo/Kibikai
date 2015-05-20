@@ -111,8 +111,8 @@ public interface Finals {
          public static final double R_DEAD = 5;
          public static final double R_GIVEN_DAMAGES = 5;
          public static final double R_RECEIVED_DAMAGES = 5;
-         public static final double R_VICTORY = 10;
-         public static final double R_DEFEAT = -10;
+         public static final double R_VICTORY = 1000;
+         public static final double R_DEFEAT = -1000;
          
          /**
           * taille des des rayons de Zone (IA UNIT).

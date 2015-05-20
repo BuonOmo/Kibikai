@@ -124,8 +124,8 @@ public class SimpleUnit extends Unit {
             builders.add(u2);
             builder1 = u1;
             builder2 = u2;
-            //builders.setTarget(builders.getPosition());
-            builders.setTarget(new Point2D.Double(30,30));
+            builders.setTarget(builders.getPosition());
+            //builders.setTarget(IA.computer.base.getCenter());
         }
         else error("SimpleUnit.setBuilders");
     }
@@ -164,6 +164,7 @@ public class SimpleUnit extends Unit {
     public void isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
+            owner.deadUnits.add(this);
             deadItems.add(this);
             aliveItems.remove(this);
             deadSimpleUnits.add(this);

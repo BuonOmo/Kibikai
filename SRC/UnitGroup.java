@@ -82,8 +82,8 @@ public class UnitGroup implements Cloneable {
         double X=0;
         double Y=0;
         for (Unit i : group){
-            X=+i.getCenter().getX();
-            Y=+i.getCenter().getY();
+            X+=i.getCenter().getX();
+            Y+=i.getCenter().getY();
         }
         X=X/this.group.size();
         Y=Y/this.group.size();

@@ -52,7 +52,7 @@ public class IASimpleUnit extends IAUnite {
             Rdm=Rdm-Math.exp(IA.qIASimpleUnit[staite][i]);
         }
         
-        return 0;
+        return 1;
     }
 
     public void applyStrategy(int strategy) {
