@@ -68,7 +68,6 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             
             if (i.getClass().getName() == "Building"){
                 baseSelected = true;
-                
             }
             else{
                 selected.add((Unit)i);
@@ -242,11 +241,11 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     
     private void cheat(int i){
         switch(i){
-        case 0 :{
-            owner.base.getLife(1000);
-            System.out.println("____Cadeau d’Ulysse____");
-            break;
-        }
+            case 0 :{
+                owner.base.getLife(1000);
+                System.out.println("____Cadeau d’Ulysse____");
+                break;
+            }
             case 1 :{
                 System.out.println("____Adrien t’as ken_____");
                 System.exit(0);
