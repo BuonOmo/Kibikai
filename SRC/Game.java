@@ -27,7 +27,7 @@ public class Game implements Finals {
         if (UI.time == 0){
             //beginning();
         }
-        else if (Building.buildings.get(1).isDead() || Building.buildings.get(0).isDead())
+        else if (Building.gameOver())
             end();
         else
             middle();

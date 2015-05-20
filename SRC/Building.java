@@ -86,6 +86,12 @@ public class Building extends Item{
             this.isDestructed();
     }
     
+    public static boolean gameOver(){
+        for (Building b : buildings)
+            if (b.isDead())
+                return true;
+        return false;
+    }
     public void execute(){
         
         actualiseTarget();
