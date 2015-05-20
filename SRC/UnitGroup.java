@@ -3,7 +3,11 @@ import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.LinkedList;
 
+<<<<<<< HEAD
 public abstract class UnitGroup implements Cloneable {
+=======
+public class UnitGroup {
+>>>>>>> origin/master
     
     //_______________ATTRIBUTS_________________//
     
@@ -13,7 +17,9 @@ public abstract class UnitGroup implements Cloneable {
     
     //_______________CONSTRUCTEURS______________//
 
-
+    public UnitGroup(){
+        group = new LinkedList<Unit>();
+    }
     /**
      * Constructeur pour une seul unité.
      * @param u unité
@@ -176,6 +182,7 @@ public abstract class UnitGroup implements Cloneable {
         group.remove(u);
         
     }
+<<<<<<< HEAD
     /**
      *
      * @return clone de l'obj 
@@ -194,4 +201,15 @@ public abstract class UnitGroup implements Cloneable {
                 // on renvoie le clone
                 return o;
             }
+=======
+    
+    public void add(Unit u){
+        group.add(u);
+    }
+    
+    public void setSelected(Boolean b){
+        for (Unit u : group)
+            u.setSelected(b);
+    }
+>>>>>>> origin/master
 }
