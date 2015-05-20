@@ -70,6 +70,7 @@ public class SimpleUnit extends Unit {
     }
     
     public void createSoldier(){
+        if(this.owner.simpleUnits.size()>2){
         if (!creating){
             SimpleUnit theTwo[] = getTwoClosestSimpleUnits();
             setBuilders(theTwo[0], theTwo[1]);
@@ -77,14 +78,16 @@ public class SimpleUnit extends Unit {
         else build();
             
     }
-    
-    public void build(){
-        if (builders.distanceTo(target) <= CREATION_RANGE){
-            builders.isDestructed();
-            //TODO gerer les conflits Ã  la crÃ©ation ______________________________________________?
-            new Soldier(owner, target, builders.getQuantityOfLife());
-        } 
+        else this.error("createSoldier");
+        //TODO add to erreurs 
     }
+    public void build(){
+            if ((builders.distanceTo(target) <= CREATION_RANGE)&(builders.group.size()==3)){
+                        builders.isDestructed();
+                        //TODO gerer les conflits à la création ______________________________________________?
+                        new Soldier(owner, target, builders.getQuantityOfLife());
+                    } 
+                }
 
     /**
      * @param u1

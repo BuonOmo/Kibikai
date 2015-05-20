@@ -34,8 +34,10 @@ public class Game implements Finals {
     }
     
     public static void beginning(Player humanToSet, Player computerToSet){
+
         setHuman(humanToSet);
         setComputer(computerToSet);
+
     }
     
     public static void middle(){

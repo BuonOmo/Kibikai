@@ -235,11 +235,11 @@ public abstract class Item implements Finals{
      * gère les problèmes rencontrés par des objets (inutile !).
      * @param type type d’erreur
      */
-    public void error (String type){
+     public void error (String type){
         
-        String msg;
+        /*String msg;
         
-        switch (type){
+       switch (type){
             
             // erreur dans SimpleUnit.heal()
             case "SimpleUnit.heal":
@@ -255,9 +255,11 @@ public abstract class Item implements Finals{
         }
         
         System.out.println(msg);
+*/
     }
 
-    void setSelected(boolean b) {
+    public void setSelected(boolean b) {
         selected = b;
     }
+
 }

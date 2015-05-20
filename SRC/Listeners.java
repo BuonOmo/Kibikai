@@ -150,7 +150,7 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     public void keyPressed(KeyEvent e) {
         
         // TODO Implement this method
-        System.out.println(e.getExtendedKeyCode());
+        //System.out.println(e.getExtendedKeyCode());
         switch(e.getKeyCode()){
             case (16) :{
                 log("keyPressed","pressed");

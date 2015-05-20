@@ -99,10 +99,11 @@ public class IASimpleUnit extends IAUnite {
                     sicition.ia.support=group.ia;
                     group.ia.support=sicition.ia;
                 }
+                if (unitGroup.group.size()!=0)
                 for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
                     if ((i+1)%2==0) {
-                        unitGroup.remouve(unitGroup.group.get(i));
                         group.ia.support.unitGroup.group.add((SimpleUnit)unitGroup.group.get(i));
+                        unitGroup.remouve(unitGroup.group.get(i));
                     }
                 }
             }
@@ -122,7 +123,14 @@ public class IASimpleUnit extends IAUnite {
                    
             break;
         }
-            
+            case 5:{ 
+                               for (Unit u : unitGroup.group){
+                                   u.setTarget(u.getCenter());
+                                   SimpleUnit su = (SimpleUnit)u;
+                                   su.createSoldier();
+                               }
+                        break;
+                        } 
                 
         }
     }
