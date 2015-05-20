@@ -56,10 +56,10 @@ public class Soldier extends Unit {
     public Item getEnemyToAttack(){
         //TODO gerer la priorité entre attaquer une US, une UM ou un BA ? et gerer une liste d’ennemis ?
    
-        if (targetI != null && targetI.isCloseTo(this, ATTACK_RANGE))
+        if (targetI != null && targetI.isCloseTo(this, ATTACK_RANGE) && !hasSameOwner(targetI))
             return targetI;
         for (Item enemy : aliveItems)
-            if (enemy.owner != owner && enemy.isCloseTo(this, ATTACK_RANGE))
+            if (!hasSameOwner(enemy) && enemy.isCloseTo(this, ATTACK_RANGE))
                 return enemy;
         return null;
         

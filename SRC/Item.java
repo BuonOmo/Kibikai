@@ -188,6 +188,10 @@ public abstract class Item implements Finals{
         return (life <= 0);
     }
     
+    public boolean hasSameOwner(Item i){
+        return (i.owner == owner);
+    }
+    
     public abstract void execute();
     
     public Color getColor(){
@@ -227,20 +231,26 @@ public abstract class Item implements Finals{
      * gère les problèmes rencontrés par des objets (inutile !).
      * @param type type d’erreur
      */
-    public void error (int type){
+    public void error (String type){
         
         String msg;
         
         switch (type){
             
             // erreur dans SimpleUnit.heal()
-            case 1:
-                msg = "l'objet a�soigner est mort";
-            break;
+            case "SimpleUnit.heal":
+                msg = "l'objet à soigner est mort";
+                break;
+            
+            case "SimpleUnit.setBuilders":
+                msg = "les UM appartiennent à l’adversaire";
+                break;
             
             default:
                 msg = "erreur non identifiee";
         }
+        
+        System.out.println(msg);
     }
 
     void setSelected(boolean b) {

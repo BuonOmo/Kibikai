@@ -92,32 +92,38 @@ public class SimpleUnit extends Unit {
      * @param t position du soldat à créer
      */
     private void setBuilders(SimpleUnit u1,SimpleUnit u2, Point2D t){
-        creating = true;
-        builders = new SimpleUnitGroup(this);
-        builders.add(u1);
-        builders.add(u2);
-        builder1 = u1;
-        builder2 = u2;
-        builders.setTarget(t);
+        if (hasSameOwner(u1) && hasSameOwner(u2)){
+            creating = true;
+            builders = new SimpleUnitGroup(this);
+            builders.add(u1);
+            builders.add(u2);
+            builder1 = u1;
+            builder2 = u2;
+            builders.setTarget(t);
+        }
+        else error("SimpleUnit.setBuilders");
     }
     
     /**
+     * crée un soldat au niveau du barycentre des trois unités.
      * @param u1
      * @param u2
-     * @param t position du soldat à créer
      */
     private void setBuilders(SimpleUnit u1,SimpleUnit u2){
-        creating = true;
-        builders = new SimpleUnitGroup(this);
-        builders.add(u1);
-        builders.add(u2);
-        builder1 = u1;
-        builder2 = u2;
-        builders.setTarget(builders.getPosition());
+        if (hasSameOwner(u1) && hasSameOwner(u2)){
+            creating = true;
+            builders = new SimpleUnitGroup(this);
+            builders.add(u1);
+            builders.add(u2);
+            builder1 = u1;
+            builder2 = u2;
+            builders.setTarget(builders.getPosition());
+        }
+        else error("SimpleUnit.setBuilders");
     }
     
     private SimpleUnit[] getTwoClosestSimpleUnits(){
-        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(aliveSimpleUnits);
+        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(owner.simpleUnits);
         toCheck.remove(this);
         SimpleUnit[] toReturn = {toCheck.getFirst(),toCheck.getFirst()};
         for (SimpleUnit i : toCheck){
@@ -134,11 +140,11 @@ public class SimpleUnit extends Unit {
      * soin de la 'targetI'
      */
     public void heal(){
-        if (targetI != null) {
+        if (targetI != null && this.hasSameOwner(targetI)) {
             if (targetI.isDead()) {
 
                 stop();
-                error(1);
+                error("SimpleUnit.heal");
             } else if (this.isCloseTo(targetI, HEALING_RANGE)) {
 
                 targetI.getLife(life);
