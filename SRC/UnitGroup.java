@@ -2,12 +2,8 @@ import java.awt.geom.Point2D;
 
 import java.util.Collection;
 import java.util.LinkedList;
+public class UnitGroup implements Cloneable {
 
-<<<<<<< HEAD
-public abstract class UnitGroup implements Cloneable {
-=======
-public class UnitGroup {
->>>>>>> origin/master
     
     //_______________ATTRIBUTS_________________//
     
@@ -182,7 +178,7 @@ public class UnitGroup {
         group.remove(u);
         
     }
-<<<<<<< HEAD
+    
     /**
      *
      * @return clone de l'obj 
@@ -190,18 +186,17 @@ public class UnitGroup {
     public Object clone() {
             Object o = null;
             try {
-                    // On récupère l'instance à renvoyer par l'appel de la 
-                    // méthode super.clone()
+                    // On rï¿½cupï¿½re l'instance ï¿½ renvoyer par l'appel de la 
+                    // mï¿½thode super.clone()
                     o = super.clone();
             } catch(CloneNotSupportedException cnse) {
-                    // Ne devrait jamais arriver car nous implémentons 
+                    // Ne devrait jamais arriver car nous implï¿½mentons 
                     // l'interface Cloneable
                     cnse.printStackTrace(System.err);
                 }
                 // on renvoie le clone
                 return o;
             }
-=======
     
     public void add(Unit u){
         group.add(u);
@@ -211,5 +206,4 @@ public class UnitGroup {
         for (Unit u : group)
             u.setSelected(b);
     }
->>>>>>> origin/master
 }

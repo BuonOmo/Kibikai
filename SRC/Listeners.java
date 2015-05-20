@@ -12,28 +12,103 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class Listeners implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Finals {
-    boolean lClick, rClick;
     Point2D mouse;
+    boolean hasSelected, shiftPressed, baseSelected;
+    Item canSelect;
+    UnitGroup selected;
+    Player owner;
+    //_____________CONSTRUCTEUR____________//
+    
+    public Listeners(Player p){
+        owner = p;
+        mouse = new Point2D.Double(20, 20);
+        selected=new UnitGroup();
+    }
+    
     //______________MÉTHODES______________//
     
-    public static void setMouseLocation(){
-        mouse.setLocation(MouseInfo.getPointerInfo().getLocation());
+    public void releaseKey(){
+        shiftPressed = false;
+    }
+    
+    public void setMouseLocation(MouseEvent e){
+        mouse.setLocation(new Point2D.Double (e.getX()/scale, e.getY()/scale));
     }
     
     private void rightClick(){
-        
+        if (hasSelected){
+            getItem();
+            if (canSelect != null)
+                setTarget(canSelect);
+            else
+                setTarget(mouse);
+        }
     }
     
     private void leftClick(){
+        getItemFromOwner();
+        System.out.println("Listeners.mouseClicked :"+canSelect);
+        select(canSelect);
         
     }
     
-    private Item getItem(LinkedList<Item> list, Point2D p){
-        for (Item i : list){
-            if (i.hitBox.contains(p))
-                return i;
+    private void unSelectAll(){
+        baseSelected = false;
+        selected.setSelected(false);
+        hasSelected = false;
+    }
+    private void select(Item i){
+        if (i != null){
+            if (!shiftPressed)
+                unSelectAll();
+            
+            hasSelected=true;
+            
+            if (i.getClass().getName() == "Building"){
+                owner.base.setSelected(true);
+                baseSelected = true;
+                
+            }
+            else{
+                i.setSelected(true);
+                selected.add((Unit)i);
+            }
         }
-        return null;
+    }
+        
+    private void getItemFromOwner(){
+        canSelect = null;
+        
+        if (owner.base.hitBox.contains(mouse))
+            canSelect = owner.base;
+        for (Unit u : owner.units)
+            if (u.hitBox.contains(mouse))
+                canSelect = u;
+    }
+    
+    private void getItem(){
+        canSelect = null;
+        
+        for (Item i : Item.aliveItems)
+            if (i.hitBox.contains(mouse))
+                canSelect = i;
+    }
+    
+    private void setTarget(Item i){
+        selected.setTarget(i);
+        if (baseSelected)
+            owner.base.setTarget(i);
+    }
+    
+    private void setTarget(Point2D p){
+        selected.setTarget(p);
+        if (baseSelected)
+            owner.base.setTarget(p);
+    }
+    
+    
+    public void log(String met, String msg){
+        System.out.println(getClass().getName()+"."+met+" : "+msg);
     }
     //_______________ÉCOUTEURS____________//
     
@@ -43,21 +118,32 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     }
 
     @Override
-    public void keyPressed(KeyEvent keyEvent) {
+    public void keyPressed(KeyEvent e) {
+        
         // TODO Implement this method
+        System.out.println(e.getExtendedKeyCode());
+        switch(e.getKeyCode()){
+            case (16) :{
+                log("keyPressed","pressed");
+                shiftPressed = true;
+                break;
+            }
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         // TODO Implement this method
+        releaseKey();
     }
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        setMouseLocation();
-
+        setMouseLocation(mouseEvent);
+        System.out.println("Listeners.mouseClicked :"+mouse);
         switch(mouseEvent.getModifiers()) {
             case InputEvent.BUTTON1_MASK: {
+                log("mouseClicked","left");
                 leftClick();
                 break;
             }
@@ -69,39 +155,9 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             }
              */
             case InputEvent.BUTTON3_MASK: {
+                log("mouseClicked","right");
                 rightClick();
                 break;
-            }
-        }
-        if (leftClicked){
-            for (Item element : Item.aliveItems){
-                if (element.hitBox.contains(tX, tY)){
-                    System.out.println("UI.CustomMouseListener.mouseClicked : "+element+" devrait être selectionné");
-                    hasSelected = true;
-                    element.setSelected(true);
-                    selected = element;
-                    break;
-                }
-            }
-            if (hasSelected){
-                for (Item element : Item.aliveItems){
-                    if (element.hitBox.contains(tX, tY)){
-                        element.setSelected(true);
-                        break;
-                    }
-                }
-                selected.setTarget(tX, tY);
-            }
-        }
-        if (rightClicked){
-            if (hasSelected){
-                for (Item element : Item.aliveItems){
-                    if (element.hitBox.contains(tX, tY)){
-                        selected.setTarget(element);
-                        break;
-                    }
-                }
-                selected.setTarget(tX, tY);
             }
         }
     }

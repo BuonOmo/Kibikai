@@ -7,7 +7,7 @@ import java.util.ListIterator;
 public class Game implements Finals {
     
     /**
-     * méthode appelée à chaque "tour de jeu".
+     * méthode appelée dans UI.
      */
     public static void run(){
         /*
@@ -20,12 +20,28 @@ public class Game implements Finals {
         System.out.println("Game.run : nb nb itme en vie "+Item.aliveItems.size());
         */
         
+        if (UI.time == 0)
+            beginning();
+            
+        else if (Building.buildings.get(1).isDead() || Building.buildings.get(0).isDead())
+            end();
+        else
+            middle();
+    }
+    
+    public static void beginning(){
         
-        //TODO ajouter les récuperation des Input
+    }
+    
+    public static void middle(){
         for(int i=0; i< Item.aliveItems.size(); i++)
             Item.aliveItems.get(i).execute();
         IA.execut();
-
+    }
+    
+    public static void end(){
+        System.out.println("Game Over");
+        System.exit(0);
     }
     
     public static void print(Graphics g){

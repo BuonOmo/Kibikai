@@ -219,7 +219,7 @@ public abstract class Item implements Finals{
     }
     
     public String toString(){
-        return this.getClass().getName();
+        return this.getClass().getName()+" at ["+getCenter().getX()+", "+getCenter().getY()+"]";
     }
     /**
      * gère les problèmes rencontrés par des objets (inutile !).

@@ -7,8 +7,13 @@ import java.awt.geom.Point2D;
 
 import java.security.acl.Owner;
 
+import java.util.LinkedList;
+
 public class Building extends Item{
+    //______________ATTRIBUTS__________________//
     
+    public static LinkedList<Building> buildings = new LinkedList<Building>();
+
     // _____________CONSTRUCTEURS______________//
 
     /**
@@ -21,6 +26,7 @@ public class Building extends Item{
         life = Math.pow(side, 2)*LIFE;
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         setTarget(new Point2D.Double(30,30)); //___________________________________(test)
+        buildings.add(this);
     }
     
     /**
