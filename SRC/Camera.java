@@ -3,6 +3,9 @@ import java.awt.geom.Point2D;
 
 public class Camera extends Object{
     
+    Canvas gc;
+    double screenWidth;
+    
     /**
      * the x-position of our "camera" in pixel
      */
@@ -19,8 +22,8 @@ public class Camera extends Object{
      * Create a new camera
      *
      */
-    public Camera(Canvas gc) {
-    	
+    public Camera(Canvas c) {
+    	gc = c;
     }
 
     /**
@@ -57,6 +60,10 @@ public class Camera extends Object{
         currentCenterPoint.setLocation(cameraX, cameraY);
         return currentCenterPoint;
     }
+    
+    public void centerOn(Point2D p){
+        centerOn(p.getX(), p.getY());
+    }
 
     /**
      * "locks" the camera on the center of the given Rectangle. The camera tries
@@ -72,7 +79,7 @@ public class Camera extends Object{
     public void centerOn(double x, double y, double height, double width) {
         this.centerOn(x + width / 2, y + height / 2);
     }
-
+    
     /**
      * "locks the camera on the center of the given Shape. The camera tries to
      * keep the location in it's center.
