@@ -162,31 +162,31 @@ public class UI extends JFrame{
 
     private class TimerAction implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
-            Game.run();
+    	public void actionPerformed(ActionEvent e) {
+    		Game.run();
 
-            //Scrolling
-            Point mouse = MouseInfo.getPointerInfo().getLocation();
-            if(mouse.x <= Finals.SCROLL_BORDER){
-                    //scroll à gauche
-                    //System.out.println("Scroll à gauche");
-            }
-            else if(mouse.x >= screenWidth - Finals.SCROLL_BORDER){
-                    //scroll à droite
-                    //System.out.println("Scroll à droite");
-            }
-            if(mouse.y <= Finals.SCROLL_BORDER){
-                    //scroll en haut
-                    //System.out.println("Scroll en haut");
-            }
-            else if(mouse.y >= screenHeight - Finals.SCROLL_BORDER){
-                    //scroll en bas
-                    //System.out.println("Scroll en bas");
-            }
+    		//Scrolling
+    		Point mouse = MouseInfo.getPointerInfo().getLocation();
+    		if(mouse.x <= Finals.SCROLL_BORDER){
+    			//scroll à gauche
+    			//System.out.println("Scroll à gauche");
+    		}
+    		else if(mouse.x >= screenWidth - Finals.SCROLL_BORDER){
+    			//scroll à droite
+    			//System.out.println("Scroll à droite");
+    		}
+    		if(mouse.y <= Finals.SCROLL_BORDER){
+    			//scroll en haut
+    			//System.out.println("Scroll en haut");
+    		}
+    		else if(mouse.y >= screenHeight - Finals.SCROLL_BORDER){
+    			//scroll en bas
+    			//System.out.println("Scroll en bas");
+    		}
 
-            canvas.repaint();
-            time ++;
-        }
+    		canvas.repaint();
+    		time ++;
+    	}
     }
 
 

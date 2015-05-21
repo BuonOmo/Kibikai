@@ -1,3 +1,6 @@
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 public interface Finals {
     
     //________________parametres généraux_______________//
@@ -122,6 +125,17 @@ public interface Finals {
          public static final double RAYON_ZONNE_3 = 100;
          
     //____________UI______________________//
+         /**
+          * Bordure qui sert de limite au scrolling.
+          */
          public static final int SCROLL_BORDER = 50;
+         
+         /**
+          * Taille de l'ecran
+          */
+         Toolkit tk = Toolkit.getDefaultToolkit();
+         Dimension screenSize = tk.getScreenSize();
+         public static int screenHeight = screenSize.height;
+         public static int screenWidth = screenSize.width;
     
 }
