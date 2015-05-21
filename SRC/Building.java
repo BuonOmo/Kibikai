@@ -72,7 +72,8 @@ public class Building extends Item{
      * Gère la vie d’un batiment et sa taille.
      * @param amount vie ajoutée (- pour en enlever)
      */
-    public void getLife(double amount){
+    public boolean getLife(double amount){
+        
         life+= amount;
         
         //TODO gerer les intersection lors du grandissement
@@ -83,7 +84,9 @@ public class Building extends Item{
                        newSide, 
                        newSide);
         if (life <=0)
-            this.isDestructed();
+            return this.isDestructed();
+        
+        return false;
     }
     
     public static boolean gameOver(){
@@ -93,7 +96,7 @@ public class Building extends Item{
         return false;
     }
     
-    public void execute(){
+    public boolean execute(){
         
         actualiseTarget();
         
@@ -104,5 +107,6 @@ public class Building extends Item{
                 goAndProcreate();                
             }
         }
+        return false;
     }
 }

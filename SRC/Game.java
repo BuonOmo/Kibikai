@@ -41,9 +41,30 @@ public class Game implements Finals {
     }
     
     public static void middle(){
+        /*
+        Iterator it = Item.aliveItems.iterator();
+        Item current;
+        for (Item i : Item.aliveItems)
+            i.setUnDone();
+        
+        while (it.hasNext()){
+            current = (Item)it.next();
+           
+            if (!current.done){
+                
+                current.setDone();
+                
+                if (current.execute())
+                    it = Item.aliveItems.iterator();
+                
+            }
+        }
+        */
+        
         for(int i=0; i< Item.aliveItems.size(); i++)
             Item.aliveItems.get(i).execute();
         IA.execut();
+        
     }
     
     public static void end(){

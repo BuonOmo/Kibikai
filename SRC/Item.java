@@ -19,10 +19,12 @@ public abstract class Item implements Finals{
     double radius;
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
     static LinkedList<Item> deadItems = new LinkedList<Item>();
+    boolean done;
     
     boolean selected;
     
     // _____________CONSTRUCTEURS______________//
+    
     
     /**
      * @param owner Possesseur de l’objet
@@ -66,8 +68,9 @@ public abstract class Item implements Finals{
     /**
      * Gère la vie d’une unité (et pour un batiment sa taille).
      * @param amount vie ajoutée (- pour en enlever)
+     * @return vraie si l’unité meurt
      */
-    public abstract void getLife(double amount);
+    public abstract boolean getLife(double amount);
     
     /**
      * Permet de déplacer une unité vers un point donné.
@@ -172,13 +175,15 @@ public abstract class Item implements Finals{
         return toReturn;
     }
     
-    public void isDestructed(){
+    public boolean isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
             deadItems.add(this);
             aliveItems.remove(this);
             owner.items.remove(this);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -191,8 +196,11 @@ public abstract class Item implements Finals{
     public boolean hasSameOwner(Item i){
         return (i.owner == owner);
     }
-    
-    public abstract void execute();
+
+    /**
+     * @return vraie si il y a des remove dans aliveItem
+     */
+    public abstract boolean execute();
     
     public Color getColor(){
         if (selected)
@@ -227,6 +235,15 @@ public abstract class Item implements Finals{
     public String toString(){
         return this.getClass().getName()+" at ["+getCenter().getX()+", "+getCenter().getY()+"]";
     }
+    
+    public void setDone(){
+        done = true;
+    }
+    
+    public void setUnDone(){
+        done = false;
+    }
+    
     /**
      * gère les problèmes rencontrés par des objets (inutile !).
      * @param type type d’erreur

@@ -115,9 +115,11 @@ public class UnitGroup implements Cloneable {
         return ug.getPosition().distance(getPosition());   
     }
     
-    public void isDestructed(){
+    public boolean isDestructed(){
+        boolean removed = false;
         for (Unit u : group)
-            u.isDestructed();
+            removed = u.isDestructed();
+        return removed;
     }
     /**
      * @return possesseur

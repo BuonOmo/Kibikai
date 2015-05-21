@@ -40,7 +40,7 @@ public class Soldier extends Unit {
     
     //________________MÉTHODES_______________//
     
-    public void attack(){
+    public boolean attack(){
 
         Item toAttack;
         toAttack = getEnemyToAttack();
@@ -48,9 +48,10 @@ public class Soldier extends Unit {
         if (toAttack != null){
         
             damage+= (toAttack.life < DAMAGE) ? toAttack.life : DAMAGE;
-            toAttack.getLife(- DAMAGE);
+            return toAttack.getLife(- DAMAGE);
         
         }
+        return false;
     }
     
     public Item getEnemyToAttack(){
@@ -74,7 +75,7 @@ public class Soldier extends Unit {
                    (int) (2 * radius * scale),
                    (int) (2 * radius * scale));
     }
-    public void isDestructed(){
+    public boolean isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
             owner.deadUnits.add(this);
@@ -83,13 +84,15 @@ public class Soldier extends Unit {
             owner.items.remove(this);
             owner.units.remove(this);
             owner.soldiers.remove(this);
+            return true;
         }
+        return false;
     }
     
-    public void execute() {
+    public boolean execute() {
         actualiseTarget();
         move();
-        attack();
+        return attack();
     }
     
 }

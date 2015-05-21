@@ -54,12 +54,13 @@ public abstract class Unit extends Item {
      * Gère la vie d’une unité.
      * @param amount vie ajoutée (- pour en enlever)
      */
-    public void getLife(double amount){
+    public boolean getLife(double amount){
         life+= amount;
         if (life <=0)
-            this.isDestructed();
+            return this.isDestructed();
         else  if (life >= lifeMAX)
             life = lifeMAX;
+        return false;
     }
     
     @Override
@@ -82,7 +83,7 @@ public abstract class Unit extends Item {
     }
     
     
-    public abstract void execute();
+    public abstract boolean execute();
     
     //________MÉTHODES POUR LE DÉPLACEMENT______//
     
