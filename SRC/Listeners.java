@@ -88,7 +88,10 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         }
     }
     private void select(Item i){
-        if (i != null && i.owner == owner){
+        if (i.selected){
+            unSelect(i);
+        }
+        else if (i != null && i.owner == owner){
             
             hasSelected=true;
             i.setSelected(true);
@@ -157,40 +160,66 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         
         switch(e.getKeyChar()){
         
-        case ('s'):{
-            unSelectAll();
-            for (Soldier s : owner.soldiers)
-                select(s);
-            break;
-        }
+            /**
+             * Selectionne le batiment.
+             */
+            case ('b'):{
+                unSelectAll();
+                select(owner.base);
+                break;
+            }
+        
+            /**
+             * Créé un soldat avet les 3 unités simple les plus proches.
+             */
+            case ('c'):{
+                createSoldier(SimpleUnit.getNClosestSimpleUnitsFromO(3, mouse(), owner), mouse());
+                break;
+            }
             
-        case ('u'):{
-            unSelectAll();
-            for (SimpleUnit s : owner.simpleUnits)
-                select(s);
-            break;
+            /**
+             * choisi une cible pour les unités selectionnées.
+             */
+            case('d'):{
+                setTarget();
+                break;
+            }
             
-        }
-        case ('c'):{
-            createSoldier(SimpleUnit.getNClosestSimpleUnitsFromO(3, mouse(), owner), mouse());
-            break;
-        }
-        case('d'):{
-            setTarget();
-            break;
-        }
+            /**
+             * Chosi un nouveau point de ralliement.
+             */
+            case('p'):{
+                owner.base.setTarget(mouse());
+                break;
+            }
+        
+            /**
+             * Selectionne les soldats
+             */
+            case ('s'):{
+                unSelectAll();
+                for (Soldier s : owner.soldiers)
+                    select(s);
+                break;
+            }
             
+            /**
+             * Selection les unités simples
+             */
+            case ('u'):{
+                unSelectAll();
+                for (SimpleUnit s : owner.simpleUnits)
+                    select(s);
+                break;
+                
+            }
+                
         default:{
             
         }
         }
         
-        switch(e.getKeyCode()){
-            case (16) :{
-                shiftPressed = true;
-                break;
-            }
-        }
+        
         
         if (typedKeys.endsWith("ulysse"))
             cheat(0);
@@ -200,6 +229,15 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch(e.getKeyCode()){
+            case (KeyEvent.VK_SHIFT) :{
+                shiftPressed = true;
+                break;
+            }
+            case (KeyEvent.VK_CONTROL):{
+                System.out.println("grill d’été");
+            }
+        }
     }
 
     @Override

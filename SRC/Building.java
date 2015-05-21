@@ -43,27 +43,27 @@ public class Building extends Item{
      */
     public void goAndProcreate(){
         
-        
-        // on laisse tout ce calcul ? parcequ’il sert à rien vu qu’on gère pas les intersections..
-        double x,y;
-    	if(target.getX()<=hitBox.getX()){
-    	    x = hitBox.getX()-SIDE-1;
-    	    if(target.getY()<=hitBox.getY()){
-    	            y=hitBox.getY()-SIDE-1;
-    	    }else{
-    	            y=hitBox.getY()+hitBox.getHeight()+1;
-    	    }
-    	}else{
-            x=hitBox.getX()+hitBox.getWidth()+1;
-            if(target.getY()<=hitBox.getY()){
-                    y=hitBox.getY()-SIDE-1;
+        if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT){
+            //c’est pas très joli :V
+            /*
+            double x,y;
+            if(target.getX()<=hitBox.getX()){
+                x = hitBox.getX()-SIDE;
+                if(target.getY()<=hitBox.getY()){
+                        y=hitBox.getY()-SIDE;
+                }else{
+                        y=hitBox.getY()+hitBox.getHeight();
+                }
             }else{
-                    y=hitBox.getY()+hitBox.getHeight()+1;
+                x=hitBox.getX()+hitBox.getWidth();
+                if(target.getY()<=hitBox.getY()){
+                        y=hitBox.getY()-SIDE;
+                }else{
+                        y=hitBox.getY()+hitBox.getHeight();
+                }
             }
-        }
-        
-        if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT) {
-            new SimpleUnit(owner,getCenter(),new Point.Double(x,y) );
+            */
+            new SimpleUnit(owner,getCenter(),target);
         }
 
     }
