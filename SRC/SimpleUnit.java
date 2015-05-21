@@ -79,7 +79,9 @@ public class SimpleUnit extends Unit {
     }
     public boolean build(){
         
-        if ((builders.distanceTo(target) <= CREATION_RANGE)&(builders.group.size()==3)){
+        if ((builders.distanceTo(target) <= CREATION_RANGE) 
+            && (builders.group.size()==3) 
+            && (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER)){
             new Soldier(owner, target, builders.getQuantityOfLife());
             return builders.isDestructed();
         }

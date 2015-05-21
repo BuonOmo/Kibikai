@@ -43,7 +43,7 @@ public class Building extends Item{
      */
     public void goAndProcreate(){
         
-        if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT){
+        if (owner.simpleUnits.size()<NUMBER_MAX_OF_SIMPLEUNIT){
             //c’est pas très joli :V
             /*
             double x,y;
