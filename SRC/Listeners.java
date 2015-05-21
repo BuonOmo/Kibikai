@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class Listeners implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Finals {
-    boolean hasSelected, shiftPressed, baseSelected, init;
+    boolean shiftPressed, baseSelected, init;
     Item canSelect;
     UnitGroup selected;
     Player owner;
@@ -34,7 +34,11 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     }
     
     //______________MÉTHODES______________//
-    
+
+    /**
+     * Méthode appelée au premier tour de jeu afin de récuperer les bordures.
+     * @param e premier click reçu
+     */
     public void firstClick(MouseEvent e){
         init = false;
         border.setLocation((double)(MouseInfo.getPointerInfo().getLocation().getX() - e.getX())/scale, 
@@ -44,8 +48,11 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     public void releaseKey(){
         shiftPressed = false;
     }
-    
-    
+
+
+    /**
+     * @return coordonnées de la souris
+     */
     public Point2D mouse(){
         
         return new Point2D.Double((double)MouseInfo.getPointerInfo().getLocation().getX()/scale - border.getX(), 
@@ -53,15 +60,13 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     }
     
     private void rightClick(){
-        if (hasSelected){
-            setTarget();
-        }
+        setTarget();
     }
     
     private void leftClick(){
-        if (!shiftPressed){
-            unSelectAll();
-        }
+        //if (!shiftPressed){
+        //    unSelectAll();
+        //}
         getItemFromOwner();
         if (canSelect != null)
             select(canSelect);
@@ -72,13 +77,10 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         baseSelected = false;
         owner.base.setSelected(false);
         selected.setSelected(false);
-        hasSelected = false;
         selected.clear();
     }
     
     private void unSelect(Item i){
-        
-        hasSelected = false;
         i.setSelected(false);
         if (i.getClass().getName() == "Building"){
             baseSelected = false;
@@ -87,20 +89,27 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             selected.remove((Unit)i);
         }
     }
+    
     private void select(Item i){
         if (i.selected){
             unSelect(i);
+            if (!shiftPressed)
+                unSelectAll();
         }
-        else if (i != null && i.owner == owner){
-            
-            hasSelected=true;
-            i.setSelected(true);
-            
-            if (i.getClass().getName() == "Building"){
-                baseSelected = true;
-            }
-            else{
-                selected.add((Unit)i);
+        else{
+            if (!shiftPressed){
+                unSelectAll();
+                
+                if (i != null && i.owner == owner){
+                    i.setSelected(true);
+                    
+                    if (i.getClass().getName() == "Building"){
+                        baseSelected = true;
+                    }
+                    else{
+                        selected.add((Unit)i);
+                    }
+                }
             }
         }
     }
@@ -144,14 +153,6 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             owner.base.setTarget(p);
     }
     
-    private void createSoldier (SimpleUnit[] t){
-        t[0].createSoldier(t[1], t[2]);
-    }
-    
-    private void createSoldier (SimpleUnit[] t, Point2D p){
-        t[0].createSoldier(p, t[1], t[2]);
-    }
-    
     //_______________ÉCOUTEURS____________//
     
     @Override
@@ -173,7 +174,7 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
              * Créé un soldat avet les 3 unités simple les plus proches.
              */
             case ('c'):{
-                createSoldier(SimpleUnit.getNClosestSimpleUnitsFromO(3, mouse(), owner), mouse());
+                SimpleUnit.createSoldier(mouse(), owner);
                 break;
             }
             

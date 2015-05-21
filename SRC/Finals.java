@@ -59,6 +59,9 @@ public interface Finals {
              */
             public static final double DISTANCE_TO_MOVE = 1;
             
+            /**
+             * @deprecated
+             */
             @Deprecated
             /**
              * Angle de Balayage en degrés.

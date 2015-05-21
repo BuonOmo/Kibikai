@@ -8,7 +8,7 @@ public class SimpleUnit extends Unit {
     
     boolean creating;
     SimpleUnit builder1, builder2;
-    SimpleUnitGroup builders;
+    static SimpleUnitGroup builders;
     
     static LinkedList<SimpleUnit> aliveSimpleUnits = new LinkedList<SimpleUnit>();
     static LinkedList<SimpleUnit> deadSimpleUnits = new LinkedList<SimpleUnit>();
@@ -52,6 +52,36 @@ public class SimpleUnit extends Unit {
     }
 
     //_____________________MÉTHODES____________________//
+    
+    
+    public static void createSoldier(SimpleUnit[] u, Point2D p){
+        if (u.length == 3
+            && u[0] != null && u[1] != null && u[2] != null
+            && u[0].owner == u[1].owner && u[0].owner == u[2].owner){
+            
+            for (SimpleUnit element : u){
+                element.creating = true;
+                element.setTarget(p);
+            }
+            builders = new SimpleUnitGroup(u);
+        }
+    }
+    
+    public static void createSoldier(Point2D p, Player o, Point2D t){
+        createSoldier(getNClosestSimpleUnitsFromO(3, p, o), t);
+    }
+    
+    public static void createSoldier(Point2D p, Player o){
+        createSoldier(getNClosestSimpleUnitsFromO(3, p, o), p);
+    }
+    
+    public static void createSoldierOnBaryCenter(SimpleUnit[] u){
+        createSoldier(u, UnitGroup.getPosition(u));
+    }
+    
+    public static void createSoldierOnBarycenter(Point2D p, Player o){
+        createSoldierOnBaryCenter(getNClosestSimpleUnitsFromO(3, p, o));
+    }
     
     public void createSoldier(Point2D t, SimpleUnit u1, SimpleUnit u2){
         if (!creating)

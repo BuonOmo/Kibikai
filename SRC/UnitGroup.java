@@ -41,6 +41,14 @@ public class UnitGroup implements Cloneable {
         compactdim = Finals.Group_compactDim;
     }
     
+    public UnitGroup (Unit[] u){
+        this(u[0]);
+        for (int i=1; i<u.length; i++){
+            if (u[i].owner == owner)
+                add(u[i]);
+        }
+    }
+    
     /**
      * Constructeur pour un groupe  d’unité ayant un possesseur attitré
      * @param units groupe d’unités
@@ -87,6 +95,18 @@ public class UnitGroup implements Cloneable {
         }
         X=X/this.group.size();
         Y=Y/this.group.size();
+        return new Point2D.Double(X,Y);
+    }
+    
+    public static Point2D getPosition(Unit[] u){
+        double X=0;
+        double Y=0;
+        for (Unit i : u){
+            X+=i.getCenter().getX();
+            Y+=i.getCenter().getY();
+        }
+        X=X/u.length;
+        Y=Y/u.length;
         return new Point2D.Double(X,Y);
     }
 
@@ -211,5 +231,9 @@ public class UnitGroup implements Cloneable {
 
     void clear() {
         group.clear();
+    }
+
+    int size() {
+        return group.size();
     }
 }
