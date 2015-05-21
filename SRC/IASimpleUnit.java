@@ -10,13 +10,13 @@ public class IASimpleUnit extends IAUnite {
         
         int staite = 0;
         if (support!=null){
-            // stratégie de groups soutenue (0;5)
+            // stratï¿½gie de groups soutenue (0;5)
             staite = support.presentStrategy-1;
             
-            //superoriter numérique du groupe suporté dans la zonne 1(0;6)
+            //superoriter numï¿½rique du groupe suportï¿½ dans la zonne 1(0;6)
             if (support.soldierComputerInZone1.size()>support.soldierPlyaerInZone1.size()) staite=staite+6;
             
-            //superoriter numérique du groupe suporté dans la zonne 3(0;12)
+            //superoriter numï¿½rique du groupe suportï¿½ dans la zonne 3(0;12)
             if (support.soldierComputerInZone3.size()>support.soldierPlyaerInZone3.size()) staite=staite+12;
         }
         
@@ -71,12 +71,12 @@ public class IASimpleUnit extends IAUnite {
         }
         case 2:{
             SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
-            unitGroup.remouve(unitGroup.group.get(0));
+            unitGroup.remove(unitGroup.group.get(0));
             sicition.ia= new IASimpleUnit(sicition);
             for (int i= unitGroup.group.size()-1; i>=0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
                 if ((i)%2==0) {
                     sicition.add((SimpleUnit)unitGroup.group.get(i));
-                    unitGroup.remouve(unitGroup.group.get(i));
+                    unitGroup.remove(unitGroup.group.get(i));
                 } 
             }
             if (unitGroup.group.size()==0)SimpleUnitGroup.list.remove(unitGroup);
@@ -103,7 +103,7 @@ public class IASimpleUnit extends IAUnite {
                 for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
                     if ((i+1)%2==0) {
                         group.ia.support.unitGroup.group.add((SimpleUnit)unitGroup.group.get(i));
-                        unitGroup.remouve(unitGroup.group.get(i));
+                        unitGroup.remove(unitGroup.group.get(i));
                     }
                 }
             }

@@ -176,10 +176,6 @@ public class UnitGroup implements Cloneable {
     /**
      * @param u objet a suprimer de group 
      */
-    public void remouve(Unit u){
-        group.remove(u);
-        
-    }
     public void remove(Unit u){
         group.remove(u);
         

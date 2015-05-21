@@ -281,7 +281,7 @@ public class IASoldier extends IAUnite {
                    for (Unit u :unitGroup.group){
                        if (i%2 ==0){
                            newsg.group.add(u);
-                           unitGroup.remouve(u);
+                           unitGroup.remove(u);
                        }
                    }
                    if (unitGroup.group.size()==0)
