@@ -180,6 +180,10 @@ public class UnitGroup implements Cloneable {
         group.remove(u);
         
     }
+    public void remove(Unit u){
+        group.remove(u);
+        
+    }
     
     /**
      *

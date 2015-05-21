@@ -10,31 +10,46 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Listeners implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Finals {
-    boolean hasSelected, shiftPressed, baseSelected;
+    boolean hasSelected, shiftPressed, baseSelected, init;
     Item canSelect;
     UnitGroup selected;
     Player owner;
     String typedKeys;
+    
+    /**
+     * prend en compte la bordure de l’écran si il y en a une.
+     */
+    Point2D border;
+    
     //_____________CONSTRUCTEUR____________//
     
     public Listeners(Player p){
         owner = p;
         selected=new UnitGroup();
         typedKeys = "";
+        init = true;
+        border = new Point2D.Double();
     }
     
     //______________MÉTHODES______________//
+    
+    public void firstClick(MouseEvent e){
+        init = false;
+        border.setLocation((double)(MouseInfo.getPointerInfo().getLocation().getX() - e.getX())/scale, 
+                           (double)(MouseInfo.getPointerInfo().getLocation().getY() - e.getY())/scale);
+    }
     
     public void releaseKey(){
         shiftPressed = false;
     }
     
+    
     public Point2D mouse(){
-        return new Point2D.Double((double)MouseInfo.getPointerInfo().getLocation().getX()/scale, 
-                                  (double)MouseInfo.getPointerInfo().getLocation().getY()/scale);
+        
+        return new Point2D.Double((double)MouseInfo.getPointerInfo().getLocation().getX()/scale - border.getX(), 
+                                  (double)MouseInfo.getPointerInfo().getLocation().getY()/scale - border.getY());
     }
     
     private void rightClick(){
@@ -44,23 +59,35 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     }
     
     private void leftClick(){
-        getItemFromOwner();
-        System.out.println("Listeners.leftClicked :"+canSelect);
-        if (canSelect == null) 
+        if (!shiftPressed){
             unSelectAll();
-        else
+        }
+        getItemFromOwner();
+        if (canSelect != null)
             select(canSelect);
         
     }
     
     private void unSelectAll(){
         baseSelected = false;
+        owner.base.setSelected(false);
         selected.setSelected(false);
         hasSelected = false;
         selected.clear();
     }
-    private void select(Item i){
+    
+    private void unSelect(Item i){
         
+        hasSelected = false;
+        i.setSelected(false);
+        if (i.getClass().getName() == "Building"){
+            baseSelected = false;
+        }
+        else{
+            selected.remove((Unit)i);
+        }
+    }
+    private void select(Item i){
         if (i != null && i.owner == owner){
             
             hasSelected=true;
@@ -87,8 +114,10 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         canSelect = null;
         
         for (Item i : list)
-            if (i.hitBox.contains(mouse()))
+            if (i.hitBox.contains(mouse())){
                 canSelect = i;
+                break;
+            }
     }
     
     
@@ -120,14 +149,10 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         t[0].createSoldier(p, t[1], t[2]);
     }
     
-    public void log(String met, String msg){
-        System.out.println(getClass().getName()+"."+met+" : "+msg);
-    }
     //_______________ÉCOUTEURS____________//
     
     @Override
     public void keyTyped(KeyEvent e) {
-        
         typedKeys+= e.getKeyChar();
         
         switch(e.getKeyChar()){
@@ -160,6 +185,13 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         }
         }
         
+        switch(e.getKeyCode()){
+            case (16) :{
+                shiftPressed = true;
+                break;
+            }
+        }
+        
         if (typedKeys.endsWith("ulysse"))
             cheat(0);
         if (typedKeys.endsWith("adrien"))
@@ -168,16 +200,6 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
-        // TODO Implement this method
-        //System.out.println(e.getExtendedKeyCode());
-        switch(e.getKeyCode()){
-            case (16) :{
-                log("keyPressed","pressed");
-                shiftPressed = true;
-                break;
-            }
-        }
     }
 
     @Override
@@ -187,12 +209,13 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
+    public void mouseClicked(MouseEvent e) {
         
-        System.out.println("Listeners.mouseClicked :"+mouse());
-        switch(mouseEvent.getModifiers()) {
+        if (init)
+            firstClick(e);
+        
+        switch(e.getModifiers()) {
             case InputEvent.BUTTON1_MASK: {
-                log("mouseClicked","left");
                 leftClick();
                 break;
             }
@@ -204,7 +227,6 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             }
              */
             case InputEvent.BUTTON3_MASK: {
-                log("mouseClicked","right");
                 rightClick();
                 break;
             }
@@ -238,7 +260,7 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
     }
 
     @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
+    public void mouseMoved(MouseEvent e) {
         // TODO Implement this method
     }
 
