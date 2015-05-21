@@ -82,7 +82,9 @@ public class IASoldier extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
-
+        if (staite>431)  {
+            return (int)Math.random()*6+1;
+        }
         Double  sommeR=0.0;
         for (int i = 0; i<6;i++){
             sommeR = sommeR +Math.exp(IA.qIASoldier[staite][i]);

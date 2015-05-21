@@ -138,7 +138,7 @@ public abstract class IAUnite  {
     		//On modifie le parametre recompense du dernier IAHistObj
     		if (!unite.histoList.isEmpty())unite.histoList.getLast().setReward(recompense);
     		//On cree le nouveau IAHistObj pour l'etat actuel
-    		unite.histoList.add(new IAHistObj(state, strategy));
+    		unite.histoList.add(new IAHistObj(state, strategy,UI.time));
 
     	}
     		//on nettoie et enregistre a nouvau l'unit group pour le calcul de recompense qui suivra
