@@ -87,7 +87,7 @@ public interface Finals {
                 /**
                  * Porté pour la création d’une UM.
                  */
-                public static final double CREATION_RANGE = 2;
+                public static final double CREATION_RANGE = 0.2;
         
      
      //______________ia__________________//

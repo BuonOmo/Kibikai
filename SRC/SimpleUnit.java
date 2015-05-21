@@ -57,15 +57,11 @@ public class SimpleUnit extends Unit {
         if (!creating)
             setBuilders(u1, u2, t);
             
-        build();
-            
     }
     
     public void createSoldier(SimpleUnit u1, SimpleUnit u2){
         if (!creating)
             setBuilders(u1, u2);
-            
-        build();
             
     }
     
@@ -76,7 +72,6 @@ public class SimpleUnit extends Unit {
             SimpleUnit theTwo[] = getTwoClosestSimpleUnits();
             setBuilders(theTwo[0], theTwo[1]);
         }
-        build();
             
     }
         else this.error("createSoldier");
@@ -137,6 +132,34 @@ public class SimpleUnit extends Unit {
             if (distanceTo(i)<= distanceTo(toReturn[0])){
                 toReturn[1] = toReturn[0];
                 toReturn[0] = i;
+            }
+            
+        }
+        return toReturn;
+    }
+    
+    public static SimpleUnit[] getNClosestSimpleUnitsFromO(int n, Point2D p, Player o){
+        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(o.simpleUnits);
+        SimpleUnit[] toReturn = new SimpleUnit[n];
+        toReturn[0] = toCheck.getFirst();
+        for (SimpleUnit i : toCheck){
+            if (p.distance(i.getCenter())<= p.distance(toReturn[0].getCenter())){
+                for (int j = 0; j<n-1; j++)
+                    toReturn[j+1] = toReturn[j];
+                toReturn[0] = i;
+            }
+            
+        }
+        return toReturn;
+    }
+    
+    public static SimpleUnit getClosestSimpleUnitsFromO(Point2D p, Player o){
+        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(o.simpleUnits);
+        SimpleUnit toReturn;
+        toReturn = toCheck.getFirst();
+        for (SimpleUnit i : toCheck){
+            if (p.distance(i.getCenter())<= p.distance(toReturn.getCenter())){
+                toReturn = i;
             }
             
         }

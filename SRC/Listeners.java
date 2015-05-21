@@ -112,6 +112,13 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             owner.base.setTarget(p);
     }
     
+    private void createSoldier (SimpleUnit[] t){
+        t[0].createSoldier(t[1], t[2]);
+    }
+    
+    private void createSoldier (SimpleUnit[] t, Point2D p){
+        t[0].createSoldier(p, t[1], t[2]);
+    }
     
     public void log(String met, String msg){
         System.out.println(getClass().getName()+"."+met+" : "+msg);
@@ -139,7 +146,11 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             break;
             
         }
-        case('c'):{
+        case ('c'):{
+            createSoldier(SimpleUnit.getNClosestSimpleUnitsFromO(3, mouse(), owner), mouse());
+            break;
+        }
+        case('d'):{
             setTarget();
             break;
         }

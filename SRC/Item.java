@@ -4,6 +4,8 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import java.awt.geom.RectangularShape;
+
 import java.util.LinkedList;
 
 public abstract class Item implements Finals{
@@ -14,7 +16,7 @@ public abstract class Item implements Finals{
     Item targetI;
     double life;
     Color color;
-    Rectangle2D hitBox;
+    RectangularShape hitBox;
     Player owner;
     double radius;
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
@@ -30,7 +32,7 @@ public abstract class Item implements Finals{
      * @param owner Possesseur de l’objet
      * @param hitBoxToSet
      */
-    public Item(Player ownerToSet, Rectangle2D hitBoxToSet, Point2D targetToSet){
+    public Item(Player ownerToSet, RectangularShape hitBoxToSet, Point2D targetToSet){
         color = ownerToSet.color;
         owner = ownerToSet;
         hitBox = hitBoxToSet;
@@ -159,7 +161,7 @@ public abstract class Item implements Finals{
     }
     
     
-    public Item[] getNClosestObject(int n, String type){
+    public Item[] getNClosestItem(int n){
         LinkedList<Item> toCheck = new LinkedList<Item>(aliveItems);
         toCheck.remove(this);
         Item[] toReturn = new Item[n];

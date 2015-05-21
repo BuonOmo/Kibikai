@@ -25,7 +25,7 @@ public class Building extends Item{
         super(owner, topLeftCorner, side);
         life = Math.pow(side, 2)*LIFE;
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
-        setTarget(new Point2D.Double(30,30)); //___________________________________(test)
+        setTarget(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         buildings.add(this);
     }
     
@@ -79,7 +79,7 @@ public class Building extends Item{
         //TODO gerer les intersection lors du grandissement
         double newSide = Math.sqrt(life/LIFE);
         double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setRect(getCenter().getX() - newSide/2.0, 
+        hitBox.setFrame(getCenter().getX() - newSide/2.0, 
                        getCenter().getY() - newSide/2.0, 
                        newSide, 
                        newSide);

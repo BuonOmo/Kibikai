@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 import java.util.LinkedList;
@@ -22,6 +23,7 @@ public class Soldier extends Unit {
      */
     public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet){
         super(owner, topLeftCorner, LIFE*3, 2);
+        hitBox = new Ellipse2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), 2, 2);
         life = (lifeToSet < lifeMAX) ? lifeToSet : lifeMAX;
         damage = 0;
         if (owner!=null) {
@@ -72,8 +74,8 @@ public class Soldier extends Unit {
         g.setColor(getColor());
         g.fillOval((int) (hitBox.getX() * scale),
                    (int) (hitBox.getY() * scale),
-                   (int) (2 * radius * scale),
-                   (int) (2 * radius * scale));
+                   (int) (hitBox.getHeight() * scale),
+                   (int) (hitBox.getWidth() * scale));
     }
     public boolean isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits

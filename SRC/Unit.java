@@ -76,7 +76,7 @@ public abstract class Unit extends Item {
      */
     public void move(){
         // deplace l’objet de la distance renvoyée par canMove
-        hitBox.setRect(hitBox.getX() + getVector().getX(), 
+        hitBox.setFrame(hitBox.getX() + getVector().getX(), 
                        hitBox.getY() + getVector().getY(), 
                        hitBox.getWidth(), 
                        hitBox.getHeight() );
