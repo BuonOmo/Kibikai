@@ -48,6 +48,7 @@ public class UI extends JFrame{
         frame = new JFrame();
         frame.addMouseListener(mouse);
         frame.addKeyListener(key);
+        frame.addMouseMotionListener(mouse);
 
         //Size of the screen, have to go in the finals ??
         Toolkit tk = Toolkit.getDefaultToolkit();

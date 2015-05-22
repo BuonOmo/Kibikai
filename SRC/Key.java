@@ -61,17 +61,15 @@ public class Key extends Listeners implements KeyListener {
              * Selectionne les soldats
              */
             case ('s'):{
-                //________________________________________________À Implementer
-                //select(owner.soldiers);
+                selectOnly(owner.soldiers);
+                break;
             }
             
             /**
              * Selection les unités simples
              */
             case ('u'):{
-                unSelectAll();
-                for (SimpleUnit s : owner.simpleUnits)
-                    select(s);
+                selectOnly(owner.simpleUnits);
                 break;
                 
             }
@@ -87,6 +85,8 @@ public class Key extends Listeners implements KeyListener {
             cheat(0);
         if (typedKeys.endsWith("adrien"))
             cheat(1);
+        if (typedKeys.endsWith("hammel"))
+            cheat(2);
     }
     
     @Override

@@ -6,11 +6,21 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public class Mouse extends Listeners implements MouseListener, MouseMotionListener, MouseWheelListener {
+    
+    static boolean leftPressed, dragging;
+    static Point2D draggBeginning;
+    static Rectangle2D draggingSquare;
     public Mouse(Player player) {
         super(player);
-    }
+        leftPressed = false;
+        dragging = false;
+        draggBeginning = new Point2D.Double();
+        draggingSquare = new Rectangle2D.Double();
+        }
     
     //_____________MÉTHODES____________//
     
@@ -23,6 +33,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
         border.setLocation((double)(MouseInfo.getPointerInfo().getLocation().getX() - e.getX())/scale, 
                            (double)(MouseInfo.getPointerInfo().getLocation().getY() - e.getY())/scale);
     }
+    
     
     /**
      * Méthode appelée sur un clic droit.
@@ -72,13 +83,21 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-        // TODO Implement this method
+    public void mousePressed(MouseEvent e) {
+        switch(e.getModifiers()) {
+            case InputEvent.BUTTON1_MASK: {
+                dragging = true;
+                draggBeginning.setLocation(mouse());
+                break;
+            }
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-        // TODO Implement this method
+        dragging = false;
+        draggBeginning.setLocation(0, 0);
+        draggingSquare.setFrame(0, 0, 0, 0);
     }
 
     @Override
@@ -93,7 +112,10 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-        // TODO Implement this method
+        draggingSquare.setRect((draggBeginning.getX() < mouse().getX()) ? draggBeginning.getX() : mouse().getX(),
+                               (draggBeginning.getY() < mouse().getY()) ? draggBeginning.getY() : mouse().getY(),
+                               Math.abs(draggBeginning.getX() - mouse().getX()),
+                               Math.abs(draggBeginning.getY() - mouse().getY()));
     }
 
     @Override

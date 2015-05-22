@@ -9,6 +9,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Listeners implements  Finals {
@@ -17,6 +18,9 @@ public class Listeners implements  Finals {
     static UnitGroup selected;
     static Player owner;
     static String typedKeys;
+    
+    
+    static boolean louHammel;
     
     /**
      * prend en compte la bordure de l’écran si il y en a une.
@@ -87,31 +91,46 @@ public class Listeners implements  Finals {
             }
         }
     }
-    /*  _____________________________________________À Implementer
+    
+    void selectOnly(UnitGroup group){
+        unSelectAll();
+        select(group);
+    }
+    
     void select (UnitGroup group){
-        if (group.selected){
-            unSelect(i);
-            if (!shiftPressed)
-                unSelectAll();
+        for (Unit u : group.group){
+            if (u != null && u.owner == owner){
+                u.setSelected(true);
+                selected.add(u);
+            }
         }
-        else{
-            if (!shiftPressed){
-                unSelectAll();
+    }
+    
+    void select (LinkedList<Item> list){
+        for (Item i : list){
+            if (i != null && i.owner == owner){
+                i.setSelected(true);
                 
-                if (i != null && i.owner == owner){
-                    i.setSelected(true);
-                    
-                    if (i.getClass().getName() == "Building"){
-                        baseSelected = true;
-                    }
-                    else{
-                        selected.add((Unit)i);
-                    }
+                if (i.getClass().getName() == "Building"){
+                    baseSelected = true;
+                }
+                else{
+                    selected.add((Unit)i);
                 }
             }
         }
     }
-    */
+    
+    void selectOnly(LinkedList<Item> list){
+        unSelectAll();
+        select(list);
+    }
+    
+    void selectOnly(ArrayList list){
+        unSelectAll();
+        select(new LinkedList<Item>(list));
+    }
+    
     void getItemFromOwner(){
         getItem(owner.items);
     }
@@ -165,6 +184,10 @@ public class Listeners implements  Finals {
             case 1 :{
                 System.out.println("____Adrien t’as ken_____");
                 System.exit(0);
+                break;
+            }
+            case 2 :{
+                louHammel = (louHammel) ? false : true;
                 break;
             }
         }

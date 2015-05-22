@@ -160,6 +160,14 @@ public abstract class Item implements Finals{
         return new Point2D.Double(hitBox.getCenterX(),hitBox.getCenterY());
     }
     
+    public static LinkedList getItemInFrame(Rectangle2D frame){
+        LinkedList<Item> toReturn = new LinkedList<Item>();
+        for (Item i : aliveItems){
+            if (frame.contains(i.getCenter()))
+                toReturn.add(i);
+        }
+        return toReturn;
+    }
     
     public Item[] getNClosestItem(int n){
         LinkedList<Item> toCheck = new LinkedList<Item>(aliveItems);

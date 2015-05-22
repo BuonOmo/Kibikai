@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
@@ -80,6 +81,19 @@ public class Game implements Finals {
     }
     
     public static void print(Graphics g){
+        if (Mouse.dragging){
+            g.setColor(new Color(0,255,255));
+            g.drawRect((int) (Mouse.draggingSquare.getX() * scale),
+                       (int) (Mouse.draggingSquare.getY() * scale), 
+                       (int) (Mouse.draggingSquare.getWidth() * scale),
+                       (int) (Mouse.draggingSquare.getHeight() * scale));
+            g.setColor(new Color(0,255,255,30));
+            g.fillRect((int) (Mouse.draggingSquare.getX() * scale),
+                       (int) (Mouse.draggingSquare.getY() * scale), 
+                       (int) (Mouse.draggingSquare.getWidth() * scale), 
+                       (int) (Mouse.draggingSquare.getHeight()) * scale);
+        }
+            
         for (Item i : Item.aliveItems)
             i.print(g);
     }

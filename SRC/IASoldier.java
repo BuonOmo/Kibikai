@@ -274,7 +274,7 @@ public class IASoldier extends IAUnite {
 
                 break;
         }
-        case 6:{
+        case 0:{
                    if (!unitGroup.group.isEmpty()) {
                        SoldierGroup newsg = new SoldierGroup((Soldier)unitGroup.group.getFirst());
                    int i = 1;
