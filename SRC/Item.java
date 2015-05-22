@@ -215,6 +215,10 @@ public abstract class Item implements Finals{
     public Color getColor(){
         if (selected)
             return new Color(0,255,255,100);
+        if (Listeners.louHammel)
+            return new Color((int) (255.0 * Math.random()),
+                             (int) (255.0 * Math.random()),
+                             (int) (255.0 * Math.random()));
         return color;
     }
     

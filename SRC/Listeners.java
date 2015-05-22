@@ -13,14 +13,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Listeners implements  Finals {
-    static boolean shiftPressed, baseSelected, init;
+    static boolean shiftPressed, baseSelected, init, louHammel;
     static Item canSelect;
     static UnitGroup selected;
     static Player owner;
     static String typedKeys;
-    
-    
-    static boolean louHammel;
     
     /**
      * prend en compte la bordure de l’écran si il y en a une.
