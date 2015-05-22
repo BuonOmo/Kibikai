@@ -23,7 +23,8 @@ public class UI extends JFrame{
     BufferedImage ArrierePlan;
     Graphics buffer;
     Rectangle Ecran;
-    Listeners listeners;
+    Mouse mouse;
+    Key key;
 
     Canvas canvas;
 
@@ -42,10 +43,11 @@ public class UI extends JFrame{
 
     public UI(){
         canvas = new Canvas();
-        listeners = new Listeners(canvas.P1);
+        mouse = new Mouse(canvas.P1);
+        key = new Key(canvas.P1);
         frame = new JFrame();
-        frame.addMouseListener(listeners);
-        frame.addKeyListener(listeners);
+        frame.addMouseListener(mouse);
+        frame.addKeyListener(key);
 
         //Size of the screen, have to go in the finals ??
         Toolkit tk = Toolkit.getDefaultToolkit();
