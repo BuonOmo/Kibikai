@@ -28,9 +28,6 @@ public class UI extends JFrame{
 
     Canvas canvas;
 
-    final int screenHeight;
-    final int screenWidth;
-
     //essais pour les setTarget
     double tX;
     double tY;
@@ -50,13 +47,7 @@ public class UI extends JFrame{
         frame.addKeyListener(key);
         frame.addMouseMotionListener(mouse);
 
-        //Size of the screen, have to go in the finals ??
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenSize = tk.getScreenSize();
-        screenHeight = screenSize.height;
-        screenWidth = screenSize.width;
-
-
+        
         // Plein ecran
         frame.setUndecorated(true);
         frame.setExtendedState(frame.MAXIMIZED_BOTH);
@@ -64,7 +55,7 @@ public class UI extends JFrame{
 
         /*
         //Location and size of the frame
-        frame.setSize(screenWidth, screenHeight); //Wide screen
+        frame.setSize(Finals.screenWidth, Finals.screenHeight); //Wide screen
         frame.setResizable(false);
         frame.setLocation(0,0);
         */
@@ -86,7 +77,7 @@ public class UI extends JFrame{
         cadre.add(downScreen);
         cadre.add(map);
         frame.add(cadre);
-             */
+        */
 
         tX=20;
         tY=20;
@@ -174,7 +165,7 @@ public class UI extends JFrame{
     			//scroll à gauche
     			//System.out.println("Scroll à gauche");
     		}
-    		else if(mouse.x >= screenWidth - Finals.SCROLL_BORDER){
+    		else if(mouse.x >= Finals.screenWidth - Finals.SCROLL_BORDER){
     			//scroll à droite
     			//System.out.println("Scroll à droite");
     		}
@@ -182,7 +173,7 @@ public class UI extends JFrame{
     			//scroll en haut
     			//System.out.println("Scroll en haut");
     		}
-    		else if(mouse.y >= screenHeight - Finals.SCROLL_BORDER){
+    		else if(mouse.y >= Finals.screenHeight - Finals.SCROLL_BORDER){
     			//scroll en bas
     			//System.out.println("Scroll en bas");
     		}
@@ -192,10 +183,10 @@ public class UI extends JFrame{
     	}
     }
 
-
+/*
     public static void main (String[] args){
         UI gui = new UI();
         gui.timer.start();
     }
-
+*/
 }
