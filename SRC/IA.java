@@ -83,17 +83,18 @@ public class IA {
      */
     public static void rinforceQ(Double [][] Q,LinkedList <IAHistObj> histoList,int index ){
         Double Qsa;
-        //System.out.println("state n : "+histoList.get(index).Stait+"acction n :"+histoList.get(index).Action);
-        //System.out.println("state n-1 : "+histoList.get(index-1).Stait+"acction n-1 :"+histoList.get(index-1).Action);
-        //System.out.println("hl.size"+histoList.size()+"index :"+index);
+
         Qsa =histoList.get(index).Reward;
-        Qsa += Gamma*Q[histoList.get(index+1).Stait-1][histoList.get(index+1).Action-1];
-        Qsa -= Q[histoList.get(index).Stait-1][histoList.get(index).Action-1];
+        Qsa += Gamma*Q[histoList.get(index+1).Stait][histoList.get(index+1).Action-1];
+        Qsa -= Q[histoList.get(index).Stait][histoList.get(index).Action-1];
         Qsa = Qsa*Alpa;
-        Qsa += Q[histoList.get(index).Stait-1][histoList.get(index).Action-1];
+        Qsa += Q[histoList.get(index).Stait][histoList.get(index).Action-1];
         //Qsa= Q[histoList.get(index).Stait-1][histoList.get(index).Action-1]+ Alpa*(histoList.get(index).Reward+Gamma*Q[histoList.get(index+1).Stait-1][histoList.get(index+1).Action-1]-Q[histoList.get(index).Stait-1][histoList.get(index).Action-1]);
-        Q[histoList.get(index).Stait-1][histoList.get(index).Action-1]=Qsa;
-        //System.out.println("IA.rinforceQ: Qsa = "+Qsa);
+        
+        
+        if (Qsa>10) Qsa =10.0;
+        if (Qsa<-10) Qsa =10.0;
+        Q[histoList.get(index).Stait][histoList.get(index).Action-1]=Qsa;
     }
     
     

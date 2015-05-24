@@ -66,11 +66,12 @@ public class Game implements Finals {
             Item.aliveItems.get(i).execute();
         }
         IA.execut();
-
+/*
         if ((UI.time+1)%600==0){
             IA.end();
             System.out.println("sovgardeIA");
         }
+*/
 
     }
     
