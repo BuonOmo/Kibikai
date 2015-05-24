@@ -9,6 +9,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
+import java.awt.geom.Rectangle2D;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -89,6 +91,16 @@ public class Listeners implements  Finals {
         }
     }
     
+    void selectWithoutShift(Item i){
+        i.setSelected(true);
+        if (i.getClass().getName() == "Building"){
+            baseSelected = true;
+        }
+        else{
+            selected.add((Unit)i);
+        }
+    }
+    
     void selectOnly(UnitGroup group){
         unSelectAll();
         select(group);
@@ -126,6 +138,18 @@ public class Listeners implements  Finals {
     void selectOnly(ArrayList list){
         unSelectAll();
         select(new LinkedList<Item>(list));
+    }
+    
+    void select(Rectangle2D r){
+        for (Item i : owner.items){
+            if (r.contains(i.getCenter()))
+                this.selectWithoutShift(i);
+        }
+    }
+    
+    void selectOnly(Rectangle2D r){
+        unSelectAll();
+        select(r);
     }
     
     void getItemFromOwner(){

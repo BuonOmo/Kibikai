@@ -116,6 +116,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
                                (draggBeginning.getY() < mouse().getY()) ? draggBeginning.getY() : mouse().getY(),
                                Math.abs(draggBeginning.getX() - mouse().getX()),
                                Math.abs(draggBeginning.getY() - mouse().getY()));
+        selectOnly(draggingSquare);
     }
 
     @Override

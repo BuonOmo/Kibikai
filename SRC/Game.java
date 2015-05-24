@@ -70,7 +70,7 @@ public class Game implements Finals {
         if ((UI.time+1)%600==0){
             IA.end();
             System.out.println("sovgardeIA");
-    }
+        }
 
     }
     
