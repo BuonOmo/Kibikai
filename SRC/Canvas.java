@@ -36,7 +36,7 @@ public class Canvas extends JComponent{
         //P1.base.goAndProcreate();
         
         /* Decommenter pour voir une magnifique bataille*/
-        new Soldier(P1, new Point2D.Double(20,20));
+        //new Soldier(P1, new Point2D.Double(20,20));
         //P1.soldiers.get(0).setTarget(P2.base);
         
         
@@ -46,7 +46,7 @@ public class Canvas extends JComponent{
            // new Soldier(P1, new Point2D.Double(15,20+i));
             new Soldier(P2, new Point2D.Double(90,40+i));
         }
-        for (int i =1; i< 10;i++){
+        for (int i =1; i< 0;i++){
             new SimpleUnit(P1, new Point2D.Double(20,5*i));
             new SimpleUnit(P1, P1.base, new Point2D.Double(22.5,5*i));
             new Soldier(P1, new Point2D.Double(5*i,5));

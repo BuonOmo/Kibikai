@@ -2,6 +2,7 @@ import java.util.LinkedList;
 
 public abstract class IAUnite  {
     protected UnitGroup unitGroup;
+    public int previousStait;
     public UnitGroup previousUnitGroup;
     public double previousLife;
     public double previousDamages;
@@ -38,6 +39,7 @@ public abstract class IAUnite  {
         int Strategy= chooseStrategy(state);
         applyStrategy (Strategy);
         createHisto(state,Strategy);
+        previousStait = state;
 
     }
     public abstract int calculateStaite ();

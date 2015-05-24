@@ -82,6 +82,7 @@ public class IASoldier extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
+        if (previousStait == staite) return staite;
         if (staite>431)  {
             return (int)Math.random()*6+1;
         }

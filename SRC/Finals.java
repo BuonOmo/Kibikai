@@ -123,11 +123,11 @@ public interface Finals {
 	 * aux dommages causes, aux dommages recus par le groupe d'unite et a une victoire ou a une defaite.
 	 * Tous ces coefficients sont positifs exepte celui lie a la defaite.
 	 */
-	public static final double R_DEAD = 5;
-	public static final double R_GIVEN_DAMAGES = 5;
-	public static final double R_RECEIVED_DAMAGES = 5;
-	public static final double R_VICTORY = 1000;
-	public static final double R_DEFEAT = -1000;
+	public static final double R_DEAD = 1;
+	public static final double R_GIVEN_DAMAGES = 0.05;
+	public static final double R_RECEIVED_DAMAGES = 0.05;
+	public static final double R_VICTORY = 10;
+	public static final double R_DEFEAT = -10;
 
 	/**
 	 * taille des rayons de Zone (IA UNIT).
