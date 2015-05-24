@@ -10,6 +10,7 @@ public abstract class Unit extends Item {
     
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
     double lifeMAX;
+    double firstAppearance;
     
     /**
      * @param owner
@@ -21,7 +22,9 @@ public abstract class Unit extends Item {
         super(owner, topLeftCorner, width, height);
         lifeMAX = lifeMAXToSet;
         owner.units.add(this);
+        firstAppearance = UI.time;
     }   
+    
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner

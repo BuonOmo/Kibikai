@@ -62,8 +62,9 @@ public class Game implements Finals {
         }
         */
         
-        for(int i=0; i< Item.aliveItems.size(); i++)
+        for(int i=0; i< Item.aliveItems.size(); i++){
             Item.aliveItems.get(i).execute();
+        }
         IA.execut();
 
         if ((UI.time+1)%600==0){
