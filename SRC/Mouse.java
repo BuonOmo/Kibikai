@@ -112,11 +112,13 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-        draggingSquare.setRect((draggBeginning.getX() < mouse().getX()) ? draggBeginning.getX() : mouse().getX(),
-                               (draggBeginning.getY() < mouse().getY()) ? draggBeginning.getY() : mouse().getY(),
-                               Math.abs(draggBeginning.getX() - mouse().getX()),
-                               Math.abs(draggBeginning.getY() - mouse().getY()));
-        selectOnly(draggingSquare);
+        if(dragging){
+            draggingSquare.setRect((draggBeginning.getX() < mouse().getX()) ? draggBeginning.getX() : mouse().getX(),
+                                   (draggBeginning.getY() < mouse().getY()) ? draggBeginning.getY() : mouse().getY(),
+                                   Math.abs(draggBeginning.getX() - mouse().getX()),
+                                   Math.abs(draggBeginning.getY() - mouse().getY()));
+            selectOnly(draggingSquare);
+        }
     }
 
     @Override

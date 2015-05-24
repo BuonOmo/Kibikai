@@ -78,7 +78,12 @@ public class Window extends JFrame{
 		optionsButton.setToolTipText("Change your preferences");
 		
 		//Action Listeners
-		ActionListener start = new ActionListener(){public void actionPerformed(ActionEvent e){UI gui = new UI();gui.timer.start();}};
+		ActionListener start = new ActionListener(){
+                    public void actionPerformed(ActionEvent e){
+                        UI gui = new UI();
+                        gui.timer.start();
+                    }
+                };
 		ActionListener load = new ActionListener(){public void actionPerformed(ActionEvent e){/*open game saves*/}};
 		ActionListener options = new ActionListener(){public void actionPerformed(ActionEvent e){frame.add(test);frame.repaint();}};
 		

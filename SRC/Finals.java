@@ -84,7 +84,7 @@ public interface Finals {
 	/**
 	 * Degats infliges par tour de jeu par une UM.
 	 */
-	public static final double DAMAGE = 0.5;
+	public static final double DAMAGE = 0.2;
 	
 	
 	//_________________SIMPLEUNIT_______________//

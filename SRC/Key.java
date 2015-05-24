@@ -92,21 +92,20 @@ public class Key extends Listeners implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         
-        switch(e.getKeyCode()){
-            case (KeyEvent.VK_SHIFT) :{
+        switch(e.getKeyChar()){
+            case ('m'):{
                 shiftPressed = true;
                 break;
             }
-            case (KeyEvent.VK_CONTROL):{
-                System.out.println("grill d’été");
-            }
         }
+        
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        // TODO Implement this method
+        
         releaseKey();
+        
     }
 
 }
