@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class IASoldier extends IAUnite {
-    public int presentStrategy;
+
     public IASimpleUnit support = null;
 
     public IASoldier(SoldierGroup soldierGroupToSet) {
@@ -82,7 +82,10 @@ public class IASoldier extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
-        if (previousStait == staite) return staite;
+        
+        /*
+         * précotion pris puisqu'il y a ue des soucie a de dépassement d'indice mais il dvrais tére aprésent résolsuts 
+         */
         if (staite>431)  {
             return (int)Math.random()*6+1;
         }
@@ -101,7 +104,7 @@ public class IASoldier extends IAUnite {
     }
 
     public void applyStrategy(int strategy) {
-        presentStrategy=strategy;
+
         switch (strategy){
         case 1:
             /*
@@ -138,12 +141,12 @@ public class IASoldier extends IAUnite {
                     }
                 }
             if (target != null)
-                unitGroup.setTarget(target.getCenter());
+                unitGroup.setTarget(target);
             else{
                if (target == null)
                    unitGroup.setTarget(IA.player.base.getCenter());
                else 
-                    unitGroup.setTarget(target.getCenter());
+                    unitGroup.setTarget(target);
             if (soldierPlyaerInZone1.size()>soldierComputerInZone1.size()){
                 /*
                  * ajouter soldierGroup au group alliï¿½ le plus proche 
@@ -181,7 +184,7 @@ public class IASoldier extends IAUnite {
                             }
                             
                         }
-                    unitGroup.setTarget(soldier.getCenter());
+                    unitGroup.setTarget(soldier);
                     }
                 }
                 if (soldierPlyaerInZone2.size()== 0){
@@ -252,7 +255,7 @@ public class IASoldier extends IAUnite {
                    if (target == null)
                        unitGroup.setTarget(IA.player.base.getCenter());
                    else 
-                       unitGroup.setTarget(target.getCenter());
+                       unitGroup.setTarget(target);
             break;
         }
 
@@ -275,14 +278,15 @@ public class IASoldier extends IAUnite {
 
                 break;
         }
-        case 0:{
+        case 6:{
                    if (!unitGroup.group.isEmpty()) {
                        SoldierGroup newsg = new SoldierGroup((Soldier)unitGroup.group.getFirst());
+                       unitGroup.group.removeFirst();
                    int i = 1;
                    for (Unit u :unitGroup.group){
                        if (i%2 ==0){
                            newsg.group.add(u);
-                           unitGroup.remove(u);
+                           unitGroup.group.remove(u);
                        }
                    }
                    if (unitGroup.group.size()==0)

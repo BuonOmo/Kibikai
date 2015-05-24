@@ -33,7 +33,7 @@ public class IASimpleUnit extends IAUnite {
             if (support.unitGroup.group.size()<0.3*Finals.NUMBER_MAX_OF_SOLDIER)staite=48+staite;
             else staite=96+staite;
         }
-        //taill de this (0;144;288
+        //taill de this (0;144;288)
         if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.2)staite= 144+staite;
         else if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.08)staite= 288+staite;
 
@@ -42,7 +42,6 @@ public class IASimpleUnit extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
-        if (previousStait == staite) return 5+staite;
         Double  sommeR=0.0;
         for (int i = 0; i<5;i++){
             sommeR = sommeR +Math.exp(IA.qIASimpleUnit[staite][i]);

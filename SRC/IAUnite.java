@@ -1,8 +1,11 @@
 import java.util.LinkedList;
 
 public abstract class IAUnite  {
+    public int nbQualSrtategy ;
     protected UnitGroup unitGroup;
+    public int presentStrategy;
     public int previousStait;
+    public int previousStrategy ;
     public UnitGroup previousUnitGroup;
     public double previousLife;
     public double previousDamages;
@@ -36,10 +39,23 @@ public abstract class IAUnite  {
     public void execut(){
         updateZone ();
         int state =calculateStaite();
-        int Strategy= chooseStrategy(state);
+        int Strategy;
+        if (presentStrategy>6){
+            System.out.println("érreur ");
+        }
+        if (previousStait != state||nbQualSrtategy<50 ){
+            nbQualSrtategy=0;
+            Strategy= chooseStrategy(state);
+            presentStrategy=Strategy;
+            previousStrategy=Strategy;
+            createHisto(state,Strategy);
+        }
+        else  Strategy =previousStrategy+10;
         applyStrategy (Strategy);
-        createHisto(state,Strategy);
+
         previousStait = state;
+
+
 
     }
     public abstract int calculateStaite ();
