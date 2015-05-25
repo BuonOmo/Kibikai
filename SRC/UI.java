@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridBagLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -58,7 +60,6 @@ public class UI extends JFrame{
         frame.setUndecorated(true);
         frame.setExtendedState(frame.MAXIMIZED_BOTH);
 
-
         /*
         //Location and size of the frame
         frame.setSize(screenWidth, screenHeight); //Wide screen
@@ -94,7 +95,7 @@ public class UI extends JFrame{
         frame.setVisible(true);
         timer = new Timer(100, new TimerAction());
     }
-
+    
     public class CustomMouseListener implements MouseListener{
 
         boolean hasSelected = false;
@@ -188,11 +189,11 @@ public class UI extends JFrame{
             time ++;
         }
     }
-
-
+    
     public static void main (String[] args){
-        UI gui = new UI();
+        UI gui = new UI();      
         gui.timer.start();
+        
     }
 
 }

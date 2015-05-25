@@ -1,11 +1,14 @@
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
 import java.io.FileNotFoundException;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Canvas extends JComponent{
@@ -76,6 +79,7 @@ public class Canvas extends JComponent{
         s1.print(g);
         b1.print(g);
         */
+
         Game.print(g);
     }
 	

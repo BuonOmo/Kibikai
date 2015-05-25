@@ -61,9 +61,10 @@ public class Building extends Item{
                     y=hitBox.getY()+hitBox.getHeight()+1;
             }
         }
+    	Point2D.Double spawnPoint = new Point2D.Double(x,y);
         
         if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT) {
-            new SimpleUnit(owner,getCenter(),new Point.Double(x,y) );
+            new SimpleUnit(owner,spawnPoint,target);
         }
 
     }

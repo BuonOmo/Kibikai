@@ -18,8 +18,7 @@ public abstract class Item implements Finals{
     Player owner;
     double radius;
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
-    static LinkedList<Item> deadItems = new LinkedList<Item>();
-    
+    static LinkedList<Item> deadItems = new LinkedList<Item>();    
     boolean selected;
     
     // _____________CONSTRUCTEURS______________//
@@ -243,7 +242,7 @@ public abstract class Item implements Finals{
                 break;
             
             case "SimpleUnit.setBuilders":
-                msg = "les UM appartiennent à l’adversaire";
+                msg = "les UM appartiennent a� l'adversaire";
                 break;
             
             default:
