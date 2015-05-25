@@ -11,6 +11,7 @@ public abstract class Unit extends Item {
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
     double lifeMAX;
     double firstAppearance;
+    int strategyincurs =0; 
     
     /**
      * @param owner

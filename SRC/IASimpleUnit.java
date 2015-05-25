@@ -140,14 +140,24 @@ public class IASimpleUnit extends IAUnite {
                        /*
                         * créé unités 
                         */
-                               for (Unit u : unitGroup.group){
-
-                                   SimpleUnit su = (SimpleUnit)u;
-                                   su.setTarget(su.getCenter());
-                                   su.createSoldier();
-                               }
-                        break;
-                        } 
+                       boolean quit = false;
+                       for (Unit u : unitGroup.group){
+                           if (quit) break;
+                           for (SimpleUnit Su: IA.computer.simpleUnits){
+                                if (quit) break;
+                                if (Su.strategyincurs==5)
+                                    for (SimpleUnit Su2: IA.computer.simpleUnits){
+                                               if (Su.strategyincurs==5){
+                                               SimpleUnit su = (SimpleUnit)u;
+                                               su.createSoldier(Su,Su2);
+                                               quit = true;
+                                               break; 
+                                            }
+                                    }
+                           }
+                       }
+                break;
+                } 
         case 11: {           
             /*
              * Stratégie 1 appliqué au tours précédant
@@ -162,6 +172,18 @@ public class IASimpleUnit extends IAUnite {
             break;
             
         }
+        case 15 : { 
+                       /*
+                        * créé unités 
+                        */
+                               for (Unit u : unitGroup.group){
+
+                                   SimpleUnit su = (SimpleUnit)u;
+                                   su.setTarget(su.getCenter());
+                                   su.createSoldier();
+                               }
+                        break;
+                        } 
                 
         }
     }

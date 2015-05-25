@@ -52,6 +52,7 @@ public abstract class IAUnite  {
             presentStrategy=Strategy;
             previousStrategy=Strategy;
             createHisto(state,Strategy);
+            updateyStrategy(Strategy);
         }
         else  Strategy =previousStrategy+10;
         applyStrategy (Strategy);
@@ -64,6 +65,10 @@ public abstract class IAUnite  {
     public abstract int calculateStaite ();
     public abstract int chooseStrategy (int staite);
     public abstract void applyStrategy (int strategy);
+    public void updateyStrategy (int strategy){
+        for (Unit u : this.unitGroup.group)
+            u.strategyincurs=strategy;
+    }
     public void updateZone (){
 
         simpleUnitPlyaerInZone3.clear();
