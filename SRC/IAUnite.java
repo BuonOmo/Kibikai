@@ -39,11 +39,14 @@ public abstract class IAUnite  {
     public void execut(){
         updateZone ();
         int state =calculateStaite();
+        if (state>431){
+            System.out.println("érreur ");
+        }
         int Strategy;
         if (presentStrategy>6){
             System.out.println("érreur ");
         }
-        if (previousStait != state||nbQualSrtategy<50 ){
+        if (previousStait != state||nbQualSrtategy>50 ){
             nbQualSrtategy=0;
             Strategy= chooseStrategy(state);
             presentStrategy=Strategy;

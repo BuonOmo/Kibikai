@@ -56,18 +56,18 @@ public class IASoldier extends IAUnite {
         int nbPlayerSoldiersCloseToBat =0;
         for (Soldier i : IA.computer.soldiers){
             if (IA.player.base.isCloseTo(i,Finals.ATTACK_RANGE)){
-                state=8+state;
                 nbComputerSoldiersCloseToBat++;
             }
         }
         for (Soldier i : IA.player.soldiers){
             if (IA.player.base.isCloseTo(i,Finals.ATTACK_RANGE)){
-                state=8+state;
                 nbPlayerSoldiersCloseToBat++;
             }
         }
-        if (nbPlayerSoldiersCloseToBat<nbComputerSoldiersCloseToBat)state=16+state;
-        
+        if (nbComputerSoldiersCloseToBat>0){
+            if (nbPlayerSoldiersCloseToBat<nbComputerSoldiersCloseToBat)state=16+state;
+            else state=32+state;
+        }
         
         /*
          * superiorite numerique (oucasi egale ) en zonne 3 (+0;48;96)

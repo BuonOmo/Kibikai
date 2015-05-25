@@ -55,15 +55,17 @@ public class SimpleUnit extends Unit {
     
     
     public static void createSoldier(SimpleUnit[] u, Point2D p){
-        if (u.length == 3
-            && u[0] != null && u[1] != null && u[2] != null
-            && u[0].owner == u[1].owner && u[0].owner == u[2].owner){
+        if (u!=null){
+            if (u.length == 3
+                && u[0] != null && u[1] != null && u[2] != null
+                && u[0].owner == u[1].owner && u[0].owner == u[2].owner){
             
-            for (SimpleUnit element : u){
-                element.creating = true;
-                element.setTarget(p);
+                for (SimpleUnit element : u){
+                    element.creating = true;
+                    element.setTarget(p);
+                }
+                builders = new SimpleUnitGroup(u);
             }
-            builders = new SimpleUnitGroup(u);
         }
     }
     
@@ -72,6 +74,7 @@ public class SimpleUnit extends Unit {
     }
     
     public static void createSoldier(Point2D p, Player o){
+        if (o.simpleUnits.size()>2)
         createSoldier(getNClosestSimpleUnitsFromO(3, p, o), p);
     }
     
@@ -80,6 +83,7 @@ public class SimpleUnit extends Unit {
     }
     
     public static void createSoldierOnBarycenter(Point2D p, Player o){
+        if (o.simpleUnits.size()>2)
         createSoldierOnBaryCenter(getNClosestSimpleUnitsFromO(3, p, o));
     }
     
@@ -159,7 +163,8 @@ public class SimpleUnit extends Unit {
     private SimpleUnit[] getTwoClosestSimpleUnits(){
         LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(owner.simpleUnits);
         toCheck.remove(this);
-        SimpleUnit[] toReturn = {toCheck.getFirst(),toCheck.getFirst()};
+        if (toCheck.size()<1) return null;
+        SimpleUnit[] toReturn = {toCheck.getFirst(),toCheck.get(1)};
         for (SimpleUnit i : toCheck){
             if (distanceTo(i)<= distanceTo(toReturn[0])){
                 toReturn[1] = toReturn[0];
@@ -171,15 +176,26 @@ public class SimpleUnit extends Unit {
     }
     
     public static SimpleUnit[] getNClosestSimpleUnitsFromO(int n, Point2D p, Player o){
+
         LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(o.simpleUnits);
+        if (toCheck.size()<n)return null;
         SimpleUnit[] toReturn = new SimpleUnit[n];
-        toReturn[0] = toCheck.getFirst();
-        for (SimpleUnit i : toCheck){
-            if (p.distance(i.getCenter())<= p.distance(toReturn[0].getCenter())){
-                for (int j = 0; j<n-1; j++)
-                    toReturn[j+1] = toReturn[j];
-                toReturn[0] = i;
-            }
+        int i =0;
+        for (SimpleUnit Su : toCheck){
+            if (i>n-1)break;
+            toReturn[i] = Su;
+            i++;
+        }
+        for (SimpleUnit Su : toCheck){
+            boolean isNotInTab = true;
+            for (int j = 0; j<n; j++)
+                if (toReturn[j] ==Su){
+                    isNotInTab = false;
+                    break;
+                }
+            for (int j = 0; j<n-1; j++)
+                if (p.distance(Su.getCenter())< p.distance(toReturn[j].getCenter())&&isNotInTab)
+                    toReturn[j] = Su;
             
         }
         return toReturn;

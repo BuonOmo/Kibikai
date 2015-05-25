@@ -91,7 +91,6 @@ public class IA {
         Qsa += Q[histoList.get(index).Stait][histoList.get(index).Action-1];
         //Qsa= Q[histoList.get(index).Stait-1][histoList.get(index).Action-1]+ Alpa*(histoList.get(index).Reward+Gamma*Q[histoList.get(index+1).Stait-1][histoList.get(index+1).Action-1]-Q[histoList.get(index).Stait-1][histoList.get(index).Action-1]);
         
-        
         if (Qsa>10) Qsa =10.0;
         if (Qsa<-10) Qsa =10.0;
         Q[histoList.get(index).Stait][histoList.get(index).Action-1]=Qsa;

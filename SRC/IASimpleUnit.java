@@ -118,9 +118,11 @@ public class IASimpleUnit extends IAUnite {
         }
         case 4:{   
                    /*
-                    * Soutien 
+                    * donné de la vie 
                     */
-                   if (support == null) unitGroup.setTarget(IA.computer.base);
+                   unitGroup.setTarget(IA.computer.base);
+                   /*
+                    * if (support == null) unitGroup.setTarget(IA.computer.base);
                    else{
                        for (Unit u : support.unitGroup.group){
                            if (3*Finals.LIFE-u.life>unitGroup.group.getLast().life){
@@ -130,6 +132,7 @@ public class IASimpleUnit extends IAUnite {
                            }
                        }
                    }
+                    */
                    
             break;
         }
@@ -145,7 +148,7 @@ public class IASimpleUnit extends IAUnite {
                                }
                         break;
                         } 
-        case 6: {           
+        case 11: {           
             /*
              * Stratégie 1 appliqué au tours précédant
              * suivre le groupe supporeter 
