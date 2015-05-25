@@ -201,8 +201,35 @@ public class SimpleUnit extends Unit {
         return toReturn;
     }
     
+    public static SimpleUnit[] getNClosestSimpleUnitsFromList(int n, Point2D p, LinkedList<SimpleUnit> l){
+
+        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(l);
+        if (toCheck.size()<n)return null;
+        SimpleUnit[] toReturn = new SimpleUnit[n];
+        int i =0;
+        for (SimpleUnit Su : toCheck){
+            if (i>n-1)break;
+            toReturn[i] = Su;
+            i++;
+        }
+        for (SimpleUnit Su : toCheck){
+            boolean isNotInTab = true;
+            for (int j = 0; j<n; j++)
+                if (toReturn[j] ==Su){
+                    isNotInTab = false;
+                    break;
+                }
+            for (int j = 0; j<n-1; j++)
+                if (p.distance(Su.getCenter())< p.distance(toReturn[j].getCenter())&&isNotInTab)
+                    toReturn[j] = Su;
+            
+        }
+        return toReturn;
+    }
+    
     public static SimpleUnit getClosestSimpleUnitsFromO(Point2D p, Player o){
         LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(o.simpleUnits);
+        if (toCheck.size() == 0 ) return null;
         SimpleUnit toReturn;
         toReturn = toCheck.getFirst();
         for (SimpleUnit i : toCheck){

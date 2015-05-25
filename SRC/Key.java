@@ -20,6 +20,7 @@ public class Key extends Listeners implements KeyListener {
     
     @Override
     public void keyTyped(KeyEvent e) {
+        
         typedKeys+= e.getKeyChar();
         
         switch(e.getKeyChar()){

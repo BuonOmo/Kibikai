@@ -84,9 +84,7 @@ public class Game implements Finals {
     }
     
     public static void print(Graphics g){
-    	
-        System.out.println("game print fonctionne");
-
+        
         if (Mouse.dragging){
             g.setColor(new Color(0,255,255));
             g.drawRect((int) (Mouse.draggingSquare.getX() * scale),

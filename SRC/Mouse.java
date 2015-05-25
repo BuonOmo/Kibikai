@@ -9,6 +9,8 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import java.util.LinkedList;
+
 public class Mouse extends Listeners implements MouseListener, MouseMotionListener, MouseWheelListener {
     
     static boolean leftPressed, dragging;
@@ -30,8 +32,8 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
      */
     public static void firstClick(MouseEvent e){
         init = false;
-        border.setLocation((double)(MouseInfo.getPointerInfo().getLocation().getX() - e.getX())/scale, 
-                           (double)(MouseInfo.getPointerInfo().getLocation().getY() - e.getY())/scale);
+        border.setLocation((double) (MouseInfo.getPointerInfo().getLocation().getX() - e.getX())/scale, 
+                           (double) (MouseInfo.getPointerInfo().getLocation().getY() - e.getY())/scale);
     }
     
     
@@ -39,6 +41,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
      * Méthode appelée sur un clic droit.
      */
     private void rightClick(){
+        createSoldier();
         setTarget();
     }
     
@@ -54,13 +57,51 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
             select(canSelect);
         
     }
+    
+    public void createSoldier(){
+        if (selected.size() >= 3){
+            LinkedList<SimpleUnit> simpleUnitSelected = new LinkedList<SimpleUnit>();
+            for (Item i : selected.getGroup()){
+                if (i.getClass().getName() == "SimpleUnit"){
+                    simpleUnitSelected.add((SimpleUnit)i);
+                }
+            }
+            if (simpleUnitSelected.size() >=3){
+                
+                SimpleUnit.createSoldier(SimpleUnit.getNClosestSimpleUnitsFromList(3, mouse(), simpleUnitSelected),
+                                         mouse());
+                
+            }
+        }
+        /*
+        LinkedList<SimpleUnit> simpleUnitSelected = new LinkedList<SimpleUnit>();
+        
+        while (selected.size() >= 3 ){
+            
+            for (Item i : selected.group){
+                if (i.getClass().getName() == "SimpleUnit"){
+                    simpleUnitSelected.add((SimpleUnit)i);
+                }
+            }
+            System.out.println(simpleUnitSelected.size());
+            
+            if (simpleUnitSelected.size() < 3)
+                break;
+            
+            SimpleUnit.createSoldier(SimpleUnit.getNClosestSimpleUnitsFromList(3, mouse(), simpleUnitSelected),
+                                     mouse());
+            
+            simpleUnitSelected.clear();
+            
+            
+        }
+        */
+    }
     //_______________ÉCOUTEURS____________//
 
     @Override
     public void mouseClicked(MouseEvent e) {
         
-        if (init)
-            firstClick(e);
         
         switch(e.getModifiers()) {
             case InputEvent.BUTTON1_MASK: {
@@ -84,6 +125,10 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
 
     @Override
     public void mousePressed(MouseEvent e) {
+        
+        if (init)
+            firstClick(e);
+        
         switch(e.getModifiers()) {
             case InputEvent.BUTTON1_MASK: {
                 dragging = true;
@@ -111,7 +156,8 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
     }
 
     @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
+    public void mouseDragged(MouseEvent e) {
+        
         if(dragging){
             draggingSquare.setRect((draggBeginning.getX() < mouse().getX()) ? draggBeginning.getX() : mouse().getX(),
                                    (draggBeginning.getY() < mouse().getY()) ? draggBeginning.getY() : mouse().getY(),
