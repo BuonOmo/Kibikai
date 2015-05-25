@@ -29,6 +29,7 @@ public class UI extends JFrame{
     Key key;
 
     Canvas canvas;
+    SideBand panelBandeau;
 
     //essais pour les setTarget
     double tX;
@@ -61,10 +62,14 @@ public class UI extends JFrame{
         frame.setLocation(0,0);
         */
 
-        //Set the background on WHITE
-        frame.getContentPane().setBackground(Color.WHITE);
-        frame.getContentPane().add(canvas);
-
+        //Set the background on YELLOW : if you see stg yellow it means the jpanel ain't working
+        frame.getContentPane().setBackground(Color.YELLOW);
+        
+        panelBandeau = new SideBand();       
+        frame.getContentPane().setLayout(null);
+        frame.getContentPane().add(canvas);  
+        frame.getContentPane().add(panelBandeau);
+        
         /* Boutons pour tester le Layout
         //Put the components on the right place
         frame.setLayout(new GridBagLayout());
@@ -178,8 +183,8 @@ public class UI extends JFrame{
     			//scroll en bas
     			//System.out.println("Scroll en bas");
     		}
-
-    		canvas.repaint();
+    		canvas.repaint(); 
+    		panelBandeau.repaint();
     		time ++;
     	}
     }

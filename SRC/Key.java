@@ -87,6 +87,8 @@ public class Key extends Listeners implements KeyListener {
             cheat(1);
         if (typedKeys.endsWith("hammel"))
             cheat(2);
+        if (typedKeys.endsWith("charles"))
+            cheat(3);
     }
     
     @Override

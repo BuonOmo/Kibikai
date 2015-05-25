@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.util.Iterator;
 import java.util.ListIterator;
-
+import javax.swing.JPanel;
 public class Game implements Finals {
     
     //________________ATTRIBUTS_____________//
@@ -84,6 +84,9 @@ public class Game implements Finals {
     }
     
     public static void print(Graphics g){
+    	
+        System.out.println("game print fonctionne");
+
         if (Mouse.dragging){
             g.setColor(new Color(0,255,255));
             g.drawRect((int) (Mouse.draggingSquare.getX() * scale),
