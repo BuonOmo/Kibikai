@@ -24,7 +24,7 @@ public class Canvas extends JComponent{
     public Canvas()  {
         
         IA.bigining();
-        P1 = new Player (Color.GREEN, new Point2D.Double(10,10), "Player one RPZ" );
+        P1 = new Player (Color.GREEN, Finals.BASE_LOCATION, "Player one RPZ" );
         P2 = new Player (Color.RED, new Point2D.Double(40,40), "Player two FTW" );
         IA.computer=P2;
         IA.player=P1;
@@ -38,8 +38,8 @@ public class Canvas extends JComponent{
         
         //P1.base.goAndProcreate();
         
-        /* ____________________________________________________   Decomenter pour voir une magnifique bataille*/
-        new Soldier(P1, new Point2D.Double(20,20));
+        /* Decommenter pour voir une magnifique bataille*/
+        //new Soldier(P1, new Point2D.Double(20,20));
         //P1.soldiers.get(0).setTarget(P2.base);
         
         
@@ -49,7 +49,7 @@ public class Canvas extends JComponent{
            // new Soldier(P1, new Point2D.Double(15,20+i));
             new Soldier(P2, new Point2D.Double(90,40+i));
         }
-        for (int i =1; i< 10;i++){
+        for (int i =1; i< 0;i++){
             new SimpleUnit(P1, new Point2D.Double(20,5*i));
             new SimpleUnit(P1, P1.base, new Point2D.Double(22.5,5*i));
             new Soldier(P1, new Point2D.Double(5*i,5));

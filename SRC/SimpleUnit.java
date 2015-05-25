@@ -8,7 +8,7 @@ public class SimpleUnit extends Unit {
     
     boolean creating;
     SimpleUnit builder1, builder2;
-    SimpleUnitGroup builders;
+    static SimpleUnitGroup builders;
     
     static LinkedList<SimpleUnit> aliveSimpleUnits = new LinkedList<SimpleUnit>();
     static LinkedList<SimpleUnit> deadSimpleUnits = new LinkedList<SimpleUnit>();
@@ -53,19 +53,45 @@ public class SimpleUnit extends Unit {
 
     //_____________________MÃ‰THODES____________________//
     
+    
+    public static void createSoldier(SimpleUnit[] u, Point2D p){
+        if (u.length == 3
+            && u[0] != null && u[1] != null && u[2] != null
+            && u[0].owner == u[1].owner && u[0].owner == u[2].owner){
+            
+            for (SimpleUnit element : u){
+                element.creating = true;
+                element.setTarget(p);
+            }
+            builders = new SimpleUnitGroup(u);
+        }
+    }
+    
+    public static void createSoldier(Point2D p, Player o, Point2D t){
+        createSoldier(getNClosestSimpleUnitsFromO(3, p, o), t);
+    }
+    
+    public static void createSoldier(Point2D p, Player o){
+        createSoldier(getNClosestSimpleUnitsFromO(3, p, o), p);
+    }
+    
+    public static void createSoldierOnBaryCenter(SimpleUnit[] u){
+        createSoldier(u, UnitGroup.getPosition(u));
+    }
+    
+    public static void createSoldierOnBarycenter(Point2D p, Player o){
+        createSoldierOnBaryCenter(getNClosestSimpleUnitsFromO(3, p, o));
+    }
+    
     public void createSoldier(Point2D t, SimpleUnit u1, SimpleUnit u2){
         if (!creating)
             setBuilders(u1, u2, t);
-            
-        else build();
             
     }
     
     public void createSoldier(SimpleUnit u1, SimpleUnit u2){
         if (!creating)
             setBuilders(u1, u2);
-            
-        else build();
             
     }
     
@@ -76,22 +102,22 @@ public class SimpleUnit extends Unit {
             SimpleUnit theTwo[] = getTwoClosestSimpleUnits();
             setBuilders(theTwo[0], theTwo[1]);
         }
-    build();
             
     }
         else this.error("createSoldier");
         //TODO add to erreurs 
     }
-    public void build(){
-            System.out.println("Su l 88 :création ");
-            if ((builders.distanceTo(target) <= CREATION_RANGE)&(builders.group.size()==3)){
-                        new Soldier(owner, target, builders.getQuantityOfLife());
-                        builders.isDestructed();
- 
-                        //TODO gerer les conflits à la création ______________________________________________?
-
-                    } 
-                }
+    public boolean build(){
+        
+        if ((builders.distanceTo(target) <= CREATION_RANGE) 
+            && (builders.group.size()==3) 
+            && (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER)){
+            new Soldier(owner, target, builders.getQuantityOfLife());
+            return builders.isDestructed();
+        }
+        
+        return false;
+    }
 
     /**
      * @param u1
@@ -144,10 +170,38 @@ public class SimpleUnit extends Unit {
         return toReturn;
     }
     
+    public static SimpleUnit[] getNClosestSimpleUnitsFromO(int n, Point2D p, Player o){
+        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(o.simpleUnits);
+        SimpleUnit[] toReturn = new SimpleUnit[n];
+        toReturn[0] = toCheck.getFirst();
+        for (SimpleUnit i : toCheck){
+            if (p.distance(i.getCenter())<= p.distance(toReturn[0].getCenter())){
+                for (int j = 0; j<n-1; j++)
+                    toReturn[j+1] = toReturn[j];
+                toReturn[0] = i;
+            }
+            
+        }
+        return toReturn;
+    }
+    
+    public static SimpleUnit getClosestSimpleUnitsFromO(Point2D p, Player o){
+        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(o.simpleUnits);
+        SimpleUnit toReturn;
+        toReturn = toCheck.getFirst();
+        for (SimpleUnit i : toCheck){
+            if (p.distance(i.getCenter())<= p.distance(toReturn.getCenter())){
+                toReturn = i;
+            }
+            
+        }
+        return toReturn;
+    }
+    
     /**
      * soin de la 'targetI'
      */
-    public void heal(){
+    public boolean heal(){
         if (targetI != null && targetI.getClass().getName() != "SimpleUnit" && this.hasSameOwner(targetI)) {
             if (targetI.isDead()) {
 
@@ -156,12 +210,14 @@ public class SimpleUnit extends Unit {
             } else if (this.isCloseTo(targetI, HEALING_RANGE)) {
 
                 targetI.getLife(life);
-                this.isDestructed();
+                return this.isDestructed();
             }
         }
+        return false;
     }
     
-    public void isDestructed(){
+    @Override
+    public boolean isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
             owner.deadUnits.add(this);
@@ -172,15 +228,16 @@ public class SimpleUnit extends Unit {
             owner.items.remove(this);
             owner.units.remove(this);
             owner.simpleUnits.remove(this);
+            return true;
         }
+        return false;
     }
     
-    public void execute(){
+    public boolean execute(){
         actualiseTarget();
         move();
         if (creating)
-            build();
-        else
-            heal();
+            return build();
+        return heal();
     }
 }

@@ -1,7 +1,11 @@
 import java.util.LinkedList;
 
 public abstract class IAUnite  {
+    public int nbQualSrtategy ;
     protected UnitGroup unitGroup;
+    public int presentStrategy;
+    public int previousStait;
+    public int previousStrategy ;
     public UnitGroup previousUnitGroup;
     public double previousLife;
     public double previousDamages;
@@ -35,9 +39,23 @@ public abstract class IAUnite  {
     public void execut(){
         updateZone ();
         int state =calculateStaite();
-        int Strategy= chooseStrategy(state);
+        int Strategy;
+        if (presentStrategy>6){
+            System.out.println("érreur ");
+        }
+        if (previousStait != state||nbQualSrtategy<50 ){
+            nbQualSrtategy=0;
+            Strategy= chooseStrategy(state);
+            presentStrategy=Strategy;
+            previousStrategy=Strategy;
+            createHisto(state,Strategy);
+        }
+        else  Strategy =previousStrategy+10;
         applyStrategy (Strategy);
-        createHisto(state,Strategy);
+
+        previousStait = state;
+
+
 
     }
     public abstract int calculateStaite ();
@@ -138,7 +156,7 @@ public abstract class IAUnite  {
     		//On modifie le parametre recompense du dernier IAHistObj
     		if (!unite.histoList.isEmpty())unite.histoList.getLast().setReward(recompense);
     		//On cree le nouveau IAHistObj pour l'etat actuel
-    		unite.histoList.add(new IAHistObj(state, strategy));
+    		unite.histoList.add(new IAHistObj(state, strategy,UI.time));
 
     	}
     		//on nettoie et enregistre a nouvau l'unit group pour le calcul de recompense qui suivra

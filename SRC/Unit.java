@@ -10,6 +10,7 @@ public abstract class Unit extends Item {
     
     public LinkedList <IAHistObj> histoList = new LinkedList <IAHistObj>();
     double lifeMAX;
+    double firstAppearance;
     
     /**
      * @param owner
@@ -21,7 +22,9 @@ public abstract class Unit extends Item {
         super(owner, topLeftCorner, width, height);
         lifeMAX = lifeMAXToSet;
         owner.units.add(this);
+        firstAppearance = UI.time;
     }   
+    
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
@@ -54,18 +57,23 @@ public abstract class Unit extends Item {
      * Gère la vie d’une unité.
      * @param amount vie ajoutée (- pour en enlever)
      */
-    public void getLife(double amount){
+    public boolean getLife(double amount){
         life+= amount;
         if (life <=0)
-            this.isDestructed();
+            return this.isDestructed();
         else  if (life >= lifeMAX)
             life = lifeMAX;
+        return false;
     }
     
     @Override
     public Color getColor(){
         if (selected)
             return new Color(0,255,255,100);
+        if (Listeners.louHammel)
+            return new Color((int) (255.0 * Math.random()),
+                             (int) (255.0 * Math.random()),
+                             (int) (255.0 * Math.random()));
         double percent = ((life+lifeMAX/2.0)/(1.5*lifeMAX));
         return new Color((int)(color.getRed()*percent), (int)(color.getGreen()*percent), (int)(color.getBlue()*percent), color.getAlpha());
     }
@@ -75,14 +83,14 @@ public abstract class Unit extends Item {
      */
     public void move(){
         // deplace l’objet de la distance renvoyée par canMove
-        hitBox.setRect(hitBox.getX() + getVector().getX(), 
+        hitBox.setFrame(hitBox.getX() + getVector().getX(), 
                        hitBox.getY() + getVector().getY(), 
                        hitBox.getWidth(), 
                        hitBox.getHeight() );
     }
     
     
-    public abstract void execute();
+    public abstract boolean execute();
     
     //________MÉTHODES POUR LE DÉPLACEMENT______//
     

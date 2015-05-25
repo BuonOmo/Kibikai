@@ -25,7 +25,7 @@ public class Building extends Item{
         super(owner, topLeftCorner, side);
         life = Math.pow(side, 2)*LIFE;
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
-        setTarget(new Point2D.Double(30,30)); //___________________________________(test)
+        setTarget(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         buildings.add(this);
     }
     
@@ -43,28 +43,35 @@ public class Building extends Item{
      */
     public void goAndProcreate(){
         
-        
-        // on laisse tout ce calcul ? parcequ’il sert à rien vu qu’on gère pas les intersections..
-        double x,y;
-    	if(target.getX()<=hitBox.getX()){
-    	    x = hitBox.getX()-SIDE-1;
-    	    if(target.getY()<=hitBox.getY()){
-    	            y=hitBox.getY()-SIDE-1;
-    	    }else{
-    	            y=hitBox.getY()+hitBox.getHeight()+1;
-    	    }
-    	}else{
-            x=hitBox.getX()+hitBox.getWidth()+1;
-            if(target.getY()<=hitBox.getY()){
-                    y=hitBox.getY()-SIDE-1;
+        if (owner.simpleUnits.size()<NUMBER_MAX_OF_SIMPLEUNIT){
+            //c’est pas très joli :V
+            /*
+            double x,y;
+            if(target.getX()<=hitBox.getX()){
+                x = hitBox.getX()-SIDE;
+                if(target.getY()<=hitBox.getY()){
+                        y=hitBox.getY()-SIDE;
+                }else{
+                        y=hitBox.getY()+hitBox.getHeight();
+                }
             }else{
-                    y=hitBox.getY()+hitBox.getHeight()+1;
+                x=hitBox.getX()+hitBox.getWidth();
+                if(target.getY()<=hitBox.getY()){
+                        y=hitBox.getY()-SIDE;
+                }else{
+                        y=hitBox.getY()+hitBox.getHeight();
+                }
             }
+<<<<<<< HEAD
         }
     	Point2D.Double spawnPoint = new Point2D.Double(x,y);
         
         if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT) {
             new SimpleUnit(owner,spawnPoint,target);
+=======
+            */
+            new SimpleUnit(owner,getCenter(),target);
+>>>>>>> origin/master
         }
 
     }
@@ -73,18 +80,21 @@ public class Building extends Item{
      * Gère la vie d’un batiment et sa taille.
      * @param amount vie ajoutée (- pour en enlever)
      */
-    public void getLife(double amount){
+    public boolean getLife(double amount){
+        
         life+= amount;
         
         //TODO gerer les intersection lors du grandissement
         double newSide = Math.sqrt(life/LIFE);
         double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setRect(getCenter().getX() - newSide/2.0, 
+        hitBox.setFrame(getCenter().getX() - newSide/2.0, 
                        getCenter().getY() - newSide/2.0, 
                        newSide, 
                        newSide);
         if (life <=0)
-            this.isDestructed();
+            return this.isDestructed();
+        
+        return false;
     }
     
     public static boolean gameOver(){
@@ -94,7 +104,7 @@ public class Building extends Item{
         return false;
     }
     
-    public void execute(){
+    public boolean execute(){
         
         actualiseTarget();
         
@@ -105,5 +115,6 @@ public class Building extends Item{
                 goAndProcreate();                
             }
         }
+        return false;
     }
 }

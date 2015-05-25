@@ -4,6 +4,8 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import java.awt.geom.RectangularShape;
+
 import java.util.LinkedList;
 
 public abstract class Item implements Finals{
@@ -14,20 +16,27 @@ public abstract class Item implements Finals{
     Item targetI;
     double life;
     Color color;
-    Rectangle2D hitBox;
+    RectangularShape hitBox;
     Player owner;
     double radius;
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
+<<<<<<< HEAD
     static LinkedList<Item> deadItems = new LinkedList<Item>();    
+=======
+    static LinkedList<Item> deadItems = new LinkedList<Item>();
+    boolean done;
+    
+>>>>>>> origin/master
     boolean selected;
     
     // _____________CONSTRUCTEURS______________//
+    
     
     /**
      * @param owner Possesseur de l’objet
      * @param hitBoxToSet
      */
-    public Item(Player ownerToSet, Rectangle2D hitBoxToSet, Point2D targetToSet){
+    public Item(Player ownerToSet, RectangularShape hitBoxToSet, Point2D targetToSet){
         color = ownerToSet.color;
         owner = ownerToSet;
         hitBox = hitBoxToSet;
@@ -65,8 +74,9 @@ public abstract class Item implements Finals{
     /**
      * Gère la vie d’une unité (et pour un batiment sa taille).
      * @param amount vie ajoutée (- pour en enlever)
+     * @return vraie si l’unité meurt
      */
-    public abstract void getLife(double amount);
+    public abstract boolean getLife(double amount);
     
     /**
      * Permet de déplacer une unité vers un point donné.
@@ -154,8 +164,16 @@ public abstract class Item implements Finals{
         return new Point2D.Double(hitBox.getCenterX(),hitBox.getCenterY());
     }
     
+    public static LinkedList getItemInFrame(Rectangle2D frame){
+        LinkedList<Item> toReturn = new LinkedList<Item>();
+        for (Item i : aliveItems){
+            if (frame.contains(i.getCenter()))
+                toReturn.add(i);
+        }
+        return toReturn;
+    }
     
-    public Item[] getNClosestObject(int n, String type){
+    public Item[] getNClosestItem(int n){
         LinkedList<Item> toCheck = new LinkedList<Item>(aliveItems);
         toCheck.remove(this);
         Item[] toReturn = new Item[n];
@@ -171,13 +189,15 @@ public abstract class Item implements Finals{
         return toReturn;
     }
     
-    public void isDestructed(){
+    public boolean isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
             deadItems.add(this);
             aliveItems.remove(this);
             owner.items.remove(this);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -190,12 +210,19 @@ public abstract class Item implements Finals{
     public boolean hasSameOwner(Item i){
         return (i.owner == owner);
     }
-    
-    public abstract void execute();
+
+    /**
+     * @return vraie si il y a des remove dans aliveItem
+     */
+    public abstract boolean execute();
     
     public Color getColor(){
         if (selected)
             return new Color(0,255,255,100);
+        if (Listeners.louHammel)
+            return new Color((int) (255.0 * Math.random()),
+                             (int) (255.0 * Math.random()),
+                             (int) (255.0 * Math.random()));
         return color;
     }
     
@@ -226,6 +253,15 @@ public abstract class Item implements Finals{
     public String toString(){
         return this.getClass().getName()+" at ["+getCenter().getX()+", "+getCenter().getY()+"]";
     }
+    
+    public void setDone(){
+        done = true;
+    }
+    
+    public void setUnDone(){
+        done = false;
+    }
+    
     /**
      * gère les problèmes rencontrés par des objets (inutile !).
      * @param type type d’erreur

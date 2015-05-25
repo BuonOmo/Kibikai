@@ -25,12 +25,10 @@ public class UI extends JFrame{
     BufferedImage ArrierePlan;
     Graphics buffer;
     Rectangle Ecran;
-    Listeners listeners;
+    Mouse mouse;
+    Key key;
 
     Canvas canvas;
-
-    final int screenHeight;
-    final int screenWidth;
 
     //essais pour les setTarget
     double tX;
@@ -44,25 +42,21 @@ public class UI extends JFrame{
 
     public UI(){
         canvas = new Canvas();
-        listeners = new Listeners(canvas.P1);
+        mouse = new Mouse(canvas.P1);
+        key = new Key(canvas.P1);
         frame = new JFrame();
-        frame.addMouseListener(listeners);
-        frame.addKeyListener(listeners);
+        frame.addMouseListener(mouse);
+        frame.addKeyListener(key);
+        frame.addMouseMotionListener(mouse);
 
-        //Size of the screen, have to go in the finals ??
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenSize = tk.getScreenSize();
-        screenHeight = screenSize.height;
-        screenWidth = screenSize.width;
-
-
+        
         // Plein ecran
         frame.setUndecorated(true);
         frame.setExtendedState(frame.MAXIMIZED_BOTH);
 
         /*
         //Location and size of the frame
-        frame.setSize(screenWidth, screenHeight); //Wide screen
+        frame.setSize(Finals.screenWidth, Finals.screenHeight); //Wide screen
         frame.setResizable(false);
         frame.setLocation(0,0);
         */
@@ -84,7 +78,7 @@ public class UI extends JFrame{
         cadre.add(downScreen);
         cadre.add(map);
         frame.add(cadre);
-             */
+        */
 
         tX=20;
         tY=20;
@@ -163,37 +157,42 @@ public class UI extends JFrame{
 
     private class TimerAction implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
-            Game.run();
+    	public void actionPerformed(ActionEvent e) {
+    		Game.run();
 
-            //Scrolling
-            Point mouse = MouseInfo.getPointerInfo().getLocation();
-            if(mouse.x <= Finals.SCROLL_BORDER){
-                    //scroll à gauche
-                    //System.out.println("Scroll à gauche");
-            }
-            else if(mouse.x >= screenWidth - Finals.SCROLL_BORDER){
-                    //scroll à droite
-                    //System.out.println("Scroll à droite");
-            }
-            if(mouse.y <= Finals.SCROLL_BORDER){
-                    //scroll en haut
-                    //System.out.println("Scroll en haut");
-            }
-            else if(mouse.y >= screenHeight - Finals.SCROLL_BORDER){
-                    //scroll en bas
-                    //System.out.println("Scroll en bas");
-            }
+    		//Scrolling
+    		Point mouse = MouseInfo.getPointerInfo().getLocation();
+    		if(mouse.x <= Finals.SCROLL_BORDER){
+    			//scroll à gauche
+    			//System.out.println("Scroll à gauche");
+    		}
+    		else if(mouse.x >= Finals.screenWidth - Finals.SCROLL_BORDER){
+    			//scroll à droite
+    			//System.out.println("Scroll à droite");
+    		}
+    		if(mouse.y <= Finals.SCROLL_BORDER){
+    			//scroll en haut
+    			//System.out.println("Scroll en haut");
+    		}
+    		else if(mouse.y >= Finals.screenHeight - Finals.SCROLL_BORDER){
+    			//scroll en bas
+    			//System.out.println("Scroll en bas");
+    		}
 
-            canvas.repaint();
-            time ++;
-        }
+    		canvas.repaint();
+    		time ++;
+    	}
     }
+<<<<<<< HEAD
     
+=======
+
+/*
+>>>>>>> origin/master
     public static void main (String[] args){
         UI gui = new UI();      
         gui.timer.start();
         
     }
-
+*/
 }

@@ -23,6 +23,14 @@ public class SimpleUnitGroup extends UnitGroup {
         super(grpUs);
     }
     
+    public SimpleUnitGroup (SimpleUnit[] u){
+        this(u[0]);
+        for (int i=1; i<u.length; i++){
+            if (u[i].owner == owner)
+                add(u[i]);
+        }
+    }
+    
     public SimpleUnitGroup (LinkedList<SimpleUnit> grpUs, Player o) {
         super(grpUs, o);
         if (o == IA.computer){

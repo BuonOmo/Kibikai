@@ -10,13 +10,13 @@ public class IASimpleUnit extends IAUnite {
         
         int staite = 0;
         if (support!=null){
-            // stratégie de groups soutenue (0;5)
+            // stratï¿½gie de groups soutenue (0;5)
             staite = support.presentStrategy-1;
             
-            //superoriter numérique du groupe suporté dans la zonne 1(0;6)
+            //superoriter numï¿½rique du groupe suportï¿½ dans la zonne 1(0;6)
             if (support.soldierComputerInZone1.size()>support.soldierPlyaerInZone1.size()) staite=staite+6;
             
-            //superoriter numérique du groupe suporté dans la zonne 3(0;12)
+            //superoriter numï¿½rique du groupe suportï¿½ dans la zonne 3(0;12)
             if (support.soldierComputerInZone3.size()>support.soldierPlyaerInZone3.size()) staite=staite+12;
         }
         
@@ -33,7 +33,7 @@ public class IASimpleUnit extends IAUnite {
             if (support.unitGroup.group.size()<0.3*Finals.NUMBER_MAX_OF_SOLDIER)staite=48+staite;
             else staite=96+staite;
         }
-        //taill de this (0;144;288
+        //taill de this (0;144;288)
         if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.2)staite= 144+staite;
         else if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.08)staite= 288+staite;
 
@@ -69,20 +69,27 @@ public class IASimpleUnit extends IAUnite {
             }
             break;
         }
+        /*
+         * Synder le group en deux 
+         */
+
         case 2:{
             SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
-            unitGroup.remouve(unitGroup.group.get(0));
+            unitGroup.remove(unitGroup.group.get(0));
             sicition.ia= new IASimpleUnit(sicition);
-            for (int i= unitGroup.group.size()-1; i>=0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
+            for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le for sous se format la (risque d'emerde avec le remouve )
                 if ((i)%2==0) {
                     sicition.add((SimpleUnit)unitGroup.group.get(i));
-                    unitGroup.remouve(unitGroup.group.get(i));
+                    unitGroup.remove(unitGroup.group.get(i));
                 } 
             }
             if (unitGroup.group.size()==0)SimpleUnitGroup.list.remove(unitGroup);
             break;
         }
         case 3:{
+            /*
+             * Soutenire un autre group d'unité 
+             */ 
 
             double distence =10000;
             SoldierGroup group= null;
@@ -103,13 +110,16 @@ public class IASimpleUnit extends IAUnite {
                 for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
                     if ((i+1)%2==0) {
                         group.ia.support.unitGroup.group.add((SimpleUnit)unitGroup.group.get(i));
-                        unitGroup.remouve(unitGroup.group.get(i));
+                        unitGroup.remove(unitGroup.group.get(i));
                     }
                 }
             }
             break;
         }
         case 4:{   
+                   /*
+                    * Soutien 
+                    */
                    if (support == null) unitGroup.setTarget(IA.computer.base);
                    else{
                        for (Unit u : support.unitGroup.group){
@@ -124,6 +134,9 @@ public class IASimpleUnit extends IAUnite {
             break;
         }
             case 5:{ 
+                       /*
+                        * créé unités 
+                        */
                                for (Unit u : unitGroup.group){
 
                                    SimpleUnit su = (SimpleUnit)u;
@@ -132,6 +145,20 @@ public class IASimpleUnit extends IAUnite {
                                }
                         break;
                         } 
+        case 6: {           
+            /*
+             * Stratégie 1 appliqué au tours précédant
+             * suivre le groupe supporeter 
+             */
+            if (support==null) unitGroup.setTarget(IA.computer.base.getCenter());
+            else{
+                Point2D pts1 = support.unitGroup.getPosition();
+                Point2D pts2 = IA.computer.base.getCenter();
+                unitGroup.setTarget(new Point2D.Double(pts1.getX()+(pts2.getX()-pts1.getX())*5/pts1.distance(pts2),pts1.getY()+(pts2.getY()-pts1.getY())*5/pts1.distance(pts2)));
+            }
+            break;
+            
+        }
                 
         }
     }

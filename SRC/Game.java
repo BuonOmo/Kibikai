@@ -1,5 +1,8 @@
 import java.awt.Color;
+<<<<<<< HEAD
 import java.awt.Dimension;
+=======
+>>>>>>> origin/master
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;
@@ -43,9 +46,37 @@ public class Game implements Finals {
     }
     
     public static void middle(){
-        for(int i=0; i< Item.aliveItems.size(); i++)
+        /*
+        Iterator it = Item.aliveItems.iterator();
+        Item current;
+        for (Item i : Item.aliveItems)
+            i.setUnDone();
+        
+        while (it.hasNext()){
+            current = (Item)it.next();
+           
+            if (!current.done){
+                
+                current.setDone();
+                
+                if (current.execute())
+                    it = Item.aliveItems.iterator();
+                
+            }
+        }
+        */
+        
+        for(int i=0; i< Item.aliveItems.size(); i++){
             Item.aliveItems.get(i).execute();
+        }
         IA.execut();
+/*
+        if ((UI.time+1)%600==0){
+            IA.end();
+            System.out.println("sovgardeIA");
+        }
+*/
+
     }
     
     public static void end(){
@@ -56,6 +87,19 @@ public class Game implements Finals {
     }
     
     public static void print(Graphics g){
+        if (Mouse.dragging){
+            g.setColor(new Color(0,255,255));
+            g.drawRect((int) (Mouse.draggingSquare.getX() * scale),
+                       (int) (Mouse.draggingSquare.getY() * scale), 
+                       (int) (Mouse.draggingSquare.getWidth() * scale),
+                       (int) (Mouse.draggingSquare.getHeight() * scale));
+            g.setColor(new Color(0,255,255,30));
+            g.fillRect((int) (Mouse.draggingSquare.getX() * scale),
+                       (int) (Mouse.draggingSquare.getY() * scale), 
+                       (int) (Mouse.draggingSquare.getWidth() * scale), 
+                       (int) (Mouse.draggingSquare.getHeight()) * scale);
+        }
+            
         for (Item i : Item.aliveItems)
             i.print(g);
     }

@@ -1,98 +1,169 @@
 import java.awt.MouseInfo;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.awt.geom.Rectangle2D;
 
-public class Listeners implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, Finals {
-    boolean hasSelected, shiftPressed, baseSelected;
-    Item canSelect;
-    UnitGroup selected;
-    Player owner;
-    String typedKeys;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class Listeners implements  Finals {
+    static boolean shiftPressed, baseSelected, init, louHammel;
+    static Item canSelect;
+    static UnitGroup selected;
+    static Player owner;
+    static String typedKeys;
+    
+    /**
+     * prend en compte la bordure de l’écran si il y en a une.
+     */
+    static Point2D border;
+    
     //_____________CONSTRUCTEUR____________//
     
     public Listeners(Player p){
         owner = p;
         selected=new UnitGroup();
         typedKeys = "";
+        init = true;
+        border = new Point2D.Double();
     }
     
     //______________MÉTHODES______________//
-    
-    public void releaseKey(){
-        shiftPressed = false;
-    }
-    
+
+
+    /**
+     * @return coordonnées de la souris
+     */
     public Point2D mouse(){
-        return new Point2D.Double((double)MouseInfo.getPointerInfo().getLocation().getX()/scale, 
-                                  (double)MouseInfo.getPointerInfo().getLocation().getY()/scale);
-    }
-    
-    private void rightClick(){
-        if (hasSelected){
-            setTarget();
-        }
-    }
-    
-    private void leftClick(){
-        getItemFromOwner();
-        System.out.println("Listeners.leftClicked :"+canSelect);
-        if (canSelect == null) 
-            unSelectAll();
-        else
-            select(canSelect);
         
+        return new Point2D.Double((double)MouseInfo.getPointerInfo().getLocation().getX()/scale - border.getX(), 
+                                  (double)MouseInfo.getPointerInfo().getLocation().getY()/scale - border.getY());
     }
     
-    private void unSelectAll(){
+    
+    
+    void unSelectAll(){
         baseSelected = false;
+        owner.base.setSelected(false);
         selected.setSelected(false);
-        hasSelected = false;
         selected.clear();
     }
-    private void select(Item i){
-        
-        if (i != null && i.owner == owner){
-            
-            hasSelected=true;
-            i.setSelected(true);
-            
-            if (i.getClass().getName() == "Building"){
-                baseSelected = true;
-            }
-            else{
-                selected.add((Unit)i);
+    
+    void unSelect(Item i){
+        i.setSelected(false);
+        if (i.getClass().getName() == "Building"){
+            baseSelected = false;
+        }
+        else{
+            selected.remove((Unit)i);
+        }
+    }
+    
+    void select(Item i){
+        if (i.selected){
+            unSelect(i);
+            if (!shiftPressed)
+                unSelectAll();
+        }
+        else{
+            if (!shiftPressed){
+                unSelectAll();
+                
+                if (i != null && i.owner == owner){
+                    i.setSelected(true);
+                    
+                    if (i.getClass().getName() == "Building"){
+                        baseSelected = true;
+                    }
+                    else{
+                        selected.add((Unit)i);
+                    }
+                }
             }
         }
     }
-        
-    private void getItemFromOwner(){
+    
+    void selectWithoutShift(Item i){
+        i.setSelected(true);
+        if (i.getClass().getName() == "Building"){
+            baseSelected = true;
+        }
+        else{
+            selected.add((Unit)i);
+        }
+    }
+    
+    void selectOnly(UnitGroup group){
+        unSelectAll();
+        select(group);
+    }
+    
+    void select (UnitGroup group){
+        for (Unit u : group.group){
+            if (u != null && u.owner == owner){
+                u.setSelected(true);
+                selected.add(u);
+            }
+        }
+    }
+    
+    void select (LinkedList<Item> list){
+        for (Item i : list){
+            if (i != null && i.owner == owner){
+                i.setSelected(true);
+                
+                if (i.getClass().getName() == "Building"){
+                    baseSelected = true;
+                }
+                else{
+                    selected.add((Unit)i);
+                }
+            }
+        }
+    }
+    
+    void selectOnly(LinkedList<Item> list){
+        unSelectAll();
+        select(list);
+    }
+    
+    void selectOnly(ArrayList list){
+        unSelectAll();
+        select(new LinkedList<Item>(list));
+    }
+    
+    void select(Rectangle2D r){
+        for (Item i : owner.items){
+            if (r.contains(i.getCenter()))
+                this.selectWithoutShift(i);
+        }
+    }
+    
+    void selectOnly(Rectangle2D r){
+        unSelectAll();
+        select(r);
+    }
+    
+    void getItemFromOwner(){
         getItem(owner.items);
     }
     
-    private void getItemFromAll(){
+    void getItemFromAll(){
         getItem(Item.aliveItems);
     }
     
-    private void getItem(LinkedList<Item> list){
+    void getItem(LinkedList<Item> list){
         canSelect = null;
         
         for (Item i : list)
-            if (i.hitBox.contains(mouse()))
+            if (i.hitBox.contains(mouse())){
                 canSelect = i;
+                break;
+            }
     }
     
     
-    private void setTarget(){
+    void setTarget(){
         getItemFromAll();
         if (canSelect == null)
             setTarget(mouse());
@@ -100,146 +171,23 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             setTarget(canSelect);
     }
     
-    private void setTarget(Item i){
+    void setTarget(Item i){
         selected.setTarget(i);
         if (baseSelected)
             owner.base.setTarget(i);
     }
     
-    private void setTarget(Point2D p){
+    void setTarget(Point2D p){
         selected.setTarget(p);
         if (baseSelected)
             owner.base.setTarget(p);
     }
     
-    
-    public void log(String met, String msg){
-        System.out.println(getClass().getName()+"."+met+" : "+msg);
-    }
-    //_______________ÉCOUTEURS____________//
-    
-    @Override
-    public void keyTyped(KeyEvent e) {
-        
-        typedKeys+= e.getKeyChar();
-        
-        switch(e.getKeyChar()){
-        
-        case ('s'):{
-            unSelectAll();
-            for (Soldier s : owner.soldiers)
-                select(s);
-            break;
-        }
-            
-        case ('u'):{
-            unSelectAll();
-            for (SimpleUnit s : owner.simpleUnits)
-                select(s);
-            break;
-            
-        }
-        case('c'):{
-            setTarget();
-            break;
-        }
-            
-        default:{
-            
-        }
-        }
-        
-        if (typedKeys.endsWith("ulysse"))
-            cheat(0);
-        if (typedKeys.endsWith("adrien"))
-            cheat(1);
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        
-        // TODO Implement this method
-        //System.out.println(e.getExtendedKeyCode());
-        switch(e.getKeyCode()){
-            case (16) :{
-                log("keyPressed","pressed");
-                shiftPressed = true;
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-        // TODO Implement this method
-        releaseKey();
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        
-        System.out.println("Listeners.mouseClicked :"+mouse());
-        switch(mouseEvent.getModifiers()) {
-            case InputEvent.BUTTON1_MASK: {
-                log("mouseClicked","left");
-                leftClick();
-                break;
-            }
-            /**
-             * Pour le bouton du milieu :
-            case InputEvent.BUTTON2_MASK: {
-                System.out.println("That's the MIDDLE button");     
-                break;
-            }
-             */
-            case InputEvent.BUTTON3_MASK: {
-                log("mouseClicked","right");
-                rightClick();
-                break;
-            }
-        }
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-        // TODO Implement this method
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-        // TODO Implement this method
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-        // TODO Implement this method
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-        // TODO Implement this method
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-        // TODO Implement this method
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-        // TODO Implement this method
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-        // TODO Implement this method
-    }
-    
+   
     
     //_________POUR_ADRIEN________//
     
-    private void cheat(int i){
+    void cheat(int i){
         switch(i){
             case 0 :{
                 owner.base.getLife(1000);
@@ -249,6 +197,10 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
             case 1 :{
                 System.out.println("____Adrien t’as ken_____");
                 System.exit(0);
+                break;
+            }
+            case 2 :{
+                louHammel = (louHammel) ? false : true;
                 break;
             }
         }
