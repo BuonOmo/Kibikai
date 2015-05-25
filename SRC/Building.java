@@ -71,7 +71,6 @@ public class Building extends Item{
 =======
             */
             new SimpleUnit(owner,getCenter(),target);
->>>>>>> origin/master
         }
 
     }

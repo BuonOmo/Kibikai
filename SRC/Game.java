@@ -1,8 +1,5 @@
 import java.awt.Color;
-<<<<<<< HEAD
 import java.awt.Dimension;
-=======
->>>>>>> origin/master
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;

@@ -20,13 +20,8 @@ public abstract class Item implements Finals{
     Player owner;
     double radius;
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
-<<<<<<< HEAD
     static LinkedList<Item> deadItems = new LinkedList<Item>();    
-=======
-    static LinkedList<Item> deadItems = new LinkedList<Item>();
     boolean done;
-    
->>>>>>> origin/master
     boolean selected;
     
     // _____________CONSTRUCTEURS______________//
