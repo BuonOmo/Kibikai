@@ -49,10 +49,10 @@ public class Canvas extends JPanel{
            // new Soldier(P1, new Point2D.Double(15,20+i));
             new Soldier(P2, new Point2D.Double(90,40+i));
         }
-        for (int i =1; i< 0;i++){
-            new SimpleUnit(P1, new Point2D.Double(20,5*i));
-            new SimpleUnit(P1, P1.base, new Point2D.Double(22.5,5*i));
-            new Soldier(P1, new Point2D.Double(5*i,5));
+        for (int i =0; i< 9;i++){
+            new SimpleUnit(P1, new Point2D.Double(20,5+2*i));
+            //new SimpleUnit(P1, P1.base, new Point2D.Double(22.5,5*i));
+            //new Soldier(P1, new Point2D.Double(5*i,5));
         }
         
         //P1.soldiers.get(1).setTarget(P2.soldiers.get(0));
@@ -79,8 +79,6 @@ public class Canvas extends JPanel{
         s1.print(g);
         b1.print(g);
         */
-    	g.setColor(Color.WHITE);
-    	g.fillRect(0, 0, Finals.screenWidth*5/6, Finals.screenHeight);
     	
         Game.print(g);
     }

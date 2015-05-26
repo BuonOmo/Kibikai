@@ -31,9 +31,7 @@ public class UI extends JFrame{
     Canvas canvas;
     SideBand panelBandeau;
 
-    //essais pour les setTarget
-    double tX;
-    double tY;
+    
 
     private JButton sideScreen;
     private JButton downScreen;
@@ -49,7 +47,6 @@ public class UI extends JFrame{
         frame.addMouseListener(mouse);
         frame.addKeyListener(key);
         frame.addMouseMotionListener(mouse);
-
         
         // Plein ecran
         frame.setUndecorated(true);
@@ -84,10 +81,7 @@ public class UI extends JFrame{
         cadre.add(map);
         frame.add(cadre);
         */
-
-        tX=20;
-        tY=20;
-
+        
         //JFrame properties
         frame.setTitle("LUCA");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,70 +89,6 @@ public class UI extends JFrame{
         timer = new Timer(100, new TimerAction());
     }
     
-    public class CustomMouseListener implements MouseListener{
-
-        boolean hasSelected = false;
-        Item selected;
-        boolean rightClicked, leftClicked;
-
-        public void mousePressed(MouseEvent e) {}
-        public void mouseReleased(MouseEvent e) {}
-        public void mouseEntered(MouseEvent e) {}
-        public void mouseExited(MouseEvent e) {}
-        public void mouseClicked(MouseEvent e) {
-            tX=e.getX()/Finals.scale;
-            tY=e.getY()/Finals.scale;
-
-            switch(e.getModifiers()) {
-                case InputEvent.BUTTON1_MASK: {
-                    leftClicked = true;
-                    break;
-                }
-                /**
-                 * Pour le bouton du milieu :
-                case InputEvent.BUTTON2_MASK: {
-                    System.out.println("That's the MIDDLE button");     
-                    break;
-                }
-                 */
-                case InputEvent.BUTTON3_MASK: {
-                    rightClicked = true;     
-                    break;
-                }
-            }
-            if (leftClicked){
-                for (Item element : Item.aliveItems){
-                    if (element.hitBox.contains(tX, tY)){
-                        System.out.println("UI.CustomMouseListener.mouseClicked : "+element+" devrait être selectionné");
-                        hasSelected = true;
-                        element.setSelected(true);
-                        selected = element;
-                        break;
-                    }
-                }
-                if (hasSelected){
-                    for (Item element : Item.aliveItems){
-                        if (element.hitBox.contains(tX, tY)){
-                            element.setSelected(true);
-                            break;
-                        }
-                    }
-                    selected.setTarget(tX, tY);
-                }
-            }
-            if (rightClicked){
-                if (hasSelected){
-                    for (Item element : Item.aliveItems){
-                        if (element.hitBox.contains(tX, tY)){
-                            selected.setTarget(element);
-                            break;
-                        }
-                    }
-                    selected.setTarget(tX, tY);
-                }
-            }
-        }    
-    }
 
     private class TimerAction implements ActionListener {
 
