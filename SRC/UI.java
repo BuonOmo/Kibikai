@@ -69,10 +69,10 @@ public class UI extends JFrame{
     		//Scrolling
     		Point mouse = MouseInfo.getPointerInfo().getLocation();
     		
-    		if(mouse.x <= Finals.SCROLL_BORDER){
+    		if(mouse.x <= Finals.SCROLL_BORDER+50){
     			canvas.cam.moveCamera(-1, 0); //scroll à gauche
     		}
-    		else if(mouse.x >= Finals.screenWidth - Finals.SCROLL_BORDER){
+    		else if(mouse.x >= Finals.screenWidth*5/6 - Finals.SCROLL_BORDER){
     			canvas.cam.moveCamera(1, 0);  //scroll à droite
     		}
     		if(mouse.y <= Finals.SCROLL_BORDER){

@@ -13,21 +13,21 @@ public class IASoldier extends IAUnite {
     }
     public int calculateStaite() {
         /*
-         * ï¿½tat de la carte autoure du groupe entre (0;432)
+         * Etat de la carte autour du groupe entre (0;432)
          */
         int state =0;
         /*
-         * geurre zonne 1 (+0;1)
+         * geurre zone 1 (+0;1)
          */
         if (soldierPlyaerInZone1.size()==0) state= 1;
         else state=0;
         /*
-         * superioritï¿½ numï¿½rique en zonne 2 (+0;2)
+         * superiorite numerique en zone 2 (+0;2)
          */
         if (soldierPlyaerInZone2.size()>soldierComputerInZone2.size());
         else state=2+state;
         /*
-         * bat compiuter  est attaquer (+0;4)
+         * bat computer est attaque (+0;4)
          */
         for (Soldier i : IA.player.soldiers){
             if (IA.computer.base.isCloseTo(i,Finals.ATTACK_RANGE)){
@@ -36,7 +36,7 @@ public class IASoldier extends IAUnite {
             }
         }
         /*
-         * unite Simple plyer isoler de dans zonne 3(+0;8)
+         * unite Simple player isoler de dans zone 3(+0;8)
          */
         for (SimpleUnit i : simpleUnitPlyaerInZone3){
             boolean isIsolate = true;
@@ -70,7 +70,7 @@ public class IASoldier extends IAUnite {
         }
         
         /*
-         * superiorite numerique (oucasi egale ) en zonne 3 (+0;48;96)
+         * superiorite numerique (ou casi egale ) en zone 3 (+0;48;96)
          */
         if (soldierPlyaerInZone3.size()*0.8>soldierComputerInZone3.size())state= 48+state;
         else if (soldierPlyaerInZone3.size()*1.5>soldierComputerInZone3.size())state=96+state;
@@ -84,7 +84,7 @@ public class IASoldier extends IAUnite {
     public int chooseStrategy(int staite) {
         
         /*
-         * précotion pris puisqu'il y a ue des soucie a de dépassement d'indice mais il dvrais tére aprésent résolsuts 
+         * prï¿½cotion pris puisqu'il y a ue des soucie a de dï¿½passement d'indice mais il dvrais tï¿½re aprï¿½sent rï¿½solsuts 
          */
         if (staite>431)  {
             return (int)Math.random()*6+1;
@@ -130,7 +130,7 @@ public class IASoldier extends IAUnite {
                     boolean notIsolait = true;
                     if (u.distanceTo(cdm)<distence1){
                         for (Unit su : IA.player.units)
-                            if (u.distanceTo(su)<Finals.RAYON_ZONNE_2){
+                            if (u.distanceTo(su)<Finals.RAYON_ZONE_2){
                                 notIsolait = false;
                                 break;
                             }

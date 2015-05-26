@@ -7,11 +7,6 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Canvas extends JPanel{
-    Rectangle2D hitBox;
-    Unit simpleUnit;
-    Building b1;
-    Building b2;
-    Soldier s1;
     Player P1;
     Player P2;
     Camera cam;

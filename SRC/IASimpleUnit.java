@@ -10,13 +10,13 @@ public class IASimpleUnit extends IAUnite {
         
         int staite = 0;
         if (support!=null){
-            // stratï¿½gie de groups soutenue (0;5)
+            // strategie de groupes soutenue (0;5)
             staite = support.presentStrategy-1;
             
-            //superoriter numï¿½rique du groupe suportï¿½ dans la zonne 1(0;6)
+            //superiorite numerique du groupe supporte dans la zone 1(0;6)
             if (support.soldierComputerInZone1.size()>support.soldierPlyaerInZone1.size()) staite=staite+6;
             
-            //superoriter numï¿½rique du groupe suportï¿½ dans la zonne 3(0;12)
+            //superiorite numerique du groupe supporte dans la zone 3(0;12)
             if (support.soldierComputerInZone3.size()>support.soldierPlyaerInZone3.size()) staite=staite+12;
         }
         
@@ -28,12 +28,12 @@ public class IASimpleUnit extends IAUnite {
                 break;
             }
         }
-        // pas de group supporter (0) et taille du groupe suppoerter  (48;96)
+        // pas de groupe supporte (0) et taille du groupe supportee  (48;96)
         if (support !=null){
             if (support.unitGroup.group.size()<0.3*Finals.NUMBER_MAX_OF_SOLDIER)staite=48+staite;
             else staite=96+staite;
         }
-        //taill de this (0;144;288)
+        //taille de this (0;144;288)
         if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.2)staite= 144+staite;
         else if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.08)staite= 288+staite;
 
@@ -88,7 +88,7 @@ public class IASimpleUnit extends IAUnite {
         }
         case 3:{
             /*
-             * Soutenire un autre group d'unité 
+             * Soutenire un autre group d'unitï¿½ 
              */ 
 
             double distence =10000;
@@ -118,7 +118,7 @@ public class IASimpleUnit extends IAUnite {
         }
         case 4:{   
                    /*
-                    * donné de la vie 
+                    * donnï¿½ de la vie 
                     */
                    unitGroup.setTarget(IA.computer.base);
                    /*
@@ -138,7 +138,7 @@ public class IASimpleUnit extends IAUnite {
         }
             case 5:{ 
                        /*
-                        * créé unités 
+                        * crï¿½ï¿½ unitï¿½s 
                         */
                        boolean quit = false;
                        for (Unit u : unitGroup.group){
@@ -160,7 +160,7 @@ public class IASimpleUnit extends IAUnite {
                 } 
         case 11: {           
             /*
-             * Stratégie 1 appliqué au tours précédant
+             * Stratï¿½gie 1 appliquï¿½ au tours prï¿½cï¿½dant
              * suivre le groupe supporeter 
              */
             if (support==null) unitGroup.setTarget(IA.computer.base.getCenter());
@@ -174,7 +174,7 @@ public class IASimpleUnit extends IAUnite {
         }
         case 15 : { 
                        /*
-                        * créé unités 
+                        * crï¿½ï¿½ unitï¿½s 
                         */
                                for (Unit u : unitGroup.group){
 

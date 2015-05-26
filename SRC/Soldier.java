@@ -70,10 +70,10 @@ public class Soldier extends Unit {
     }
     
     @Override
-    public void print(Graphics g) {
+    public void print(Graphics g, double offsetX, double offsetY) {
         g.setColor(getColor());
-        g.fillOval((int) (hitBox.getX() * scale),
-                   (int) (hitBox.getY() * scale),
+        g.fillOval((int) ((hitBox.getX()-offsetX) * scale),
+                   (int) ((hitBox.getY()-offsetY) * scale),
                    (int) (hitBox.getHeight() * scale),
                    (int) (hitBox.getWidth() * scale));
     }

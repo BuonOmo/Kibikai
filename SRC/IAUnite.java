@@ -16,9 +16,9 @@ public abstract class IAUnite  {
     public LinkedList<Soldier> soldierComputerInZone2;
     public LinkedList<Soldier> soldierComputerInZone1;
     public LinkedList<SimpleUnit> simpleUnitPlyaerInZone3;
-    public double R3 = Finals.RAYON_ZONNE_3; //ajouteï¿½ a finals//
-    public double R2= Finals.RAYON_ZONNE_2; //ajouteï¿½ a finals//
-    public double R1= Finals.RAYON_ZONNE_1; //ajouteï¿½ a finals//
+    public double R3 = Finals.RAYON_ZONE_3; //ajouteï¿½ a finals//
+    public double R2= Finals.RAYON_ZONE_2; //ajouteï¿½ a finals//
+    public double R1= Finals.RAYON_ZONE_1; //ajouteï¿½ a finals//
     public IAUnite(UnitGroup unitGroupToSet) {
         unitGroup =unitGroupToSet;  
         soldierPlyaerInZone3= new LinkedList<Soldier>();
@@ -40,11 +40,11 @@ public abstract class IAUnite  {
         updateZone ();
         int state =calculateStaite();
         if (state>431){
-            System.out.println("érreur ");
+            System.out.println("ï¿½rreur ");
         }
         int Strategy;
         if (presentStrategy>6){
-            System.out.println("érreur ");
+            System.out.println("ï¿½rreur ");
         }
         if (previousStait != state||nbQualSrtategy>50 ){
             nbQualSrtategy=0;

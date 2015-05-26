@@ -132,9 +132,9 @@ public interface Finals {
 	/**
 	 * taille des rayons de Zone (IA UNIT).
 	 */
-	public static final double RAYON_ZONNE_1 = 5;
-	public static final double RAYON_ZONNE_2 = 10;
-	public static final double RAYON_ZONNE_3 = 100;
+	public static final double RAYON_ZONE_1 = 5;
+	public static final double RAYON_ZONE_2 = 10;
+	public static final double RAYON_ZONE_3 = 100;
 
 	
 	//_________________UI__________________//
@@ -142,7 +142,7 @@ public interface Finals {
 	/**
 	 * Bordure qui sert de limite au scrolling.
 	 */
-	public static final int SCROLL_BORDER = 50;
+	public static final int SCROLL_BORDER = 40;
 
 	/**
 	 * Taille de l'ecran
