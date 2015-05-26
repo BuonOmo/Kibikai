@@ -1,15 +1,15 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class Camera extends Canvas{
+public class Camera {
 	
 	double cameraX; //Position en x de la camera en pixel
 	double cameraY; //Position en y de la camera en pixel
-    Point2D.Double cameraLocation;
-	double cameraWidth = Finals.screenWidth;
+	double cameraWidth = Finals.screenWidth*5/6;
 	double cameraHeight = Finals.screenHeight;
 	    
     //_____________Constructeur_____________//
@@ -19,18 +19,17 @@ public class Camera extends Canvas{
 	 */
     public Camera() {
     	
-    	cameraX = Finals.BASE_LOCATION_X - cameraWidth;
-    	cameraY = Finals.BASE_LOCATION_Y - cameraHeight;
-    	cameraLocation = new Point2D.Double(cameraX, cameraY);
+    	cameraX = Finals.BASE_LOCATION_X - (cameraWidth/2);
+    	cameraY = Finals.BASE_LOCATION_Y - (cameraHeight/2);
     	
-    	//if the camera is at the right or left edge lock it to prevent a black bar
-    	if (cameraX < 0) 
+    	//Locks the camera when it's at the right or left edge
+    	if (cameraX < 0)
     		cameraX = 0;
     	
     	if (cameraX + cameraWidth > Finals.WIDTH) 
     		cameraX = Finals.WIDTH - cameraWidth;
     	
-    	//if the camera is at the top or bottom edge lock it to prevent a black bar
+    	//Locks the camera when it's at the top or bottom edge
     	if (cameraY < 0) 
     		cameraY = 0;
     	
@@ -41,25 +40,68 @@ public class Camera extends Canvas{
     public void setLocation (double x, double y){
     	cameraX = x;
     	cameraY = y;
-    	cameraLocation = new Point2D.Double(cameraX, cameraY);
+    	
+    	//Locks the camera when it's at the right or left edge
+    	if (cameraX < 0) 
+    		cameraX = 0;
+    	
+    	if (cameraX + cameraWidth > Finals.WIDTH) 
+    		cameraX = Finals.WIDTH - cameraWidth;
+    	
+    	//Locks the camera when it's at the top or bottom edge
+    	if (cameraY < 0) 
+    		cameraY = 0;
+    	
+    	if (cameraY + cameraHeight > Finals.HEIGTH)
+    		cameraY = Finals.HEIGTH - cameraHeight;
     }
     
-    public void deplacementCamera (double dx, double dy){
+    public void moveCamera (double dx, double dy){
     	cameraX += dx;
     	cameraY += dy;
-    	cameraLocation = new Point2D.Double(cameraX, cameraY);
-    }
-    
-    /**
-     * @return la partie de la carte que la camera veut afficher
-     */
-    public Rectangle2D getMap(){
-    	Rectangle2D partMap = new Rectangle2D.Double(cameraX, cameraY, Finals.screenWidth, Finals.screenHeight);
-    	return partMap;
-    }
-    
-    public void paint (Graphics g){
     	
+    	//Locks the camera when it's at the right or left edge
+    	if (cameraX < 0) 
+    		cameraX = 0;
+    	
+    	if (cameraX + cameraWidth > Finals.WIDTH) 
+    		cameraX = Finals.WIDTH - cameraWidth;
+    	
+    	//Locks the camera when it's at the top or bottom edge
+    	if (cameraY < 0) 
+    		cameraY = 0;
+    	
+    	if (cameraY + cameraHeight > Finals.HEIGTH)
+    		cameraY = Finals.HEIGTH - cameraHeight;
+    }
+
+    
+    public void paint(Graphics g){
+        // AFFICHAGE DU FOND
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, (int)cameraWidth, (int)cameraHeight);
+        
+        // AFFICHAGE DE LA SELECTION
+        if (Mouse.dragging){
+            g.setColor(new Color(0,255,255));
+            double x = Mouse.draggingSquare.getX();
+            double y = Mouse.draggingSquare.getY();
+            double w = Mouse.draggingSquare.getWidth();
+            double h = Mouse.draggingSquare.getHeight();
+            g.drawRect((int) (x * Finals.scale),
+                       (int) (y * Finals.scale), 
+                       (int) (w * Finals.scale),
+                       (int) (h * Finals.scale));
+            g.setColor(new Color(0,255,255,30));
+            g.fillRect((int) (x * Finals.scale),
+                       (int) (y * Finals.scale), 
+                       (int) (w * Finals.scale), 
+                       (int) (h * Finals.scale));
+        }
+        
+    	for (Item i : Item.aliveItems){
+    		if (i.isContained(this)) i.print(g, cameraX, cameraY);
+    	}
     }
 
 }

@@ -19,7 +19,7 @@ public class Canvas extends JPanel{
     Soldier s1;
     Player P1;
     Player P2;
-    
+    Camera cam;
     
     public Canvas()  {
         this.setSize(Finals.screenWidth*5/6, Finals.screenHeight);
@@ -30,6 +30,8 @@ public class Canvas extends JPanel{
         P2 = new Player (Color.RED, new Point2D.Double(40,40), "Player two FTW" );
         IA.computer=P2;
         IA.player=P1;
+        cam = new Camera();
+      
         /*
         hitBox = new Rectangle2D.Double (0,0, 10, 10);
         simpleUnit = new SimpleUnit(P1, new Point2D.Double(50,50), null);
@@ -63,9 +65,6 @@ public class Canvas extends JPanel{
         }
         // new SimpleUnit(P1, P1.soldiers.get(0), new Point2D.Double(5,10));
 
-
-
-        
         
     }
     
@@ -74,13 +73,13 @@ public class Canvas extends JPanel{
         super.paintComponent(g);
         g.setColor(Color.BLUE);
         g.fillRoundRect((int)hitBox.getX()*Finals.scale, (int)hitBox.getY()*Finals.scale, 
-                        (int)hitBox.getWidth()*Finals.scale, (int)hitBox.getHeight()*Finals.scale,3*Finals.scale,3*Finals.scale);
+                        (int)hitBox.getWidth()*Finals.scale, (int)hitBox.getHeight()*Finals.scale,
+                        3*Finals.scale,3*Finals.scale);
         simpleUnit.print(g);
         s1.print(g);
         b1.print(g);
         */
-    	
-        Game.print(g);
+    	cam.paint(g);
     }
 	
 }

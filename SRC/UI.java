@@ -31,8 +31,6 @@ public class UI extends JFrame{
     Canvas canvas;
     SideBand panelBandeau;
 
-    
-
     private JButton sideScreen;
     private JButton downScreen;
     private JButton map;
@@ -97,22 +95,20 @@ public class UI extends JFrame{
 
     		//Scrolling
     		Point mouse = MouseInfo.getPointerInfo().getLocation();
+    		
     		if(mouse.x <= Finals.SCROLL_BORDER){
-    			//scroll à gauche
-    			//System.out.println("Scroll à gauche");
+    			canvas.cam.moveCamera(-1, 0); //scroll à gauche
     		}
     		else if(mouse.x >= Finals.screenWidth - Finals.SCROLL_BORDER){
-    			//scroll à droite
-    			//System.out.println("Scroll à droite");
+    			canvas.cam.moveCamera(1, 0);//scroll à droite
     		}
     		if(mouse.y <= Finals.SCROLL_BORDER){
-    			//scroll en haut
-    			//System.out.println("Scroll en haut");
+    			canvas.cam.moveCamera(0, -1);//scroll en haut
     		}
     		else if(mouse.y >= Finals.screenHeight - Finals.SCROLL_BORDER){
-    			//scroll en bas
-    			//System.out.println("Scroll en bas");
+    			canvas.cam.moveCamera(0, 1);//scroll en bas
     		}
+    		
     		canvas.repaint(); 
     		panelBandeau.repaint();
     		time ++;
@@ -122,7 +118,6 @@ public class UI extends JFrame{
     public static void main (String[] args){
         UI gui = new UI();      
         gui.timer.start();
-        
     }
 
 }

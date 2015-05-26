@@ -83,31 +83,6 @@ public class Game implements Finals {
         System.exit(0);
     }
     
-    public static void print(Graphics g){
-        
-        // AFFICHAGE DU FOND
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, screenWidth*5/6, screenHeight);
-        
-        // AFFICHAGE DE LA SELECTION
-        if (Mouse.dragging){
-            g.setColor(new Color(0,255,255));
-            g.drawRect((int) (Mouse.draggingSquare.getX() * scale),
-                       (int) (Mouse.draggingSquare.getY() * scale), 
-                       (int) (Mouse.draggingSquare.getWidth() * scale),
-                       (int) (Mouse.draggingSquare.getHeight() * scale));
-            g.setColor(new Color(0,255,255,30));
-            g.fillRect((int) (Mouse.draggingSquare.getX() * scale),
-                       (int) (Mouse.draggingSquare.getY() * scale), 
-                       (int) (Mouse.draggingSquare.getWidth() * scale), 
-                       (int) (Mouse.draggingSquare.getHeight()) * scale);
-        }
-        
-        // AFFICHAGE DES OBJETS
-        for (Item i : Item.aliveItems)
-            i.print(g);
-    }
-    
     
     //______________ACCESSEURS__________//
     

@@ -159,7 +159,7 @@ public abstract class Item implements Finals{
         return new Point2D.Double(hitBox.getCenterX(),hitBox.getCenterY());
     }
     
-    public static LinkedList getItemInFrame(Rectangle2D frame){
+    public static LinkedList<Item> getItemInFrame(Rectangle2D frame){
         LinkedList<Item> toReturn = new LinkedList<Item>();
         for (Item i : aliveItems){
             if (frame.contains(i.getCenter()))
@@ -221,7 +221,7 @@ public abstract class Item implements Finals{
         return color;
     }
     
-    public void print(Graphics g){
+    public void print(Graphics g, double offsetX, double offsetY){
         /*if (selected){
             
             double newSide = hitBox.getHeight()*1.2 + SIDE/4.0;
@@ -232,13 +232,12 @@ public abstract class Item implements Finals{
                              (int)newSide*scale,
                              (12),
                              (12));
-            
         }*/
         
         g.setColor(getColor());
         // TODO virer ce putain de 3 et mettre un truc cohÃ©rent pour les arcs de cercle
-        g.fillRoundRect( (int)(hitBox.getX()*scale), 
-                         (int)(hitBox.getY()*scale), 
+        g.fillRoundRect( (int)((hitBox.getX()-offsetX)*scale), 
+                         (int)((hitBox.getY()-offsetY)*scale), 
                          (int)(hitBox.getWidth()*scale), 
                          (int)(hitBox.getHeight()*scale),
                          (10),
@@ -273,7 +272,7 @@ public abstract class Item implements Finals{
                 break;
             
             case "SimpleUnit.setBuilders":
-                msg = "les UM appartiennent a  l'adversaire";
+                msg = "les UM appartiennent aï¿½ l'adversaire";
                 break;
             
             default:
@@ -288,4 +287,18 @@ public abstract class Item implements Finals{
         selected = b;
     }
 
+    
+    public boolean isContained(Camera c){
+    	double xI = hitBox.getX();
+    	double yI = hitBox.getY();
+    	double wI = hitBox.getWidth();
+    	double hI = hitBox.getHeight();
+    	
+    	if((xI+wI)>c.cameraX && (xI)<(c.cameraX+c.cameraWidth)){
+    		if ((yI+hI)>c.cameraY && (yI)<(c.cameraY+c.cameraHeight)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }
