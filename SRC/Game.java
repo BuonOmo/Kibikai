@@ -1,11 +1,4 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Toolkit;
-import java.awt.geom.Point2D;
-import java.util.Iterator;
-import java.util.ListIterator;
-import javax.swing.JPanel;
+
 public class Game implements Finals {
     
     //________________ATTRIBUTS_____________//
@@ -70,7 +63,7 @@ public class Game implements Finals {
 /*
         if ((UI.time+1)%600==0){
             IA.end();
-            System.out.println("sovgardeIA");
+            System.out.println("sauvegardeIA");
         }
 */
 

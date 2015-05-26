@@ -1,13 +1,8 @@
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.io.FileNotFoundException;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -22,6 +17,7 @@ public class Canvas extends JPanel{
     Camera cam;
     
     public Canvas()  {
+    	
         this.setSize(Finals.screenWidth*5/6, Finals.screenHeight);
         this.setBounds(0, 0, Finals.screenWidth*5/6, Finals.screenHeight);
         this.setBackground(Color.WHITE);
@@ -31,14 +27,6 @@ public class Canvas extends JPanel{
         IA.computer=P2;
         IA.player=P1;
         cam = new Camera();
-      
-        /*
-        hitBox = new Rectangle2D.Double (0,0, 10, 10);
-        simpleUnit = new SimpleUnit(P1, new Point2D.Double(50,50), null);
-        s1 = new Soldier(P2, new Point2D.Double(50,20));
-        b1 = new Building(P1, new Point2D.Double(10, 20));
-        //s1.setTarget(u1);
-        */
         
         //P1.base.goAndProcreate();
         
@@ -65,20 +53,9 @@ public class Canvas extends JPanel{
         }
         // new SimpleUnit(P1, P1.soldiers.get(0), new Point2D.Double(5,10));
 
-        
     }
     
     public void paint(Graphics g) {
-        /*
-        super.paintComponent(g);
-        g.setColor(Color.BLUE);
-        g.fillRoundRect((int)hitBox.getX()*Finals.scale, (int)hitBox.getY()*Finals.scale, 
-                        (int)hitBox.getWidth()*Finals.scale, (int)hitBox.getHeight()*Finals.scale,
-                        3*Finals.scale,3*Finals.scale);
-        simpleUnit.print(g);
-        s1.print(g);
-        b1.print(g);
-        */
     	cam.paint(g);
     }
 	

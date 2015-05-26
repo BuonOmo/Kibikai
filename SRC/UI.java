@@ -1,18 +1,10 @@
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -30,10 +22,6 @@ public class UI extends JFrame{
 
     Canvas canvas;
     SideBand panelBandeau;
-
-    private JButton sideScreen;
-    private JButton downScreen;
-    private JButton map;
 
     JFrame frame;
 
@@ -65,21 +53,6 @@ public class UI extends JFrame{
         frame.getContentPane().add(canvas);  
         frame.getContentPane().add(panelBandeau);
         
-        /* Boutons pour tester le Layout
-        //Put the components on the right place
-        frame.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        sideScreen = new JButton("There will be some informations about the game");
-        downScreen = new JButton("And there more informations");
-        map = new JButton("Espace de jeu");
-        JPanel cadre = new JPanel();
-        cadre.add(sideScreen);
-        cadre.add(downScreen);
-        cadre.add(map);
-        frame.add(cadre);
-        */
-        
         //JFrame properties
         frame.setTitle("LUCA");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,13 +73,13 @@ public class UI extends JFrame{
     			canvas.cam.moveCamera(-1, 0); //scroll à gauche
     		}
     		else if(mouse.x >= Finals.screenWidth - Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(1, 0);//scroll à droite
+    			canvas.cam.moveCamera(1, 0);  //scroll à droite
     		}
     		if(mouse.y <= Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(0, -1);//scroll en haut
+    			canvas.cam.moveCamera(0, -1); //scroll en haut
     		}
     		else if(mouse.y >= Finals.screenHeight - Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(0, 1);//scroll en bas
+    			canvas.cam.moveCamera(0, 1);  //scroll en bas
     		}
     		
     		canvas.repaint(); 

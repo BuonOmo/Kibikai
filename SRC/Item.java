@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -53,7 +52,7 @@ public abstract class Item implements Finals{
     }
     
     /**
-     * Constructeur pour une hitBox carré.
+     * Constructeur pour une hitBox carree.
      * @param ownerToSet Possesseur de l’objet
      * @param topLeftCorner
      * @param side coté de la hitBox
@@ -185,7 +184,7 @@ public abstract class Item implements Finals{
     }
     
     public boolean isDestructed(){
-        //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
+        //TODO au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)){
             deadItems.add(this);
             aliveItems.remove(this);
@@ -287,7 +286,11 @@ public abstract class Item implements Finals{
         selected = b;
     }
 
-    
+    /**
+     * Regarde si l'Item est contenu dans la vue de la camera
+     * @param c la camera utilisee
+     * @return vrai si contenu dans la camera
+     */
     public boolean isContained(Camera c){
     	double xI = hitBox.getX();
     	double yI = hitBox.getY();

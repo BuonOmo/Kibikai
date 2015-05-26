@@ -37,6 +37,12 @@ public class Camera {
     		cameraY = Finals.HEIGTH - cameraHeight;
 	}
     
+    
+    /**
+     * Permet de mettre la camera a une position donnee
+     * @param x position en x
+     * @param y position en y
+     */
     public void setLocation (double x, double y){
     	cameraX = x;
     	cameraY = y;
@@ -56,6 +62,12 @@ public class Camera {
     		cameraY = Finals.HEIGTH - cameraHeight;
     }
     
+    
+    /**
+     * Permet de bouger la camera selon un petit deplacement en x et/ou y
+     * @param dx déplacement selon x
+     * @param dy déplacement selon y
+     */
     public void moveCamera (double dx, double dy){
     	cameraX += dx;
     	cameraY += dy;
@@ -74,7 +86,7 @@ public class Camera {
     	if (cameraY + cameraHeight > Finals.HEIGTH)
     		cameraY = Finals.HEIGTH - cameraHeight;
     }
-
+    
     
     public void paint(Graphics g){
         // AFFICHAGE DU FOND
@@ -103,5 +115,4 @@ public class Camera {
     		if (i.isContained(this)) i.print(g, cameraX, cameraY);
     	}
     }
-
 }
