@@ -62,7 +62,7 @@ public interface Finals {
 	/**
 	 * distance unitaire d’un deplacement en metres.
 	 */
-	public static final double DISTANCE_TO_MOVE = 1;
+	public static final double DISTANCE_TO_MOVE = 0.8;
 
 	/**
 	 * @deprecated
@@ -79,12 +79,12 @@ public interface Finals {
 	/**
 	 * Portee d’une attaque.
 	 */
-	public static final double ATTACK_RANGE = 1.5;
+	public static final double ATTACK_RANGE = 0.5;
 
 	/**
 	 * Degats infliges par tour de jeu par une UM.
 	 */
-	public static final double DAMAGE = 0.2;
+	public static final double DAMAGE = 0.05;
 	
 	
 	//_________________SIMPLEUNIT_______________//
@@ -98,7 +98,7 @@ public interface Finals {
 	/**
 	 * Portee pour la création d’une UM.
 	 */
-	public static final double CREATION_RANGE = 0.2;
+	public static final double CREATION_RANGE = 0.0;
 
 
 	//__________________IA____________________//
