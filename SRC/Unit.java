@@ -125,7 +125,8 @@ public abstract class Unit extends Item {
      * @param alpha angle du déplacement par rapport à la droite Objet-Cible
      * @return point d’arrivé du déplacement
      */
-    private Point2D getVector(double alpha){
+    private Point2D getVector(double alphaDegre){
+        double alpha = alphaDegre * 180.0 / Math.PI;
         Point2D vector;
         vector = new Point2D.Double();
         double x, y;
@@ -137,7 +138,11 @@ public abstract class Unit extends Item {
             x = 0; 
             y = 0;
         }
-        vector.setLocation(Math.cos(alpha) * x, Math.cos(alpha) * y);
+        if (distanceTo(target)>DISTANCE_TO_MOVE)
+            vector.setLocation(DISTANCE_TO_MOVE*Math.cos(getAlphaOffset()- alpha), // ça merde encore
+                               DISTANCE_TO_MOVE*Math.sin(getAlphaOffset()- alpha));
+        else 
+            vector.setLocation(0, 0);
         return vector;
     }
     
@@ -167,7 +172,7 @@ public abstract class Unit extends Item {
                 return getVector(90);
         }
         */
-        return getVector(10);
+        return getVector(0);
     }
     /**
      * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
@@ -280,8 +285,7 @@ public abstract class Unit extends Item {
         
     public double getAlphaOffset(){
         Point2D vect = getVector();
-        
-        return Math.atan(vect.getX()/vect.getY());
+        return Math.atan(vect.getY()/vect.getX());
     }
     
     /**
