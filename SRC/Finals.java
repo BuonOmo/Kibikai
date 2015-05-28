@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;
@@ -33,7 +34,7 @@ public interface Finals {
 	/**
 	 * Echelle (distance en metre*scale = distance en pixel).
 	 */
-	public static int scale = 15;
+	public static int scale = 30;
 
 	
 	//__________________ITEM_________________//
@@ -158,5 +159,17 @@ public interface Finals {
 	public static final int BASE_LOCATION_X = 10;
 	public static final int BASE_LOCATION_Y = 10;
 	public static final Point2D.Double BASE_LOCATION = new Point2D.Double(BASE_LOCATION_X, BASE_LOCATION_Y);
-
+	
+	/**
+	 * Vitesse du scrolling (deplacement de la camera)
+	 */
+	public static final int CAMERA_SPEED = 3;
+	
+	
+	//____________OPTIONS_____________//
+	
+	public static Color colorPlayer = Color.green;
+	public static Color colorIA = Color.red;
+	public static String namePlayer = "The Human";
+	
 }
