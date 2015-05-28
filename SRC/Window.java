@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-@SuppressWarnings("serial")
 public class Window extends JFrame{
 	
 	private JButton newgameButton;
@@ -17,8 +16,6 @@ public class Window extends JFrame{
 	int frameWidth;
 	
 	JFrame frame;
-	
-	JDesktopPane desktop;
 	
 	public Window (){
 		
@@ -38,7 +35,9 @@ public class Window extends JFrame{
 	    pnlButton.setLayout(null);
 	    
 	    ///frame.getContentPane().setBackground(Color.GREEN);
-        
+	    
+		//Background
+	    
 		this.newgameButton = new JButton ("New game");
 		this.loadgameButton = new JButton ("Load Game");
 		this.optionsButton = new JButton ("Options");
@@ -81,7 +80,7 @@ public class Window extends JFrame{
                     }
                 };
 		ActionListener load = new ActionListener(){public void actionPerformed(ActionEvent e){/*open game saves*/}};
-		ActionListener options = new ActionListener(){public void actionPerformed(ActionEvent e){OptionsFrame opt = new OptionsFrame();}};
+		ActionListener options = new ActionListener(){public void actionPerformed(ActionEvent e){frame.add(test);frame.repaint();}};
 		
 		//Button actions
 		newgameButton.addActionListener(start);
@@ -105,7 +104,7 @@ public class Window extends JFrame{
 	}*/
 	
 	public static void main (String[] args){
-		@SuppressWarnings("unused")
 		Window wind = new Window();
 	}
+
 }
