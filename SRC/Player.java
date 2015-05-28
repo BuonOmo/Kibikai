@@ -28,4 +28,7 @@ public class Player implements Finals{
         soldiers = new ArrayList<Soldier>(NUMBER_MAX_OF_SOLDIER);
         simpleUnits = new ArrayList<SimpleUnit>(NUMBER_MAX_OF_SIMPLEUNIT);
     }
+    public String getName(){
+    	if(name!=null){return name;}else{return "Joueur Humain sans nom";}
+    }
 }

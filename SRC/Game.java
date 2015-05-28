@@ -32,7 +32,7 @@ public class Game implements Finals {
 
         setHuman(humanToSet);
         setComputer(computerToSet);
-
+        
     }
     
     public static void middle(){

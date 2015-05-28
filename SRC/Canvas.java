@@ -15,7 +15,8 @@ public class Canvas extends JPanel{
     	
         this.setSize(Finals.screenWidth*5/6, Finals.screenHeight);
         this.setBounds(0, 0, Finals.screenWidth*5/6, Finals.screenHeight);
-        this.setBackground(Color.WHITE);
+        this.setVisible(true); //osef
+        this.setBackground(Color.YELLOW); //marche pas!
         IA.bigining();
         P1 = new Player (Color.GREEN, Finals.BASE_LOCATION, "Player one RPZ" );
         P2 = new Player (Color.RED, new Point2D.Double(40,40), "Player two FTW" );
@@ -51,6 +52,9 @@ public class Canvas extends JPanel{
     }
     
     public void paint(Graphics g) {
+    	g.setColor(Color.YELLOW);
+    	g.fillRect(Finals.screenWidth*5/6, 0, Finals.screenWidth/6, Finals.screenHeight);
+    	System.out.println("paint de canvas"); //quand y'a ca tout marche wtf? ha ba non
     	cam.paint(g);
     }
 	

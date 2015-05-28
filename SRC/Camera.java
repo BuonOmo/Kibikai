@@ -112,8 +112,8 @@ public class Camera {
         }
         
     	for (Item i : Item.aliveItems){
-    		//if (i.isContained(this))
-                    i.print(g, 0, 0);
+    		if (i.isContained(this))
+                    i.print(g,cameraX , cameraY);
     	}
     }
 }

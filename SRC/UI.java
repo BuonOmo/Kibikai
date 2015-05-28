@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -19,48 +20,98 @@ public class UI extends JFrame{
     Rectangle Ecran;
     Mouse mouse;
     Key key;
-
+    
+    //component
+    JButton quitButton;
+	JLabel ratioLabel;
+	JLabel currentLifeLabel;
+	JLabel nSimpleUnitLabel;
+	JLabel nSoldierLabe;
+	ColoredLabel playerLabel;
+	
     Canvas canvas;
     SideBand panelBandeau;
 
-    JFrame frame;
-
     public UI(){
+        
         canvas = new Canvas();
+        panelBandeau = new SideBand();
+        
         mouse = new Mouse(canvas.P1);
         key = new Key(canvas.P1);
-        frame = new JFrame();
-        frame.addMouseListener(mouse);
-        frame.addKeyListener(key);
-        frame.addMouseMotionListener(mouse);
+        this.addMouseListener(mouse);
+        this.addKeyListener(key);
+        this.addMouseMotionListener(mouse);
         
-        // Plein ecran
-        frame.setUndecorated(true);
-        frame.setExtendedState(frame.MAXIMIZED_BOTH);
 
+        // Plein ecran
+        this.setUndecorated(true);
+        this.setVisible(true); //YEAAAAAHA
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.setBackground(Color.YELLOW);
+        this.setLayout(null);
+        this.getContentPane().add(panelBandeau); 
+        this.getContentPane().add(canvas); 
+        
         /*
         //Location and size of the frame
         frame.setSize(Finals.screenWidth, Finals.screenHeight); //Wide screen
         frame.setResizable(false);
         frame.setLocation(0,0);
         */
+        
+        // Usage paint
+        this.paint(this.getGraphics()); //marche pas
+    	
+        // quelques variables pour simplifier
+        int coteQuitButton = Finals.screenWidth/(48);
+        int pX = Finals.screenWidth*5/6; 
+        //tous les composants
+        
+    	
+    	currentLifeLabel = new JLabel ("Vie : ");
+    	nSimpleUnitLabel = new JLabel("5 SU");
+    	nSoldierLabe = new JLabel("6 S");
+    	
+        //leurs positions/dimensions
 
-        //Set the background on YELLOW : if you see stg yellow it means the jpanel ain't working
-        frame.getContentPane().setBackground(Color.YELLOW);
+    		//quitButton
+    	quitButton = new JButton("X");
+    	quitButton.setBounds(Finals.screenWidth-coteQuitButton, 0, coteQuitButton, coteQuitButton);
+    	quitButton.setBackground(Color.RED);
+    	ActionListener quit = new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                System.exit(1);
+            }
+    	};
+        quitButton.addActionListener(quit);
         
-        panelBandeau = new SideBand();       
-        frame.getContentPane().setLayout(null);
-        frame.getContentPane().add(canvas);  
-        frame.getContentPane().add(panelBandeau);
         
-        //JFrame properties
-        frame.setTitle("LUCA");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        	//NomJoueur (meme hauteur que quitButton)
+    	playerLabel = new ColoredLabel("NomJoueur",Color.BLUE,pX, 0, Finals.screenWidth/6-coteQuitButton-1, coteQuitButton,"rectangle");
+
+        
+        //Ratio
+        ratioLabel = new JLabel("Vie");
+        //Life
+        currentLifeLabel.setBounds(pX+Finals.screenWidth/2,35, 50, 100);
+    	
+    	
+        
+        
+        
+        //les ajouter a ui
+        this.add(quitButton);
+        this.add(playerLabel);
+ 	
+        this.setTitle("LUCA");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
         timer = new Timer(100, new TimerAction());
     }
     
-
+    
+    //presence du paint vide semblait bloquer tout!
     private class TimerAction implements ActionListener {
 
     	public void actionPerformed(ActionEvent e) {
@@ -81,9 +132,11 @@ public class UI extends JFrame{
     		else if(mouse.y >= Finals.screenHeight - Finals.SCROLL_BORDER){
     			canvas.cam.moveCamera(0, 1);  //scroll en bas
     		}
-    		
-    		canvas.repaint(); 
     		panelBandeau.repaint();
+    		canvas.repaint();
+    		
+        	System.out.println("les repaint lances dans ui");
+    		playerLabel.repaint();
     		time ++;
     	}
     }
@@ -91,6 +144,7 @@ public class UI extends JFrame{
     public static void main (String[] args){
         UI gui = new UI();      
         gui.timer.start();
+        gui.repaint(); //affiche tout après initiation
     }
 
 }
