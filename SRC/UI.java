@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -33,11 +35,12 @@ public class UI extends JFrame{
         frame.addMouseListener(mouse);
         frame.addKeyListener(key);
         frame.addMouseMotionListener(mouse);
-        
         // Plein ecran
         frame.setUndecorated(true);
-        frame.setExtendedState(frame.MAXIMIZED_BOTH);
-
+        GraphicsEnvironment gE = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        gE.getDefaultScreenDevice().setFullScreenWindow(frame);
+        
+        
         /*
         //Location and size of the frame
         frame.setSize(Finals.screenWidth, Finals.screenHeight); //Wide screen

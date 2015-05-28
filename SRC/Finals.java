@@ -28,7 +28,7 @@ public interface Finals {
 	/**
 	 * Taille de la carte en metres.
 	 */
-	public static final int WIDTH = 2000, HEIGTH = 1000;
+	public static final int WIDTH = 20000, HEIGTH = 10000;
 
 	/**
 	 * Echelle (distance en metre*scale = distance en pixel).
@@ -142,7 +142,7 @@ public interface Finals {
 	/**
 	 * Bordure qui sert de limite au scrolling.
 	 */
-	public static final int SCROLL_BORDER = 40;
+	public static final int SCROLL_BORDER = 100;
 
 	/**
 	 * Taille de l'ecran
