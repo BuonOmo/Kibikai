@@ -1,7 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -35,12 +33,11 @@ public class UI extends JFrame{
         frame.addMouseListener(mouse);
         frame.addKeyListener(key);
         frame.addMouseMotionListener(mouse);
+        
         // Plein ecran
         frame.setUndecorated(true);
-        GraphicsEnvironment gE = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        gE.getDefaultScreenDevice().setFullScreenWindow(frame);
-        
-        
+        frame.setExtendedState(frame.MAXIMIZED_BOTH);
+
         /*
         //Location and size of the frame
         frame.setSize(Finals.screenWidth, Finals.screenHeight); //Wide screen
@@ -60,7 +57,7 @@ public class UI extends JFrame{
         frame.setTitle("LUCA");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        timer = new Timer(50, new TimerAction());
+        timer = new Timer(100, new TimerAction());
     }
     
 
@@ -73,16 +70,16 @@ public class UI extends JFrame{
     		Point mouse = MouseInfo.getPointerInfo().getLocation();
     		
     		if(mouse.x <= Finals.SCROLL_BORDER+50){
-    			canvas.cam.moveCamera(-Finals.CAMERA_SPEED, 0); //scroll à gauche
+    			canvas.cam.moveCamera(-1, 0); //scroll à gauche
     		}
     		else if(mouse.x >= Finals.screenWidth*5/6 - Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(Finals.CAMERA_SPEED, 0);  //scroll à droite
+    			canvas.cam.moveCamera(1, 0);  //scroll à droite
     		}
     		if(mouse.y <= Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(0, -Finals.CAMERA_SPEED); //scroll en haut
+    			canvas.cam.moveCamera(0, -1); //scroll en haut
     		}
     		else if(mouse.y >= Finals.screenHeight - Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(0, Finals.CAMERA_SPEED);  //scroll en bas
+    			canvas.cam.moveCamera(0, 1);  //scroll en bas
     		}
     		
     		canvas.repaint(); 

@@ -18,8 +18,23 @@ public class Camera {
 	 * Le constructeur centre la camera sur le batiment du joueur au debut de partie.
 	 */
     public Camera() {
-    	setLocation(Finals.BASE_LOCATION_X - (cameraWidth/2.0),
-                    Finals.BASE_LOCATION_Y - (cameraHeight/2.0));
+    	
+    	cameraX = Finals.BASE_LOCATION_X - (cameraWidth/2);
+    	cameraY = Finals.BASE_LOCATION_Y - (cameraHeight/2);
+    	
+    	//Locks the camera when it's at the right or left edge
+    	if (cameraX < 0)
+    		cameraX = 0;
+    	
+    	if (cameraX + cameraWidth > Finals.WIDTH) 
+    		cameraX = Finals.WIDTH - cameraWidth;
+    	
+    	//Locks the camera when it's at the top or bottom edge
+    	if (cameraY < 0) 
+    		cameraY = 0;
+    	
+    	if (cameraY + cameraHeight > Finals.HEIGTH)
+    		cameraY = Finals.HEIGTH - cameraHeight;
 	}
     
     
@@ -33,19 +48,18 @@ public class Camera {
     	cameraY = y;
     	
     	//Locks the camera when it's at the right or left edge
-    	if (cameraX + cameraWidth > Finals.WIDTH) 
-    	        cameraX = Finals.WIDTH - cameraWidth;
-    	
-        if (cameraX < 0) 
+    	if (cameraX < 0) 
     		cameraX = 0;
     	
+    	if (cameraX + cameraWidth > Finals.WIDTH) 
+    		cameraX = Finals.WIDTH - cameraWidth;
+    	
     	//Locks the camera when it's at the top or bottom edge
-    	if (cameraY + cameraHeight > Finals.HEIGTH)
-    	        cameraY = Finals.HEIGTH - cameraHeight;
-        
-        if (cameraY < 0) 
+    	if (cameraY < 0) 
     		cameraY = 0;
     	
+    	if (cameraY + cameraHeight > Finals.HEIGTH)
+    		cameraY = Finals.HEIGTH - cameraHeight;
     }
     
     
@@ -55,17 +69,26 @@ public class Camera {
      * @param dy déplacement selon y
      */
     public void moveCamera (double dx, double dy){
-        
-        setLocation (cameraX + dx, cameraY + dy);
-        
+    	cameraX += dx;
+    	cameraY += dy;
+    	
+    	//Locks the camera when it's at the right or left edge
+    	if (cameraX < 0) 
+    		cameraX = 0;
+    	
+    	if (cameraX + cameraWidth > Finals.WIDTH) 
+    		cameraX = Finals.WIDTH - cameraWidth;
+    	
+    	//Locks the camera when it's at the top or bottom edge
+    	if (cameraY < 0) 
+    		cameraY = 0;
+    	
+    	if (cameraY + cameraHeight > Finals.HEIGTH)
+    		cameraY = Finals.HEIGTH - cameraHeight;
     }
     
-    public Point2D getLocation(){
-        return new Point2D.Double(cameraX, cameraY);
-    }
     
     public void paint(Graphics g){
-        
         // AFFICHAGE DU FOND
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, (int)cameraWidth, (int)cameraHeight);
@@ -89,8 +112,8 @@ public class Camera {
         }
         
     	for (Item i : Item.aliveItems){
-    		if (i.isContained(this))
-                    i.print(g, cameraX, cameraY);
+    		//if (i.isContained(this))
+                    i.print(g, 0, 0);
     	}
     }
 }
