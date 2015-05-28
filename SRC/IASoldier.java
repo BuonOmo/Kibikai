@@ -89,25 +89,19 @@ public class IASoldier extends IAUnite {
         if (staite>431)  {
             return (int)Math.random()*6+1;
         }
-        Double n = 0.0;
-        
-        for(Double i :IA.nbSaveSol[staite]) {
-            n += i;
-        }
         Double  sommeR=0.0;
-        for (Double x :IA.qIASoldier[staite]){
-            sommeR = sommeR +Math.exp((n+1)/(101+n)*x);
+        for (int i = 0; i<6;i++){
+            sommeR = sommeR +Math.exp(IA.qIASoldier[staite][i]);
         }
         Double Rdm= Math.random()*sommeR;
-        int i =0;
-        for (Double x :IA.qIASoldier[staite]){
-            i++;
-            if (Rdm<Math.exp((n+1)/(101+n)*x)) return i;
-            Rdm=Rdm-Math.exp((n+1)/(101+n)*x);
+        for (int i = 0; i<6;i++){
+            if (Rdm<Math.exp(IA.qIASoldier[staite][i]))return i+1;
+            Rdm=Rdm-Math.exp(IA.qIASoldier[staite][i]);
         }
         
-        return 1;
-        }
+        return 0;
+
+    }
 
     public void applyStrategy(int strategy) {
 

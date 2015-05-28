@@ -25,7 +25,7 @@ public class Building extends Item{
         super(owner, topLeftCorner, side);
         life = Math.pow(side, 2)*LIFE;
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
-        setTarget(topLeftCorner.getX() + 5*SIDE, topLeftCorner.getY() + 5*SIDE);
+        setTarget(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         buildings.add(this);
     }
     
@@ -45,6 +45,7 @@ public class Building extends Item{
         
         if (owner.simpleUnits.size()<NUMBER_MAX_OF_SIMPLEUNIT){
             //c’est pas très joli :V
+            /*
             double x,y;
             if(target.getX()<=hitBox.getX()){
                 x = hitBox.getX()-SIDE;
@@ -61,8 +62,15 @@ public class Building extends Item{
                         y=hitBox.getY()+hitBox.getHeight();
                 }
             }
-            Point2D.Double spawnPoint = new Point2D.Double(x,y);
+<<<<<<< HEAD
+        }
+    	Point2D.Double spawnPoint = new Point2D.Double(x,y);
+        
+        if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT) {
             new SimpleUnit(owner,spawnPoint,target);
+=======
+            */
+            new SimpleUnit(owner,getCenter(),target);
         }
 
     }

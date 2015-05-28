@@ -84,11 +84,8 @@ public abstract class Unit extends Item {
      */
     public void move(){
         // deplace l’objet de la distance renvoyée par canMove
-        Point2D d;
-        d = new Point2D.Double();
-        d.setLocation(setVector());
-        hitBox.setFrame(hitBox.getX() + d.getX(), 
-                       hitBox.getY() + d.getY(), 
+        hitBox.setFrame(hitBox.getX() + getVector().getX(), 
+                       hitBox.getY() + getVector().getY(), 
                        hitBox.getWidth(), 
                        hitBox.getHeight() );
     }
@@ -104,7 +101,6 @@ public abstract class Unit extends Item {
      * @param alpha angle du déplacement par rapport à la droite Objet-Cible
      * @return point d’arrivé du déplacement
      */
-    
     public Point2D getShortTarget(double alpha){
         
         Point2D shortTarget;
@@ -114,31 +110,8 @@ public abstract class Unit extends Item {
         x = (double) (target.getX() - hitBox.getCenterX()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
         y = (double) (target.getY() - hitBox.getCenterY()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
         
-        shortTarget.setLocation( Math.cos(alpha + getAlphaOffset())*x+hitBox.getCenterX(), Math.sin(alpha)*y+hitBox.getCenterY());
+        shortTarget.setLocation( Math.cos(alpha)*x+hitBox.getCenterX(), Math.sin(alpha)*y+hitBox.getCenterY());
         return shortTarget;
-    }
-    
-    
-    /**
-     * permet de trouver le vecteur du déplacement en fonction 
-     * d’un angle alpha par rapport au vecteur unité/objectif.
-     * @param alpha angle du déplacement par rapport à la droite Objet-Cible
-     * @return point d’arrivé du déplacement
-     */
-    private Point2D getVector(double alpha){
-        Point2D vector;
-        vector = new Point2D.Double();
-        double x, y;
-        if (distanceTo(target)>DISTANCE_TO_MOVE){
-            x = (double) (target.getX() - hitBox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target); 
-            y = (double) (target.getY() - hitBox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target);
-        }
-        else{
-            x = 0; 
-            y = 0;
-        }
-        vector.setLocation(Math.cos(alpha + getAlphaOffset()) * x, Math.sin(alpha + getAlphaOffset()) * y);
-        return vector;
     }
     
     /**
@@ -146,28 +119,15 @@ public abstract class Unit extends Item {
      * d’un angle alpha par rapport au vecteur unité/objectif.
      * @return vecteur de déplacement unitaire
      */
-    private Point2D getVector(){
+    public Point2D getVector(){
         
         // evite le tremblement
         if (distanceTo(target)>DISTANCE_TO_MOVE)
             return new Point2D.Double( (target.getX() - hitBox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target), 
                                        (target.getY() - hitBox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target));
         else
-            return new Point2D.Double(0, 0);
-    }
-    
-    Point2D setVector(){
-        LinkedList<Item> obstacle;
-        obstacle = new LinkedList<Item>(aliveItems);
-        obstacle.remove(this);
-        /*
-        for (Item i : obstacle){
-            if (intersect(i))
-                System.out.println("il y a une intersection");
-                return getVector(90);
-        }
-        */
-        return getVector(0);
+            return new Point2D.Double( (target.getX() - hitBox.getCenterX()), 
+                                       (target.getY() - hitBox.getCenterY()));
     }
     /**
      * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
@@ -249,7 +209,7 @@ public abstract class Unit extends Item {
      * @param other autre Item
      * @return true s’il y a intersection
      */
-    public boolean intersect(Item other){
+    public boolean intersects(Item other){
         
         if (DISTANCE_TO_MOVE + radius + other.radius > distanceTo(other))
             return true;
@@ -263,8 +223,6 @@ public abstract class Unit extends Item {
      * @return angle du déplacement par rapport à la droite Objet-Cible
      */
     public double findAngle(Point2D shortTarget){
-        if (shortTarget == null)
-            return 0.0;
         Point2D zero;
         zero = getShortTarget(0.0);
         zero.setLocation(zero.getX()-hitBox.getCenterX(), zero.getY()-hitBox.getCenterY());
@@ -278,11 +236,7 @@ public abstract class Unit extends Item {
                          /(DISTANCE_TO_MOVE*DISTANCE_TO_MOVE));
     }
         
-    public double getAlphaOffset(){
-        Point2D vect = getVector();
-        
-        return Math.atan(vect.getX()/vect.getY());
-    }
+    
     
     /**
      * @param obstacle liste de tout les obstacles possible
@@ -292,7 +246,7 @@ public abstract class Unit extends Item {
     public Item findObstacle(LinkedList<Item> obstacle,Point2D shortTarget){
 
         for(Item element : obstacle)
-            if (this.intersect(element))
+            if (this.intersects(element))
                 return element;
         
         return null;
@@ -339,10 +293,9 @@ public abstract class Unit extends Item {
             obstacle.remove(toAvoid);
             
             //setAlpha et setBeta
-            Point2D[] intersection = getIntersect(toAvoid);
             for (int i=0 ; i<2 ;i++){
                 // les deux angles possible de contournement de l’obstacle
-                temp = findAngle(intersection[i]);
+                temp = findAngle(getIntersect(toAvoid)[i]);
                 
                 beta = (temp < beta) ? temp : beta;
                 alpha = (temp > alpha) ? temp : alpha;

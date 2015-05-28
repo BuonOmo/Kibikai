@@ -99,7 +99,7 @@ public interface Finals {
 	/**
 	 * Portee pour la création d’une UM.
 	 */
-	public static final double CREATION_RANGE = 0.5;
+	public static final double CREATION_RANGE = 0.0;
 
 
 	//__________________IA____________________//

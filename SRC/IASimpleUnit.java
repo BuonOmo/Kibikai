@@ -42,21 +42,14 @@ public class IASimpleUnit extends IAUnite {
     }
 
     public int chooseStrategy(int staite) {
-        Double n = 0.0;
-        
-        for(Double i :IA.nbSaveSU[staite]) {
-            n += i;
-        }
         Double  sommeR=0.0;
-        for (Double x :IA.qIASimpleUnit[staite]){
-            sommeR = sommeR +Math.exp((n+1)/(101+n)*x);
+        for (int i = 0; i<5;i++){
+            sommeR = sommeR +Math.exp(IA.qIASimpleUnit[staite][i]);
         }
         Double Rdm= Math.random()*sommeR;
-        int i =0;
-        for (Double x :IA.qIASimpleUnit[staite]){
-            i++;
-            if (Rdm<Math.exp((n+1)/(101+n)*x)) return i;
-            Rdm=Rdm-Math.exp((n+1)/(101+n)*x);
+        for (int i = 0; i<5;i++){
+            if (Rdm<Math.exp(IA.qIASimpleUnit[staite][i]))return i+1;
+            Rdm=Rdm-Math.exp(IA.qIASimpleUnit[staite][i]);
         }
         
         return 1;
