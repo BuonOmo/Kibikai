@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
@@ -18,8 +17,8 @@ public class Canvas extends JPanel{
         this.setVisible(true); //osef
         this.setBackground(Color.YELLOW); //marche pas!
         IA.bigining();
-        P1 = new Player (Color.GREEN, Finals.BASE_LOCATION, "Player one RPZ" );
-        P2 = new Player (Color.RED, new Point2D.Double(40,40), "Player two FTW" );
+        P1 = new Player (Finals.colorPlayer, Finals.BASE_LOCATION, Finals.namePlayer);
+        P2 = new Player (Finals.colorIA, new Point2D.Double(40,40), "Player two FTW" );
         IA.computer=P2;
         IA.player=P1;
         cam = new Camera();
