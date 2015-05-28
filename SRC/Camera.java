@@ -90,11 +90,10 @@ public class Camera {
         
     	for (Item i : Item.aliveItems){
     		if (i.isContained(this))
-<<<<<<< HEAD
+
                     i.print(g,cameraX , cameraY);
-=======
                     i.print(g, cameraX, cameraY);
->>>>>>> origin/master
+
     	}
     }
 }

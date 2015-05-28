@@ -204,8 +204,10 @@ public class Listeners implements  Finals {
                 break;
             }
             case 3 :{
-                
-                System.out.println("");
+            	for(int k=0;k<20;k++){
+                owner.base.goAndProcreate();
+            	}
+                System.out.println("wazaaaaaa");
                 break;
             }
         }
