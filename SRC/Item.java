@@ -15,7 +15,7 @@ public abstract class Item implements Finals{
     Item targetI;
     double life;
     Color color;
-    RectangularShape hitBox;
+    RectangularShape hitbox;
     Player owner;
     double radius;
     static LinkedList<Item> aliveItems = new LinkedList<Item>();
@@ -28,34 +28,34 @@ public abstract class Item implements Finals{
     
     /**
      * @param owner Possesseur de l’objet
-     * @param hitBoxToSet
+     * @param hitboxToSet
      */
-    public Item(Player ownerToSet, RectangularShape hitBoxToSet, Point2D targetToSet){
+    public Item(Player ownerToSet, RectangularShape hitboxToSet, Point2D targetToSet){
         color = ownerToSet.color;
         owner = ownerToSet;
-        hitBox = hitBoxToSet;
+        hitbox = hitboxToSet;
         target = targetToSet;
         owner.items.add(this);
         aliveItems.add(this);
-        radius = this.distanceTo(new Point2D.Double(hitBox.getX(), hitBox.getY()));
+        radius = this.distanceTo(new Point2D.Double(hitbox.getX(), hitbox.getY()));
         selected = false;
     }
 
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
-     * @param width largeur de la hitBox
-     * @param height hauteur de la hitBox
+     * @param width largeur de la hitbox
+     * @param height hauteur de la hitbox
      */
     public Item(Player ownerToSet, Point2D topLeftCorner,double width, double height){
         this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), width, height), topLeftCorner);
     }
     
     /**
-     * Constructeur pour une hitBox carree.
+     * Constructeur pour une hitbox carree.
      * @param ownerToSet Possesseur de l’objet
      * @param topLeftCorner
-     * @param side coté de la hitBox
+     * @param side coté de la hitbox
      */
     public Item(Player ownerToSet, Point2D topLeftCorner,double side){
         this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), side, side), topLeftCorner);
@@ -127,17 +127,17 @@ public abstract class Item implements Finals{
      * @return distance du centre de l’unité au point p en double
      */
     public double distanceTo(Point2D p){
-        double x = hitBox.getCenterX(), y = hitBox.getCenterY();
+        double x = hitbox.getCenterX(), y = hitbox.getCenterY();
         
         return Math.sqrt((p.getX() - x)*(p.getX() - x) + (p.getY() -y)*(p.getY()-y));   
     }
     
     public double distanceTo(Item other){
     	double d;
-    	double x1= this.hitBox.getCenterX();
-    	double y1=this.hitBox.getCenterY();
-    	double x2=other.hitBox.getCenterX();
-    	double y2=other.hitBox.getCenterY();
+    	double x1= this.hitbox.getCenterX();
+    	double y1=this.hitbox.getCenterY();
+    	double x2=other.hitbox.getCenterX();
+    	double y2=other.hitbox.getCenterY();
     	d=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
     	return d;
     }
@@ -155,7 +155,7 @@ public abstract class Item implements Finals{
     }
     
     public Point2D getCenter(){
-        return new Point2D.Double(hitBox.getCenterX(),hitBox.getCenterY());
+        return new Point2D.Double(hitbox.getCenterX(),hitbox.getCenterY());
     }
     
     public static LinkedList<Item> getItemInFrame(Rectangle2D frame){
@@ -223,7 +223,7 @@ public abstract class Item implements Finals{
     public void print(Graphics g, double offsetX, double offsetY){
         /*if (selected){
             
-            double newSide = hitBox.getHeight()*1.2 + SIDE/4.0;
+            double newSide = hitbox.getHeight()*1.2 + SIDE/4.0;
             
             g.fillRoundRect( (int)((getCenter().getX() - newSide/2.0)*scale), 
                              (int)((getCenter().getY() - newSide/2.0)*scale), 
@@ -235,10 +235,10 @@ public abstract class Item implements Finals{
         
         g.setColor(getColor());
         // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
-        g.fillRoundRect( (int)((hitBox.getX()-offsetX)*scale), 
-                         (int)((hitBox.getY()-offsetY)*scale), 
-                         (int)(hitBox.getWidth()*scale), 
-                         (int)(hitBox.getHeight()*scale),
+        g.fillRoundRect( (int)((hitbox.getX()-offsetX)*scale), 
+                         (int)((hitbox.getY()-offsetY)*scale), 
+                         (int)(hitbox.getWidth()*scale), 
+                         (int)(hitbox.getHeight()*scale),
                          (10),
                          (10));
     }
@@ -292,10 +292,10 @@ public abstract class Item implements Finals{
      * @return vrai si contenu dans la camera
      */
     public boolean isContained(Camera c){
-    	double xI = hitBox.getX();
-    	double yI = hitBox.getY();
-    	double wI = hitBox.getWidth();
-    	double hI = hitBox.getHeight();
+    	double xI = hitbox.getX();
+    	double yI = hitbox.getY();
+    	double wI = hitbox.getWidth();
+    	double hI = hitbox.getHeight();
     	
     	if((xI+wI)>c.cameraX && (xI)<(c.cameraX+c.cameraWidth)){
     		if ((yI+hI)>c.cameraY && (yI)<(c.cameraY+c.cameraHeight)){

@@ -29,7 +29,7 @@ public abstract class Unit extends Item {
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
-     * @param side coté de la hitBox
+     * @param side coté de la hitbox
      */
     public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int side){
         this(owner, topLeftCorner, lifeMAXToSet, side, side);
@@ -38,7 +38,7 @@ public abstract class Unit extends Item {
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
-     * @param side coté de la hitBox
+     * @param side coté de la hitbox
      */
     public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int side, Point2D targetToSet){
         this(owner, topLeftCorner, lifeMAXToSet, side);
@@ -87,10 +87,10 @@ public abstract class Unit extends Item {
         Point2D d;
         d = new Point2D.Double();
         d.setLocation(setVector());
-        hitBox.setFrame(hitBox.getX() + d.getX(), 
-                       hitBox.getY() + d.getY(), 
-                       hitBox.getWidth(), 
-                       hitBox.getHeight() );
+        hitbox.setFrame(hitbox.getX() + d.getX(), 
+                       hitbox.getY() + d.getY(), 
+                       hitbox.getWidth(), 
+                       hitbox.getHeight() );
     }
     
     
@@ -111,10 +111,10 @@ public abstract class Unit extends Item {
         shortTarget = new Point2D.Double();
         
         double x, y;
-        x = (double) (target.getX() - hitBox.getCenterX()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
-        y = (double) (target.getY() - hitBox.getCenterY()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
+        x = (double) (target.getX() - hitbox.getCenterX()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
+        y = (double) (target.getY() - hitbox.getCenterY()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
         
-        shortTarget.setLocation( Math.cos(alpha + getAlphaOffset())*x+hitBox.getCenterX(), Math.sin(alpha)*y+hitBox.getCenterY());
+        shortTarget.setLocation( Math.cos(alpha + getAlphaOffset())*x+hitbox.getCenterX(), Math.sin(alpha)*y+hitbox.getCenterY());
         return shortTarget;
     }
     
@@ -132,8 +132,8 @@ public abstract class Unit extends Item {
         vector = new Point2D.Double();
         double x, y;
         if (distanceTo(target)>DISTANCE_TO_MOVE){
-            x = (double) (target.getX() - hitBox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target); 
-            y = (double) (target.getY() - hitBox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target);
+            x = (double) (target.getX() - hitbox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target); 
+            y = (double) (target.getY() - hitbox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target);
         }
         else{
             x = 0; 
@@ -156,8 +156,8 @@ public abstract class Unit extends Item {
         
         // evite le tremblement
         if (distanceTo(target)>DISTANCE_TO_MOVE)
-            return new Point2D.Double( (target.getX() - hitBox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target), 
-                                       (target.getY() - hitBox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target));
+            return new Point2D.Double( (target.getX() - hitbox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target), 
+                                       (target.getY() - hitbox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target));
         else
             return new Point2D.Double(0, 0);
     }
@@ -166,14 +166,23 @@ public abstract class Unit extends Item {
         LinkedList<Item> obstacle;
         obstacle = new LinkedList<Item>(aliveItems);
         obstacle.remove(this);
-        /*
+        Point2D vector, location;
+        vector = getVector();
+        location = new Point2D.Double(hitbox.getX() + vector.getX(),  hitbox.getY() + vector.getY());
+        //Gestion des bordures
+        
+        if (hitbox.getX() + vector.getX() < 0 || hitbox.getX() + vector.getY() + hitbox.getWidth() > WIDTH || 
+            hitbox.getY() + vector.getY() < 0 || hitbox.getX() + vector.getY() + hitbox.getHeight() > HEIGTH)
+            return new Point2D.Double(0,0);
+        
+        
         for (Item i : obstacle){
             if (intersect(i))
-                System.out.println("il y a une intersection");
+                //System.out.println("il y a une intersection");
                 return getVector(90);
         }
-        */
-        return getVector(30);
+        
+        return getVector(90);
     }
     /**
      * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
@@ -188,10 +197,10 @@ public abstract class Unit extends Item {
         double x1 = other.getCenter().getX();
         double y1 = other.getCenter().getY();
         /*
-        double x0Coin = this.hitBox.getX();
-        double y0Coin = this.hitBox.getY();
-        double x1Coin = other.hitBox.getX();
-        double y1Coin = other.hitBox.getY();
+        double x0Coin = this.hitbox.getX();
+        double y0Coin = this.hitbox.getY();
+        double x1Coin = other.hitbox.getX();
+        double y1Coin = other.hitbox.getY();
         */
         
         //double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
@@ -273,14 +282,14 @@ public abstract class Unit extends Item {
             return 0.0;
         Point2D zero;
         zero = getShortTarget(0.0);
-        zero.setLocation(zero.getX()-hitBox.getCenterX(), zero.getY()-hitBox.getCenterY());
+        zero.setLocation(zero.getX()-hitbox.getCenterX(), zero.getY()-hitbox.getCenterY());
 
         Point2D sT;
-        sT = new Point2D.Double(shortTarget.getX() - hitBox.getCenterX(),
-        			shortTarget.getY() - hitBox.getCenterY());
+        sT = new Point2D.Double(shortTarget.getX() - hitbox.getCenterX(),
+        			shortTarget.getY() - hitbox.getCenterY());
 
-        return Math.acos(((zero.getX()-hitBox.getCenterX())*(sT.getX()-hitBox.getCenterX()) + 
-                          (zero.getY() - hitBox.getCenterY())*(sT.getY() - hitBox.getCenterY()))
+        return Math.acos(((zero.getX()-hitbox.getCenterX())*(sT.getX()-hitbox.getCenterX()) + 
+                          (zero.getY() - hitbox.getCenterY())*(sT.getY() - hitbox.getCenterY()))
                          /(DISTANCE_TO_MOVE*DISTANCE_TO_MOVE));
     }
         

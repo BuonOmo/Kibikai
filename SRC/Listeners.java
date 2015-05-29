@@ -156,7 +156,7 @@ public class Listeners implements  Finals {
         canSelect = null;
         
         for (Item i : list)
-            if (i.hitBox.contains(mouse())){
+            if (i.hitbox.contains(mouse())){
                 canSelect = i;
                 break;
             }

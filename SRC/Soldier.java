@@ -23,7 +23,7 @@ public class Soldier extends Unit {
      */
     public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet){
         super(owner, topLeftCorner, LIFE*3, 2);
-        hitBox = new Ellipse2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), 2, 2);
+        hitbox = new Ellipse2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), 2, 2);
         life = (lifeToSet < lifeMAX) ? lifeToSet : lifeMAX;
         damage = 0;
         if (owner!=null) {
@@ -72,10 +72,10 @@ public class Soldier extends Unit {
     @Override
     public void print(Graphics g, double offsetX, double offsetY) {
         g.setColor(getColor());
-        g.fillOval((int) ((hitBox.getX()-offsetX) * scale),
-                   (int) ((hitBox.getY()-offsetY) * scale),
-                   (int) (hitBox.getHeight() * scale),
-                   (int) (hitBox.getWidth() * scale));
+        g.fillOval((int) ((hitbox.getX()-offsetX) * scale),
+                   (int) ((hitbox.getY()-offsetY) * scale),
+                   (int) (hitbox.getHeight() * scale),
+                   (int) (hitbox.getWidth() * scale));
     }
     public boolean isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits

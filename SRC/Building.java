@@ -47,19 +47,19 @@ public class Building extends Item{
             //c’est pas très joli :V
             /*
             double x,y;
-            if(target.getX()<=hitBox.getX()){
-                x = hitBox.getX()-SIDE;
-                if(target.getY()<=hitBox.getY()){
-                        y=hitBox.getY()-SIDE;
+            if(target.getX()<=hitbox.getX()){
+                x = hitbox.getX()-SIDE;
+                if(target.getY()<=hitbox.getY()){
+                        y=hitbox.getY()-SIDE;
                 }else{
-                        y=hitBox.getY()+hitBox.getHeight();
+                        y=hitbox.getY()+hitbox.getHeight();
                 }
             }else{
-                x=hitBox.getX()+hitBox.getWidth();
-                if(target.getY()<=hitBox.getY()){
-                        y=hitBox.getY()-SIDE;
+                x=hitbox.getX()+hitbox.getWidth();
+                if(target.getY()<=hitbox.getY()){
+                        y=hitbox.getY()-SIDE;
                 }else{
-                        y=hitBox.getY()+hitBox.getHeight();
+                        y=hitbox.getY()+hitbox.getHeight();
                 }
             }
 <<<<<<< HEAD
@@ -85,8 +85,8 @@ public class Building extends Item{
         
         //TODO gerer les intersection lors du grandissement
         double newSide = Math.sqrt(life/LIFE);
-        double shift = (newSide - hitBox.getHeight())/4.0;
-        hitBox.setFrame(getCenter().getX() - newSide/2.0, 
+        double shift = (newSide - hitbox.getHeight())/4.0;
+        hitbox.setFrame(getCenter().getX() - newSide/2.0, 
                        getCenter().getY() - newSide/2.0, 
                        newSide, 
                        newSide);
@@ -110,7 +110,7 @@ public class Building extends Item{
         // pourquoi ça a été mis en commentaire ? C’est pour éviter les abus et division par 0
         if (life > LIFE){
 
-            if (((UI.time)%(int) (4 /(hitBox.getHeight()*UNIT_PER_SECOND)+1) == 0)){
+            if (((UI.time)%(int) (4 /(hitbox.getHeight()*UNIT_PER_SECOND)+1) == 0)){
                 goAndProcreate();                
             }
         }
