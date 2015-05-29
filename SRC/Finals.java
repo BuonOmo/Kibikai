@@ -66,10 +66,6 @@ public interface Finals {
 	public static final double DISTANCE_TO_MOVE = 0.8;
 
 	/**
-	 * @deprecated
-	 */
-	@Deprecated
-	/**
 	 * Angle de Balayage en degrés.
 	 */
 	public static final int ALPHA = 4;

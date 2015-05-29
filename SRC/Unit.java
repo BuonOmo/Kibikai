@@ -118,6 +118,11 @@ public abstract class Unit extends Item {
         return shortTarget;
     }
     
+    public Point2D getNewLocationFromCenter(double alphaDegre){
+        Point2D d;
+        d = getVector(alphaDegre);
+        return new Point2D.Double(hitbox.getCenterX() + d.getX(), hitbox.getCenterY() + d.getY());
+    }
     
     /**
      * permet de trouver le vecteur du déplacement en fonction 
@@ -171,32 +176,45 @@ public abstract class Unit extends Item {
         location = new Point2D.Double(hitbox.getX() + vector.getX(),  hitbox.getY() + vector.getY());
         
         //Gestion des bordures
-        if (hitbox.getX() + vector.getX() < 0){
-            setX(0);
-            return new Point2D.Double(0, vector.getY());
-        }
-        if (hitbox.getX() + vector.getX() + hitbox.getWidth() > WIDTH){
-            setX(WIDTH - hitbox.getWidth());
-            return new Point2D.Double(0, vector.getY());
-        }
-        
-        if (hitbox.getY() + vector.getY() < DISTANCE_TO_MOVE){
-            setY(0);
-            return new Point2D.Double(vector.getX(), 0);
-        }
-        if (hitbox.getY() + vector.getY() + hitbox.getHeight() > HEIGHT){
-            setY(HEIGHT - hitbox.getHeight());
-            return new Point2D.Double(vector.getX(), 0);
-        }
-        
-        
-        for (Item i : obstacle){
-            if (intersect(i))
-                //System.out.println("il y a une intersection");
-                return getVector(90);
+        {
+            if (hitbox.getX() + vector.getX() < 0){
+                setX(0);
+                return new Point2D.Double(0, vector.getY());
+            }
+            if (hitbox.getX() + vector.getX() + hitbox.getWidth() > WIDTH){
+                setX(WIDTH - hitbox.getWidth());
+                return new Point2D.Double(0, vector.getY());
+            }
+            
+            if (hitbox.getY() + vector.getY() < DISTANCE_TO_MOVE){
+                setY(0);
+                return new Point2D.Double(vector.getX(), 0);
+            }
+            if (hitbox.getY() + vector.getY() + hitbox.getHeight() > HEIGHT){
+                setY(HEIGHT - hitbox.getHeight());
+                return new Point2D.Double(vector.getX(), 0);
+            }
         }
         
-        return getVector(90);
+        // Gestion des objets
+        double alpha;
+        alpha = 0;
+        boolean intersect;
+        intersect = false;
+        do{
+            for (Item i : obstacle){
+                if (this.willIntersect(i, alpha) || this.willIntersect(i, -alpha)){
+                    intersect = true;
+                    break;
+                }
+            }
+            if (!intersect)
+                return getVector(alpha);
+            intersect = false;
+            alpha+=ALPHA;
+        }while(alpha<=180);
+        
+        return new Point2D.Double(0,0);
     }
     /**
      * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
@@ -287,6 +305,13 @@ public abstract class Unit extends Item {
         
     }
     
+    public boolean willIntersect(Item i, double alphaDegre){
+        
+        if (radius + i.radius > i.distanceTo(getNewLocationFromCenter(alphaDegre)))
+            return true;
+        
+        return false;
+    }
     /**
      * @param shortTarget
      * @return angle du déplacement par rapport à la droite Objet-Cible
