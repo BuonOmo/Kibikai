@@ -22,19 +22,19 @@ public class UI extends JFrame{
     Mouse mouse;
     Key key;
 
-    Canvas canvas;
-    SideBand panelBandeau;
+    GamePan gamepan;
+    //SideBand panelBandeau;
 
     JFrame frame;
 
     public UI(){
-        canvas = new Canvas();
-        mouse = new Mouse(canvas.P1);
-        key = new Key(canvas.P1);
+        gamepan = new GamePan(Finals.screenHeight,Finals.screenWidth);
+        mouse = new Mouse(gamepan.canvas.P1);
+        key = new Key(gamepan.canvas.P1);
         frame = new JFrame();
-        frame.addMouseListener(mouse);
-        frame.addKeyListener(key);
-        frame.addMouseMotionListener(mouse);
+        gamepan.canvas.addMouseListener(mouse);
+        gamepan.canvas.addKeyListener(key);
+        gamepan.canvas.addMouseMotionListener(mouse);
         // Plein ecran
         frame.setUndecorated(true);
         GraphicsEnvironment gE = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -49,12 +49,12 @@ public class UI extends JFrame{
         */
 
         //Set the background on YELLOW : if you see stg yellow it means the jpanel ain't working
-        frame.getContentPane().setBackground(Color.YELLOW);
+        //frame.getContentPane().setBackground(Color.YELLOW);
         
-        panelBandeau = new SideBand();       
-        frame.getContentPane().setLayout(null);
-        frame.getContentPane().add(canvas);  
-        frame.getContentPane().add(panelBandeau);
+        //panelBandeau = new SideBand();       
+        //frame.getContentPane().setLayout(null);
+        frame.add(gamepan);  
+        //frame.getContentPane().add(panelBandeau);
         
         //JFrame properties
         frame.setTitle("LUCA");
@@ -73,20 +73,20 @@ public class UI extends JFrame{
     		Point mouse = MouseInfo.getPointerInfo().getLocation();
     		
     		if(mouse.x <= Finals.SCROLL_BORDER+50){
-    			canvas.cam.moveCamera(-Finals.CAMERA_SPEED, 0); //scroll à gauche
+    			gamepan.canvas.cam.moveCamera(-Finals.CAMERA_SPEED, 0); //scroll à gauche
     		}
     		else if(mouse.x >= Finals.screenWidth*5/6 - Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(Finals.CAMERA_SPEED, 0);  //scroll à droite
+    			gamepan.canvas.cam.moveCamera(Finals.CAMERA_SPEED, 0);  //scroll à droite
     		}
     		if(mouse.y <= Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(0, -Finals.CAMERA_SPEED); //scroll en haut
+    			gamepan.canvas.cam.moveCamera(0, -Finals.CAMERA_SPEED); //scroll en haut
     		}
     		else if(mouse.y >= Finals.screenHeight - Finals.SCROLL_BORDER){
-    			canvas.cam.moveCamera(0, Finals.CAMERA_SPEED);  //scroll en bas
+    			gamepan.canvas.cam.moveCamera(0, Finals.CAMERA_SPEED);  //scroll en bas
     		}
     		
-    		canvas.repaint(); 
-    		panelBandeau.repaint();
+    		gamepan.repaint(); 
+    		//panelBandeau.repaint();
     		time ++;
     	}
     }
