@@ -287,6 +287,28 @@ public abstract class Item implements Finals{
     }
 
     /**
+     * @param x position x de l’angle en haut à gauche de la hitbox
+     * @param y position y de l’angle en haut à gauche de la hitbox
+     */
+    public void setLocation(double x,double y){
+        hitbox.setFrame(x, y, hitbox.getWidth(), hitbox.getHeight());
+    }
+
+    /**
+     * @param x position x de l’angle en haut à gauche de la hitbox
+     */
+    public void setX(double x){
+        setLocation(x, hitbox.getY());
+    }
+    
+    /**
+     * @param y position y de l’angle en haut à gauche de la hitbox
+     */
+    public void setY(double y){
+        setLocation(hitbox.getX(), y);
+    }
+    
+    /**
      * Regarde si l'Item est contenu dans la vue de la camera
      * @param c la camera utilisee
      * @return vrai si contenu dans la camera

@@ -169,11 +169,25 @@ public abstract class Unit extends Item {
         Point2D vector, location;
         vector = getVector();
         location = new Point2D.Double(hitbox.getX() + vector.getX(),  hitbox.getY() + vector.getY());
-        //Gestion des bordures
         
-        if (hitbox.getX() + vector.getX() < 0 || hitbox.getX() + vector.getY() + hitbox.getWidth() > WIDTH || 
-            hitbox.getY() + vector.getY() < 0 || hitbox.getX() + vector.getY() + hitbox.getHeight() > HEIGTH)
-            return new Point2D.Double(0,0);
+        //Gestion des bordures
+        if (hitbox.getX() + vector.getX() < 0){
+            setX(0);
+            return new Point2D.Double(0, vector.getY());
+        }
+        if (hitbox.getX() + vector.getX() + hitbox.getWidth() > WIDTH){
+            setX(WIDTH - hitbox.getWidth());
+            return new Point2D.Double(0, vector.getY());
+        }
+        
+        if (hitbox.getY() + vector.getY() < DISTANCE_TO_MOVE){
+            setY(0);
+            return new Point2D.Double(vector.getX(), 0);
+        }
+        if (hitbox.getY() + vector.getY() + hitbox.getHeight() > HEIGTH){
+            setY(HEIGTH - hitbox.getHeight());
+            return new Point2D.Double(vector.getX(), 0);
+        }
         
         
         for (Item i : obstacle){
