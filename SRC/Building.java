@@ -13,7 +13,7 @@ public class Building extends Item{
     //______________ATTRIBUTS__________________//
     
     public static LinkedList<Building> buildings = new LinkedList<Building>();
-
+    
     // _____________CONSTRUCTEURS______________//
 
     /**
@@ -34,7 +34,7 @@ public class Building extends Item{
      * @param topLeftCorner postion du batiment
      */
     public Building(Player owner, Point2D topLeftCorner){
-        this(owner, topLeftCorner,4);
+        this(owner, topLeftCorner,3);
     }
     //________________METHODES_______________//
     
@@ -44,8 +44,8 @@ public class Building extends Item{
     public void goAndProcreate(){
         
         if (owner.simpleUnits.size()<NUMBER_MAX_OF_SIMPLEUNIT){
-            //c’est pas très joli :V
-            /*
+        // il faut changer cette méthode pour que le spawn puissent se faire le long d’un cercle de rayon this.radius
+        // en fontion des unités déja présente (pour éviter les collisions)
             double x,y;
             if(target.getX()<=hitbox.getX()){
                 x = hitbox.getX()-SIDE;
@@ -62,16 +62,11 @@ public class Building extends Item{
                         y=hitbox.getY()+hitbox.getHeight();
                 }
             }
-<<<<<<< HEAD
-        }
-    	Point2D.Double spawnPoint = new Point2D.Double(x,y);
-        
-        if (owner.simpleUnits.size()<Finals.NUMBER_MAX_OF_SIMPLEUNIT) {
+            Point2D.Double spawnPoint = new Point2D.Double(x,y);
             new SimpleUnit(owner,spawnPoint,target);
-=======
-            */
-            new SimpleUnit(owner,getCenter(),target);
         }
+    	
+        
 
     }
     
