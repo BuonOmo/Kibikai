@@ -33,15 +33,15 @@ public class Camera {
     	cameraY = y;
     	
     	//Locks the camera when it's at the right or left edge
-    	if (cameraX + cameraWidth > Finals.WIDTH) 
-    	        cameraX = Finals.WIDTH - cameraWidth;
+    	if (cameraX + cameraWidth > Finals.WIDTH * Finals.scale) 
+    	        cameraX = Finals.WIDTH * Finals.scale - cameraWidth;
     	
         if (cameraX < 0) 
     		cameraX = 0;
     	
     	//Locks the camera when it's at the top or bottom edge
-    	if (cameraY + cameraHeight > Finals.HEIGTH)
-    	        cameraY = Finals.HEIGTH - cameraHeight;
+    	if (cameraY + cameraHeight > Finals.HEIGHT * Finals.scale)
+    	        cameraY = Finals.HEIGHT * Finals.scale - cameraHeight;
         
         if (cameraY < 0) 
     		cameraY = 0;

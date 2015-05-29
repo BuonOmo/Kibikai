@@ -29,7 +29,7 @@ public interface Finals {
 	/**
 	 * Taille de la carte en metres.
 	 */
-	public static final int WIDTH = 20000, HEIGTH = 10000;
+	public static final int WIDTH = 20000, HEIGHT = 10000;
 
 	/**
 	 * Echelle (distance en metre*scale = distance en pixel).

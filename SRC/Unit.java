@@ -184,8 +184,8 @@ public abstract class Unit extends Item {
             setY(0);
             return new Point2D.Double(vector.getX(), 0);
         }
-        if (hitbox.getY() + vector.getY() + hitbox.getHeight() > HEIGTH){
-            setY(HEIGTH - hitbox.getHeight());
+        if (hitbox.getY() + vector.getY() + hitbox.getHeight() > HEIGHT){
+            setY(HEIGHT - hitbox.getHeight());
             return new Point2D.Double(vector.getX(), 0);
         }
         
