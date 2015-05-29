@@ -70,12 +70,12 @@ public class Soldier extends Unit {
     }
     
     @Override
-    public void print(Graphics g, double offsetX, double offsetY) {
+    public void print(Graphics g, double offsetX, double offsetY, double Scale) {
         g.setColor(getColor());
-        g.fillOval((int) ((hitbox.getX()-offsetX) * scale),
-                   (int) ((hitbox.getY()-offsetY) * scale),
-                   (int) (hitbox.getHeight() * scale),
-                   (int) (hitbox.getWidth() * scale));
+        g.fillOval((int) ((hitbox.getX()-offsetX) * Scale),
+                   (int) ((hitbox.getY()-offsetY) * Scale),
+                   (int) (hitbox.getHeight() * Scale),
+                   (int) (hitbox.getWidth() * Scale));
     }
     public boolean isDestructed(){
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits

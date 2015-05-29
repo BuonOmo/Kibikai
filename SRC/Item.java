@@ -220,7 +220,7 @@ public abstract class Item implements Finals{
         return color;
     }
     
-    public void print(Graphics g, double offsetX, double offsetY){
+    public void print(Graphics g, double offsetX, double offsetY,double Scale){
         /*if (selected){
             
             double newSide = hitbox.getHeight()*1.2 + SIDE/4.0;
@@ -235,10 +235,10 @@ public abstract class Item implements Finals{
         
         g.setColor(getColor());
         // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
-        g.fillRoundRect( (int)((hitbox.getX()-offsetX)*scale), 
-                         (int)((hitbox.getY()-offsetY)*scale), 
-                         (int)(hitbox.getWidth()*scale), 
-                         (int)(hitbox.getHeight()*scale),
+        g.fillRoundRect( (int)((hitbox.getX()-offsetX)*Scale), 
+                         (int)((hitbox.getY()-offsetY)*Scale), 
+                         (int)(hitbox.getWidth()*Scale), 
+                         (int)(hitbox.getHeight()*Scale),
                          (10),
                          (10));
     }
