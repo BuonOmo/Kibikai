@@ -90,7 +90,7 @@ public class Camera {
         
     	for (Item i : Item.aliveItems){
     		if (i.isContained(this))
-                    i.print(g, cameraX, cameraY);
+                    i.print(g, cameraX, cameraY,Finals.scale);
     	}
     }
 }
