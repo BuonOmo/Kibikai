@@ -32,36 +32,75 @@ public class Building extends Item {
     //________________METHODES_______________//
 
     /**
-     *  Cree une unitÃ© simple et la rajoute dans le tableau du joueur. elle se dirige au target
+     *  Cree une unitÃ© simple et la rajoute dans le tableau du joueur. Elle se dirige au target et n'est crée que si l'emplacement est vide.
+     *  Dans le cas contraire, on recherche une position adaptée sur un rayon qui s'élargira si nécessaire.
+     *  Si target est sur la base, elle ne se deplaceront pas à la sortie.
      */
     public void goAndProcreate() {
 
-        if (owner.simpleUnits.size() < NUMBER_MAX_OF_SIMPLEUNIT) {
-            // il faut changer cette mÃ©thode pour que le spawn puissent se faire le long dâ€™un cercle de rayon this.radius
-            // en fontion des unitÃ©s dÃ©ja prÃ©sente (pour Ã©viter les collisions)
-            double x, y;
-            if (target.getX() <= hitbox.getX()) {
-                x = hitbox.getX() - SIDE;
-                if (target.getY() <= hitbox.getY()) {
-                    y = hitbox.getY() - SIDE;
-                } else {
-                    y = hitbox.getY() + hitbox.getHeight();
-                }
-            } else {
-                x = hitbox.getX() + hitbox.getWidth();
-                if (target.getY() <= hitbox.getY()) {
-                    y = hitbox.getY() - SIDE;
-                } else {
-                    y = hitbox.getY() + hitbox.getHeight();
-                }
+    	if (owner.simpleUnits.size() < NUMBER_MAX_OF_SIMPLEUNIT) {
+        	//rayon du spawn
+        	double R1 = this.radius + Finals.SIDE*3/2;
+            //elementaires de déplacement
+            double dx, dy;
+            if(hitbox.contains(this.target)){
+            	dx=1; dy=1;
+            }else{
+            	dx = (double) (target.getX() - hitbox.getCenterX());
+            	dy = (double) (target.getY() - hitbox.getCenterY());
             }
+            double distanceCentreTarget = Math.sqrt(dx*dx+dy*dy);
+            dx = dx/distanceCentreTarget;
+            dy = dy/distanceCentreTarget;
+            //angle a balayer
+            double alpha;
+            double beta;
+            double angleIncrement; 
+            //premier spawnpoint et création de l'unité
+            double x = hitbox.getCenterX() + (dx)*R1 - Finals.SIDE/2;
+            double y =  hitbox.getCenterY() + (dy)*R1 - Finals.SIDE/2;
             Point2D.Double spawnPoint = new Point2D.Double(x, y);
-            new SimpleUnit(owner, spawnPoint, target);
+            SimpleUnit bizuth = new SimpleUnit(this.owner, spawnPoint, target);
+            System.out.println("PREMIERE CREE chez" + owner.name);
+            boolean spawned = bizuth.testSpawn();            
+            //elementaires de deplacements lors du balayage
+            double ux = dx;
+            double uy = dy;
+            
+            while(!spawned){
+                R1 = R1 + (double)(Finals.SIDE)*3/2;
+                angleIncrement = Math.toDegrees(Finals.SIDE/R1); 
+                alpha = 0;
+                beta = 0;
+        		System.out.println("premier spawn pas accepté" + owner.name);
+               	while(!spawned && alpha<=(180 + angleIncrement)){           
+                		alpha = alpha + angleIncrement;
+                		ux = Math.cos(Math.toRadians(alpha))*dx;
+                		uy = Math.sin(Math.toRadians(alpha))*dy;
+                		x = hitbox.getCenterX() + (ux)*R1;
+                        y =  hitbox.getCenterY() + (uy)*R1;
+                		bizuth.setLocationFromCenter(x, y);
+                		spawned = bizuth.testSpawn();
+                		System.out.println("alpha testé"+ owner.name);
+                		if(!spawned){
+                			beta = -alpha;
+                			ux=Math.cos(Math.toRadians(beta))*dx;
+                    		uy=Math.sin(Math.toRadians(beta))*dy;
+                    		x = hitbox.getCenterX() + (ux)*R1;
+                                y =  hitbox.getCenterY() + (uy)*R1;
+                    		bizuth.setLocationFromCenter(x, y);
+                    		spawned = bizuth.testSpawn();
+                    		System.out.println("beta testé"+ owner.name);
+                		}
+                }
+             }  
+            	
+            if(hitbox.contains(this.target)){
+           		bizuth.setTarget(new Point2D.Double(x,y));
+            }
         }
-
-
     }
-
+ 
     /**
      * GÃ¨re la vie dâ€™un batiment et sa taille.
      * @param amount vie ajoutÃ©e (- pour en enlever)

@@ -289,4 +289,16 @@ public class SimpleUnit extends Unit {
             return build();
         return heal();
     }
+    
+	public boolean testSpawn() {
+		LinkedList<Unit> computerOthers = this.scanPerimeter((int)(Finals.SIDE),IA.computer);
+		LinkedList<Unit> playerOthers = this.scanPerimeter((int)(Finals.SIDE),IA.player);
+		computerOthers.remove(this);
+		playerOthers.remove(this);
+		if(computerOthers.isEmpty() && playerOthers.isEmpty()){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

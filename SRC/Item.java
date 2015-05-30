@@ -128,7 +128,7 @@ public abstract class Item implements Finals {
      */
     public double distanceTo(Point2D p) {
         double x = hitbox.getCenterX(), y = hitbox.getCenterY();
-
+        
         return Math.sqrt((p.getX() - x) * (p.getX() - x) + (p.getY() - y) * (p.getY() - y));
     }
 
@@ -309,7 +309,7 @@ public abstract class Item implements Finals {
      * @param y position y du centre
      */
     public void setLocationFromCenter(double x, double y){
-        setLocation(x - hitbox.getWidth(), y - hitbox.getHeight());
+        setLocation(x - hitbox.getWidth()/2, y - hitbox.getHeight()/2);
     }
 
     /**
