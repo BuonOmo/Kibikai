@@ -1,85 +1,79 @@
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-import java.util.LinkedList;
-
 public class Soldier extends Unit {
-    
+
     //_____________ATTRIBUTS____________//
-    
+
     int damage;
 
     //__________________CONSTRUCTEURS__________________//
-    
+
     /**
      * @param owner Détenteur de l’unité
      * @param topLeftCorner position de l’unité
      * @param lifeToSet vie du soldat à sa création (et non sa vie max)
      */
-    public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet){
-        super(owner, topLeftCorner, LIFE*3, 2);
+    public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet) {
+        super(owner, topLeftCorner, LIFE * 3, 2);
         hitbox = new Ellipse2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), 2, 2);
         life = (lifeToSet < lifeMAX) ? lifeToSet : lifeMAX;
         damage = 0;
-        if (owner!=null) {
+        if (owner != null) {
             owner.soldiers.add(this);
-            if (owner == IA.computer) new SoldierGroup(this);
-            }
+            if (owner == IA.computer)
+                new SoldierGroup(this);
+        }
     }
-    
+
     /**
      * @param owner Détenteur de l’unité
      * @param topLeftCorner position de l’unité
      */
-    public Soldier(Player owner, Point2D topLeftCorner){
-        this(owner, topLeftCorner, LIFE*3);
+    public Soldier(Player owner, Point2D topLeftCorner) {
+        this(owner, topLeftCorner, LIFE * 3);
     }
-    
+
     //________________MÉTHODES_______________//
-    
-    public boolean attack(){
+
+    public boolean attack() {
 
         Item toAttack;
         toAttack = getEnemyToAttack();
-        
-        if (toAttack != null){
-        
-            damage+= (toAttack.life < DAMAGE) ? toAttack.life : DAMAGE;
-            return toAttack.getLife(- DAMAGE);
-        
+
+        if (toAttack != null) {
+
+            damage += (toAttack.life < DAMAGE) ? toAttack.life : DAMAGE;
+            return toAttack.getLife(-DAMAGE);
+
         }
         return false;
     }
-    
-    public Item getEnemyToAttack(){
+
+    public Item getEnemyToAttack() {
         //TODO gerer la priorité entre attaquer une US, une UM ou un BA ? et gerer une liste d’ennemis ?
-   
+
         if (targetI != null && targetI.isCloseTo(this, ATTACK_RANGE) && !hasSameOwner(targetI))
             return targetI;
         for (Item enemy : aliveItems)
             if (!hasSameOwner(enemy) && enemy.isCloseTo(this, ATTACK_RANGE))
                 return enemy;
         return null;
-        
+
 
     }
-    
+
     @Override
     public void print(Graphics g, double offsetX, double offsetY, double Scale) {
         g.setColor(getColor());
-        g.fillOval((int) ((hitbox.getX()-offsetX) * Scale),
-                   (int) ((hitbox.getY()-offsetY) * Scale),
-                   (int) (hitbox.getHeight() * Scale),
-                   (int) (hitbox.getWidth() * Scale));
+        g.fillOval((int) ((hitbox.getX() - offsetX) * Scale), (int) ((hitbox.getY() - offsetY) * Scale),
+                   (int) (hitbox.getHeight() * Scale), (int) (hitbox.getWidth() * Scale));
     }
-    public boolean isDestructed(){
+
+    public boolean isDestructed() {
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
-        if (!deadItems.contains(this)){
+        if (!deadItems.contains(this)) {
             owner.deadUnits.add(this);
             deadItems.add(this);
             aliveItems.remove(this);
@@ -90,11 +84,11 @@ public class Soldier extends Unit {
         }
         return false;
     }
-    
+
     public boolean execute() {
         actualiseTarget();
         move();
         return attack();
     }
-    
+
 }

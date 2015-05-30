@@ -5,52 +5,60 @@ import java.awt.geom.Point2D;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Canvas extends JPanel{
+public class Canvas extends JPanel {
     Player P1;
     Player P2;
     Camera cam;
-    
-    public Canvas()  {
-    	
-        this.setSize(Finals.screenWidth*5/6, Finals.screenHeight);
-        this.setBounds(0, 0, Finals.screenWidth*5/6, Finals.screenHeight);
+    Key key;
+    Mouse mouse;
+
+    public Canvas() {
+        this.setSize(Finals.screenWidth * 5 / 6, Finals.screenHeight);
+        this.setBounds(0, 0, Finals.screenWidth * 5 / 6, Finals.screenHeight);
         this.setBackground(Color.WHITE);
         IA.bigining();
-        P1 = new Player (Finals.colorPlayer, Finals.BASE_LOCATION, Finals.namePlayer);
-        P2 = new Player (Finals.colorIA, new Point2D.Double(40,40), "Player two FTW" );
-        IA.computer=P2;
-        IA.player=P1;
+        P1 = new Player(Finals.colorPlayer, Finals.BASE_LOCATION, Finals.namePlayer);
+        P2 = new Player(Finals.colorIA, new Point2D.Double(40, 40), "Player two FTW");
+        key = new Key(P1);
+        mouse = new Mouse(P1);
+        this.addKeyListener(key);
+        this.addMouseListener(mouse);
+        this.addMouseMotionListener(mouse);
+        this.addMouseWheelListener(mouse);
+        IA.computer = P2;
+        IA.player = P1;
         cam = new Camera();
-        
+
         //P1.base.goAndProcreate();
-        
+
         /* Decommenter pour voir une magnifique bataille*/
         //new Soldier(P1, new Point2D.Double(20,20));
         //P1.soldiers.get(0).setTarget(P2.base);
 
-        for (int i =1 ; i<0; i++){
-           // new Soldier(P1, new Point2D.Double(20,20+i));
-           // new Soldier(P1, new Point2D.Double(15,20+i));
-            new Soldier(P2, new Point2D.Double(90,40+i));
+        for (int i = 1; i < 0; i++) {
+            // new Soldier(P1, new Point2D.Double(20,20+i));
+            // new Soldier(P1, new Point2D.Double(15,20+i));
+            new Soldier(P2, new Point2D.Double(90, 40 + i));
         }
-        for (int i =0; i< 9;i++){
-            new SimpleUnit(P1, new Point2D.Double(20,5+2*i));
+        for (int i = 0; i < 9; i++) {
+            new SimpleUnit(P1, new Point2D.Double(20, 5 + 2 * i));
             //new SimpleUnit(P1, P1.base, new Point2D.Double(22.5,5*i));
             //new Soldier(P1, new Point2D.Double(5*i,5));
         }
-        
+
         //P1.soldiers.get(1).setTarget(P2.soldiers.get(0));
         //P2.soldiers.get(0).setTarget(Pc1.base);
         //P1.soldiers.get(0).setTarget(new Point2D.Double(100,100));
-        for (int i= 0; i<0; i++){
+        for (int i = 0; i < 0; i++) {
             //new SimpleUnit(P1, P1.base, new Point2D.Double(20.0, 5.0 +2.0*(double)i*Finals.SIDE));
+
         }
         // new SimpleUnit(P1, P1.soldiers.get(0), new Point2D.Double(5,10));
 
     }
-    
+
     public void paint(Graphics g) {
-    	cam.paint(g);
+        cam.paint(g);
     }
-	
+
 }

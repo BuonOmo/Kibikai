@@ -1,210 +1,210 @@
 import java.awt.MouseInfo;
 import java.awt.geom.Point2D;
-
 import java.awt.geom.Rectangle2D;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Listeners implements  Finals {
+public class Listeners implements Finals {
     static boolean shiftPressed, baseSelected, init, louHammel;
     static Item canSelect;
     static UnitGroup selected;
     static Player owner;
     static String typedKeys;
-    
+
     /**
      * prend en compte la bordure de l’écran si il y en a une.
      */
     static Point2D border;
-    
+
     //_____________CONSTRUCTEUR____________//
-    
-    public Listeners(Player p){
+
+    public Listeners(Player p) {
         owner = p;
-        selected=new UnitGroup();
+        selected = new UnitGroup();
         typedKeys = "";
         init = true;
         border = new Point2D.Double();
     }
-    
+
     //______________MÉTHODES______________//
 
 
     /**
      * @return coordonnées de la souris
      */
-    public Point2D mouse(){
-        
-        return new Point2D.Double((double)MouseInfo.getPointerInfo().getLocation().getX()/scale - border.getX(), 
-                                  (double)MouseInfo.getPointerInfo().getLocation().getY()/scale - border.getY());
+    public Point2D mouse() {
+
+        return new Point2D.Double((double) MouseInfo.getPointerInfo().getLocation().getX() / scale - border.getX(),
+                                  (double) MouseInfo.getPointerInfo().getLocation().getY() / scale - border.getY());
     }
     
-    
-    
-    void unSelectAll(){
+    public Point2D mouseWithCameraOffset(){
+        return new Point2D.Double((double) MouseInfo.getPointerInfo().getLocation().getX() / scale - border.getX() + Camera.cameraX,
+                                  (double) MouseInfo.getPointerInfo().getLocation().getY() / scale - border.getY() + Camera.cameraY);
+    }
+
+    void unSelectAll() {
         baseSelected = false;
         owner.base.setSelected(false);
         selected.setSelected(false);
         selected.clear();
     }
-    
-    void unSelect(Item i){
+
+    void unSelect(Item i) {
         i.setSelected(false);
-        if (i.getClass().getName() == "Building"){
+        if (i.getClass().getName() == "Building") {
             baseSelected = false;
-        }
-        else{
-            selected.remove((Unit)i);
+        } else {
+            selected.remove((Unit) i);
         }
     }
-    
-    void select(Item i){
-        if (i.selected){
+
+    void select(Item i) {
+        if (i.selected) {
             unSelect(i);
             if (!shiftPressed)
                 unSelectAll();
-        }
-        else{
-            if (!shiftPressed){
+        } else {
+            if (!shiftPressed) {
                 unSelectAll();
-                
-                if (i != null && i.owner == owner){
+
+                if (i != null && i.owner == owner) {
                     i.setSelected(true);
-                    
-                    if (i.getClass().getName() == "Building"){
+
+                    if (i.getClass().getName() == "Building") {
                         baseSelected = true;
-                    }
-                    else{
-                        selected.add((Unit)i);
+                    } else {
+                        selected.add((Unit) i);
                     }
                 }
             }
         }
     }
-    
-    void selectWithoutShift(Item i){
+
+    void selectWithoutShift(Item i) {
         i.setSelected(true);
-        if (i.getClass().getName() == "Building"){
+        if (i.getClass().getName() == "Building") {
             baseSelected = true;
-        }
-        else{
-            selected.add((Unit)i);
+        } else {
+            selected.add((Unit) i);
         }
     }
-    
-    void selectOnly(UnitGroup group){
+
+    void selectOnly(UnitGroup group) {
         unSelectAll();
         select(group);
     }
-    
-    void select (UnitGroup group){
-        for (Unit u : group.group){
-            if (u != null && u.owner == owner){
+
+    void select(UnitGroup group) {
+        for (Unit u : group.group) {
+            if (u != null && u.owner == owner) {
                 u.setSelected(true);
                 selected.add(u);
             }
         }
     }
-    
-    void select (LinkedList<Item> list){
-        for (Item i : list){
-            if (i != null && i.owner == owner){
+
+    void select(LinkedList<Item> list) {
+        for (Item i : list) {
+            if (i != null && i.owner == owner) {
                 i.setSelected(true);
-                
-                if (i.getClass().getName() == "Building"){
+
+                if (i.getClass().getName() == "Building") {
                     baseSelected = true;
-                }
-                else{
-                    selected.add((Unit)i);
+                } else {
+                    selected.add((Unit) i);
                 }
             }
         }
     }
-    
-    void selectOnly(LinkedList<Item> list){
+
+    void selectOnly(LinkedList<Item> list) {
         unSelectAll();
         select(list);
     }
-    
-    void selectOnly(ArrayList list){
+
+    void selectOnly(ArrayList list) {
         unSelectAll();
         select(new LinkedList<Item>(list));
     }
-    
-    void select(Rectangle2D r){
-        for (Item i : owner.items){
+
+    void select(Rectangle2D r) {
+        for (Item i : owner.items) {
             if (r.contains(i.getCenter()))
                 this.selectWithoutShift(i);
         }
     }
-    
-    void selectOnly(Rectangle2D r){
+
+    void selectOnly(Rectangle2D r) {
         unSelectAll();
         select(r);
     }
-    
-    void getItemFromOwner(){
+
+    void getItemFromOwner() {
         getItem(owner.items);
     }
-    
-    void getItemFromAll(){
+
+    void getItemFromAll() {
         getItem(Item.aliveItems);
     }
-    
-    void getItem(LinkedList<Item> list){
+
+    void getItem(LinkedList<Item> list) {
         canSelect = null;
-        
+
         for (Item i : list)
-            if (i.hitbox.contains(mouse())){
+            if (i.hitbox.contains(mouse())) {
                 canSelect = i;
                 break;
             }
     }
-    
-    
-    void setTarget(){
+
+
+    void setTarget() {
         getItemFromAll();
         if (canSelect == null)
-            setTarget(mouse());
+            setTarget(mouseWithCameraOffset());
         else
             setTarget(canSelect);
     }
-    
-    void setTarget(Item i){
+
+    void setTarget(Item i) {
         selected.setTarget(i);
         if (baseSelected)
             owner.base.setTarget(i);
     }
-    
-    void setTarget(Point2D p){
+
+    void setTarget(Point2D p) {
         selected.setTarget(p);
         if (baseSelected)
             owner.base.setTarget(p);
     }
-    
-   
-    
+
+
     //_________POUR_ADRIEN________//
-    
-    void cheat(int i){
-        switch(i){
-            case 0 :{
+
+    void cheat(int i) {
+        switch (i) {
+        case 0:
+            {
                 owner.base.getLife(1000);
                 System.out.println("____Cadeau d’Ulysse____");
                 break;
             }
-            case 1 :{
+        case 1:
+            {
                 System.out.println("____Adrien t’as ken_____");
                 System.exit(0);
                 break;
             }
-            case 2 :{
+        case 2:
+            {
                 louHammel = (louHammel) ? false : true;
                 break;
             }
-            case 3 :{
-                
+        case 3:
+            {
+
                 System.out.println("");
                 break;
             }
