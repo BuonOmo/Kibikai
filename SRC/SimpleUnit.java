@@ -1,5 +1,4 @@
 import java.awt.geom.Point2D;
-
 import java.util.LinkedList;
 
 public class SimpleUnit extends Unit {
@@ -55,6 +54,36 @@ public class SimpleUnit extends Unit {
     //_____________________MÃ‰THODES____________________//
 
 
+    /**
+     * @param p point ou se fait la transformation
+     * @param u SU impliquées qui ne sont pas prises en compte dans scan des intersections
+     * @return true si des SU peuvent créer un S sans intersections
+     */
+    
+    public static boolean canCreate(Point2D p, SimpleUnit[] u){
+    	//unités présentes autour de p sont dans otherUnits
+    	LinkedList<Unit> otherUnits = new LinkedList<Unit>();
+        for (Unit i : IA.computer.units) {
+            if (i.distanceTo(p) <= (i.radius + Finals.SIDESOLDIER)) {
+                otherUnits.add(i);
+            }
+        }
+        for (Unit i : IA.player.units) {
+            if (i.distanceTo(p) <= (i.radius + Finals.SIDESOLDIER)) {
+                otherUnits.add(i);
+            }
+        }
+        for(int k=0;k<u.length;k++){
+        	otherUnits.remove(u[k]);
+        }
+    	if(otherUnits.isEmpty()){
+		return true;  
+    	}else{
+    		return false;
+    	}
+    }
+    
+    
     public static void createSoldier(SimpleUnit[] u, Point2D p) {
         if (u != null) {
             if (u.length == 3 && u[0] != null && u[1] != null && u[2] != null && u[0].owner == u[1].owner &&
