@@ -56,20 +56,20 @@ public class SimpleUnit extends Unit {
 
     /**
      * @param p point ou se fait la transformation
-     * @param u SU impliquées qui ne sont pas prises en compte dans scan des intersections
-     * @return true si des SU peuvent créer un S sans intersections
+     * @param u SU impliquï¿½es qui ne sont pas prises en compte dans scan des intersections
+     * @return true si des SU peuvent crï¿½er un S sans intersections
      */
     
     public static boolean canCreate(Point2D p, SimpleUnit[] u){
-    	//unités présentes autour de p sont dans otherUnits
+    	//unitï¿½s prï¿½sentes autour de p sont dans otherUnits
     	LinkedList<Unit> otherUnits = new LinkedList<Unit>();
         for (Unit i : IA.computer.units) {
-            if (i.distanceTo(p) <= (i.radius + Finals.SIDESOLDIER)) {
+            if (i.distanceTo(p) <= (i.radius + 3 * SIDE)) {
                 otherUnits.add(i);
             }
         }
         for (Unit i : IA.player.units) {
-            if (i.distanceTo(p) <= (i.radius + Finals.SIDESOLDIER)) {
+            if (i.distanceTo(p) <= (i.radius + 3 * SIDE)) {
                 otherUnits.add(i);
             }
         }
@@ -142,9 +142,9 @@ public class SimpleUnit extends Unit {
     }
 
     public boolean build() {
-
+        
         if ((builders.distanceTo(target) <= CREATION_RANGE) && (builders.group.size() == 3) &&
-            (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER)) {
+            (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER) && canCreate(target, builders.toSimpleUnit())) {
             new Soldier(owner, target, builders.getQuantityOfLife());
             return builders.isDestructed();
         }

@@ -34,9 +34,6 @@ public class UI extends JFrame{
         frame = new JFrame();
         gamepan.canvas.addMouseListener(mouse);
         gamepan.canvas.addKeyListener(key);
-        gamepan.addKeyListener(key);
-        frame.addKeyListener(key);
-        this.addKeyListener(key);
         gamepan.canvas.addMouseMotionListener(mouse);
         // Plein ecran
         frame.setUndecorated(true);

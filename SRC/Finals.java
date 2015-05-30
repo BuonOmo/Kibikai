@@ -43,11 +43,6 @@ public interface Finals {
      * Taille du cote dune unite simple en metres.
      */
     public static final double SIDE = 1;
-    
-    /**
-     * Taille du cote d'un Soldier en metres.
-     */
-    public static final double SIDESOLDIER = 2;
 
     /**
      * Quantite de vie unitaire en secondes d'attaque. (celle d’une US)

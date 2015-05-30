@@ -106,4 +106,15 @@ public class SimpleUnitGroup extends UnitGroup {
         return false;
     }
 
+    SimpleUnit[] toSimpleUnit() {
+        SimpleUnit[] tab = new SimpleUnit[size()];
+        int c=0;
+        for (Unit i : group){
+            
+            tab[c] = (SimpleUnit) i;
+            c++;
+        }
+        return tab;
+        //return (SimpleUnit[]) (group).toArray();
+    }
 }

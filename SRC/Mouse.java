@@ -64,7 +64,8 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
     public void createSoldier() {
 
         // crée parfois plus d’unités qu’il n’en faut (sauf dans le cas de 3 unités selectionnées)
-        if (selected.size() >= 3) {
+        // mettre >= 3 pour avoir le cas général
+        if (selected.size() == 3) {
 
             LinkedList<SimpleUnit> simpleUnitSelected = new LinkedList<SimpleUnit>();
             for (Item i : selected.getGroup()) {
@@ -76,11 +77,12 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
             while (simpleUnitSelected.size() >= 3) {
                 SimpleUnit[] getClosest;
                 getClosest = SimpleUnit.getNClosestSimpleUnitsFromList(3, mouseWithCameraOffset(), simpleUnitSelected);
-
+                System.out.println(getClosest.length);
                 SimpleUnit.createSoldier(getClosest, mouseWithCameraOffset());
-
-                for (SimpleUnit toRemove : getClosest)
+                
+                for (SimpleUnit toRemove : getClosest){
                     simpleUnitSelected.remove(toRemove);
+                }
 
             }
 
