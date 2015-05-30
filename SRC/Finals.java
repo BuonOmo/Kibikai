@@ -29,12 +29,12 @@ public interface Finals {
     /**
      * Taille de la carte en metres.
      */
-    public static final int WIDTH = 1000, HEIGHT = 1000;
+    public static final int WIDTH = 200, HEIGHT = 100;
 
     /**
      * Echelle (distance en metre*scale = distance en pixel).
      */
-    public static int scale = 30 + Mouse.scaleModifier;
+    //public static int scale = 30;
 
 
     //__________________ITEM_________________//

@@ -35,13 +35,13 @@ public class Listeners implements Finals {
      */
     public Point2D mouse() {
 
-        return new Point2D.Double((double) MouseInfo.getPointerInfo().getLocation().getX() / scale - border.getX(),
-                                  (double) MouseInfo.getPointerInfo().getLocation().getY() / scale - border.getY());
+        return new Point2D.Double((double) MouseInfo.getPointerInfo().getLocation().getX() / Camera.scale - border.getX(),
+                                  (double) MouseInfo.getPointerInfo().getLocation().getY() / Camera.scale - border.getY());
     }
     
     public Point2D mouseWithCameraOffset(){
-        return new Point2D.Double((double) MouseInfo.getPointerInfo().getLocation().getX() / scale - border.getX() + Camera.cameraX,
-                                  (double) MouseInfo.getPointerInfo().getLocation().getY() / scale - border.getY() + Camera.cameraY);
+        return new Point2D.Double((double) MouseInfo.getPointerInfo().getLocation().getX() / Camera.scale - border.getX() + Camera.cameraX,
+                                  (double) MouseInfo.getPointerInfo().getLocation().getY() / Camera.scale - border.getY() + Camera.cameraY);
     }
 
     void unSelectAll() {

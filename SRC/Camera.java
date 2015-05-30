@@ -7,8 +7,9 @@ public class Camera {
 
     static double cameraX; //Position en x de la camera en pixel
     static double cameraY; //Position en y de la camera en pixel
-    double cameraWidth = Finals.screenWidth * 5 / 6;
-    double cameraHeight = Finals.screenHeight;
+    static double cameraWidth = Finals.screenWidth * 5 / 6;
+    static double cameraHeight = Finals.screenHeight;
+    public static int scale = 30;
 
     //_____________Constructeur_____________//
 
@@ -30,15 +31,15 @@ public class Camera {
         cameraY = y;
 
         //Locks the camera when it's at the right or left edge
-        if (cameraX + cameraWidth > Finals.WIDTH * Finals.scale)
-            cameraX = Finals.WIDTH * Finals.scale - cameraWidth;
+        if (cameraX + cameraWidth > Finals.WIDTH * scale)
+            cameraX = Finals.WIDTH * scale - cameraWidth;
 
         if (cameraX < 0)
             cameraX = 0;
 
         //Locks the camera when it's at the top or bottom edge
-        if (cameraY + cameraHeight > Finals.HEIGHT * Finals.scale)
-            cameraY = Finals.HEIGHT * Finals.scale - cameraHeight;
+        if (cameraY + cameraHeight > Finals.HEIGHT * scale)
+            cameraY = Finals.HEIGHT * scale - cameraHeight;
 
         if (cameraY < 0)
             cameraY = 0;
@@ -60,6 +61,17 @@ public class Camera {
     public Point2D getLocation() {
         return new Point2D.Double(cameraX, cameraY);
     }
+    
+    public static void setScale(int i){
+        scale+= i;
+        if (cameraX + cameraWidth > Finals.WIDTH * scale)
+            scale = (int) (cameraX + cameraWidth) / Finals.WIDTH;
+
+        //Locks the camera when it's at the top or bottom edge
+        if (cameraY + cameraHeight > Finals.HEIGHT * scale)
+            scale = (int) (cameraY + cameraHeight) / Finals.HEIGHT;
+        
+    }
 
     public void paint(Graphics g) {
 
@@ -74,16 +86,16 @@ public class Camera {
             double y = Mouse.draggingSquare.getY();
             double w = Mouse.draggingSquare.getWidth();
             double h = Mouse.draggingSquare.getHeight();
-            g.drawRect((int) (x * Finals.scale), (int) (y * Finals.scale), (int) (w * Finals.scale),
-                       (int) (h * Finals.scale));
+            g.drawRect((int) (x * scale), (int) (y * scale), (int) (w * scale),
+                       (int) (h * scale));
             g.setColor(new Color(0, 255, 255, 30));
-            g.fillRect((int) (x * Finals.scale), (int) (y * Finals.scale), (int) (w * Finals.scale),
-                       (int) (h * Finals.scale));
+            g.fillRect((int) (x * scale), (int) (y * scale), (int) (w * scale),
+                       (int) (h * scale));
         }
 
         for (Item i : Item.aliveItems) {
             if (i.isContained(this))
-                i.print(g, cameraX, cameraY, Finals.scale);
+                i.print(g, cameraX, cameraY, scale);
         }
     }
 }

@@ -16,7 +16,6 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
     static Point2D draggBeginning;
     static Rectangle2D draggingSquare;
     static int click = 0;
-    static int scaleModifier = 0;
 
     public Mouse(Player player) {
         super(player);
@@ -34,8 +33,8 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
      */
     public static void firstClick(MouseEvent e) {
         init = false;
-        border.setLocation((double) (MouseInfo.getPointerInfo().getLocation().getX() - e.getX()) / scale,
-                           (double) (MouseInfo.getPointerInfo().getLocation().getY() - e.getY()) / scale);
+        border.setLocation((double) (MouseInfo.getPointerInfo().getLocation().getX() - e.getX()) / Camera.scale,
+                           (double) (MouseInfo.getPointerInfo().getLocation().getY() - e.getY()) / Camera.scale);
     }
 
 
@@ -52,7 +51,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
      * Méthode appelée sur un clic gauche.
      */
     private void leftClick() {
-        scaleModifier++;
+        
         //if (!shiftPressed){
         //    unSelectAll();
         //}
@@ -196,9 +195,8 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
     }
 
     @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        // TODO Implement this method
-        scaleModifier = e.getScrollAmount();
+    public void mouseWheelMoved(MouseWheelEvent e) {        
+        Camera.setScale((int)e.getPreciseWheelRotation());
     }
 
 }
