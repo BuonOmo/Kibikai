@@ -33,7 +33,10 @@ public class UI extends JFrame{
         key = new Key(gamepan.canvas.P1);
         frame = new JFrame();
         gamepan.canvas.addMouseListener(mouse);
+        gamepan.canvas.addKeyListener(key);
+        gamepan.addKeyListener(key);
         frame.addKeyListener(key);
+        this.addKeyListener(key);
         gamepan.canvas.addMouseMotionListener(mouse);
         // Plein ecran
         frame.setUndecorated(true);
@@ -58,7 +61,7 @@ public class UI extends JFrame{
         
         //JFrame properties
         frame.setTitle("LUCA");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
         timer = new Timer(50, new TimerAction());
     }

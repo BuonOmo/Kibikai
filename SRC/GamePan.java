@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 
 import java.awt.GridLayout;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -15,17 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JSplitPane;
 
-import oracle.jdeveloper.layout.OverlayLayout2;
-import oracle.jdeveloper.layout.PaneConstraints;
-import oracle.jdeveloper.layout.PaneLayout;
-import oracle.jdeveloper.layout.VerticalFlowLayout;
-import oracle.jdeveloper.layout.XYConstraints;
-import oracle.jdeveloper.layout.XYLayout;
-
 public class GamePan extends JPanel {
 
     private JPanel SidBand = new JPanel();
-    private VerticalFlowLayout verticalFlowLayout1 = new VerticalFlowLayout();
+    //private VerticalFlowLayout verticalFlowLayout1 = new VerticalFlowLayout();
     private JPanel jPanel3 = new JPanel();
     private JPanel jPanel4 = new JPanel();
     private JPanel jPanel5 = new JPanel();
@@ -47,8 +43,8 @@ public class GamePan extends JPanel {
         canvas.setBounds ((int)(Width*0.2),0,(int)(Width*0.8),Height);
         SidBand.setBackground(Color.gray);
 
-        SidBand.setLayout(verticalFlowLayout1);
-        jButton1.setText("jButton1");
+        //SidBand.setLayout(verticalFlowLayout1);
+        jButton1.setText("exit");
         int nbU =0;
         if (Game.getHuman()!=null) nbU =Game.getHuman().units.size();
 
@@ -63,6 +59,14 @@ public class GamePan extends JPanel {
         SidBand.add(jPanel4, null);
         jPanel5.add(jProgressBar1, null);
         SidBand.add(jPanel5, null);
+        
+        // afin de quitter le jeu plus vite :)
+        ActionListener exit = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        };
+        jButton1.addActionListener(exit);
 
         this.add(SidBand);
         this.add(canvas);

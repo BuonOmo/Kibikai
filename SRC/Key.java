@@ -100,7 +100,7 @@ public class Key extends Listeners implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        System.out.println("alleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeez appuie sur la touche sitoplait");
         switch (e.getKeyChar()) {
         case ('m'):
             {

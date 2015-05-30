@@ -42,7 +42,7 @@ public class OptionsFrame extends JFrame {
 
         //JFrame properties
         optFrame.setTitle("OPTIONS");
-        optFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        optFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         optFrame.setVisible(true);
     }
 
