@@ -16,7 +16,7 @@ public class Minimap extends JPanel {
         g.setColor(Color.BLACK);
         g.drawRect(0, 0,Width-1,Height-1);
         for (Item i : Item.aliveItems){
-                    i.print(g, 0, 0,1);
+                    i.print(g, 0, 0,Width/Finals.WIDTH);
         }
 
     }

@@ -43,7 +43,7 @@ public class Window extends JFrame {
         JPanel pnlButton = new JPanel();
         pnlButton.setLayout(null);
 
-        ///frame.getContentPane().setBackground(Color.GREEN);
+        ///.getContentPane().setBackground(Color.GREEN);
 
         this.newgameButton = new JButton("New game");
         this.loadgameButton = new JButton("Load Game");
