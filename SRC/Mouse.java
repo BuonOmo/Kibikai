@@ -196,7 +196,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {        
-        Camera.setScale((int)e.getPreciseWheelRotation());
+        Camera.setScale(e.getWheelRotation());
     }
 
 }
