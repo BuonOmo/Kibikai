@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 
 import java.awt.GridLayout;
 
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -43,13 +45,17 @@ public class GamePan extends JPanel {
         SidBand.setBounds(0,0,(int)(Width*0.2),(int)(Height*0.8));
         minimap.setBounds(0,(int)(Height*0.8),(int)(Width*0.2),(int)(Height*0.2));
         canvas.setBounds ((int)(Width*0.2),0,(int)(Width*0.8),Height);
-        SidBand.setBackground(Color.RED);
+        SidBand.setBackground(Color.gray);
 
         SidBand.setLayout(verticalFlowLayout1);
         jButton1.setText("jButton1");
-        jLabel1.setText("jLabel1");
+        int nbU =0;
+        if (Game.getHuman()!=null) nbU =Game.getHuman().units.size();
+
+        jLabel1.setText("nombre d'unite : "+nbU);
         jCheckBox1.setText("jCheckBox1");
         jCheckBox2.setText("jCheckBox2");
+        jPanel3.setBackground(null);
         jPanel3.add(jLabel1, null);
         jPanel3.add(jButton1, null);
         SidBand.add(jPanel3, null);
