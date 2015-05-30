@@ -55,7 +55,7 @@ public interface Finals {
     /**
      * Nombre d’US par secondes crées à l’origine par BA.
      */
-    public static final double UNIT_PER_SECOND = 0.05;
+    public static final double UNIT_PER_SECOND = 0.005;
 
 
     //_____________________UNIT______________________//
@@ -76,7 +76,7 @@ public interface Finals {
     /**
      * Portee d’une attaque.
      */
-    public static final double ATTACK_RANGE = 0.7;
+    public static final double ATTACK_RANGE = 1.3;
 
     /**
      * Degats infliges par tour de jeu par une UM.
@@ -95,7 +95,7 @@ public interface Finals {
     /**
      * Portee pour la création d’une UM.
      */
-    public static final double CREATION_RANGE = 0.8;
+    public static final double CREATION_RANGE = 1;
 
 
     //__________________IA____________________//
