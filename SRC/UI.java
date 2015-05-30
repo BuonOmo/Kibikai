@@ -86,6 +86,7 @@ public class UI extends JFrame{
     		}
     		
     		gamepan.repaint(); 
+                gamepan.UpDate();
     		//panelBandeau.repaint();
     		time ++;
     	}
