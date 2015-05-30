@@ -305,6 +305,14 @@ public abstract class Item implements Finals {
     }
 
     /**
+     * @param x position x du centre
+     * @param y position y du centre
+     */
+    public void setLocationFromCenter(double x, double y){
+        setLocation(x - hitbox.getWidth(), y - hitbox.getHeight());
+    }
+
+    /**
      * Regarde si l'Item est contenu dans la vue de la camera
      * @param c la camera utilisee
      * @return vrai si contenu dans la camera
