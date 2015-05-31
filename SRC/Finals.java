@@ -29,7 +29,7 @@ public interface Finals {
     /**
      * Taille de la carte en metres.
      */
-    public static final int WIDTH = 200, HEIGHT = 100;
+    public static final int WIDTH = 200, HEIGHT = 200;
 
     /**
      * Echelle (distance en metre*scale = distance en pixel).
@@ -56,6 +56,10 @@ public interface Finals {
      * Nombre d’US par secondes crées à l’origine par BA.
      */
     public static final double UNIT_PER_SECOND = 0.005;
+    /**
+     * Rayon de vision (pour la brouillard) pour Building
+     */
+    public static final int VEW_RAY_BUILDING= 5;
 
 
     //_____________________UNIT______________________//
@@ -82,6 +86,11 @@ public interface Finals {
      * Degats infliges par tour de jeu par une UM.
      */
     public static final double DAMAGE = 0.05;
+    
+    /**
+     * Rayon de vision (pour la brouillard) pour soldier
+     */
+    public static final int VEW_RAY_SOLDIER= 2;
 
 
     //_________________SIMPLEUNIT_______________//
@@ -96,6 +105,11 @@ public interface Finals {
      * Portee pour la création d’une UM.
      */
     public static final double CREATION_RANGE = 1;
+    
+    /**
+     * Rayon de vision (pour la brouillard) pour simple unit
+     */
+    public static final int VEW_RAY_SIMPLEUNIT= 1;
 
 
     //__________________IA____________________//

@@ -21,6 +21,7 @@ public abstract class Item implements Finals {
     static LinkedList<Item> deadItems = new LinkedList<Item>();
     boolean done;
     boolean selected;
+    int viewRay;
 
     // _____________CONSTRUCTEURS______________//
 
@@ -219,7 +220,7 @@ public abstract class Item implements Finals {
         return color;
     }
 
-    public void print(Graphics g, double offsetX, double offsetY, double Scale) {
+    public void print(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI ) {
         /*if (selected){
 
             double newSide = hitbox.getHeight()*1.2 + SIDE/4.0;
@@ -235,9 +236,12 @@ public abstract class Item implements Finals {
 
         g.setColor(getColor());
         // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
-        g.fillRoundRect((int) ((hitbox.getX() - offsetX) * Scale), (int) ((hitbox.getY() - offsetY) * Scale),
-                        (int) (hitbox.getWidth() * Scale), (int) (hitbox.getHeight() * Scale), (10), (10));
+        g.fillRoundRect((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
+                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI), (10), (10));
     }
+    public void print(Graphics g, double offsetX, double offsetY, double Scale ){
+            this.print(g, offsetX, offsetY, Scale, Scale);
+        }
 
     public String toString() {
         return this.getClass().getName() + " at [" + getCenter().getX() + ", " + getCenter().getY() + "]";
@@ -329,5 +333,18 @@ public abstract class Item implements Finals {
             }
         }
         return false;
+    }
+    public boolean[][] fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
+        double R = (viewRay+hitbox.getWidth())*Scale;
+        for (int i =(int) -R ; i <= (int) R ; i++)
+            for (int j = -(int)Math.sqrt(R*R-i*i) ; j <= (int)Math.sqrt(R*R-i*i) ; j++){
+                if ((int)((getCenter().getX() - offsetX) * Scale)+i>=0
+                    &&(int)((getCenter().getX() - offsetX) * Scale)+i<tab.length
+                    &&(int)((getCenter().getY() - offsetY) * Scale)+j>=0
+                    &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
+                    )
+                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j]=false;
+            }
+        return tab;
     }
 }

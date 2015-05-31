@@ -13,8 +13,6 @@ public class Canvas extends JPanel {
     Mouse mouse;
 
     public Canvas() {
-        this.setSize(Finals.screenWidth * 5 / 6, Finals.screenHeight);
-        this.setBounds(0, 0, Finals.screenWidth * 5 / 6, Finals.screenHeight);
         this.setBackground(Color.WHITE);
         IA.bigining();
         P1 = new Player(Finals.colorPlayer, Finals.BASE_LOCATION, Finals.namePlayer);
@@ -27,7 +25,7 @@ public class Canvas extends JPanel {
         this.addMouseWheelListener(mouse);
         IA.computer = P2;
         IA.player = P1;
-        cam = new Camera();
+        cam = new Camera(this);
         
         for (int i = 0; i < 9; i++) {
             new SimpleUnit(P1, new Point2D.Double(20, 5 + 2 * i));
