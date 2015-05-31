@@ -17,9 +17,7 @@ public class Minimap extends JPanel {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0,Width,Height);
         g.setColor(Color.BLACK);
-        for (Item i : Item.aliveItems){
-                    i.print(g, 0, 0,scale);
-        }
+
         boolean tab[][] = new boolean [Width][Height];
         BufferedImage newImage = new BufferedImage(Width, Height,BufferedImage.TYPE_INT_ARGB);
 
@@ -40,8 +38,11 @@ public class Minimap extends JPanel {
                 if (tab[i][j])
                     newImage.setRGB(i, j,RBG);
         g.drawImage(newImage,0,0,this); 
-
-        IA.computer.base.print(g, 0, 0,scale);
+        
+        for (Item i : IA.player.items){
+                    i.print(g, 0, 0,scale,5);
+        }
+        IA.computer.base.print(g, 0, 0,scale,5);
         g.setColor(Color.BLACK);
         g.drawRect(0, 0,Width-1,Height-1);
 
