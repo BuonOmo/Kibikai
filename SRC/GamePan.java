@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 
+import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import java.awt.event.ActionEvent;
@@ -62,6 +63,8 @@ public class GamePan extends JPanel {
         SidBand.setBackground(new Color(240,240,240));
         BoxSidBand.setAlignmentX(Component.LEFT_ALIGNMENT);
         bExit.setBackground(null);
+       
+        
 
         
         NbSu.setBackground(null);
