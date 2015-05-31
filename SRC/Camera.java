@@ -80,7 +80,7 @@ public class Camera {
     public void paint(Graphics g) {
 
         // AFFICHAGE DU FOND
-        g.setColor(Color.WHITE);
+        g.setColor(Finals.BACKGROUND_COLOR);
         g.fillRect(0, 0, (int) cameraWidth, (int) cameraHeight);
 
         // AFFICHAGE DE LA SELECTION
@@ -114,11 +114,11 @@ public class Camera {
                 i.fog(cameraX,cameraY, tab, scale);
             }
         }
-        int RBG =new Color(150,150,150).getRGB();
+        int RGB =Finals.FOG_COLOR.getRGB();
         for (int i = 0 ;i<cameraWidth; i++)
             for (int j = 0 ; j<cameraHeight ; j++)
                 if (tab[i][j])
-                    newImage.setRGB(i, j,RBG);
+                    newImage.setRGB(i, j,RGB);
         g.drawImage(newImage,0,0,canvas); 
         IA.computer.base.print(g, cameraX, cameraY,scale);
                 

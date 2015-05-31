@@ -117,4 +117,12 @@ public class SimpleUnitGroup extends UnitGroup {
         return tab;
         //return (SimpleUnit[]) (group).toArray();
     }
+
+    boolean isOnTarget() {
+        for (Unit u : group){
+            if (!u.isOnTarget())
+                return false;
+        }
+        return true;
+    }
 }

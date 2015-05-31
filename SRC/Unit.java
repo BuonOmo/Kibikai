@@ -26,6 +26,7 @@ public abstract class Unit extends Item {
         firstAppearance = UI.time;
         number++;
         positiveOrNegative = (int) Math.pow(-1, number);
+        setTarget(this.getCenter());
     }
 
     /**
@@ -49,6 +50,11 @@ public abstract class Unit extends Item {
 
     //________________MÉTHODES_______________//
 
+    public boolean isOnTarget(){
+        if (this.isCloseTo(target, 0.2))
+            return true;
+        return false;
+    }
     /**
      * arrête le mouvement d’une unité.
      */
@@ -74,7 +80,7 @@ public abstract class Unit extends Item {
         double percent = ((life + lifeMAX / 2.0) / (1.5 * lifeMAX));
         
         if (selected)
-            return new Color(0, (int) (255 * percent), (int) (255 * percent), 100);
+            return new Color(0, (int) (255 * percent), (int) (255 * percent));
         
         if (Listeners.louHammel)
             return new Color((int) (255.0 * Math.random()), (int) (255.0 * Math.random()),
@@ -138,19 +144,11 @@ public abstract class Unit extends Item {
         alpha = Math.toRadians(alphaDegre);
         Point2D vector;
         vector = new Point2D.Double();
-        double x, y;
-        if (distanceTo(target) > DISTANCE_TO_MOVE) {
-            x = (double) (target.getX() - hitbox.getCenterX()) * DISTANCE_TO_MOVE / this.distanceTo(target);
-            y = (double) (target.getY() - hitbox.getCenterY()) * DISTANCE_TO_MOVE / this.distanceTo(target);
-        } else {
-            x = 0;
-            y = 0;
-        }
         if (distanceTo(target) > DISTANCE_TO_MOVE)
             vector.setLocation(DISTANCE_TO_MOVE * Math.cos(getAlphaOffset() - alpha),
                                DISTANCE_TO_MOVE * Math.sin(getAlphaOffset() - alpha));
         else
-            vector.setLocation(0, 0);
+            vector.setLocation(target.getX() - hitbox.getCenterX(), target.getY() -hitbox.getCenterY());
         return vector;
     }
 

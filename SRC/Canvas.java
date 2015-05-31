@@ -13,7 +13,7 @@ public class Canvas extends JPanel {
     Mouse mouse;
 
     public Canvas() {
-        this.setBackground(Color.WHITE);
+        this.setBackground(Finals.BACKGROUND_COLOR);
         IA.bigining();
         P1 = new Player(Finals.colorPlayer, Finals.BASE_LOCATION, Finals.namePlayer);
         P2 = new Player(Finals.colorIA, new Point2D.Double(40, 40), "Player two FTW");

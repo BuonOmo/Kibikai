@@ -43,8 +43,12 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
      */
     private void rightClick() {
         
-        createSoldier();
-        setTarget();
+        if (selected.size() == 3){
+            createSoldier();
+        }
+        else{
+            setTarget();
+        }
     }
 
     /**
@@ -198,7 +202,8 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {        
-        Camera.setScale(e.getWheelRotation());
+        // mouvement d’echelle
+        //Camera.setScale(e.getWheelRotation());
     }
 
 }

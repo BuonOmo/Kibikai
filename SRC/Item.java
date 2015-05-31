@@ -154,6 +154,18 @@ public abstract class Item implements Finals {
             return true;
         return false;
     }
+    
+    /**
+     *
+     * @param p
+     * @param range portée de l’attaque ou du soin (ou autre)
+     * @return vraie si la distance centre point est plus petite que range
+     */
+    public boolean isCloseTo(Point2D p, double range) {
+        if (distanceTo(p) <= range)
+            return true;
+        return false;
+    }
 
     public Point2D getCenter() {
         return new Point2D.Double(hitbox.getCenterX(), hitbox.getCenterY());
@@ -213,7 +225,7 @@ public abstract class Item implements Finals {
 
     public Color getColor() {
         if (selected)
-            return new Color(0, 255, 255, 100);
+            return new Color(0, 255, 255);
         if (Listeners.louHammel)
             return new Color((int) (255.0 * Math.random()), (int) (255.0 * Math.random()),
                              (int) (255.0 * Math.random()));

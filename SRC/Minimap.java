@@ -14,7 +14,7 @@ public class Minimap extends JPanel {
         int Height =(int)this.getSize().getHeight();
         int Width = (int)this.getSize().getWidth();
         double scale = Width/Finals.WIDTH;
-        g.setColor(Color.WHITE);
+        g.setColor(Finals.BACKGROUND_COLOR);
         g.fillRect(0, 0,Width,Height);
         g.setColor(Color.BLACK);
 
@@ -32,11 +32,11 @@ public class Minimap extends JPanel {
                 i.fog(0,0, tab,scale );
             
         }
-        int RBG =new Color(150,150,150).getRGB();
+        int RGB =Finals.FOG_COLOR.getRGB();
         for (int i = 0 ;i<Width; i++)
             for (int j = 0 ; j<Height ; j++)
                 if (tab[i][j])
-                    newImage.setRGB(i, j,RBG);
+                    newImage.setRGB(i, j,RGB);
         g.drawImage(newImage,0,0,this); 
         
         for (Item i : IA.player.items){

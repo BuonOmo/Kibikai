@@ -90,7 +90,7 @@ public interface Finals {
     /**
      * Rayon de vision (pour la brouillard) pour soldier
      */
-    public static final int VEW_RAY_SOLDIER= 2;
+    public static final int VEW_RAY_SOLDIER= 9;
 
 
     //_________________SIMPLEUNIT_______________//
@@ -104,12 +104,12 @@ public interface Finals {
     /**
      * Portee pour la création d’une UM.
      */
-    public static final double CREATION_RANGE = 1;
+    public static final double CREATION_RANGE = 3;
     
     /**
      * Rayon de vision (pour la brouillard) pour simple unit
      */
-    public static final int VEW_RAY_SIMPLEUNIT= 1;
+    public static final int VEW_RAY_SIMPLEUNIT= 3;
 
 
     //__________________IA____________________//
@@ -153,7 +153,7 @@ public interface Finals {
     /**
      * Bordure qui sert de limite au scrolling.
      */
-    public static final int SCROLL_BORDER = 100;
+    public static final int SCROLL_BORDER = 10;
 
     /**
      * Taille de l'ecran
@@ -178,8 +178,12 @@ public interface Finals {
 
     //____________OPTIONS_____________//
 
-    public static Color colorPlayer = Color.green;
-    public static Color colorIA = Color.red;
+    public static Color colorPlayer = new Color(182, 235, 135);
+    public static Color colorIA = new Color(230, 117, 88);
     public static String namePlayer = "The Human";
+    
+    //___________GRAPHISME__________//
+    public static final Color BACKGROUND_COLOR = new Color(74, 72, 76);
+    public static final Color FOG_COLOR = new Color(67, 64, 69);
 
 }

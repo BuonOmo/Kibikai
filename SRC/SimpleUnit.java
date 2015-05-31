@@ -90,10 +90,12 @@ public class SimpleUnit extends Unit {
             if (u.length == 3 && u[0] != null && u[1] != null && u[2] != null && u[0].owner == u[1].owner &&
                 u[0].owner == u[2].owner) {
 
+                LinkedList<SimpleUnit> l = new LinkedList<SimpleUnit>();
+                
                 for (SimpleUnit element : u) {
                     element.creating = true;
-                    element.setTarget(p);
                 }
+                setTriangularTarget(u, p);
                 builders = new SimpleUnitGroup(u);
             }
         }
@@ -144,9 +146,12 @@ public class SimpleUnit extends Unit {
 
     public boolean build() {
         
-        if ((builders.distanceTo(target) <= CREATION_RANGE) && (builders.group.size() == 3) &&
-            (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER) && canCreate(target, builders.toSimpleUnit())) {
-            new Soldier(owner, target, builders.getQuantityOfLife());
+        if ((builders.distanceTo(builders.getPosition()) <= CREATION_RANGE) && (builders.group.size() == 3) &&
+            (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER) && canCreate(target, builders.toSimpleUnit()) && builders.isOnTarget()) {
+            new Soldier(owner,
+                        new Point2D.Double(builders.getPosition().getX() - 1,
+                                           builders.getPosition().getY() - 1),
+                        builders.getQuantityOfLife());
             return builders.isDestructed();
         }
 
@@ -276,7 +281,41 @@ public class SimpleUnit extends Unit {
         }
         return toReturn;
     }
+    
+    public static SimpleUnit getClosestSimpleUnitInT(Point2D p, SimpleUnit[] t) {
+        
+        if (t.length == 0)
+            return null;
+        SimpleUnit toReturn;
+        toReturn = t[0];
+        for (SimpleUnit i : t) {
+            if (p.distance(i.getCenter()) <= p.distance(toReturn.getCenter())) {
+                toReturn = i;
+            }
 
+        }
+        return toReturn;
+    }
+    
+    /**
+     * 
+     */
+    public static void setTriangularTarget(SimpleUnit[] tab, Point2D p){
+        
+        if (tab.length == 3){
+            
+            double alpha = Math.PI / 6.0;
+            
+            for (SimpleUnit s : tab){
+                
+                s.setTarget(p.getX() + 1 * Math.cos(alpha), p.getY() + 1 * Math.sin(alpha));
+                alpha+= 2.0 * Math.PI / 3.0;
+                
+            }
+            
+        }
+    }
+    
     /**
      * soin de la 'targetI'
      */

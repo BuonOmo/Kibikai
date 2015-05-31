@@ -17,7 +17,7 @@ public class Soldier extends Unit {
      */
     public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet) {
         super(owner, topLeftCorner, LIFE * 3, 2);
-        viewRay =Finals.VEW_RAY_SOLDIER;
+        viewRay = VEW_RAY_SOLDIER;
         hitbox = new Ellipse2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), 2, 2);
         life = (lifeToSet < lifeMAX) ? lifeToSet : lifeMAX;
         damage = 0;
