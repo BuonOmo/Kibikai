@@ -19,12 +19,9 @@ public class Window extends JFrame {
     private JButton loadgameButton;
     private JButton optionsButton;
 
-    private JButton test;
-
-
     int frameHeight;
     int frameWidth;
-
+    
     JFrame frame;
 
     JDesktopPane desktop;
@@ -37,8 +34,7 @@ public class Window extends JFrame {
         frame.setSize(Finals.screenWidth * 3 / 4,
                       Finals.screenHeight * 3 / 4); //Put the size of the frame at 3/4 screen
         frame.setLocation(Finals.screenWidth / 8, Finals.screenHeight / 8); //Put the frame in the middle of the screen
-        //get the size of the created frame
-        Rectangle r = frame.getBounds();
+        Rectangle r = frame.getBounds();//get the size of the created frame
         frameHeight = r.height;
         frameWidth = r.width;
         frame.setBackground(Color.white);
@@ -48,9 +44,9 @@ public class Window extends JFrame {
         JPanel pnlButton = new JPanel();
         pnlButton.setLayout(null);
         pnlButton.setBackground(Color.white);
-
-        ///.getContentPane().setBackground(Color.GREEN);
-
+        
+        
+        //Images of the buttons
         this.newgameButton = new JButton(new ImageIcon( "new Game.png"));
         this.loadgameButton = new JButton(new ImageIcon( "Save.png"));
         this.optionsButton = new JButton(new ImageIcon( "options.png"));
@@ -58,8 +54,9 @@ public class Window extends JFrame {
         newgameButton.setBackground(Color.white);
         loadgameButton.setBackground(Color.white);
         optionsButton.setBackground(Color.white);
-            
-        this.test = new JButton("Test");
+        
+        
+        //Random Background
         for (int i = 0;  i<5;i++){
             JLabel soGreen  = new JLabel( new ImageIcon( "SoldierGreen.png"));
             pnlButton.add(soGreen);
@@ -67,44 +64,45 @@ public class Window extends JFrame {
             JLabel sored  = new JLabel( new ImageIcon( "SoldierRed.png"));
             pnlButton.add(sored);
             sored.setBounds((int)(Math.random()*frameWidth), (int)(Math.random()*frameHeight), 20, 20);
-            
         }
         JLabel BaseGreen  = new JLabel( new ImageIcon( "BigBaseGreen.png"));
         pnlButton.add(BaseGreen);
         BaseGreen.setBounds((int)(0.2*frameWidth), (int)(0.3*frameHeight), 50, 50);
 
 
-        //Add the buttons in the frame
-        pnlButton.add(newgameButton);
-        pnlButton.add(loadgameButton);
-        pnlButton.add(optionsButton);
-
+        
         //Location and size of the newgameButton
         newgameButton.setSize(300, 40);
         Dimension size = newgameButton.getSize();
         newgameButton.setBounds((frameWidth / 2) - 20, (frameHeight / 2) - 20 / 2, 40,
                                 40);
 
+        
         //Location and size of the loadgameButton
         loadgameButton.setSize(size);
         loadgameButton.setBounds((frameWidth / 2) - 20, frameHeight * 8 / 12 - 20, 40,
                                  40);
 
+        
         //Location and size of the optionsButton
         optionsButton.setSize(size);
         optionsButton.setBounds(frameWidth / 2 - 20, frameHeight * 10 / 12 - 20, 40,
                                 40);
-
-        test.setSize(size);
-        test.setBounds(frameWidth / 2 - size.width / 2, frameHeight * 4 / 12 - size.height / 2, size.width,
-                       size.height);
+        
+        
+        //Add the buttons in the frame
+        pnlButton.add(newgameButton);
+        pnlButton.add(loadgameButton);
+        pnlButton.add(optionsButton);        
         frame.add(pnlButton);
 
+        
         //ToolTipText (text that appears when you let the mouse on a button without clicking it)
         newgameButton.setToolTipText("Start a new game");
         loadgameButton.setToolTipText("Load a previous game");
         optionsButton.setToolTipText("Change your preferences");
 
+        
         //Action Listeners
         ActionListener start = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -114,27 +112,27 @@ public class Window extends JFrame {
         };
         ActionListener load = new ActionListener() {
             public void actionPerformed(ActionEvent e) { /*open game saves*/
+            	//TODO ouvrir une fenetre de JFileChooser pour les sauvegardes
             }
         };
         ActionListener options = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                OptionsFrame opt = new OptionsFrame();
+                @SuppressWarnings("unused")
+				OptionsFrame opt = new OptionsFrame();
             }
         };
 
+        
         //Button actions
         newgameButton.addActionListener(start);
         loadgameButton.addActionListener(load);
         optionsButton.addActionListener(options);
 
+        
         //JFrame properties
         frame.setTitle("LUCA");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-    }
-
-    public static void optionsFrame() {
-
     }
 
     /*public void paintComponent(Graphics g){
