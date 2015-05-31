@@ -45,6 +45,8 @@ public class Minimap extends JPanel {
         IA.computer.base.print(g, 0, 0,scale,5);
         g.setColor(Color.BLACK);
         g.drawRect(0, 0,Width-1,Height-1);
+        g.setColor(Color.CYAN);
+        g.drawRect((int)Camera.cameraX, (int)Camera.cameraY, (int)(Camera.cameraWidth*scale/Camera.scale), (int)(Camera.cameraHeight*scale/Camera.scale));
 
     }
     
