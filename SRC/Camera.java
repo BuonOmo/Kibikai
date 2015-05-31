@@ -2,6 +2,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 
 public class Camera {
 
@@ -10,14 +12,16 @@ public class Camera {
     static double cameraWidth = Finals.screenWidth * 5 / 6;
     static double cameraHeight = Finals.screenHeight;
     public static int scale = 30;
+    public Canvas canvas;
 
     //_____________Constructeur_____________//
 
     /**
      * Le constructeur centre la camera sur le batiment du joueur au debut de partie.
      */
-    public Camera() {
+    public Camera(Canvas c) {
         setLocation(Finals.BASE_LOCATION_X - (cameraWidth / 2.0), Finals.BASE_LOCATION_Y - (cameraHeight / 2.0));
+        canvas=c;
     }
 
 
@@ -92,10 +96,31 @@ public class Camera {
             g.fillRect((int) (x * scale), (int) (y * scale), (int) (w * scale),
                        (int) (h * scale));
         }
+        boolean tab[][] = new boolean [(int)cameraWidth][(int)cameraHeight];
+        BufferedImage newImage = new BufferedImage((int)cameraWidth,(int)cameraHeight,BufferedImage.TYPE_INT_ARGB);
 
+
+        for (int i = 0 ;i<cameraWidth; i++)
+            for (int j = 0 ; j<cameraHeight ; j++)
+                tab[i][j]=true ;
         for (Item i : Item.aliveItems) {
-            if (i.isContained(this))
+            if (i.isContained(this)){
                 i.print(g, cameraX, cameraY, scale);
+
+            }
         }
+        for (Item i : canvas.P1.items) {
+            if (i.isContained(this)){
+                i.fog(cameraX,cameraY, tab, scale);
+            }
+        }
+        int RBG =new Color(150,150,150).getRGB();
+        for (int i = 0 ;i<cameraWidth; i++)
+            for (int j = 0 ; j<cameraHeight ; j++)
+                if (tab[i][j])
+                    newImage.setRGB(i, j,RBG);
+        g.drawImage(newImage,0,0,canvas); 
+        IA.computer.base.print(g, cameraX, cameraY,scale);
+                
     }
 }

@@ -59,7 +59,7 @@ public class GamePan extends JPanel {
         SidBand.setBounds(0,0,(int)(Width*0.2),(int)Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
         minimap.setBounds(0,Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH),(int)(Width*0.2),(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
         canvas.setBounds ((int)(Width*0.2),0,(int)(Width*0.8),Height);
-        SidBand.setBackground(Color.gray);
+        SidBand.setBackground(new Color(240,240,240));
         BoxSidBand.setAlignmentX(Component.LEFT_ALIGNMENT);
         bExit.setBackground(null);
 

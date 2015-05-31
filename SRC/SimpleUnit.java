@@ -21,6 +21,7 @@ public class SimpleUnit extends Unit {
     public SimpleUnit(Player owner, Point2D topLeftCorner, Point2D targetToSet) {
         super(owner, topLeftCorner, LIFE, 1, targetToSet);
         life = LIFE;
+        viewRay =Finals.VEW_RAY_SIMPLEUNIT;
         creating = false;
         builder1 = null;
         builder2 = null;

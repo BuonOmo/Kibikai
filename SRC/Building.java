@@ -17,6 +17,7 @@ public class Building extends Item {
     public Building(Player owner, Point2D topLeftCorner, double side) {
         super(owner, topLeftCorner, side);
         life = Math.pow(side, 2) * LIFE;
+        viewRay =Finals.VEW_RAY_BUILDING;
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         setTarget(topLeftCorner.getX(), topLeftCorner.getY() + 5 * SIDE);
         buildings.add(this);

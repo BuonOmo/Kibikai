@@ -21,6 +21,7 @@ public abstract class Item implements Finals {
     static LinkedList<Item> deadItems = new LinkedList<Item>();
     boolean done;
     boolean selected;
+    int viewRay;
 
     // _____________CONSTRUCTEURS______________//
 
@@ -329,5 +330,18 @@ public abstract class Item implements Finals {
             }
         }
         return false;
+    }
+    public boolean[][] fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
+        double R = (viewRay+hitbox.getWidth())*Scale;
+        for (int i =(int) -R ; i <= (int) R ; i++)
+            for (int j = -(int)Math.sqrt(R*R-i*i) ; j <= (int)Math.sqrt(R*R-i*i) ; j++){
+                if ((int)((getCenter().getX() - offsetX) * Scale)+i>=0
+                    &&(int)((getCenter().getX() - offsetX) * Scale)+i<tab.length
+                    &&(int)((getCenter().getY() - offsetY) * Scale)+j>=0
+                    &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
+                    )
+                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j]=false;
+            }
+        return tab;
     }
 }
