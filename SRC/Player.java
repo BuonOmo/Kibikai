@@ -1,8 +1,15 @@
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import java.awt.image.BufferedImage;
+
+import java.io.File;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import javax.imageio.ImageIO;
 
 public class Player implements Finals {
     String name;
@@ -13,6 +20,16 @@ public class Player implements Finals {
     ArrayList<Soldier> soldiers = new ArrayList<Soldier>();
     ArrayList<SimpleUnit> simpleUnits = new ArrayList<SimpleUnit>();
     LinkedList<Unit> deadUnits = new LinkedList<Unit>(); //a traiter avec la future class Unit.isDestructed()//
+    
+    
+    ArrayList<BufferedImage> soldierAlive = new ArrayList<>(3);
+    ArrayList<BufferedImage> soldierAliveSelected = new ArrayList<>(3);
+    ArrayList<BufferedImage> soldierCreation = new ArrayList<>(8);
+    
+    ArrayList<BufferedImage> simpleUnitAlive = new ArrayList<>(3);
+    ArrayList<BufferedImage> simpleUnitAliveSelected = new ArrayList<>(3);
+    
+    static int soldierCreationOffset = -19;
 
     @Deprecated
     public Player(Color c, Building baseToSet, String nameToSet) {
@@ -27,5 +44,22 @@ public class Player implements Finals {
         name = nameToSet;
         soldiers = new ArrayList<Soldier>(NUMBER_MAX_OF_SOLDIER);
         simpleUnits = new ArrayList<SimpleUnit>(NUMBER_MAX_OF_SIMPLEUNIT);
+        setImages();
+    }
+    
+    private void setImages(){
+        try {
+            for (int i=0; i<3; i++){
+                soldierAlive.add(ImageIO.read(new File("IMG/Soldier/"+i+".png")));
+                soldierAliveSelected.add(ImageIO.read(new File("IMG/Soldier_selected/"+i+".png")));
+                simpleUnitAlive.add(ImageIO.read(new File("IMG/SimpleUnit/"+i+".png")));
+                simpleUnitAliveSelected.add(ImageIO.read(new File("IMG/SimpleUnit_selected/"+i+".png")));
+            }
+            for (int i=1;i<9;i++)
+                soldierCreation.add(ImageIO.read(new File("IMG/Soldier_creation/"+i+".png")));
+        }catch (IOException e) {
+           System.out.println("erreur d’écriture");
+        }
+
     }
 }

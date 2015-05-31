@@ -1,4 +1,7 @@
+import java.awt.Image;
 import java.awt.geom.Point2D;
+
+import java.awt.image.ImageObserver;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -242,4 +245,6 @@ public class UnitGroup implements Cloneable {
     int size() {
         return group.size();
     }
+
+    
 }

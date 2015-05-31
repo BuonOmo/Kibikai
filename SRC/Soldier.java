@@ -1,6 +1,21 @@
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+
+import java.awt.image.BufferedImage;
+
+import java.awt.image.ImageObserver;
+
+import java.io.File;
+
+import java.io.IOException;
+
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
+import javax.swing.ImageIcon;
 
 public class Soldier extends Unit {
 
@@ -67,9 +82,28 @@ public class Soldier extends Unit {
 
     @Override
     public void print(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI ) {
-        g.setColor(getColor());
+        //g.setColor(getColor());
+        /*
         g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
                         (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
+    */
+        int x, y;
+        x = (int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2);
+        y = (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2);
+        
+        
+        if (UI.time - this.firstAppearance < 8)
+            g.drawImage(owner.soldierCreation.get((int) (UI.time - this.firstAppearance)),
+                        owner.soldierCreationOffset + x, owner.soldierCreationOffset + y, null);
+        else{
+            if (selected)
+                g.drawImage(owner.soldierAliveSelected.get((int) ((3.0 * life - 0.00001) / lifeMAX)),
+                        x, y, null);
+            else
+                g.drawImage(owner.soldierAlive.get((int) ((3.0 * life - 0.00001) / lifeMAX)),
+                        x, y, null);
+            
+        }
     }
 
     public boolean isDestructed() {
@@ -91,5 +125,4 @@ public class Soldier extends Unit {
         move();
         return attack();
     }
-
 }

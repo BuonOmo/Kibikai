@@ -1,7 +1,12 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;
+
+import javax.imageio.ImageIO;
+
+import javax.swing.ImageIcon;
 
 public interface Finals {
 
@@ -185,5 +190,6 @@ public interface Finals {
     //___________GRAPHISME__________//
     public static final Color BACKGROUND_COLOR = new Color(74, 72, 76);
     public static final Color FOG_COLOR = new Color(67, 64, 69);
+    
 
 }

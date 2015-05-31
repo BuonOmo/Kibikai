@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
@@ -304,7 +305,7 @@ public class SimpleUnit extends Unit {
         
         if (tab.length == 3){
             
-            double alpha = Math.PI / 6.0;
+            double alpha = 0;
             
             for (SimpleUnit s : tab){
                 
@@ -359,15 +360,36 @@ public class SimpleUnit extends Unit {
         return heal();
     }
     
-	public boolean testSpawn() {
-		LinkedList<Unit> computerOthers = this.scanPerimeter((int)(Finals.SIDE),IA.computer);
-		LinkedList<Unit> playerOthers = this.scanPerimeter((int)(Finals.SIDE),IA.player);
-		computerOthers.remove(this);
-		playerOthers.remove(this);
-		if(computerOthers.isEmpty() && playerOthers.isEmpty()){
-			return true;
-		}else{
-			return false;
-		}
-	}
+    public boolean testSpawn() {
+        LinkedList<Unit> computerOthers = this.scanPerimeter((int)(Finals.SIDE),IA.computer);
+        LinkedList<Unit> playerOthers = this.scanPerimeter((int)(Finals.SIDE),IA.player);
+        computerOthers.remove(this);
+        playerOthers.remove(this);
+        if(computerOthers.isEmpty() && playerOthers.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+        
+    @Override
+    public void print(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI ) {
+        //g.setColor(getColor());
+        /*
+        g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
+                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
+    */
+        int x, y;
+        x = (int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2);
+        y = (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2);
+        
+        
+        if (selected)
+            g.drawImage(owner.simpleUnitAliveSelected.get((int) ((3.0 * life - 0.00001) / lifeMAX)),
+                        x, y, null);
+        else
+            g.drawImage(owner.simpleUnitAlive.get((int) ((3.0 * life - 0.00001) / lifeMAX)),
+                        x, y, null);
+        
+    }
 }
