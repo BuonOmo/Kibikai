@@ -71,12 +71,15 @@ public abstract class Unit extends Item {
 
     @Override
     public Color getColor() {
+        double percent = ((life + lifeMAX / 2.0) / (1.5 * lifeMAX));
+        
         if (selected)
-            return new Color(0, 255, 255, 100);
+            return new Color(0, (int) (255 * percent), (int) (255 * percent), 100);
+        
         if (Listeners.louHammel)
             return new Color((int) (255.0 * Math.random()), (int) (255.0 * Math.random()),
                              (int) (255.0 * Math.random()));
-        double percent = ((life + lifeMAX / 2.0) / (1.5 * lifeMAX));
+        
         return new Color((int) (color.getRed() * percent), (int) (color.getGreen() * percent),
                          (int) (color.getBlue() * percent), color.getAlpha());
     }

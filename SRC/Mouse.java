@@ -77,7 +77,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
             while (simpleUnitSelected.size() >= 3) {
                 SimpleUnit[] getClosest;
                 getClosest = SimpleUnit.getNClosestSimpleUnitsFromList(3, mouseWithCameraOffset(), simpleUnitSelected);
-                System.out.println(getClosest.length);
+                //System.out.println(getClosest.length);
                 SimpleUnit.createSoldier(getClosest, mouseWithCameraOffset());
                 
                 for (SimpleUnit toRemove : getClosest){

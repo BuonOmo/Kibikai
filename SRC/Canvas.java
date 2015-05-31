@@ -38,6 +38,8 @@ public class Canvas extends JPanel {
 
     public void paint(Graphics g) {
         cam.paint(g);
+        g.drawString(Listeners.mouse().toString(), 20, 20);
+        g.drawString(Listeners.mouseWithCameraOffset().toString(), 20, 40);
     }
 
 }

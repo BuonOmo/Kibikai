@@ -33,13 +33,13 @@ public class Listeners implements Finals {
     /**
      * @return coordonnées de la souris
      */
-    public Point2D mouse() {
+    public static Point2D mouse() {
 
         return new Point2D.Double((double) MouseInfo.getPointerInfo().getLocation().getX() / Camera.scale - border.getX(),
                                   (double) MouseInfo.getPointerInfo().getLocation().getY() / Camera.scale - border.getY());
     }
     
-    public Point2D mouseWithCameraOffset(){
+    public static Point2D mouseWithCameraOffset(){
         return new Point2D.Double((double) MouseInfo.getPointerInfo().getLocation().getX() / Camera.scale - border.getX() + Camera.cameraX,
                                   (double) MouseInfo.getPointerInfo().getLocation().getY() / Camera.scale - border.getY() + Camera.cameraY);
     }
