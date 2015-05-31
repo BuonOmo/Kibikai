@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.MouseInfo;
 import java.awt.Point;
