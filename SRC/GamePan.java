@@ -1,29 +1,18 @@
 
-import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.FlowLayout;
-
-import java.awt.Graphics;
-import java.awt.GridLayout;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import java.io.IOException;
 
 import java.util.LinkedList;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JSplitPane;
 
 public class GamePan extends JPanel {
 
@@ -50,6 +39,7 @@ public class GamePan extends JPanel {
     public Canvas canvas = new Canvas();
     private JPanel minimap = new Minimap();
     private Box BoxSidBand = Box.createVerticalBox();
+    Key key = new Key(canvas.P1);
 
 
 
@@ -57,6 +47,8 @@ public class GamePan extends JPanel {
     public GamePan(int Height,int Width ) {
         super();
         this.setLayout(null);
+        this.addKeyListener(key);
+        this.setFocusable(true);
         SidBand.setBounds(0,0,(int)(Width*0.2),(int)Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
         minimap.setBounds(0,Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH),(int)(Width*0.2),(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
         canvas.setBounds ((int)(Width*0.2),0,(int)(Width*0.8),Height);

@@ -1,21 +1,6 @@
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-
-import java.awt.image.BufferedImage;
-
-import java.awt.image.ImageObserver;
-
-import java.io.File;
-
-import java.io.IOException;
-
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-
-import javax.swing.ImageIcon;
 
 public class Soldier extends Unit {
 
@@ -94,7 +79,7 @@ public class Soldier extends Unit {
         
         if (UI.time - this.firstAppearance < 8)
             g.drawImage(owner.soldierCreation.get((int) (UI.time - this.firstAppearance)),
-                        owner.soldierCreationOffset + x, owner.soldierCreationOffset + y, null);
+                        Player.soldierCreationOffset + x, Player.soldierCreationOffset + y, null);
         else{
             if (selected)
                 g.drawImage(owner.soldierAliveSelected.get((int) ((3.0 * life - 0.00001) / lifeMAX)),

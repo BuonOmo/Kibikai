@@ -56,9 +56,9 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
      */
     private void leftClick() {
         
-        //if (!shiftPressed){
-        //    unSelectAll();
-        //}
+        if (!shiftPressed){
+            unSelectAll();
+        }
         getItemFromOwner();
         if (canSelect != null)
             select(canSelect);
@@ -91,30 +91,6 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
             }
 
         }
-
-        /*
-        LinkedList<SimpleUnit> simpleUnitSelected = new LinkedList<SimpleUnit>();
-
-        while (selected.size() >= 3 ){
-
-            for (Item i : selected.group){
-                if (i.getClass().getName() == "SimpleUnit"){
-                    simpleUnitSelected.add((SimpleUnit)i);
-                }
-            }
-            System.out.println(simpleUnitSelected.size());
-
-            if (simpleUnitSelected.size() < 3)
-                break;
-
-            SimpleUnit.createSoldier(SimpleUnit.getNClosestSimpleUnitsFromList(3, mouse(), simpleUnitSelected),
-                                     mouse());
-
-            simpleUnitSelected.clear();
-
-
-        }
-        */
     }
     //_______________ÉCOUTEURS____________//
 
@@ -131,7 +107,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
             /**
              * Pour le bouton du milieu :
             case InputEvent.BUTTON2_MASK: {
-                System.out.println("That's the MIDDLE button");
+                System.out.println("Hey bitch let me be printed");
                 break;
             }
              */
@@ -154,7 +130,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
         case InputEvent.BUTTON1_MASK:
             {
                 dragging = true;
-                draggBeginning.setLocation(mouse());
+                draggBeginning.setLocation(mouseWithCameraOffset());
                 break;
             }
         }
@@ -188,10 +164,12 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
                                    Math.abs(draggBeginning.getX() - mouseWithCameraOffset().getX()),
                                    Math.abs(draggBeginning.getY() - mouseWithCameraOffset().getY()));
             selectOnly(draggingSquare);
+            /*
             draggingSquare.setRect((draggBeginning.getX() < mouse().getX()) ? draggBeginning.getX() : mouse().getX(),
                                    (draggBeginning.getY() < mouse().getY()) ? draggBeginning.getY() : mouse().getY(),
                                    Math.abs(draggBeginning.getX() - mouse().getX()),
                                    Math.abs(draggBeginning.getY() - mouse().getY()));
+            */
         }
     }
 

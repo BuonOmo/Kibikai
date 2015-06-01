@@ -114,6 +114,7 @@ public class Building extends Item {
         double newSide = Math.sqrt(life / LIFE);
         double shift = (newSide - hitbox.getHeight()) / 4.0;
         hitbox.setFrame(getCenter().getX() - newSide / 2.0, getCenter().getY() - newSide / 2.0, newSide, newSide);
+        setRadius();
         if (life <= 0)
             return this.isDestructed();
 

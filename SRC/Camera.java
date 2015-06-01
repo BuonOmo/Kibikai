@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 
 public class Camera {
 
@@ -86,8 +85,8 @@ public class Camera {
         // AFFICHAGE DE LA SELECTION
         if (Mouse.dragging) {
             g.setColor(new Color(0, 255, 255));
-            double x = Mouse.draggingSquare.getX();
-            double y = Mouse.draggingSquare.getY();
+            double x = Mouse.draggingSquare.getX() - cameraX;
+            double y = Mouse.draggingSquare.getY() - cameraY;
             double w = Mouse.draggingSquare.getWidth();
             double h = Mouse.draggingSquare.getHeight();
             g.drawRect((int) (x * scale), (int) (y * scale), (int) (w * scale),
@@ -98,19 +97,20 @@ public class Camera {
         }
         boolean tab[][] = new boolean [(int)cameraWidth][(int)cameraHeight];
         BufferedImage newImage = new BufferedImage((int)cameraWidth,(int)cameraHeight,BufferedImage.TYPE_INT_ARGB);
-
-
+        tab.equals(true);
+        
         for (int i = 0 ;i<cameraWidth; i++)
             for (int j = 0 ; j<cameraHeight ; j++)
                 tab[i][j]=true ;
+        
         for (Item i : Item.aliveItems) {
-            if (i.isContained(this)){
+            if (i.isContained()){
                 i.print(g);
 
             }
         }
         for (Item i : canvas.P1.items) {
-            if (i.isContained(this)){
+            if (i.isContained()){
                 i.fog(cameraX,cameraY, tab, scale);
             }
         }

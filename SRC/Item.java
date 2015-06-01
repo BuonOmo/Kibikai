@@ -37,7 +37,7 @@ public abstract class Item implements Finals {
         target = targetToSet;
         owner.items.add(this);
         aliveItems.add(this);
-        radius = this.distanceTo(new Point2D.Double(hitbox.getX(), hitbox.getY()));
+        setRadius();
         selected = false;
     }
 
@@ -97,7 +97,10 @@ public abstract class Item implements Finals {
         targetI = targetToSet;
         target = targetToSet.getCenter();
     }
-
+    
+    public void setRadius(){
+        radius = this.distanceTo(new Point2D.Double(hitbox.getX(), hitbox.getY()));
+    }
     /**
      * Permet de suivre une cible mouvante.
      */
@@ -300,14 +303,14 @@ public abstract class Item implements Finals {
      * @param c la camera utilisee
      * @return vrai si contenu dans la camera
      */
-    public boolean isContained(Camera c) {
+    public boolean isContained() {
         double xI = hitbox.getX();
         double yI = hitbox.getY();
         double wI = hitbox.getWidth();
         double hI = hitbox.getHeight();
 
-        if ((xI + wI) > c.cameraX && (xI) < (c.cameraX + c.cameraWidth)) {
-            if ((yI + hI) > c.cameraY && (yI) < (c.cameraY + c.cameraHeight)) {
+        if ((xI + wI) > Camera.cameraX && (xI) < (Camera.cameraX + Camera.cameraWidth)) {
+            if ((yI + hI) > Camera.cameraY && (yI) < (Camera.cameraY + Camera.cameraHeight)) {
                 return true;
             }
         }

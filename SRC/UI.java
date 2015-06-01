@@ -7,7 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class UI extends JFrame{
@@ -17,8 +18,6 @@ public class UI extends JFrame{
     BufferedImage ArrierePlan;
     Graphics buffer;
     Rectangle Ecran;
-    Mouse mouse;
-    Key key;
 
     GamePan gamepan;
     //SideBand panelBandeau;
@@ -27,12 +26,9 @@ public class UI extends JFrame{
 
     public UI(){
         gamepan = new GamePan(Finals.screenHeight,Finals.screenWidth);
-        mouse = new Mouse(gamepan.canvas.P1);
-        key = new Key(gamepan.canvas.P1);
+        
         frame = new JFrame();
-        gamepan.canvas.addMouseListener(mouse);
-        gamepan.canvas.addKeyListener(key);
-        gamepan.canvas.addMouseMotionListener(mouse);
+        
         // Plein ecran
         frame.setUndecorated(true);
         GraphicsEnvironment gE = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -73,7 +69,7 @@ public class UI extends JFrame{
     		if(mouse.x <= Finals.SCROLL_BORDER){
     			gamepan.canvas.cam.moveCamera(-Finals.CAMERA_SPEED, 0); //scroll à gauche
     		}
-    		else if(mouse.x >= Finals.screenWidth*5/6 - Finals.SCROLL_BORDER){
+    		else if(mouse.x >= Finals.screenWidth - Finals.SCROLL_BORDER){
     			gamepan.canvas.cam.moveCamera(Finals.CAMERA_SPEED, 0);  //scroll à droite
     		}
     		if(mouse.y <= Finals.SCROLL_BORDER){

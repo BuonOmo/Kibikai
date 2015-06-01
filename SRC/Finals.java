@@ -1,12 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;
-
-import javax.imageio.ImageIO;
-
-import javax.swing.ImageIcon;
 
 public interface Finals {
 
@@ -183,8 +178,8 @@ public interface Finals {
 
     //____________OPTIONS_____________//
 
-    public static Color colorPlayer = new Color(182, 235, 135);
-    public static Color colorIA = new Color(230, 117, 88);
+    public static final Color GREEN = new Color(182, 235, 135);
+    public static final Color RED = new Color(230, 117, 88);
     public static String namePlayer = "The Human";
     
     //___________GRAPHISME__________//

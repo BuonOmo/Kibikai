@@ -1,6 +1,9 @@
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class SimpleUnit extends Unit {
 
@@ -88,10 +91,11 @@ public class SimpleUnit extends Unit {
     
     public static void createSoldier(SimpleUnit[] u, Point2D p) {
         if (u != null) {
-            if (u.length == 3 && u[0] != null && u[1] != null && u[2] != null && u[0].owner == u[1].owner &&
-                u[0].owner == u[2].owner) {
+            if (u.length == 3 &&
+                u[0] != null && u[1] != null && u[2] != null &&
+                u[0].owner == u[1].owner && u[0].owner == u[2].owner &&
+                u[0] != u[1] && u[0] != u[2]) {
 
-                LinkedList<SimpleUnit> l = new LinkedList<SimpleUnit>();
                 
                 for (SimpleUnit element : u) {
                     element.creating = true;
@@ -210,34 +214,38 @@ public class SimpleUnit extends Unit {
         return toReturn;
     }
 
-    public static SimpleUnit[] getNClosestSimpleUnitsFromO(int n, Point2D p, Player o) {
-
-        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(o.simpleUnits);
-        if (toCheck.size() < n)
-            return null;
+    public static SimpleUnit[] getNClosestSimpleUnitsFromOInL(int n, Point2D p, Player o, List<SimpleUnit> l) {
         SimpleUnit[] toReturn = new SimpleUnit[n];
-        int i = 0;
-        for (SimpleUnit Su : toCheck) {
-            if (i > n - 1)
-                break;
-            toReturn[i] = Su;
-            i++;
-        }
-        for (SimpleUnit Su : toCheck) {
-            boolean isNotInTab = true;
-            for (int j = 0; j < n; j++)
-                if (toReturn[j] == Su) {
-                    isNotInTab = false;
+        ArrayList<SimpleUnit> inOrder = new ArrayList<SimpleUnit>(n);
+        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(l);
+        inOrder.add(toCheck.getFirst());
+        int c = 0;
+        for (SimpleUnit check : toCheck){
+            
+            for (SimpleUnit s : inOrder) {
+                if (check.distanceTo(p) < s.distanceTo(p) && check != s){
+                    inOrder.add(c, check);
+                    if (c>=n-1)
+                        inOrder.remove(n);
                     break;
                 }
-            for (int j = 0; j < n - 1; j++)
-                if (p.distance(Su.getCenter()) < p.distance(toReturn[j].getCenter()) && isNotInTab)
-                    toReturn[j] = Su;
-
+                c++;
+            }
+            c=0;
+            
+        }
+        for (SimpleUnit i : inOrder){
+            toReturn[c] = i;
+            c++;
+            if (c == n)
+                break;
         }
         return toReturn;
     }
-
+    
+    public static SimpleUnit[] getNClosestSimpleUnitsFromO(int n, Point2D p, Player o) {
+        return getNClosestSimpleUnitsFromOInL(n, p, o, o.simpleUnits);
+    }
     public static SimpleUnit[] getNClosestSimpleUnitsFromList(int n, Point2D p, LinkedList<SimpleUnit> l) {
 
         LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(l);

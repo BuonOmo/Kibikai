@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.geom.Point2D;
-
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -38,28 +37,46 @@ public class Player implements Finals {
         name = nameToSet;
     }
 
-    public Player(Color c, Point2D baseLocation, String nameToSet) {
-        color = new Color(c.getRed(), c.getGreen(), c.getBlue());
+    /**
+     * @param colorToSet green / red
+     * @param baseLocation
+     * @param nameToSet
+     */
+    public Player(String colorToSet, Point2D baseLocation, String nameToSet) {
         base = new Building(this, baseLocation);
         name = nameToSet;
         soldiers = new ArrayList<Soldier>(NUMBER_MAX_OF_SOLDIER);
         simpleUnits = new ArrayList<SimpleUnit>(NUMBER_MAX_OF_SIMPLEUNIT);
-        setImages();
+        setImages(colorToSet);
+        setColor(colorToSet);
     }
     
-    private void setImages(){
+    private void setImages(String c){
         try {
             for (int i=0; i<3; i++){
-                soldierAlive.add(ImageIO.read(new File("IMG/Soldier/"+i+".png")));
-                soldierAliveSelected.add(ImageIO.read(new File("IMG/Soldier_selected/"+i+".png")));
-                simpleUnitAlive.add(ImageIO.read(new File("IMG/SimpleUnit/"+i+".png")));
-                simpleUnitAliveSelected.add(ImageIO.read(new File("IMG/SimpleUnit_selected/"+i+".png")));
+                soldierAlive.add(ImageIO.read(new File("IMG/"+c+"/Soldier/"+i+".png")));
+                soldierAliveSelected.add(ImageIO.read(new File("IMG/"+c+"/Soldier_selected/"+i+".png")));
+                simpleUnitAlive.add(ImageIO.read(new File("IMG/"+c+"/SimpleUnit/"+i+".png")));
+                simpleUnitAliveSelected.add(ImageIO.read(new File("IMG/"+c+"/SimpleUnit_selected/"+i+".png")));
             }
             for (int i=1;i<9;i++)
-                soldierCreation.add(ImageIO.read(new File("IMG/Soldier_creation/"+i+".png")));
+                soldierCreation.add(ImageIO.read(new File("IMG/"+c+"/Soldier_creation/"+i+".png")));
         }catch (IOException e) {
            System.out.println("erreur d’écriture");
         }
 
+    }
+    
+    private void setColor(String c){
+        switch (c){
+            case ("green"):{
+                            color = GREEN;
+                            break;
+            }
+            case ("red"):{
+                          color = RED;
+                          break;
+            }
+        }
     }
 }
