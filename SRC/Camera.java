@@ -105,7 +105,7 @@ public class Camera {
                 tab[i][j]=true ;
         for (Item i : Item.aliveItems) {
             if (i.isContained(this)){
-                i.print(g, cameraX, cameraY, scale);
+                i.print(g);
 
             }
         }
@@ -120,7 +120,7 @@ public class Camera {
                 if (tab[i][j])
                     newImage.setRGB(i, j,RGB);
         g.drawImage(newImage,0,0,canvas); 
-        IA.computer.base.print(g, cameraX, cameraY,scale);
+        IA.computer.base.print(g);
                 
     }
 }

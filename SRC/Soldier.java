@@ -81,15 +81,15 @@ public class Soldier extends Unit {
     }
 
     @Override
-    public void print(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI ) {
+    public void print(Graphics g) {
         //g.setColor(getColor());
         /*
         g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
                         (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
     */
         int x, y;
-        x = (int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2);
-        y = (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2);
+        x = (int) ((hitbox.getX() - Camera.cameraX) * Camera.scale);
+        y = (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale);
         
         
         if (UI.time - this.firstAppearance < 8)
@@ -105,6 +105,16 @@ public class Soldier extends Unit {
             
         }
     }
+    /*
+    @Override
+    public void printToMinimap(){
+        g.setColor(getColor());
+        
+        g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
+                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
+        
+    }
+    */
 
     public boolean isDestructed() {
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits

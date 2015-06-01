@@ -140,8 +140,8 @@ public class SimpleUnit extends Unit {
                 setBuilders(theTwo[0], theTwo[1]);
             }
 
-        } else
-            this.error("createSoldier");
+        } 
+            
         //TODO add to erreurs
     }
 
@@ -173,8 +173,7 @@ public class SimpleUnit extends Unit {
             builder1 = u1;
             builder2 = u2;
             builders.setTarget(t);
-        } else
-            error("SimpleUnit.setBuilders");
+        } 
     }
 
     /**
@@ -192,8 +191,7 @@ public class SimpleUnit extends Unit {
             builder2 = u2;
             builders.setTarget(builders.getPosition());
             //builders.setTarget(IA.computer.base.getCenter());
-        } else
-            error("SimpleUnit.setBuilders");
+        } 
     }
 
     private SimpleUnit[] getTwoClosestSimpleUnits() {
@@ -325,7 +323,6 @@ public class SimpleUnit extends Unit {
             if (targetI.isDead()) {
 
                 stop();
-                error("SimpleUnit.heal");
             } else if (this.isCloseTo(targetI, HEALING_RANGE)) {
 
                 targetI.getLife(life);
@@ -373,15 +370,11 @@ public class SimpleUnit extends Unit {
     }
         
     @Override
-    public void print(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI ) {
-        //g.setColor(getColor());
-        /*
-        g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
-                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
-    */
+    public void print(Graphics g) {
+        
         int x, y;
-        x = (int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2);
-        y = (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2);
+        x = (int) ((hitbox.getX() - Camera.cameraX) * Camera.scale);
+        y = (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale);
         
         
         if (selected)
@@ -392,4 +385,14 @@ public class SimpleUnit extends Unit {
                         x, y, null);
         
     }
+    /*
+    @Override
+    public void printToMinimap(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI){
+        g.setColor(getColor());
+        
+        g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
+                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
+        
+    }
+    */
 }

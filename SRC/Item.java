@@ -232,27 +232,21 @@ public abstract class Item implements Finals {
         return color;
     }
 
-    public void print(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI ) {
-        /*if (selected){
-
-            double newSide = hitbox.getHeight()*1.2 + SIDE/4.0;
-
-            g.fillRoundRect( (int)((getCenter().getX() - newSide/2.0)*scale),
-                             (int)((getCenter().getY() - newSide/2.0)*scale),
-                             (int)newSide*scale,
-                             (int)newSide*scale,
-                             (12),
-                             (12));
-        }*/
-
-
+    public void print(Graphics g) {
+        
         g.setColor(getColor());
         // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
-        g.fillRoundRect((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
-                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI), (10), (10));
+        g.fillRoundRect((int) ((hitbox.getX() - Camera.cameraX) * Camera.scale),
+                        (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale),
+                        (int) (hitbox.getWidth() * Camera.scale),
+                        (int) (hitbox.getHeight() * Camera.scale), (10), (10));
     }
-    public void print(Graphics g, double offsetX, double offsetY, double Scale ){
-            this.print(g, offsetX, offsetY, Scale, Scale);
+    
+    public void printToMinimap(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI ){
+            g.setColor(getColor());
+            g.fillRoundRect((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2),
+                            (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
+                            (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI), (10), (10));
         }
 
     public String toString() {
@@ -265,33 +259,6 @@ public abstract class Item implements Finals {
 
     public void setUnDone() {
         done = false;
-    }
-
-    /**
-     * gère les problèmes rencontrés par des objets (inutile !).
-     * @param type type d’erreur
-     */
-    public void error(String type) {
-
-        /*String msg;
-
-       switch (type){
-
-            // erreur dans SimpleUnit.heal()
-            case "SimpleUnit.heal":
-                msg = "l'objet à soigner est mort";
-                break;
-
-            case "SimpleUnit.setBuilders":
-                msg = "les UM appartiennent a� l'adversaire";
-                break;
-
-            default:
-                msg = "erreur non identifiee";
-        }
-
-        System.out.println(msg);
-*/
     }
 
     public void setSelected(boolean b) {

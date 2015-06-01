@@ -40,9 +40,9 @@ public class Minimap extends JPanel {
         g.drawImage(newImage,0,0,this); 
         
         for (Item i : IA.player.items){
-                    i.print(g, 0, 0,scale,5);
+                    i.printToMinimap(g, 0, 0,scale,5);
         }
-        IA.computer.base.print(g, 0, 0,scale,5);
+        IA.computer.base.printToMinimap(g, 0, 0,scale,5);
         g.setColor(Color.BLACK);
         g.drawRect(0, 0,Width-1,Height-1);
         g.setColor(Color.CYAN);
