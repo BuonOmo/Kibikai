@@ -17,8 +17,8 @@ public class Canvas extends JPanel {
         
         this.setBackground(Finals.BACKGROUND_COLOR);
         IA.bigining();
-        P1 = new Player("green", Finals.BASE_LOCATION, Finals.namePlayer);
-        P2 = new Player("green", new Point2D.Double(40, 40), "Player two FTW");
+        P1 = new Player("blue", Finals.BASE_LOCATION, Finals.namePlayer);
+        P2 = new Player("orange", new Point2D.Double(40, 40), "Player two FTW");
         mouse = new Mouse(P1);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);

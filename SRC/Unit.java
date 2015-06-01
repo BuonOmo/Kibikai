@@ -10,8 +10,6 @@ public abstract class Unit extends Item {
     double lifeMAX;
     double firstAppearance;
     int strategyincurs = 0;
-    private static int number = 0;
-    private int positiveOrNegative;
 
     /**
      * @param owner
@@ -24,8 +22,6 @@ public abstract class Unit extends Item {
         lifeMAX = lifeMAXToSet;
         owner.units.add(this);
         firstAppearance = UI.time;
-        number++;
-        positiveOrNegative = (int) Math.pow(-1, number);
         setTarget(this.getCenter());
     }
 
@@ -207,7 +203,7 @@ public abstract class Unit extends Item {
                 }
             }
             if (!intersect)
-                return getVector(positiveOrNegative * alpha);
+                return getVector(alpha);
             intersect = false;
             alpha += ALPHA;
         } while (alpha <= 180);

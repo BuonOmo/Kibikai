@@ -38,7 +38,7 @@ public class Player implements Finals {
     }
 
     /**
-     * @param colorToSet green / red
+     * @param colorToSet green / blue / orange / pink
      * @param baseLocation
      * @param nameToSet
      */
@@ -47,7 +47,6 @@ public class Player implements Finals {
         name = nameToSet;
         soldiers = new ArrayList<Soldier>(NUMBER_MAX_OF_SOLDIER);
         simpleUnits = new ArrayList<SimpleUnit>(NUMBER_MAX_OF_SIMPLEUNIT);
-        setImages(colorToSet);
         setColor(colorToSet);
     }
     
@@ -67,16 +66,30 @@ public class Player implements Finals {
 
     }
     
-    private void setColor(String c){
+    void setColor(String c){
+        setImages(c);
         switch (c){
             case ("green"):{
-                            color = GREEN;
-                            break;
+                color = GREEN;
+                break;
             }
-            case ("red"):{
-                          color = RED;
-                          break;
+            case ("blue"):{
+                color = BLUE;
+                break;
+            }
+            case ("orange"):{
+                color = ORANGE;
+                break;                
+            }
+            case ("pink"):{
+                color = PINK;
+                break;                                
             }
         }
+    }
+
+    void setColor(){
+        
+        
     }
 }

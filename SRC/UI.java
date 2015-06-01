@@ -54,7 +54,7 @@ public class UI extends JFrame{
         frame.setTitle("LUCA");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
-        timer = new Timer(50, new TimerAction());
+        timer = new Timer(60, new TimerAction());
     }
     
 
