@@ -153,7 +153,7 @@ public class Listeners implements Finals {
         canSelect = null;
 
         for (Item i : list)
-            if (i.hitbox.contains(mouse())) {
+            if (i.hitbox.contains(mouseWithCameraOffset())) {
                 canSelect = i;
                 break;
             }
@@ -164,8 +164,21 @@ public class Listeners implements Finals {
         getItemFromAll();
         if (canSelect == null)
             setTarget(mouseWithCameraOffset());
-        else
+        else{
             setTarget(canSelect);
+            
+            // cas particuliers pour faciliter le soin
+            if (selected.size() == 1){
+                if (selected.getGroup().getFirst().getClass().getName() == "Soldier" &&
+                    canSelect.getClass().getName() == "SimpleUnit" && 
+                    canSelect.hasSameOwner(selected.getGroup().getFirst()))
+                    canSelect.setTarget(selected.getGroup().getFirst());
+                
+                if (selected.isSimpleUnitGroup() && canSelect.getClass().getName() == "Soldier" && 
+                    canSelect.hasSameOwner(selected.getGroup().getFirst()) )
+                    canSelect.setTarget(selected.getGroup().getFirst());
+            }
+        }
     }
 
     void setTarget(Item i) {

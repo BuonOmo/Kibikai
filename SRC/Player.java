@@ -89,7 +89,7 @@ public class Player implements Finals {
     }
 
     void setColor(){
-        
-        
+        String[] random = {"green", "blue", "orange", "pink"};
+        setColor(random[(int)(4*Math.random())]);
     }
 }

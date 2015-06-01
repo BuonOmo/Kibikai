@@ -243,10 +243,10 @@ public abstract class Item implements Finals {
                         (int) (hitbox.getHeight() * Camera.scale), (10), (10));
     }
     
-    public void printToMinimap(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI ){
+    public void printToMinimap(Graphics g, double Scale, double ScaleI ){
             g.setColor(getColor());
-            g.fillRoundRect((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2),
-                            (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
+            g.fillRoundRect((int) (hitbox.getCenterX() * Scale-hitbox.getWidth() * ScaleI/2),
+                            (int) (hitbox.getCenterY() * Scale-hitbox.getHeight() * ScaleI/2),
                             (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI), (10), (10));
         }
 

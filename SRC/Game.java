@@ -18,7 +18,7 @@ public class Game implements Finals {
         System.out.println("Game.run : nb de U de comp "+IA.computer.units.size());
         System.out.println("Game.run : nb nb itme en vie "+Item.aliveItems.size());
         */
-
+        
         if (UI.time == 0) {
             //beginning();
 

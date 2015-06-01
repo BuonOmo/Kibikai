@@ -29,18 +29,23 @@ public class UI extends JFrame{
         
         frame = new JFrame();
         
+        
         // Plein ecran
+        /*
         frame.setUndecorated(true);
         GraphicsEnvironment gE = GraphicsEnvironment.getLocalGraphicsEnvironment();
         gE.getDefaultScreenDevice().setFullScreenWindow(frame);
+        */
         
         
-        /*
+        
+        
+        
         //Location and size of the frame
         frame.setSize(Finals.screenWidth, Finals.screenHeight); //Wide screen
         frame.setResizable(false);
         frame.setLocation(0,0);
-        */
+        
 
         //Set the background on YELLOW : if you see stg yellow it means the jpanel ain't working
         //frame.getContentPane().setBackground(Color.YELLOW);

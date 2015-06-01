@@ -141,8 +141,9 @@ public class Window extends JFrame {
 		g.drawImage(ArrierePlan,0,0,this);
 	}*/
 
+
     public static void main(String[] args) {
-        @SuppressWarnings("unused")
-        Window wind = new Window();
+        Window wind;
+        wind = new Window();
     }
 }

@@ -243,5 +243,12 @@ public class UnitGroup implements Cloneable {
         return group.size();
     }
 
-    
+
+    boolean isSimpleUnitGroup() {
+        for (Unit u : group){
+            if (u.getClass().getName() != "SimpleUnit")
+                return false;
+        }
+        return true;
+    }
 }
