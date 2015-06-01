@@ -26,6 +26,7 @@ public class Soldier extends Unit {
             if (owner == IA.computer)
                 new SoldierGroup(this);
         }
+        setTarget(getCenter());
     }
 
     /**

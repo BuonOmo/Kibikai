@@ -79,7 +79,7 @@ public class UI extends JFrame{
     			gamepan.canvas.cam.moveCamera(0, Finals.CAMERA_SPEED);  //scroll en bas
     		}
     		
-    		gamepan.repaint(); 
+    		gamepan.repaint();
                 gamepan.UpDate();
     		//panelBandeau.repaint();
     		time ++;

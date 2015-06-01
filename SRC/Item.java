@@ -13,7 +13,6 @@ public abstract class Item implements Finals {
     Point2D target;
     Item targetI;
     double life;
-    Color color;
     RectangularShape hitbox;
     Player owner;
     double radius;
@@ -31,7 +30,6 @@ public abstract class Item implements Finals {
      * @param hitboxToSet
      */
     public Item(Player ownerToSet, RectangularShape hitboxToSet, Point2D targetToSet) {
-        color = ownerToSet.color;
         owner = ownerToSet;
         hitbox = hitboxToSet;
         target = targetToSet;
@@ -49,7 +47,7 @@ public abstract class Item implements Finals {
      */
     public Item(Player ownerToSet, Point2D topLeftCorner, double width, double height) {
         this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), width, height),
-             topLeftCorner);
+             null);
     }
 
     /**
@@ -59,7 +57,7 @@ public abstract class Item implements Finals {
      * @param side coté de la hitbox
      */
     public Item(Player ownerToSet, Point2D topLeftCorner, double side) {
-        this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), side, side), topLeftCorner);
+        this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), side, side), null);
     }
 
 
@@ -232,7 +230,7 @@ public abstract class Item implements Finals {
         if (Listeners.louHammel)
             return new Color((int) (255.0 * Math.random()), (int) (255.0 * Math.random()),
                              (int) (255.0 * Math.random()));
-        return color;
+        return owner.color;
     }
 
     public void print(Graphics g) {

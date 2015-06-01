@@ -18,7 +18,7 @@ public class Canvas extends JPanel {
         this.setBackground(Finals.BACKGROUND_COLOR);
         IA.bigining();
         P1 = new Player("green", Finals.BASE_LOCATION, Finals.namePlayer);
-        P2 = new Player("red", new Point2D.Double(40, 40), "Player two FTW");
+        P2 = new Player("green", new Point2D.Double(40, 40), "Player two FTW");
         mouse = new Mouse(P1);
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
@@ -26,10 +26,11 @@ public class Canvas extends JPanel {
         IA.computer = P2;
         IA.player = P1;
         cam = new Camera(this);
-        new SimpleUnit(P1, new Point2D.Double(Finals.BASE_LOCATION_X + P1.base.hitbox.getHeight() / 2.0, Finals.BASE_LOCATION_Y));
-        for (int i = 0; i < 9; i++) {
+        new SimpleUnit(P1, new Point2D.Double( P1.base.getCenter().getX() - Finals.SIDE/2.0,
+                                               P1.base.hitbox.getMaxY() + 1));
+        for (int i = 0; i < 5; i++) {
             new SimpleUnit(P1, new Point2D.Double(20, 5 + 2 * i));
-            new SimpleUnit(P2, new Point2D.Double(30,42 + 2 * i));
+            new SimpleUnit(P2, new Point2D.Double(30,35 + 2 * i));
         }
 
     }

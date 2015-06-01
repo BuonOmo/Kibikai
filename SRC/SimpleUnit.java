@@ -54,6 +54,7 @@ public class SimpleUnit extends Unit {
      */
     public SimpleUnit(Player owner, Point2D topLeftCorner) {
         this(owner, topLeftCorner, topLeftCorner);
+        setTarget(getCenter());
     }
 
     //_____________________MÉTHODES____________________//

@@ -82,12 +82,8 @@ public abstract class Unit extends Item {
         if (selected)
             return new Color(0, (int) (255 * percent), (int) (255 * percent));
         
-        if (Listeners.louHammel)
-            return new Color((int) (255.0 * Math.random()), (int) (255.0 * Math.random()),
-                             (int) (255.0 * Math.random()));
-        
-        return new Color((int) (color.getRed() * percent), (int) (color.getGreen() * percent),
-                         (int) (color.getBlue() * percent), color.getAlpha());
+        return new Color((int) (owner.color.getRed() * percent), (int) (owner.color.getGreen() * percent),
+                         (int) (owner.color.getBlue() * percent));
     }
 
     /**

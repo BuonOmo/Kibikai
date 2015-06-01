@@ -95,8 +95,9 @@ public class Building extends Item {
                 		}
                 }
              }  
-            	
-            if(hitbox.contains(this.target)){
+            if (targetI != null)
+                bizuth.setTarget(targetI);
+            else if(hitbox.contains(this.target)){
            		bizuth.setTarget(new Point2D.Double(x,y));
             }
         }
