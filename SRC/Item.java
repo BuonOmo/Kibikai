@@ -327,4 +327,26 @@ public abstract class Item implements Finals {
             }
         return tab;
     }
+
+	public void setThreeTargets(Item t, Item u, Item v, Point2D a, Point2D b, Point2D c){
+		double d1;
+		double d2;
+		double d3;
+		double d=Finals.screenWidth*Finals.screenWidth*3;
+		Point2D[] targets = {a,b,c};
+		for(int i=0;i<3;i++){
+			d1=t.distanceTo(targets[i]);
+			for(int j=0;j<2;j++){
+				d2=u.distanceTo(targets[(i+1)%3]);
+				d3=v.distanceTo(targets[(i+2)%3]);
+				if((d1*d1+d2*d2+d3*d3)<d){
+					t.setTarget(targets[i]);
+					u.setTarget(targets[(i+1)%3]);
+					v.setTarget(targets[(i+2)%3]);					
+					d=d1*d1+d2*d2+d3*d3;
+				}
+				
+			}
+		}
+	}
 }
