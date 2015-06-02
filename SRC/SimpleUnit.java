@@ -88,8 +88,13 @@ public class SimpleUnit extends Unit {
     		return false;
     	}
     }
-    
-    
+
+
+    /**
+     * Méthode principale pour la création de soldats.
+     * @param u tableau de 3 US
+     * @param p position de la création
+     */
     public static void createSoldier(SimpleUnit[] u, Point2D p) {
         if (u != null) {
             if (u.length == 3 &&
@@ -107,47 +112,49 @@ public class SimpleUnit extends Unit {
         }
     }
 
+    /**
+     * @param p point ou sont prises les unités les plus proches
+     * @param o possesseur des unités
+     * @param t point ou est créé le soldat
+     */
     public static void createSoldier(Point2D p, Player o, Point2D t) {
-        createSoldier(getNClosestSimpleUnitsFromO(3, p, o), t);
-    }
-
-    public static void createSoldier(Point2D p, Player o) {
         if (o.simpleUnits.size() > 2)
-            createSoldier(getNClosestSimpleUnitsFromO(3, p, o), p);
+            createSoldier(getNClosestSimpleUnitsFromO(3, p, o), t);
     }
 
-    public static void createSoldierOnBaryCenter(SimpleUnit[] u) {
-        createSoldier(u, UnitGroup.getPosition(u));
+    /**
+     * @param p position ou sont prises les unités et ou sera créé le soldat
+     * @param o
+     */
+    public static void createSoldier(Point2D p, Player o) {
+       createSoldier(p, o, p);
+    }
+
+    public static void createSoldierOnBarycenter(SimpleUnit[] u) {
+        boolean error = false;
+        for (int i=0; i<u.length; i++){
+            if (u[i] == null)
+                error = true;
+        }
+        
+        if (!error)
+            createSoldier(u, UnitGroup.getPosition(u));
     }
 
     public static void createSoldierOnBarycenter(Point2D p, Player o) {
         if (o.simpleUnits.size() > 2)
-            createSoldierOnBaryCenter(getNClosestSimpleUnitsFromO(3, p, o));
+            createSoldierOnBarycenter(getNClosestSimpleUnitsFromO(3, p, o));
     }
-
-    public void createSoldier(Point2D t, SimpleUnit u1, SimpleUnit u2) {
-        if (!creating)
-            setBuilders(u1, u2, t);
-
-    }
-
+    // au dessus méthodes verifiées
+    
+    // appelée par ia
     public void createSoldier(SimpleUnit u1, SimpleUnit u2) {
-        if (!creating)
-            setBuilders(u1, u2);
+        createSoldierOnBarycenter(new SimpleUnit[] {this, u1, u2});
 
     }
-
+    // appelée par ia
     public void createSoldier() {
-
-        if (this.owner.simpleUnits.size() > 2) {
-            if (!creating) {
-                SimpleUnit theTwo[] = getTwoClosestSimpleUnits();
-                setBuilders(theTwo[0], theTwo[1]);
-            }
-
-        } 
-            
-        //TODO add to erreurs
+        createSoldierOnBarycenter(getNClosestSimpleUnitsFromO(3, getCenter(), owner));
     }
 
     public boolean build() {
@@ -163,58 +170,7 @@ public class SimpleUnit extends Unit {
 
         return false;
     }
-
-    /**
-     * @param u1
-     * @param u2
-     * @param t position du soldat à créer
-     */
-    private void setBuilders(SimpleUnit u1, SimpleUnit u2, Point2D t) {
-        if (hasSameOwner(u1) && hasSameOwner(u2)) {
-            creating = true;
-            builders = new SimpleUnitGroup(this);
-            builders.add(u1);
-            builders.add(u2);
-            builder1 = u1;
-            builder2 = u2;
-            builders.setTarget(t);
-        } 
-    }
-
-    /**
-     * crée un soldat au niveau du barycentre des trois unités.
-     * @param u1
-     * @param u2
-     */
-    private void setBuilders(SimpleUnit u1, SimpleUnit u2) {
-        if (hasSameOwner(u1) && hasSameOwner(u2)) {
-            creating = true;
-            builders = new SimpleUnitGroup(this);
-            builders.add(u1);
-            builders.add(u2);
-            builder1 = u1;
-            builder2 = u2;
-            builders.setTarget(builders.getPosition());
-            //builders.setTarget(IA.computer.base.getCenter());
-        } 
-    }
-
-    private SimpleUnit[] getTwoClosestSimpleUnits() {
-        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(owner.simpleUnits);
-        toCheck.remove(this);
-        if (toCheck.size() < 1)
-            return null;
-        SimpleUnit[] toReturn = { toCheck.getFirst(), toCheck.get(1) };
-        for (SimpleUnit i : toCheck) {
-            if (distanceTo(i) <= distanceTo(toReturn[0])) {
-                toReturn[1] = toReturn[0];
-                toReturn[0] = i;
-            }
-
-        }
-        return toReturn;
-    }
-
+    
     public static SimpleUnit[] getNClosestSimpleUnitsFromOInL(int n, Point2D p, Player o, List<SimpleUnit> l) {
         SimpleUnit[] toReturn = new SimpleUnit[n];
         ArrayList<SimpleUnit> inOrder = new ArrayList<SimpleUnit>(n);

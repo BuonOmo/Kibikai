@@ -1,3 +1,4 @@
+import java.awt.geom.Point2D;
 
 public class Game implements Finals {
 
@@ -28,10 +29,18 @@ public class Game implements Finals {
             middle();
     }
 
-    public static void beginning(Player humanToSet, Player computerToSet) {
-
-        setHuman(humanToSet);
-        setComputer(computerToSet);
+    public static void beginning() {
+        
+        setHuman(new Player("blue", Finals.BASE_LOCATION, Finals.namePlayer));
+        setComputer(new Player("orange", new Point2D.Double(40, 40), "Player two FTW"));
+        
+        new SimpleUnit(human, new Point2D.Double( human.base.getCenter().getX() - Finals.SIDE/2.0,
+                                               human.base.hitbox.getMaxY() + 1));
+        for (int i = 0; i < 5; i++) {
+            new SimpleUnit(human, new Point2D.Double(20, 5 + 2 * i));
+            new SimpleUnit(computer, new Point2D.Double(30,35 + 2 * i));
+        }
+                              
 
     }
 

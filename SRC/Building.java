@@ -39,14 +39,16 @@ public class Building extends Item {
     public void goAndProcreate() {
     	//Ajout dans le tableau du joueur ici ou pas ? non ça le fait tout seul
     	if (owner.simpleUnits.size() < NUMBER_MAX_OF_SIMPLEUNIT) {
-    		if(this.spawnIsPossible()){
-    			 SimpleUnit u = new SimpleUnit(owner, new Point2D.Double(this.getCenter().getX() - Finals.SIDE/2.0,
-                         								  this.hitbox.getMaxY() + 1),
-                                        target);
-                         if (targetI != null)
-                            u.setTarget(targetI);
-                            
-    		}
+            if (targetI == this)
+                getLife(LIFE);
+            else if(this.spawnIsPossible()){
+                 SimpleUnit u = new SimpleUnit(owner, new Point2D.Double(this.getCenter().getX() - Finals.SIDE/2.0,
+                                                                         this.hitbox.getMaxY() + 1),
+                                               target);
+                 if (targetI != null)
+                    u.setTarget(targetI);
+                    
+            }
     	}
     }
     /**
