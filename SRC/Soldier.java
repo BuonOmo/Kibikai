@@ -117,8 +117,15 @@ public class Soldier extends Unit {
     }
 
     public boolean execute() {
+        
         actualiseTarget();
-        move();
+        if (targetI != null && !hasSameOwner(targetI)){
+            if (!isCloseTo(targetI, ATTACK_RANGE))
+                move();
+        }
+        else {
+            move();
+        }
         return attack();
     }
 }
