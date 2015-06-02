@@ -309,17 +309,24 @@ public class SimpleUnit extends Unit {
      * 
      */
     public static void setTriangularTarget(SimpleUnit[] tab, Point2D p){
-        
         if (tab.length == 3){
             
             double alpha = 0;
-            
+            Point2D targets[] = new Point2D[3];
+            /*
             for (SimpleUnit s : tab){
                 
                 s.setTarget(p.getX() + 1 * Math.cos(alpha), p.getY() + 1 * Math.sin(alpha));
                 alpha+= 2.0 * Math.PI / 3.0;
                 
             }
+            */
+            
+            for (int i=0; i<3; i++){
+                targets[i]= new Point2D.Double(p.getX() + 1 * Math.cos(alpha), p.getY() + 1 * Math.sin(alpha));
+                alpha+= 2.0 * Math.PI / 3.0;
+            }
+            setThreeTargets(tab, targets);
             
         }
     }

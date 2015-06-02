@@ -33,20 +33,24 @@ public class Building extends Item {
     //________________METHODES_______________//
 
     /**
-     *  Cree une unite simple au point de spawn de a base. Si d'autre unités y sont présentes, n'en crée pas
-     *  mais leur donne une nouvelle target pour libérer l'espace
+     *  Cree une unite simple au point de spawn de a base. Si d'autre unitï¿½s y sont prï¿½sentes, n'en crï¿½e pas
+     *  mais leur donne une nouvelle target pour libï¿½rer l'espace
      */
     public void goAndProcreate() {
-    	//Ajout dans le tableau du joueur ici ou pas ?
+    	//Ajout dans le tableau du joueur ici ou pas ? non Ã§a le fait tout seul
     	if (owner.simpleUnits.size() < NUMBER_MAX_OF_SIMPLEUNIT) {
     		if(this.spawnIsPossible()){
-    			 new SimpleUnit(owner, new Point2D.Double(this.getCenter().getX() - Finals.SIDE/2.0,
-                         								  this.hitbox.getMaxY() + 1));
+    			 SimpleUnit u = new SimpleUnit(owner, new Point2D.Double(this.getCenter().getX() - Finals.SIDE/2.0,
+                         								  this.hitbox.getMaxY() + 1),
+                                        target);
+                         if (targetI != null)
+                            u.setTarget(targetI);
+                            
     		}
     	}
     }
     /**
-     * Controle la disponibilité de l'espace de spawn. Si espace indisponible, donne nouvelle target aux unités qui y sont.
+     * Controle la disponibilitï¿½ de l'espace de spawn. Si espace indisponible, donne nouvelle target aux unitï¿½s qui y sont.
      * @return
      */
     public boolean spawnIsPossible(){
@@ -54,20 +58,17 @@ public class Building extends Item {
     	double largeurCarreSpawnNecessaire = 2*Finals.SIDE; // TODO A changer selon taille de l'animation?
     	double xS = this.getCenter().getX() - Finals.SIDE/2.0;
     	double yS = this.hitbox.getMaxY() + 1;
-    	Rectangle2D frame = new Rectangle2D.Double( xS,
-    												yS,
-													largeurCarreSpawnNecessaire,
-													largeurCarreSpawnNecessaire);
-    	@SuppressWarnings("static-access")
-		LinkedList<Item> units = this.getItemInFrame(frame);
-    	if(units.isEmpty()){
+    	Rectangle2D frame = new Rectangle2D.Double( xS, yS, largeurCarreSpawnNecessaire, largeurCarreSpawnNecessaire);
+    	
+        LinkedList<Item> u = getItemInFrame(frame);
+    	if(u.isEmpty()){
     		return possible;
     	}else{
     		double alpha;
-    		for(int i = 0;i<units.size();i++){
+            for(Item i : u){
     			alpha = 180 + Math.toRadians((Math.random()*180));
-    			units.get(i).setTarget(xS + (largeurCarreSpawnNecessaire*2 + units.get(i).hitbox.getMaxX())*Math.cos(alpha),
-    								   yS + (largeurCarreSpawnNecessaire*2 + units.get(i).hitbox.getMaxY())*Math.sin(alpha));
+    			i.setTarget(xS + (largeurCarreSpawnNecessaire*2 + i.hitbox.getMaxX())*Math.cos(alpha),
+                                    yS + (largeurCarreSpawnNecessaire*2 + i.hitbox.getMaxY())*Math.sin(alpha));
     		}
     		return false;
     	}
