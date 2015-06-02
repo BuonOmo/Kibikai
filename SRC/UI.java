@@ -25,6 +25,8 @@ public class UI extends JFrame{
     JFrame frame;
 
     public UI(){
+        
+        Game.beginning();
         gamepan = new GamePan(Finals.screenHeight,Finals.screenWidth);
         
         frame = new JFrame();
@@ -72,29 +74,29 @@ public class UI extends JFrame{
             Point mouse = MouseInfo.getPointerInfo().getLocation();
             
             if(mouse.x <= Finals.SCROLL_BORDER){
-                    gamepan.canvas.cam.moveCamera(-Finals.CAMERA_SPEED, 0); //scroll à gauche
+                    gamepan.camera.moveCamera(-Finals.CAMERA_SPEED, 0); //scroll à gauche
             }
             else if(mouse.x >= Finals.screenWidth - Finals.SCROLL_BORDER){
-                    gamepan.canvas.cam.moveCamera(Finals.CAMERA_SPEED, 0);  //scroll à droite
+                    gamepan.camera.moveCamera(Finals.CAMERA_SPEED, 0);  //scroll à droite
             }
             if(mouse.y <= Finals.SCROLL_BORDER){
-                    gamepan.canvas.cam.moveCamera(0, -Finals.CAMERA_SPEED); //scroll en haut
+                    gamepan.camera.moveCamera(0, -Finals.CAMERA_SPEED); //scroll en haut
             }
             else if(mouse.y >= Finals.screenHeight - Finals.SCROLL_BORDER){
-                    gamepan.canvas.cam.moveCamera(0, Finals.CAMERA_SPEED);  //scroll en bas
+                    gamepan.camera.moveCamera(0, Finals.CAMERA_SPEED);  //scroll en bas
             }
             
     	    if(Key.leftKey){
-    	            gamepan.canvas.cam.moveCamera(-Finals.CAMERA_SPEED/2, 0); //scroll à gauche
+    	            gamepan.camera.moveCamera(-Finals.CAMERA_SPEED/2, 0); //scroll à gauche
     	    }
     	    else if(Key.rightKey){
-    	            gamepan.canvas.cam.moveCamera(Finals.CAMERA_SPEED/2, 0);  //scroll à droite
+    	            gamepan.camera.moveCamera(Finals.CAMERA_SPEED/2, 0);  //scroll à droite
     	    }
     	    if(Key.upKey){
-    	            gamepan.canvas.cam.moveCamera(0, -Finals.CAMERA_SPEED/2); //scroll en haut
+    	            gamepan.camera.moveCamera(0, -Finals.CAMERA_SPEED/2); //scroll en haut
     	    }
     	    else if(Key.downKey){
-    	            gamepan.canvas.cam.moveCamera(0, Finals.CAMERA_SPEED/2);  //scroll en bas
+    	            gamepan.camera.moveCamera(0, Finals.CAMERA_SPEED/2);  //scroll en bas
     	    }
                 
             gamepan.repaint();

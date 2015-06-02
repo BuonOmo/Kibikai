@@ -4,23 +4,30 @@ import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
-public class Camera {
+import javax.swing.JPanel;
+
+public class Camera extends JPanel{
 
     static double cameraX; //Position en x de la camera en pixel
     static double cameraY; //Position en y de la camera en pixel
     static double cameraWidth = Finals.screenWidth * 5 / 6;
     static double cameraHeight = Finals.screenHeight;
     public static int scale = 30;
-    public Canvas canvas;
-
+    
+    Mouse mouse;
+    Key key;
     //_____________Constructeur_____________//
 
     /**
      * Le constructeur centre la camera sur le batiment du joueur au debut de partie.
      */
-    public Camera(Canvas c) {
+    public Camera() {
         setLocation(Finals.BASE_LOCATION_X - (cameraWidth / 2.0), Finals.BASE_LOCATION_Y - (cameraHeight / 2.0));
-        canvas=c;
+        this.setBackground(Finals.BACKGROUND_COLOR);
+        mouse = new Mouse(Game.human);
+        this.addMouseListener(mouse);
+        this.addMouseMotionListener(mouse);
+        this.addMouseWheelListener(mouse);
     }
 
 
@@ -61,7 +68,7 @@ public class Camera {
 
     }
 
-    public Point2D getLocation() {
+    public Point2D getPosition() {
         return new Point2D.Double(cameraX, cameraY);
     }
     
@@ -109,7 +116,7 @@ public class Camera {
 
             }
         }
-        for (Item i : canvas.P1.items) {
+        for (Item i : Game.human.items) {
             if (i.isContained()){
                 i.fog(cameraX,cameraY, tab, scale);
             }
@@ -119,7 +126,7 @@ public class Camera {
             for (int j = 0 ; j<cameraHeight ; j++)
                 if (tab[i][j])
                     newImage.setRGB(i, j,RGB);
-        g.drawImage(newImage,0,0,canvas); 
+        g.drawImage(newImage,0,0,this); 
         IA.computer.base.print(g);
                 
     }

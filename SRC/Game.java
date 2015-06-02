@@ -40,7 +40,10 @@ public class Game implements Finals {
             new SimpleUnit(human, new Point2D.Double(20, 5 + 2 * i));
             new SimpleUnit(computer, new Point2D.Double(30,35 + 2 * i));
         }
-                              
+        
+        IA.computer = computer;
+        IA.player = human;
+        IA.bigining();                              
 
     }
 

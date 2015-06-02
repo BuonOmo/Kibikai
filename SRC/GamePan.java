@@ -36,10 +36,10 @@ public class GamePan extends JPanel {
     private JCheckBox jCheckBox1 = new JCheckBox();
     private JCheckBox jCheckBox2 = new JCheckBox();
     private JProgressBar jProgressBar1 = new JProgressBar();
-    public Canvas canvas = new Canvas();
+    public Camera camera = new Camera();
     private JPanel minimap = new Minimap();
     private Box BoxSidBand = Box.createVerticalBox();
-    Key key = new Key(canvas.P1);
+    Key key = new Key(Game.human);
 
 
 
@@ -49,9 +49,10 @@ public class GamePan extends JPanel {
         this.setLayout(null);
         this.addKeyListener(key);
         this.setFocusable(true);
+        this.requestFocus();
         SidBand.setBounds(0,0,(int)(Width*0.2),(int)Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
         minimap.setBounds(0,Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH),(int)(Width*0.2),(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
-        canvas.setBounds ((int)(Width*0.2),0,(int)(Width*0.8),Height);
+        camera.setBounds ((int)(Width*0.2),0,(int)(Width*0.8),Height);
         SidBand.setBackground(new Color(240,240,240));
         BoxSidBand.setAlignmentX(Component.LEFT_ALIGNMENT);
         bExit.setBackground(null);
@@ -104,7 +105,7 @@ public class GamePan extends JPanel {
         bExit.addActionListener(exit);
 
         this.add(SidBand);
-        this.add(canvas);
+        this.add(camera);
         this.add(minimap);
     }
     public void UpDate(){
