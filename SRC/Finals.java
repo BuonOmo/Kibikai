@@ -10,7 +10,7 @@ public interface Finals {
     /**
      * nombre de soldat max !!
      */
-    public static final int NUMBER_MAX_OF_SOLDIER = 50;
+    public static final int NUMBER_MAX_OF_SOLDIER = 20;
 
     /**
      * nombre de US max !!
@@ -18,6 +18,7 @@ public interface Finals {
     public static final int NUMBER_MAX_OF_SIMPLEUNIT = 20;
 
 
+    @Deprecated
     /**
      * transparence des unités (entre 0 et 255).
      */
@@ -29,12 +30,7 @@ public interface Finals {
     /**
      * Taille de la carte en metres.
      */
-    public static final int WIDTH = 50, HEIGHT = 50;
-
-    /**
-     * Echelle (distance en metre*scale = distance en pixel).
-     */
-    //public static int scale = 30;
+    public static final int WIDTH = 60, HEIGHT = 60;
 
 
     //__________________ITEM_________________//
@@ -186,6 +182,11 @@ public interface Finals {
     public static final Color FOG_COLOR = new Color(67, 64, 69);
     
     public static final Color GREEN = new Color(182, 235, 135);
+
+    /**
+     * @deprecated la couleur rouge n’as pas d’images associées
+     */
+    @Deprecated
     public static final Color RED = new Color(230, 117, 88);
     public static final Color BLUE = new Color(147, 162, 247);
     public static final Color ORANGE = new Color(255, 160, 90);
