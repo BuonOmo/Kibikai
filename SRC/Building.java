@@ -1,5 +1,5 @@
 import java.awt.geom.Point2D;
-
+import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 
 public class Building extends Item {
@@ -33,80 +33,52 @@ public class Building extends Item {
     //________________METHODES_______________//
 
     /**
-     *  Cree une unitÃ© simple et la rajoute dans le tableau du joueur. Elle se dirige au target et n'est crï¿½e que si l'emplacement est vide.
-     *  Dans le cas contraire, on recherche une position adaptï¿½e sur un rayon qui s'ï¿½largira si nï¿½cessaire.
-     *  Si target est sur la base, elle ne se deplaceront pas ï¿½ la sortie.
+     *  Cree une unite simple au point de spawn de a base. Si d'autre unités y sont présentes, n'en crée pas
+     *  mais leur donne une nouvelle target pour libérer l'espace
      */
     public void goAndProcreate() {
-
+    	//Ajout dans le tableau du joueur ici ou pas ?
     	if (owner.simpleUnits.size() < NUMBER_MAX_OF_SIMPLEUNIT) {
-        	//rayon du spawn
-        	double R1 = this.radius + Finals.SIDE*3/2;
-            //elementaires de dï¿½placement
-            double dx, dy;
-            if(hitbox.contains(this.target)){
-            	dx=1; dy=1;
-            }else{
-            	dx = (double) (target.getX() - hitbox.getCenterX());
-            	dy = (double) (target.getY() - hitbox.getCenterY());
-            }
-            double distanceCentreTarget = Math.sqrt(dx*dx+dy*dy);
-            dx = dx/distanceCentreTarget;
-            dy = dy/distanceCentreTarget;
-            //angle a balayer
-            double alpha;
-            double beta;
-            double angleIncrement; 
-            //premier spawnpoint et crï¿½ation de l'unitï¿½
-            double x = hitbox.getCenterX() + (dx)*R1 - Finals.SIDE/2;
-            double y =  hitbox.getCenterY() + (dy)*R1 - Finals.SIDE/2;
-            Point2D.Double spawnPoint = new Point2D.Double(x, y);
-            SimpleUnit bizuth = new SimpleUnit(this.owner, spawnPoint, target);
-            //System.out.println("PREMIERE CREE chez" + owner.name);
-            boolean spawned = bizuth.testSpawn();            
-            //elementaires de deplacements lors du balayage
-            double ux = dx;
-            double uy = dy;
-            
-            while(!spawned){
-                R1 = R1 + (double)(Finals.SIDE)*3/2;
-                angleIncrement = Math.toDegrees(Finals.SIDE/R1); 
-                alpha = 0;
-                beta = 0;
-        		//System.out.println("premier spawn pas acceptï¿½" + owner.name);
-               	while(!spawned && alpha<=(180 + angleIncrement)){           
-                		alpha = alpha + angleIncrement;
-                		ux = Math.cos(Math.toRadians(alpha))*dx;
-                		uy = Math.sin(Math.toRadians(alpha))*dy;
-                		x = hitbox.getCenterX() + (ux)*R1;
-                        y =  hitbox.getCenterY() + (uy)*R1;
-                		bizuth.setLocationFromCenter(x, y);
-                		spawned = bizuth.testSpawn();
-                		//System.out.println("alpha testï¿½"+ owner.name);
-                		if(!spawned){
-                			beta = -alpha;
-                			ux=Math.cos(Math.toRadians(beta))*dx;
-                    		uy=Math.sin(Math.toRadians(beta))*dy;
-                    		x = hitbox.getCenterX() + (ux)*R1;
-                                y =  hitbox.getCenterY() + (uy)*R1;
-                    		bizuth.setLocationFromCenter(x, y);
-                    		spawned = bizuth.testSpawn();
-                    		//System.out.println("beta testï¿½"+ owner.name);
-                		}
-                }
-             }  
-            if (targetI != null)
-                bizuth.setTarget(targetI);
-            else if(hitbox.contains(this.target)){
-           		bizuth.setTarget(new Point2D.Double(x,y));
-            }
-        }
+    		if(this.spawnIsPossible()){
+    			 new SimpleUnit(owner, new Point2D.Double(this.getCenter().getX() - Finals.SIDE/2.0,
+                         								  this.hitbox.getMaxY() + 1));
+    		}
+    	}
     }
- 
+    /**
+     * Controle la disponibilité de l'espace de spawn. Si espace indisponible, donne nouvelle target aux unités qui y sont.
+     * @return
+     */
+    public boolean spawnIsPossible(){
+    	boolean possible = true;
+    	double largeurCarreSpawnNecessaire = 2*Finals.SIDE; // TODO A changer selon taille de l'animation?
+    	double xS = this.getCenter().getX() - Finals.SIDE/2.0;
+    	double yS = this.hitbox.getMaxY() + 1;
+    	Rectangle2D frame = new Rectangle2D.Double( xS,
+    												yS,
+													largeurCarreSpawnNecessaire,
+													largeurCarreSpawnNecessaire);
+    	@SuppressWarnings("static-access")
+		LinkedList<Item> units = this.getItemInFrame(frame);
+    	if(units.isEmpty()){
+    		return possible;
+    	}else{
+    		double alpha;
+    		for(int i = 0;i<units.size();i++){
+    			alpha = 180 + Math.toRadians((Math.random()*180));
+    			units.get(i).setTarget(xS + (largeurCarreSpawnNecessaire*2 + units.get(i).hitbox.getMaxX())*Math.cos(alpha),
+    								   yS + (largeurCarreSpawnNecessaire*2 + units.get(i).hitbox.getMaxY())*Math.sin(alpha));
+    		}
+    		return false;
+    	}
+    	
+    	
+    }
     /**
      * GÃ¨re la vie dâ€™un batiment et sa taille.
      * @param amount vie ajoutÃ©e (- pour en enlever)
      */
+
     public boolean getLife(double amount) {
 
         life += amount;
