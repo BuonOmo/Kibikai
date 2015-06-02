@@ -29,7 +29,7 @@ public class Camera {
      * @param x position en x
      * @param y position en y
      */
-    public void setLocation(double x, double y) {
+    public static void setLocation(double x, double y) {
         cameraX = x;
         cameraY = y;
 

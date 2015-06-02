@@ -75,8 +75,10 @@ public class Game implements Finals {
         IA.end();
         System.exit(0);
     }
-
-
+    
+    public static void scroll(){
+    }
+    
     //______________ACCESSEURS__________//
 
     static Player getHuman() {

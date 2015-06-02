@@ -2,6 +2,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Key extends Listeners implements KeyListener {
+    
+    static boolean upKey, downKey, leftKey, rightKey;
+    
     public Key(Player player) {
         super(player);
     }
@@ -13,6 +16,10 @@ public class Key extends Listeners implements KeyListener {
      */
     public void releaseKey() {
         shiftPressed = false;
+        upKey = false;
+        downKey = false;
+        leftKey = false;
+        rightKey = false;
     }
 
     //_______________ÉCOUTEURS____________//
@@ -100,13 +107,30 @@ public class Key extends Listeners implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         
-        switch (e.getKeyChar()) {
-        case ('m'):
-            {
-                shiftPressed = true;
-                break;
-            }
+        
+        switch(e.getKeyCode()){
+        case(16):{ // touche shift
+            shiftPressed = true;
         }
+        
+        case (37):{ // clavier gauche
+            leftKey = true;
+            break;
+        }
+        case(39):{ // clavier droite
+            rightKey = true;
+            break;
+        }
+        case(38):{ // clavier haut
+            upKey = true;
+            break;
+        }
+        case(40):{ // clavier bas
+            downKey = true;
+            break;
+        }
+        }
+        
 
     }
 

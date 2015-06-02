@@ -1,17 +1,22 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
 public class Minimap extends JPanel {
+    double scale;
+    
     public Minimap() {
 
     }
     public void paint(Graphics g){
+        this.addMouseListener(new MinimapMouse());
         int Height =(int)this.getSize().getHeight();
         int Width = (int)this.getSize().getWidth();
-        double scale = Width/(Finals.WIDTH);
+        scale = Width/(Finals.WIDTH);
         g.setColor(Finals.BACKGROUND_COLOR);
         g.fillRect(0, 0,Width,Height);
         g.setColor(Color.BLACK);
@@ -49,6 +54,35 @@ public class Minimap extends JPanel {
         g.setColor(Color.CYAN);
         g.drawRect((int)(Camera.cameraX*scale), (int)(Camera.cameraY*scale), (int)(Camera.cameraWidth*scale/Camera.scale), (int)(Camera.cameraHeight*scale/Camera.scale));
 
+    }
+    
+    class MinimapMouse implements MouseListener{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            // TODO corriger les positions x et y
+            Camera.setLocation(e.getX() * scale / Camera.scale, e.getY() * scale / Camera.scale);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+            // TODO Implement this method
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+            // TODO Implement this method
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+            // TODO Implement this method
+        }
+
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+            // TODO Implement this method
+        }
     }
     
 }
