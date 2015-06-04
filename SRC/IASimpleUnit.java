@@ -81,7 +81,7 @@ public class IASimpleUnit extends IAUnite {
          */
 
         case 2:{
-            SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
+            SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0),true);
             unitGroup.remove(unitGroup.group.get(0));
             sicition.ia= new IASimpleUnit(sicition);
             for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le for sous se format la (risque d'emerde avec le remouve )
@@ -97,7 +97,11 @@ public class IASimpleUnit extends IAUnite {
             /*
              * Soutenire un autre group d'unitï¿½ 
              */ 
-
+                   
+                   
+            /*
+             * on cherche le groupe de Soldat le plus proche
+             */
             double distence =10000;
             SoldierGroup group= null;
             for( SoldierGroup sg :SoldierGroup.list){
@@ -107,13 +111,17 @@ public class IASimpleUnit extends IAUnite {
                         distence =sg.distanceTo(unitGroup);
                     }
             }
-            if (group!=null){
-                if (group.ia.support == null){
-                    SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0));
+            
+            
+            
+            if (group!=null){// si il exsite un groupe de soldat proche 
+                if (group.ia.support == null){// si le group de soldat n'as pas de soutien on crée un groupe de soutien dans la quelle on plasse une unité simple
+                    SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0),true);
+                    unitGroup.remove(unitGroup.group.get(0)); 
                     sicition.ia.support=group.ia;
                     group.ia.support=sicition.ia;
                 }
-                if (unitGroup.group.size()!=0)
+                else  if (unitGroup.group.size()!=0)// si il rest au moin une unité aolrs on fait motier moiter avec les unité réstants.
                 for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
                     if ((i+1)%2==0) {
                         group.ia.support.unitGroup.group.add((SimpleUnit)unitGroup.group.get(i));
@@ -121,6 +129,7 @@ public class IASimpleUnit extends IAUnite {
                     }
                 }
             }
+            if (unitGroup.group.size()==0)SimpleUnitGroup.list.remove(unitGroup);
             break;
         }
         case 4:{   
@@ -143,6 +152,7 @@ public class IASimpleUnit extends IAUnite {
                    
             break;
         }
+            
             case 5:{ 
                        /*
                         * crï¿½ï¿½ unitï¿½s 
@@ -150,7 +160,7 @@ public class IASimpleUnit extends IAUnite {
                        boolean quit = false;
                        for (Unit u : unitGroup.group){
                            if (quit) break;
-                           for (SimpleUnit Su: IA.computer.simpleUnits){
+                           for (SimpleUnit Su: Game.computer.simpleUnits){
                                 if (quit) break;
                                 if (Su.strategyincurs==5)
                                     for (SimpleUnit Su2: IA.computer.simpleUnits){
@@ -173,7 +183,7 @@ public class IASimpleUnit extends IAUnite {
             if (support==null) unitGroup.setTarget(IA.computer.base.getCenter());
             else{
                 Point2D pts1 = support.unitGroup.getPosition();
-                Point2D pts2 = IA.computer.base.getCenter();
+                Point2D pts2 = Game.computer.base.getCenter();
                 unitGroup.setTarget(new Point2D.Double(pts1.getX()+(pts2.getX()-pts1.getX())*5/pts1.distance(pts2),pts1.getY()+(pts2.getY()-pts1.getY())*5/pts1.distance(pts2)));
             }
             break;
@@ -183,15 +193,24 @@ public class IASimpleUnit extends IAUnite {
                        /*
                         * crï¿½ï¿½ unitï¿½s 
                         */
-                               for (Unit u : unitGroup.group){
-
-                                   SimpleUnit su = (SimpleUnit)u;
-                                   su.setTarget(su.getCenter());
-                                   su.createSoldier();
-                               }
-                        break;
-                        } 
-                
+                       boolean quit = false;
+                       for (Unit u : unitGroup.group){
+                           if (quit) break;
+                           for (SimpleUnit Su: Game.computer.simpleUnits){
+                                if (quit) break;
+                                if (Su.strategyincurs==5||Su.strategyincurs==15)
+                                    for (SimpleUnit Su2: IA.computer.simpleUnits){
+                                               if (Su.strategyincurs==5){
+                                               SimpleUnit su = (SimpleUnit)u;
+                                               su.createSoldier(Su,Su2);
+                                               quit = true;
+                                               break; 
+                                            }
+                                    }
+                           }
+                       }
+                       break;
+            }          
         }
     }
 }

@@ -42,7 +42,8 @@ public class IA {
             SoldierGroup.list.get(i).ia.execut();
         }
         
-      //*****System.out.println("IA.execut : nb Sug "+SimpleUnitGroup.list.size());
+      System.out.println("IA.execut : nb Sug "+SimpleUnitGroup.list.size());
+        System.out.println("IA.execut :timr "+UI.time);
         //for (SimpleUnitGroup element : SimpleUnitGroup.list){
         for (int i = 0 ;  i+1 < SimpleUnitGroup.list .size();i++){
             if (SimpleUnitGroup.list.get(i).ia==null)
