@@ -99,7 +99,7 @@ public class GamePan extends JPanel {
         // afin de quitter le jeu plus vite :)
         ActionListener exit = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                Game.exit();
             }
         };
         bExit.addActionListener(exit);

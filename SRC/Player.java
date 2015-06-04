@@ -24,9 +24,13 @@ public class Player implements Finals {
     ArrayList<BufferedImage> soldierAlive = new ArrayList<>(3);
     ArrayList<BufferedImage> soldierAliveSelected = new ArrayList<>(3);
     ArrayList<BufferedImage> soldierCreation = new ArrayList<>(8);
+    ArrayList<BufferedImage> soldierDeath = new ArrayList<>(6);
+    ArrayList<BufferedImage> soldierDeathSelected = new ArrayList<>(6);
     
     ArrayList<BufferedImage> simpleUnitAlive = new ArrayList<>(3);
     ArrayList<BufferedImage> simpleUnitAliveSelected = new ArrayList<>(3);
+    
+    ArrayList<BufferedImage> simpleUnitCreation = new ArrayList<>(9);
     
     static int soldierCreationOffset = -19;
 
@@ -55,11 +59,23 @@ public class Player implements Finals {
             for (int i=0; i<3; i++){
                 soldierAlive.add(ImageIO.read(new File("IMG/"+c+"/Soldier/"+i+".png")));
                 soldierAliveSelected.add(ImageIO.read(new File("IMG/"+c+"/Soldier_selected/"+i+".png")));
+                
                 simpleUnitAlive.add(ImageIO.read(new File("IMG/"+c+"/SimpleUnit/"+i+".png")));
                 simpleUnitAliveSelected.add(ImageIO.read(new File("IMG/"+c+"/SimpleUnit_selected/"+i+".png")));
             }
+            
             for (int i=1;i<9;i++)
                 soldierCreation.add(ImageIO.read(new File("IMG/"+c+"/Soldier_creation/"+i+".png")));
+            
+            for (int i=1; i<7; i++){
+                soldierDeath.add(ImageIO.read(new File("IMG/death/Soldier/"+i+".png")));
+                soldierDeathSelected.add(ImageIO.read(new File("IMG/death/Soldier_selected/"+i+".png")));
+            }
+            
+            for (int i=1;i<10;i++){
+                simpleUnitCreation.add(ImageIO.read(new File("IMG/"+c+"/SimpleUnit_creation/"+i+".png")));
+            }
+            
         }catch (IOException e) {
            System.out.println("erreur d’écriture");
         }
@@ -91,5 +107,9 @@ public class Player implements Finals {
     void setColor(){
         String[] random = {"green", "blue", "orange", "pink"};
         setColor(random[(int)(4*Math.random())]);
+    }
+    
+    boolean isHuman(){
+        return (this == Game.human);
     }
 }

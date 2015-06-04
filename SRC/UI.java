@@ -26,7 +26,7 @@ public class UI extends JFrame{
 
     public UI(){
         
-        Game.beginning();
+        Game.beginning(this);
         gamepan = new GamePan(Finals.screenHeight,Finals.screenWidth);
         
         frame = new JFrame();
@@ -61,7 +61,7 @@ public class UI extends JFrame{
         frame.setTitle("LUCA");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
-        timer = new Timer(60, new TimerAction());
+        timer = new Timer(80, new TimerAction());
     }
     
 

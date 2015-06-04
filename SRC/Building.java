@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
@@ -6,7 +7,11 @@ public class Building extends Item {
     //______________ATTRIBUTS__________________//
 
     public static LinkedList<Building> buildings = new LinkedList<Building>();
-
+    
+    /**
+     * compteur pour l’affichage de l’animation.
+     */
+    private int c;
     // _____________CONSTRUCTEURS______________//
 
     /**
@@ -21,6 +26,7 @@ public class Building extends Item {
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         setTarget(topLeftCorner.getX(), topLeftCorner.getY() + 5 * SIDE);
         buildings.add(this);
+        c=10;
     }
 
     /**
@@ -77,21 +83,20 @@ public class Building extends Item {
     	
     	
     }
+    
     /**
      * Gère la vie d’un batiment et sa taille.
      * @param amount vie ajoutée (- pour en enlever)
      */
-
     public boolean getLife(double amount) {
 
         life += amount;
 
         //TODO gerer les intersection lors du grandissement
         double newSide = Math.sqrt(life / LIFE);
-        double shift = (newSide - hitbox.getHeight()) / 4.0;
         hitbox.setFrame(getCenter().getX() - newSide / 2.0, getCenter().getY() - newSide / 2.0, newSide, newSide);
         setRadius();
-        if (life <= 0)
+        if (this.isDead())
             return this.isDestructed();
 
         return false;
@@ -110,11 +115,41 @@ public class Building extends Item {
 
         // pourquoi ça a été mis en commentaire ? C’est pour éviter les abus et division par 0
         if (life > LIFE) {
-
-            if (((UI.time) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)) {
+            
+            if (((UI.time-9) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)) {
                 goAndProcreate();
             }
+            
         }
         return false;
+    }
+    
+    public void print(Graphics g) {
+        
+        g.setColor(getColor());
+        // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
+        g.fillRoundRect((int) ((hitbox.getX() - Camera.cameraX) * Camera.scale),
+                        (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale),
+                        (int) (hitbox.getWidth() * Camera.scale),
+                        (int) (hitbox.getHeight() * Camera.scale), (10), (10));
+        
+        
+        if (life > LIFE) {
+    
+            if (((UI.time) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)) {
+                c = 0;
+            }
+        }
+        if (c < 9){
+            g.setColor(BACKGROUND_COLOR);
+            g.fillRect((int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) -20,
+                       (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale)- 32, 
+                       34, 52);
+            g.drawImage(owner.simpleUnitCreation.get(c), 
+                        (int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) - 61, 
+                        (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale) - 39,
+                        null);
+            c++;
+        }
     }
 }

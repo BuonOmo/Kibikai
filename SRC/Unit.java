@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
 import java.util.LinkedList;
@@ -7,9 +8,15 @@ import java.util.LinkedList;
 public abstract class Unit extends Item {
 
     public LinkedList<IAHistObj> histoList = new LinkedList<IAHistObj>();
+    public static LinkedList<Unit> dyingUnits = new LinkedList<Unit>();
     double lifeMAX;
     double firstAppearance;
     int strategyincurs = 0;
+    
+    /**
+     * compteur pour l’animation de mort.
+     */
+    int c;
 
     /**
      * @param owner
@@ -23,6 +30,7 @@ public abstract class Unit extends Item {
         owner.units.add(this);
         firstAppearance = UI.time;
         setTarget(this.getCenter());
+        c = 0;
     }
 
     /**
@@ -95,6 +103,8 @@ public abstract class Unit extends Item {
 
 
     public abstract boolean execute();
+    
+    public abstract void printDieAnimation(Graphics g);
 
     //________MÉTHODES POUR LE DÉPLACEMENT______//
 

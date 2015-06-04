@@ -4,6 +4,8 @@ public class Game implements Finals {
 
     //________________ATTRIBUTS_____________//
     static Player human, computer;
+    static UI ui;
+    static boolean firstRun = true;
 
 
     /**
@@ -20,22 +22,21 @@ public class Game implements Finals {
         System.out.println("Game.run : nb nb itme en vie "+Item.aliveItems.size());
         */
         
-        if (UI.time == 0) {
-            //beginning();
-
-        } else if (Building.gameOver())
+        if (Building.gameOver())
             end();
         else
             middle();
     }
 
-    public static void beginning() {
+    public static void beginning(UI gui) {
+        
+        setUI(gui);
         
         setHuman(new Player("blue", Finals.BASE_LOCATION, Finals.namePlayer));
         setComputer(new Player("orange", new Point2D.Double(40, 40), "Player two FTW"));
         
-        new SimpleUnit(human, new Point2D.Double( human.base.getCenter().getX() - Finals.SIDE/2.0,
-                                               human.base.hitbox.getMaxY() + 1));
+        new Soldier(computer, new Point2D.Double(25, 10));
+
         for (int i = 0; i < 5; i++) {
             new SimpleUnit(human, new Point2D.Double(20, 5 + 2 * i));
             new SimpleUnit(computer, new Point2D.Double(30,35 + 2 * i));
@@ -85,7 +86,19 @@ public class Game implements Finals {
         System.out.println("Game Over");
         IA.execut();
         IA.end();
-        System.exit(0);
+        Game.exit();
+    }
+    
+    public static void exit(){
+        Item.aliveItems.clear();
+        Item.deadItems.clear();
+        Building.buildings.clear();
+        SimpleUnit.aliveSimpleUnits.clear();
+        SimpleUnit.deadSimpleUnits.clear();
+        SoldierGroup.list.clear();
+        SimpleUnitGroup.list.clear();
+        
+        ui.dispose();
     }
     
     public static void scroll(){
@@ -100,7 +113,10 @@ public class Game implements Finals {
     static Player getComputer() {
         return computer;
     }
-
+    
+    static UI getUI() {
+        return ui;
+    }
 
     //___________MUTATEURS___________//
 
@@ -110,6 +126,10 @@ public class Game implements Finals {
 
     static void setComputer(Player p) {
         computer = p;
+    }
+    
+    static void setUI(UI u){
+        ui = u;
     }
 
 }

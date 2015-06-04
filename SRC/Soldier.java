@@ -17,7 +17,7 @@ public class Soldier extends Unit {
      */
     public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet) {
         super(owner, topLeftCorner, LIFE * 3, 2);
-        viewRay = VEW_RAY_SOLDIER;
+        viewRay = 0;
         hitbox = new Ellipse2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), 2, 2);
         life = (lifeToSet < lifeMAX) ? lifeToSet : lifeMAX;
         damage = 0;
@@ -68,11 +68,6 @@ public class Soldier extends Unit {
 
     @Override
     public void print(Graphics g) {
-        //g.setColor(getColor());
-        /*
-        g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
-                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
-    */
         int x, y;
         x = (int) ((hitbox.getX() - Camera.cameraX) * Camera.scale);
         y = (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale);
@@ -91,16 +86,24 @@ public class Soldier extends Unit {
             
         }
     }
-    /*
-    @Override
-    public void printToMinimap(){
-        g.setColor(getColor());
+    
+    public void printDieAnimation(Graphics g){
+        int x, y;
+        x = (int) ((hitbox.getX() - Camera.cameraX) * Camera.scale - 10);
+        y = (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale - 10);
         
-        g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
-                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
+        if (selected)
+            g.drawImage(owner.soldierDeathSelected.get(c),
+                        x, y, null);
+        else
+            g.drawImage(owner.soldierDeath.get(c),
+                        x, y, null);
+        if (c>4){
+            dyingUnits.remove(this);
+        }
+        c++;
         
     }
-    */
 
     public boolean isDestructed() {
         //a faire au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
@@ -111,11 +114,40 @@ public class Soldier extends Unit {
             owner.items.remove(this);
             owner.units.remove(this);
             owner.soldiers.remove(this);
+            
+            dyingUnits.add(this);
+            stop();
+            
             return true;
         }
         return false;
     }
 
+    @Override
+    public boolean[][] fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
+        
+        // animations de creation et destruction
+        if (this.isDead()){
+            viewRay-= VIEW_RAY_SOLDIER/6.0;
+        }
+        else if (viewRay < VIEW_RAY_SOLDIER){
+            viewRay+= VIEW_RAY_SOLDIER/9.0;
+        }
+        
+        double R = (viewRay+hitbox.getWidth())*Scale;
+        for (int i =(int) -R ; i <= (int) R ; i++)
+            for (int j = -(int)Math.sqrt(R*R-i*i) ; j <= (int)Math.sqrt(R*R-i*i) ; j++){
+                if ((int)((getCenter().getX() - offsetX) * Scale)+i>=0
+                    &&(int)((getCenter().getX() - offsetX) * Scale)+i<tab.length
+                    &&(int)((getCenter().getY() - offsetY) * Scale)+j>=0
+                    &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
+                    )
+                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j] = false;
+                        //=(Math.random() > 0.5) ? false : true;
+            }
+        return tab;
+    }
+    
     public boolean execute() {
         
         actualiseTarget();

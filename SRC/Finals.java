@@ -86,7 +86,7 @@ public interface Finals {
     /**
      * Rayon de vision (pour la brouillard) pour soldier
      */
-    public static final int VEW_RAY_SOLDIER= 9;
+    public static final int VIEW_RAY_SOLDIER= 9;
 
 
     //_________________SIMPLEUNIT_______________//
@@ -105,7 +105,7 @@ public interface Finals {
     /**
      * Rayon de vision (pour la brouillard) pour simple unit
      */
-    public static final int VEW_RAY_SIMPLEUNIT= 3;
+    public static final int VIEW_RAY_SIMPLEUNIT= 3;
 
 
     //__________________IA____________________//

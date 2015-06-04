@@ -10,7 +10,6 @@ public class SimpleUnit extends Unit {
     //_____________________ATTRIBUTS____________________//
 
     boolean creating;
-    SimpleUnit builder1, builder2;
     static SimpleUnitGroup builders;
 
     static LinkedList<SimpleUnit> aliveSimpleUnits = new LinkedList<SimpleUnit>();
@@ -25,10 +24,8 @@ public class SimpleUnit extends Unit {
     public SimpleUnit(Player owner, Point2D topLeftCorner, Point2D targetToSet) {
         super(owner, topLeftCorner, LIFE, 1, targetToSet);
         life = LIFE;
-        viewRay =Finals.VEW_RAY_SIMPLEUNIT;
+        viewRay =Finals.VIEW_RAY_SIMPLEUNIT;
         creating = false;
-        builder1 = null;
-        builder2 = null;
         aliveSimpleUnits.add(this);
         if (owner != null) {
             owner.simpleUnits.add(this);
@@ -165,39 +162,45 @@ public class SimpleUnit extends Unit {
                         new Point2D.Double(builders.getPosition().getX() - 1,
                                            builders.getPosition().getY() - 1),
                         builders.getQuantityOfLife());
-            return builders.isDestructed();
+            for (Item i : builders.getGroup()){
+                i.getLife(-i.life);
+            }
+            return true;
         }
 
         return false;
     }
     
     public static SimpleUnit[] getNClosestSimpleUnitsFromOInL(int n, Point2D p, Player o, List<SimpleUnit> l) {
-        SimpleUnit[] toReturn = new SimpleUnit[n];
-        ArrayList<SimpleUnit> inOrder = new ArrayList<SimpleUnit>(n);
-        LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(l);
-        inOrder.add(toCheck.getFirst());
-        int c = 0;
-        for (SimpleUnit check : toCheck){
-            
-            for (SimpleUnit s : inOrder) {
-                if (check.distanceTo(p) < s.distanceTo(p) && check != s){
-                    inOrder.add(c, check);
-                    if (c>=n-1)
-                        inOrder.remove(n);
-                    break;
+        if (!(l == null)){
+            SimpleUnit[] toReturn = new SimpleUnit[n];
+            ArrayList<SimpleUnit> inOrder = new ArrayList<SimpleUnit>(n);
+            LinkedList<SimpleUnit> toCheck = new LinkedList<SimpleUnit>(l);
+            inOrder.add(toCheck.getFirst());
+            int c = 0;
+            for (SimpleUnit check : toCheck){
+                
+                for (SimpleUnit s : inOrder) {
+                    if (check.distanceTo(p) < s.distanceTo(p) && check != s){
+                        inOrder.add(c, check);
+                        if (c>=n-1)
+                            inOrder.remove(n);
+                        break;
+                    }
+                    c++;
                 }
-                c++;
+                c=0;
+                
             }
-            c=0;
-            
+            for (SimpleUnit i : inOrder){
+                toReturn[c] = i;
+                c++;
+                if (c == n)
+                    break;
+            }
+            return toReturn;
         }
-        for (SimpleUnit i : inOrder){
-            toReturn[c] = i;
-            c++;
-            if (c == n)
-                break;
-        }
-        return toReturn;
+        return null;
     }
     
     public static SimpleUnit[] getNClosestSimpleUnitsFromO(int n, Point2D p, Player o) {
@@ -296,8 +299,8 @@ public class SimpleUnit extends Unit {
 
                 stop();
             } else if (this.isCloseTo(targetI, HEALING_RANGE)) {
-
                 targetI.getLife(life);
+                this.getLife(-life);
                 return this.isDestructed();
             }
         }
@@ -316,11 +319,37 @@ public class SimpleUnit extends Unit {
             owner.items.remove(this);
             owner.units.remove(this);
             owner.simpleUnits.remove(this);
+            dyingUnits.add(this);
             return true;
         }
         return false;
     }
-
+    
+    @Override
+    public boolean[][] fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
+        
+        // animation de destruction
+        if (this.isDead()){
+            if (viewRay <= 0)
+                dyingUnits.remove(this);
+            else
+                viewRay-= VIEW_RAY_SIMPLEUNIT/6.0;
+        }
+        
+        double R = (viewRay+hitbox.getWidth())*Scale;
+        for (int i =(int) -R ; i <= (int) R ; i++)
+            for (int j = -(int)Math.sqrt(R*R-i*i) ; j <= (int)Math.sqrt(R*R-i*i) ; j++){
+                if ((int)((getCenter().getX() - offsetX) * Scale)+i>=0
+                    &&(int)((getCenter().getX() - offsetX) * Scale)+i<tab.length
+                    &&(int)((getCenter().getY() - offsetY) * Scale)+j>=0
+                    &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
+                    )
+                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j] = false;
+                        //=(Math.random() > 0.5) ? false : true;
+            }
+        return tab; // ce return ne serait-il pas inutile par hasard ?
+    }
+    
     public boolean execute() {
         actualiseTarget();
         move();
@@ -357,14 +386,9 @@ public class SimpleUnit extends Unit {
                         x, y, null);
         
     }
-    /*
+    
     @Override
-    public void printToMinimap(Graphics g, double offsetX, double offsetY, double Scale, double ScaleI){
-        g.setColor(getColor());
-        
-        g.fillOval((int) ((hitbox.getCenterX() - offsetX) * Scale-hitbox.getWidth() * ScaleI/2), (int) ((hitbox.getCenterY() - offsetY) * Scale-hitbox.getHeight() * ScaleI/2),
-                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI));
-        
+    public void printDieAnimation(Graphics g) {
+        // TODO Implement this method
     }
-    */
 }

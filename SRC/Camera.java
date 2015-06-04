@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
+import java.util.Iterator;
+
 import javax.swing.JPanel;
 
 public class Camera extends JPanel{
@@ -116,9 +118,20 @@ public class Camera extends JPanel{
 
             }
         }
+        for (Unit u : Unit.dyingUnits){
+            u.printDieAnimation(g);
+        }
+        
         for (Item i : Game.human.items) {
             if (i.isContained()){
                 i.fog(cameraX,cameraY, tab, scale);
+            }
+        }
+        
+        for (Unit i : Unit.dyingUnits) {
+            if (i.isContained() && i.owner.isHuman()){
+                i.fog(cameraX,cameraY, tab, scale);
+                //TODO gerer l’erreur de modification concourante de dyingUnits
             }
         }
         int RGB =Finals.FOG_COLOR.getRGB();

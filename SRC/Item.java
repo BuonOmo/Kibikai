@@ -233,15 +233,7 @@ public abstract class Item implements Finals {
         return owner.color;
     }
 
-    public void print(Graphics g) {
-        
-        g.setColor(getColor());
-        // TODO virer ce putain de 3 et mettre un truc cohérent pour les arcs de cercle
-        g.fillRoundRect((int) ((hitbox.getX() - Camera.cameraX) * Camera.scale),
-                        (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale),
-                        (int) (hitbox.getWidth() * Camera.scale),
-                        (int) (hitbox.getHeight() * Camera.scale), (10), (10));
-    }
+    public abstract void print(Graphics g);
     
     public void printToMinimap(Graphics g, double Scale, double ScaleI ){
             g.setColor(getColor());
@@ -324,6 +316,7 @@ public abstract class Item implements Finals {
                     &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
                     )
                     tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j]=false;
+                        //=(Math.random() > 0.5) ? false : true; // mettre à la place de false pour un brouillard swag
             }
         return tab;
     }
