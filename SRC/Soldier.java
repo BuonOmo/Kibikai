@@ -36,6 +36,11 @@ public class Soldier extends Unit {
     public Soldier(Player owner, Point2D topLeftCorner) {
         this(owner, topLeftCorner, LIFE * 3);
     }
+    
+    public Soldier(Player owner, Point2D topLeftCorner, Item targetIToSet){
+        this(owner, topLeftCorner);
+        setTarget(targetIToSet);
+    }
 
     //________________MÉTHODES_______________//
 
