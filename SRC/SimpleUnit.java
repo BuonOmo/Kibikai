@@ -10,7 +10,9 @@ public class SimpleUnit extends Unit {
     //_____________________ATTRIBUTS____________________//
 
     boolean creating;
-    static SimpleUnitGroup builders;
+    
+    SimpleUnitGroup builders;
+    private static LinkedList<SimpleUnitGroup> allBuilders = new LinkedList<SimpleUnitGroup>();
 
     static LinkedList<SimpleUnit> aliveSimpleUnits = new LinkedList<SimpleUnit>();
     static LinkedList<SimpleUnit> deadSimpleUnits = new LinkedList<SimpleUnit>();
@@ -31,7 +33,7 @@ public class SimpleUnit extends Unit {
             owner.simpleUnits.add(this);
             if (owner == Game.computer){
                 new SimpleUnitGroup(this,true);
-                System.out.print("SU:group créé");
+                System.out.print("SU:group crï¿½ï¿½");
             }
         }
         else System.out.print("SU:erreur");
@@ -102,12 +104,15 @@ public class SimpleUnit extends Unit {
                 u[0].owner == u[1].owner && u[0].owner == u[2].owner &&
                 u[0] != u[1] && u[0] != u[2]) {
 
+                SimpleUnitGroup b = new SimpleUnitGroup(u);
                 
                 for (SimpleUnit element : u) {
                     element.creating = true;
+                    element.builders = b;
                 }
                 setTriangularTarget(u, p);
-                builders = new SimpleUnitGroup(u);
+                
+                allBuilders.add(b);
             }
         }
     }
@@ -160,7 +165,8 @@ public class SimpleUnit extends Unit {
     public boolean build() {
         
         if ((builders.distanceTo(builders.getPosition()) <= CREATION_RANGE) && (builders.group.size() == 3) &&
-            (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER) && canCreate(target, builders.toSimpleUnit()) && builders.isOnTarget()) {
+            (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER) && canCreate(target, builders.toSimpleUnit()) && 
+            builders.isOnTarget() && !builders.hasDead()) {
             new Soldier(owner,
                         new Point2D.Double(builders.getPosition().getX() - 1,
                                            builders.getPosition().getY() - 1),
@@ -168,6 +174,7 @@ public class SimpleUnit extends Unit {
             for (Item i : builders.getGroup()){
                 i.getLife(-i.life);
             }
+            allBuilders.remove(builders);
             return true;
         }
 
@@ -333,10 +340,7 @@ public class SimpleUnit extends Unit {
         
         // animation de destruction
         if (this.isDead()){
-            if (viewRay <= 0)
-                dyingUnits.remove(this);
-            else
-                viewRay-= VIEW_RAY_SIMPLEUNIT/6.0;
+            viewRay-= VIEW_RAY_SIMPLEUNIT/6.0;
         }
         
         double R = (viewRay+hitbox.getWidth())*Scale;

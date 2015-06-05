@@ -113,12 +113,13 @@ public class Building extends Item {
 
         actualiseTarget();
 
-        // pourquoi ça a été mis en commentaire ? C’est pour éviter les abus et division par 0
         if (life > LIFE) {
             
-            if (((UI.time-9) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)) {
+            if (c==7) {
                 goAndProcreate();
+                c++;
             }
+            //((UI.time-8) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)
             
         }
         return false;
@@ -147,7 +148,7 @@ public class Building extends Item {
                        34, 52);
             g.drawImage(owner.simpleUnitCreation.get(c), 
                         (int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) - 61, 
-                        (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale) - 39,
+                        (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale) - 40,
                         null);
             c++;
         }

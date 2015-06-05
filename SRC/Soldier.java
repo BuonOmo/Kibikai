@@ -103,9 +103,7 @@ public class Soldier extends Unit {
         else
             g.drawImage(owner.soldierDeath.get(c),
                         x, y, null);
-        if (c>4){
-            dyingUnits.remove(this);
-        }
+        System.out.println(c);
         c++;
         
     }

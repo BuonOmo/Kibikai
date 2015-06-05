@@ -251,4 +251,12 @@ public class UnitGroup implements Cloneable {
         }
         return true;
     }
+    
+    boolean hasDead() {
+        for (Unit u : group){
+            if (u.isDead())
+                return true;
+        }
+        return false;
+    }
 }

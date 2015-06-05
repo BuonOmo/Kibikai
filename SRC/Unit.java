@@ -82,7 +82,7 @@ public abstract class Unit extends Item {
     @Override
     public Color getColor() {
         double percent = ((life + lifeMAX / 2.0) / (1.5 * lifeMAX));
-        
+        percent = (percent > 1 ) ? 1 : (percent < 0 ) ? 0: percent;
         if (selected)
             return new Color(0, (int) (255 * percent), (int) (255 * percent));
         
@@ -411,5 +411,11 @@ public abstract class Unit extends Item {
 
         // impossible de se déplacer
         return null;
+    }
+    
+    public void die(){
+        if (isDead() && viewRay <=0){
+            dyingUnits.remove(this);
+        }
     }
 }

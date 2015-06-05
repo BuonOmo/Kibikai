@@ -115,21 +115,23 @@ public class GamePan extends JPanel {
         }
         if (Listeners.selected!=null){
         LinkedList<Unit> Us = Listeners.selected.group;
-        LinkedList solS = new LinkedList();
-        LinkedList suS = new LinkedList();
+        int solS, suS;
+        solS = 0;
+        suS = 0;
+        
         for (Unit u: Us){
             String className = u.getClass().getName();
             if (className == "Soldier"){
-                solS.add(u);
+                solS++;
             }
             if (className == "SimpleUnit"){
-                suS.add(u);
+                suS++;
             }
         }
-        lNbSuSelect.setText(Integer.toString(suS.size()));
-        lNbSoSelect.setText(Integer.toString(solS.size()));
-        NbSuSelect.setVisible((suS.size()>0));
-        NbSoSelect.setVisible((solS.size()>0));
+        lNbSuSelect.setText(Integer.toString(suS));
+        lNbSoSelect.setText(Integer.toString(solS));
+        NbSuSelect.setVisible((suS>0));
+        NbSoSelect.setVisible((solS>0));
         }
         BaseSelect.setVisible(Listeners.baseSelected);
 

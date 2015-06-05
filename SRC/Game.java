@@ -35,7 +35,6 @@ public class Game implements Finals {
         setHuman(new Player("blue", Finals.BASE_LOCATION, Finals.namePlayer));
         setComputer(new Player("orange", new Point2D.Double(40, 40), "Player two FTW"));
         
-        new Soldier(computer, new Point2D.Double(25, 10));
 
         for (int i = 0; i < 5; i++) {
             new SimpleUnit(human, new Point2D.Double(20, 5 + 2 * i));
@@ -68,7 +67,9 @@ public class Game implements Finals {
             }
         }
         */
-
+        for (int i = 0; i < Unit.dyingUnits.size(); i++) {
+            Unit.dyingUnits.get(i).die();
+        }
         for (int i = 0; i < Item.aliveItems.size(); i++) {
             Item.aliveItems.get(i).execute();
         }
@@ -97,8 +98,10 @@ public class Game implements Finals {
         SimpleUnit.deadSimpleUnits.clear();
         SoldierGroup.list.clear();
         SimpleUnitGroup.list.clear();
-        
-        ui.dispose();
+        Unit.dyingUnits.clear();
+        SimpleUnitGroup.list.clear();
+        SoldierGroup.list.clear();
+        // ajouter une sortie de l’ecran
     }
     
     public static void scroll(){
