@@ -52,10 +52,13 @@ public interface Finals {
      * Nombre d’US par secondes crées à l’origine par BA.
      */
     public static final double UNIT_PER_SECOND = 0.005;
+    
+    public static final double CREATION_INCREMENT = 3;
+    public static final int CREATION_TIME = 150;
     /**
      * Rayon de vision (pour la brouillard) pour Building
      */
-    public static final int VEW_RAY_BUILDING= 5;
+    public static final int VIEW_RAY_BUILDING= 5;
 
 
     //_____________________UNIT______________________//

@@ -74,6 +74,13 @@ public class Camera extends JPanel{
         return new Point2D.Double(cameraX, cameraY);
     }
     
+    public static int getXOnScreen(double xInGame){
+        return (int) ((xInGame - cameraX)*scale);
+    }
+    
+    public static int getYOnScreen(double yInGame){
+        return (int) ((yInGame - cameraY)*scale);
+    }
     public static void setScale(int i){
         scale+= i;
         if (cameraX + cameraWidth > Finals.WIDTH * scale)

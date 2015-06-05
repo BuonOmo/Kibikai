@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -7,6 +9,12 @@ public class Building extends Item {
     //______________ATTRIBUTS__________________//
 
     public static LinkedList<Building> buildings = new LinkedList<Building>();
+    private int creationTimer;
+    
+    /**
+     * temps de création, varie en fonction de la taille du batiment.
+     */
+    private int creationTime;
     
     /**
      * compteur pour l’affichage de l’animation.
@@ -22,11 +30,13 @@ public class Building extends Item {
     public Building(Player owner, Point2D topLeftCorner, double side) {
         super(owner, topLeftCorner, side);
         life = Math.pow(side, 2) * LIFE;
-        viewRay =Finals.VEW_RAY_BUILDING;
+        viewRay =VIEW_RAY_BUILDING;
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         setTarget(topLeftCorner.getX(), topLeftCorner.getY() + 5 * SIDE);
         buildings.add(this);
         c=10;
+        creationTime = CREATION_TIME;
+        setCreationTimer();
     }
 
     /**
@@ -38,6 +48,11 @@ public class Building extends Item {
     }
     //________________METHODES_______________//
 
+    
+    public void setCreationTimer(){
+        creationTimer = creationTime;
+    }
+    
     /**
      *  Cree une unite simple au point de spawn de a base. Si d'autre unit�s y sont pr�sentes, n'en cr�e pas
      *  mais leur donne une nouvelle target pour lib�rer l'espace
@@ -96,6 +111,9 @@ public class Building extends Item {
         double newSide = Math.sqrt(life / LIFE);
         hitbox.setFrame(getCenter().getX() - newSide / 2.0, getCenter().getY() - newSide / 2.0, newSide, newSide);
         setRadius();
+        creationTime -= (int) (CREATION_INCREMENT*amount);
+        if (creationTime<10)
+            creationTime = 10;
         if (this.isDead())
             return this.isDestructed();
 
@@ -110,14 +128,14 @@ public class Building extends Item {
     }
 
     public boolean execute() {
-
+        creationTimer--;
         actualiseTarget();
 
         if (life > LIFE) {
             
-            if (c==7) {
+            if (creationTimer == 0) {
                 goAndProcreate();
-                c++;
+                setCreationTimer();
             }
             //((UI.time-8) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)
             
@@ -134,23 +152,23 @@ public class Building extends Item {
                         (int) (hitbox.getWidth() * Camera.scale),
                         (int) (hitbox.getHeight() * Camera.scale), (10), (10));
         
+        g.setColor(BACKGROUND_COLOR);
+        g.setFont(new Font("Impact",60,30));
+        g.drawString(Integer.toString(creationTimer),
+                     Camera.getXOnScreen(hitbox.getX()),
+                     Camera.getYOnScreen(hitbox.getMaxY()));
         
-        if (life > LIFE) {
-    
-            if (((UI.time) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)) {
-                c = 0;
-            }
-        }
-        if (c < 9){
-            g.setColor(BACKGROUND_COLOR);
+        
+        if (creationTimer < 9){
+            
             g.fillRect((int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) -20,
                        (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale)- 32, 
                        34, 52);
-            g.drawImage(owner.simpleUnitCreation.get(c), 
+            g.drawImage(owner.simpleUnitCreation.get(8 - creationTimer), 
                         (int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) - 61, 
                         (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale) - 40,
                         null);
-            c++;
+            
         }
     }
 }
