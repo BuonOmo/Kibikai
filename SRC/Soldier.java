@@ -23,7 +23,7 @@ public class Soldier extends Unit {
         damage = 0;
         if (owner != null) {
             owner.soldiers.add(this);
-            if (owner == IA.computer)
+            if (owner == Game.computer)
                 new SoldierGroup(this);
         }
         setTarget(getCenter());

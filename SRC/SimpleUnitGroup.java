@@ -10,9 +10,9 @@ public class SimpleUnitGroup extends UnitGroup {
 
     //__________________CONSTRUCTEURS__________________//
 
-    public SimpleUnitGroup(SimpleUnit us) {
+    public SimpleUnitGroup(SimpleUnit us,boolean isIA) {
         super(us);
-        if (us.owner == IA.computer) {
+        if (us.owner == Game.computer&&isIA) {
             ia = new IASimpleUnit(this);
             list.add(this);
 
@@ -24,7 +24,7 @@ public class SimpleUnitGroup extends UnitGroup {
     }
 
     public SimpleUnitGroup(SimpleUnit[] u) {
-        this(u[0]);
+        this(u[0],false);
         for (int i = 1; i < u.length; i++) {
             if (u[i].owner == owner)
                 add(u[i]);
@@ -41,7 +41,7 @@ public class SimpleUnitGroup extends UnitGroup {
 
     //_________________________METHODES_______________________//
 
-    public LinkedList<SimpleUnitGroup> divideInDenseGroups() {
+/*public LinkedList<SimpleUnitGroup> divideInDenseGroups() {
         LinkedList<SimpleUnitGroup> toReturn = new LinkedList<SimpleUnitGroup>();
         toReturn.add(this);
         while (toReturn.getLast().group.size() != 0) {
@@ -51,10 +51,10 @@ public class SimpleUnitGroup extends UnitGroup {
         toReturn.remove(toReturn.size() - 1);
         return toReturn;
     }
-
+*/
     // quel est l’objectif (précis) de cette méthode
     // faire deux méthodes détachées (getDensePart part et densePart)
-    public SimpleUnitGroup densePart() {
+/*      public SimpleUnitGroup densePart() {
         LinkedList<SimpleUnit> copactGrp = new LinkedList<SimpleUnit>();
         LinkedList<SimpleUnit> rest = new LinkedList(group);
         densePartOfListe(copactGrp, rest, rest.get(0));
@@ -63,6 +63,7 @@ public class SimpleUnitGroup extends UnitGroup {
         group.addAll(copactGrp);
         return new SimpleUnitGroup(rest, owner);
     }
+*/
 
     private void densePartOfListe(LinkedList<SimpleUnit> copactGrp, LinkedList<SimpleUnit> rest, SimpleUnit s) {
         rest.remove(s);
@@ -100,12 +101,12 @@ public class SimpleUnitGroup extends UnitGroup {
 
     }
 
-    public boolean isDense() {
+/*    public boolean isDense() {
         if (this.densePart().group.size() == 0)
             return true;
         return false;
     }
-
+*/
     SimpleUnit[] toSimpleUnit() {
         SimpleUnit[] tab = new SimpleUnit[size()];
         int c=0;
@@ -125,4 +126,5 @@ public class SimpleUnitGroup extends UnitGroup {
         }
         return true;
     }
+    
 }

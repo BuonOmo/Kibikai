@@ -29,9 +29,12 @@ public class SimpleUnit extends Unit {
         aliveSimpleUnits.add(this);
         if (owner != null) {
             owner.simpleUnits.add(this);
-            if (owner == IA.computer)
-                new SimpleUnitGroup(this);
+            if (owner == Game.computer){
+                new SimpleUnitGroup(this,true);
+                System.out.print("SU:group créé");
+            }
         }
+        else System.out.print("SU:erreur");
 
     }
 

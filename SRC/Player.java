@@ -21,16 +21,16 @@ public class Player implements Finals {
     LinkedList<Unit> deadUnits = new LinkedList<Unit>(); //a traiter avec la future class Unit.isDestructed()//
     
     
-    ArrayList<BufferedImage> soldierAlive = new ArrayList<>(3);
-    ArrayList<BufferedImage> soldierAliveSelected = new ArrayList<>(3);
-    ArrayList<BufferedImage> soldierCreation = new ArrayList<>(8);
-    ArrayList<BufferedImage> soldierDeath = new ArrayList<>(6);
-    ArrayList<BufferedImage> soldierDeathSelected = new ArrayList<>(6);
+    ArrayList<BufferedImage> soldierAlive = new ArrayList<BufferedImage>(3);
+    ArrayList<BufferedImage> soldierAliveSelected = new ArrayList<BufferedImage>(3);
+    ArrayList<BufferedImage> soldierCreation = new ArrayList<BufferedImage>(8);
+    ArrayList<BufferedImage> soldierDeath = new ArrayList<BufferedImage>(6);
+    ArrayList<BufferedImage> soldierDeathSelected = new ArrayList<BufferedImage>(6);
     
-    ArrayList<BufferedImage> simpleUnitAlive = new ArrayList<>(3);
-    ArrayList<BufferedImage> simpleUnitAliveSelected = new ArrayList<>(3);
+    ArrayList<BufferedImage> simpleUnitAlive = new ArrayList<BufferedImage>(3);
+    ArrayList<BufferedImage> simpleUnitAliveSelected = new ArrayList<BufferedImage>(3);
     
-    ArrayList<BufferedImage> simpleUnitCreation = new ArrayList<>(9);
+    ArrayList<BufferedImage> simpleUnitCreation = new ArrayList<BufferedImage>(9);
     
     static int soldierCreationOffset = -19;
 
@@ -84,24 +84,19 @@ public class Player implements Finals {
     
     void setColor(String c){
         setImages(c);
-        switch (c){
-            case ("green"):{
+
+            if (c=="green"){
                 color = GREEN;
-                break;
             }
-            case ("blue"):{
+            if (c=="blue"){
                 color = BLUE;
-                break;
             }
-            case ("orange"):{
-                color = ORANGE;
-                break;                
+            if (c=="orange"){
+                color = ORANGE;               
             }
-            case ("pink"):{
-                color = PINK;
-                break;                                
+            if (c=="pink"){
+                color = PINK;                             
             }
-        }
     }
 
     void setColor(){

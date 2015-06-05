@@ -13,7 +13,7 @@ public class SoldierGroup extends UnitGroup {
         super(soldier);
         if (soldier != null) {
 
-            if (soldier.owner == IA.computer) {
+            if (soldier.owner == Game.computer) {
                 list.add(this);
                 ia = new IASoldier(this);
             }

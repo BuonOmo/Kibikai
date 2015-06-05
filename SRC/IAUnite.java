@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public abstract class IAUnite {
-    public int nbQualSrtategy;
+    private int nbQualSrtategy;
     protected UnitGroup unitGroup;
     public int presentStrategy;
     public int previousStait;
@@ -48,15 +48,17 @@ public abstract class IAUnite {
         if (presentStrategy > 6) {
             System.out.println("�rreur ");
         }
-        if (previousStait != state || nbQualSrtategy > 50) {
+        if (previousStait != state || nbQualSrtategy >10) {
             nbQualSrtategy = 0;
             Strategy = chooseStrategy(state);
             presentStrategy = Strategy;
             previousStrategy = Strategy;
             createHisto(state, Strategy);
             updateyStrategy(Strategy);
-        } else
+        } else{
             Strategy = previousStrategy + 10;
+        nbQualSrtategy++;
+            }
         applyStrategy(Strategy);
 
         previousStait = state;
