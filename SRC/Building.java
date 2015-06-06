@@ -131,7 +131,7 @@ public class Building extends Item {
         creationTimer--;
         actualiseTarget();
 
-        if (life > LIFE) {
+        if (life > 2*LIFE) {
             
             if (creationTimer == 0) {
                 goAndProcreate();
@@ -152,23 +152,25 @@ public class Building extends Item {
                         (int) (hitbox.getWidth() * Camera.scale),
                         (int) (hitbox.getHeight() * Camera.scale), (10), (10));
         
-        g.setColor(BACKGROUND_COLOR);
-        g.setFont(new Font("Impact",60,30));
-        g.drawString(Integer.toString(creationTimer),
-                     Camera.getXOnScreen(hitbox.getX()),
-                     Camera.getYOnScreen(hitbox.getMaxY()));
-        
-        
-        if (creationTimer < 9){
+        if (life > 2*LIFE){
+            g.setColor(BACKGROUND_COLOR);
+            g.setFont(new Font("Impact",60,30));
+            g.drawString(Integer.toString(creationTimer),
+                         Camera.getXOnScreen(hitbox.getX()),
+                         Camera.getYOnScreen(hitbox.getMaxY()));
             
-            g.fillRect((int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) -20,
-                       (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale)- 32, 
-                       34, 52);
-            g.drawImage(owner.simpleUnitCreation.get(8 - creationTimer), 
-                        (int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) - 61, 
-                        (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale) - 40,
-                        null);
             
+            if (creationTimer < 9){
+                
+                g.fillRect((int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) -20,
+                           (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale)- 32, 
+                           34, 52);
+                g.drawImage(owner.simpleUnitCreation.get(8 - creationTimer), 
+                            (int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) - 61, 
+                            (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale) - 40,
+                            null);
+                
+            }
         }
     }
 }

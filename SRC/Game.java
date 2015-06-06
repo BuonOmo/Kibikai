@@ -85,7 +85,6 @@ public class Game implements Finals {
 
     public static void end() {
         System.out.println("Game Over");
-        IA.execut();
         IA.end();
         Game.exit();
     }

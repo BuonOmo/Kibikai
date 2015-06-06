@@ -48,20 +48,15 @@ public class UI extends JFrame{
         frame.setResizable(false);
         frame.setLocation(0,0);
         
-
-        //Set the background on YELLOW : if you see stg yellow it means the jpanel ain't working
-        //frame.getContentPane().setBackground(Color.YELLOW);
         
-        //panelBandeau = new SideBand();       
-        //frame.getContentPane().setLayout(null);
         frame.add(gamepan);  
-        //frame.getContentPane().add(panelBandeau);
+        
         
         //JFrame properties
         frame.setTitle("LUCA");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
-        timer = new Timer(80, new TimerAction());
+        timer = new Timer(50, new TimerAction());
     }
     
 
