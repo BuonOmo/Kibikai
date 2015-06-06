@@ -111,7 +111,7 @@ public class Building extends Item {
         double newSide = Math.sqrt(life / LIFE);
         hitbox.setFrame(getCenter().getX() - newSide / 2.0, getCenter().getY() - newSide / 2.0, newSide, newSide);
         setRadius();
-        creationTime -= (int) (CREATION_INCREMENT*amount);
+        setCreationTime(life);
         if (creationTime<10)
             creationTime = 10;
         if (this.isDead())
@@ -155,7 +155,7 @@ public class Building extends Item {
         if (life > 2*LIFE){
             g.setColor(BACKGROUND_COLOR);
             g.setFont(new Font("Impact",60,30));
-            g.drawString(Integer.toString(creationTimer),
+            g.drawString(Integer.toString(creationTimer)+" "+Integer.toString((int)life),
                          Camera.getXOnScreen(hitbox.getX()),
                          Camera.getYOnScreen(hitbox.getMaxY()));
             
@@ -172,5 +172,8 @@ public class Building extends Item {
                 
             }
         }
+    }
+    void setCreationTime(double life){
+        creationTime = (int) (140*Math.exp(0.02*(27 - life)) + 10);
     }
 }
