@@ -100,6 +100,8 @@ public class Game implements Finals {
         Unit.dyingUnits.clear();
         SimpleUnitGroup.list.clear();
         SoldierGroup.list.clear();
+        ui.time = 0;
+        ui.timer.stop();
         // ajouter une sortie de l’ecran
     }
     

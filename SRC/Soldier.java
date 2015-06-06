@@ -16,7 +16,7 @@ public class Soldier extends Unit {
      * @param lifeToSet vie du soldat à sa création (et non sa vie max)
      */
     public Soldier(Player owner, Point2D topLeftCorner, double lifeToSet) {
-        super(owner, topLeftCorner, LIFE * 3, 2);
+        super(owner, topLeftCorner, LIFE * 2, 2);
         viewRay = 0;
         hitbox = new Ellipse2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), 2, 2);
         life = (lifeToSet < lifeMAX) ? lifeToSet : lifeMAX;
@@ -34,7 +34,7 @@ public class Soldier extends Unit {
      * @param topLeftCorner position de l’unité
      */
     public Soldier(Player owner, Point2D topLeftCorner) {
-        this(owner, topLeftCorner, LIFE * 3);
+        this(owner, topLeftCorner, LIFE * 2);
     }
     
     public Soldier(Player owner, Point2D topLeftCorner, Item targetIToSet){
