@@ -155,7 +155,7 @@ public class Building extends Item {
         if (life > 2*LIFE){
             g.setColor(BACKGROUND_COLOR);
             g.setFont(new Font("Impact",60,30));
-            g.drawString(Integer.toString(creationTimer)+" "+Integer.toString((int)life),
+            g.drawString(Integer.toString(creationTimer),
                          Camera.getXOnScreen(hitbox.getX()),
                          Camera.getYOnScreen(hitbox.getMaxY()));
             

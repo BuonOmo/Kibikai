@@ -32,8 +32,8 @@ public class Game implements Finals {
         
         setUI(gui);
         
-        setHuman(new Player("blue", Finals.BASE_LOCATION, Finals.namePlayer));
-        setComputer(new Player("orange", new Point2D.Double(40, 40), "Player two FTW"));
+        setHuman(new Player("pink", BASE_LOCATION, namePlayer));
+        setComputer(new Player("green", new Point2D.Double(40, 40), "Player two FTW"));
         
 
         for (int i = 0; i < 5; i++) {
