@@ -103,6 +103,22 @@ public class Building extends Item {
     	
     	
     }
+    public boolean spawnIsPossibleWithoutMovement(){
+    	boolean possible = true;
+    	double largeurCarreSpawnNecessaire = 4*Finals.SIDE; // TODO A changer selon taille de l'animation?
+    	double xS = this.getCenter().getX() - Finals.SIDE/2.0;
+    	double yS = this.hitbox.getMaxY() + 1;
+    	Rectangle2D frame = new Rectangle2D.Double( xS-largeurCarreSpawnNecessaire/2, yS, largeurCarreSpawnNecessaire, largeurCarreSpawnNecessaire);
+    	
+        LinkedList<Item> u = getItemInFrame(frame); //prend en compte le centre des items seulement: on scan sur une large etendue qu'on r�duit ensuite
+        frame.setRect(new Rectangle2D.Double( xS-1, yS, Finals.SIDE+2, Finals.SIDE+2));
+        for(int i=0;i<u.size();i++){
+        	if(!u.get(i).hitbox.intersects(frame)){ u.remove(u.get(i));}
+        }
+    	if(u.isEmpty()){
+    		return possible;
+    	}else{return false;}
+    }
     
     /**
      * Gère la vie d’un batiment et sa taille.
@@ -145,7 +161,7 @@ public class Building extends Item {
             //((UI.time-8) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)
             
         }
-        this.spawnPossible = spawnIsPossible();
+        this.spawnPossible = spawnIsPossibleWithoutMovement();
         return false;
     }
     
