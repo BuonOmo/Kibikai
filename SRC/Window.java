@@ -37,35 +37,38 @@ public class Window extends JFrame {
         Rectangle r = frame.getBounds();//get the size of the created frame
         frameHeight = r.height;
         frameWidth = r.width;
-        frame.setBackground(Color.white);
+        frame.setBackground(Finals.BACKGROUND_COLOR);
 
 
         //put the JPanel on (null) in order to locate the buttons wherever we want
         JPanel pnlButton = new JPanel();
         pnlButton.setLayout(null);
-        pnlButton.setBackground(Color.white);
+        pnlButton.setBackground(Finals.BACKGROUND_COLOR);
         
         
         //Images of the buttons
-        this.newgameButton = new JButton(new ImageIcon( "new Game.png"));
-        this.loadgameButton = new JButton(new ImageIcon( "Save.png"));
-        this.optionsButton = new JButton(new ImageIcon( "options.png"));
+        this.newgameButton = new JButton(new ImageIcon( "IMG/Window/play.png"));
+        this.loadgameButton = new JButton(new ImageIcon( "IMG/Window/Save.png"));
+        this.optionsButton = new JButton(new ImageIcon( "IMG/Window/Options.png"));
         
-        newgameButton.setBackground(Color.white);
-        loadgameButton.setBackground(Color.white);
-        optionsButton.setBackground(Color.white);
+        newgameButton.setBackground(Finals.BACKGROUND_COLOR);
+        loadgameButton.setBackground(Finals.BACKGROUND_COLOR);
+        optionsButton.setBackground(Finals.BACKGROUND_COLOR);
+        
+        //sovgarde n'est pas préte
+        loadgameButton.setVisible(false);
         
         
         //Random Background
         for (int i = 0;  i<5;i++){
-            JLabel soGreen  = new JLabel( new ImageIcon( "SoldierGreen.png"));
+            JLabel soGreen  = new JLabel( new ImageIcon( "IMG/blue/Soldier/2.png"));
             pnlButton.add(soGreen);
-            soGreen.setBounds((int)(Math.random()*frameWidth), (int)(Math.random()*frameHeight), 20, 20);
-            JLabel sored  = new JLabel( new ImageIcon( "SoldierRed.png"));
+            soGreen.setBounds((int)(Math.random()*frameWidth), (int)(Math.random()*frameHeight), 60, 60);
+            JLabel sored  = new JLabel( new ImageIcon( "IMG/orange/Soldier/2.png"));
             pnlButton.add(sored);
-            sored.setBounds((int)(Math.random()*frameWidth), (int)(Math.random()*frameHeight), 20, 20);
+            sored.setBounds((int)(Math.random()*frameWidth), (int)(Math.random()*frameHeight), 60, 60);
         }
-        JLabel BaseGreen  = new JLabel( new ImageIcon( "BigBaseGreen.png"));
+        JLabel BaseGreen  = new JLabel( new ImageIcon( "IMG/Window/Base.png"));
         pnlButton.add(BaseGreen);
         BaseGreen.setBounds((int)(0.2*frameWidth), (int)(0.3*frameHeight), 50, 50);
 
@@ -74,19 +77,19 @@ public class Window extends JFrame {
         //Location and size of the newgameButton
         newgameButton.setSize(300, 40);
         Dimension size = newgameButton.getSize();
-        newgameButton.setBounds((frameWidth / 2) - 20, (frameHeight / 2) - 20 / 2, 40,
+        newgameButton.setBounds((frameWidth / 2) - 20, (frameHeight / 2) - 20 , 40,
                                 40);
 
         
         //Location and size of the loadgameButton
-        loadgameButton.setSize(size);
-        loadgameButton.setBounds((frameWidth / 2) - 20, frameHeight * 8 / 12 - 20, 40,
+        optionsButton.setSize(size);
+        optionsButton.setBounds((frameWidth / 2) - 20, frameHeight * 8 / 12 - 20, 40,
                                  40);
 
         
         //Location and size of the optionsButton
-        optionsButton.setSize(size);
-        optionsButton.setBounds(frameWidth / 2 - 20, frameHeight * 10 / 12 - 20, 40,
+        loadgameButton.setSize(size);
+        loadgameButton.setBounds(frameWidth / 2 - 20, frameHeight * 10 / 12 - 20, 40,
                                 40);
         
         
