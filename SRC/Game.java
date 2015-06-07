@@ -102,6 +102,8 @@ public class Game implements Finals {
         SoldierGroup.list.clear();
         ui.time = 0;
         ui.timer.stop();
+        ui.dispose();
+        
         // ajouter une sortie de l’ecran
     }
     

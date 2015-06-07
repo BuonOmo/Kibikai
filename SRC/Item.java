@@ -92,8 +92,9 @@ public abstract class Item implements Finals {
      * @param targetToSet
      */
     public void setTarget(Item targetToSet) {
+        
+        setTarget(targetToSet.getCenter());
         targetI = targetToSet;
-        target = targetToSet.getCenter();
     }
     
     public void setRadius(){

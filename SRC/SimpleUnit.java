@@ -61,7 +61,18 @@ public class SimpleUnit extends Unit {
 
     //_____________________MÉTHODES____________________//
 
-
+    /**
+     * Permet de déplacer une unité vers un point donné.
+     * @param targetToSet Point d’arrivée de l’unité (objectif)
+     */
+    @Override
+    public void setTarget(Point2D targetToSet) {
+        targetI = null;
+        target = targetToSet;
+        creating = false;
+    }
+    
+    
     /**
      * @param p point ou se fait la transformation
      * @param u SU impliqu�es qui ne sont pas prises en compte dans scan des intersections
@@ -106,12 +117,12 @@ public class SimpleUnit extends Unit {
 
                 SimpleUnitGroup b = new SimpleUnitGroup(u);
                 
+                
+                setTriangularTarget(u, p);
                 for (SimpleUnit element : u) {
                     element.creating = true;
                     element.builders = b;
                 }
-                setTriangularTarget(u, p);
-                
                 allBuilders.add(b);
             }
         }

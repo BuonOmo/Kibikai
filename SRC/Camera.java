@@ -95,7 +95,10 @@ public class Camera extends JPanel{
     public void paint(Graphics g) {
 
         // AFFICHAGE DU FOND
-        g.setColor(Finals.BACKGROUND_COLOR);
+        g.setColor((Listeners.louHammel) ? new Color((int)(Math.random()*255),
+                                                     (int)(Math.random()*255),
+                                                     (int)(Math.random()*255)) : 
+                                            Finals.BACKGROUND_COLOR);
         g.fillRect(0, 0, (int) cameraWidth, (int) cameraHeight);
 
         // AFFICHAGE DE LA SELECTION

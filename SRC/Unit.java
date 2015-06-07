@@ -180,6 +180,7 @@ public abstract class Unit extends Item {
         location = new Point2D.Double(hitbox.getX() + vector.getX(), hitbox.getY() + vector.getY());
 
         //Gestion des bordures
+        /*
         {
             if (hitbox.getX() + vector.getX() < 0) {
                 setX(0);
@@ -190,7 +191,7 @@ public abstract class Unit extends Item {
                 return new Point2D.Double(0, vector.getY());
             }
 
-            if (hitbox.getY() + vector.getY() < DISTANCE_TO_MOVE) {
+            if (hitbox.getY() + vector.getY() < 0) {
                 setY(0);
                 return new Point2D.Double(vector.getX(), 0);
             }
@@ -199,7 +200,8 @@ public abstract class Unit extends Item {
                 return new Point2D.Double(vector.getX(), 0);
             }
         }
-
+        */
+        
         // Gestion des objets
         double alpha;
         alpha = 0;

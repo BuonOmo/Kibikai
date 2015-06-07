@@ -9,6 +9,10 @@ public class Building extends Item {
     //______________ATTRIBUTS__________________//
 
     public static LinkedList<Building> buildings = new LinkedList<Building>();
+    /**
+     * timer gerant la création : elle est lancé quand il vaut 0.
+     */
+    
     private int creationTimer;
     
     /**
@@ -19,7 +23,7 @@ public class Building extends Item {
     /**
      * compteur pour l’affichage de l’animation.
      */
-    private int c;
+    private int animationTimer;
     // _____________CONSTRUCTEURS______________//
 
     /**
@@ -34,7 +38,7 @@ public class Building extends Item {
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         setTarget(topLeftCorner.getX(), topLeftCorner.getY() + 5 * SIDE);
         buildings.add(this);
-        c=10;
+        animationTimer = 9;
         creationTime = CREATION_TIME;
         setCreationTimer();
     }
@@ -134,8 +138,7 @@ public class Building extends Item {
         if (life > 2*LIFE) {
             
             if (creationTimer == 0) {
-                goAndProcreate();
-                setCreationTimer();
+                animationTimer = 0;
             }
             //((UI.time-8) % (int) (4 / (hitbox.getHeight() * UNIT_PER_SECOND) + 1) == 0)
             
@@ -153,22 +156,31 @@ public class Building extends Item {
                         (int) (hitbox.getHeight() * Camera.scale), (10), (10));
         
         if (life > 2*LIFE){
+            
             g.setColor(BACKGROUND_COLOR);
-            g.setFont(new Font("Impact",60,30));
-            g.drawString(Integer.toString(creationTimer),
-                         Camera.getXOnScreen(hitbox.getX()),
-                         Camera.getYOnScreen(hitbox.getMaxY()));
             
-            
-            if (creationTimer < 9){
+            if (animationTimer < 9){
                 
                 g.fillRect((int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) -20,
                            (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale)- 32, 
                            34, 52);
-                g.drawImage(owner.simpleUnitCreation.get(8 - creationTimer), 
+                g.drawImage(owner.simpleUnitCreation.get(animationTimer), 
                             (int)((hitbox.getCenterX() - Camera.cameraX)*Camera.scale) - 61, 
                             (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale) - 40,
                             null);
+                animationTimer++;
+                if (animationTimer == 9){
+                    goAndProcreate();
+                    setCreationTimer();
+                }
+            }
+            else{
+                
+                
+                g.setFont(new Font("Impact",60,30));
+                g.drawString(Integer.toString(creationTimer),
+                             Camera.getXOnScreen(hitbox.getX()),
+                             Camera.getYOnScreen(hitbox.getMaxY()));
                 
             }
         }
