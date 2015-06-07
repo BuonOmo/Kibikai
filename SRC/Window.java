@@ -74,20 +74,17 @@ public class Window extends JFrame {
         //Location and size of the newgameButton
         newgameButton.setSize(300, 40);
         Dimension size = newgameButton.getSize();
-        newgameButton.setBounds((frameWidth / 2) - 20, (frameHeight / 2) - 20 / 2, 40,
-                                40);
+        newgameButton.setBounds((frameWidth / 2) - 20, (frameHeight / 2) - 20 / 2, 40, 40);
 
         
         //Location and size of the loadgameButton
         loadgameButton.setSize(size);
-        loadgameButton.setBounds((frameWidth / 2) - 20, frameHeight * 8 / 12 - 20, 40,
-                                 40);
+        loadgameButton.setBounds((frameWidth / 2) - 20, frameHeight * 8 / 12 - 20, 40, 40);
 
         
         //Location and size of the optionsButton
         optionsButton.setSize(size);
-        optionsButton.setBounds(frameWidth / 2 - 20, frameHeight * 10 / 12 - 20, 40,
-                                40);
+        optionsButton.setBounds(frameWidth / 2 - 20, frameHeight * 10 / 12 - 20, 40, 40);
         
         
         //Add the buttons in the frame

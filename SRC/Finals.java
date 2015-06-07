@@ -183,8 +183,6 @@ public interface Finals {
     //___________GRAPHISME__________//
     public static final Color BACKGROUND_COLOR = new Color(74, 72, 76);
     public static final Color FOG_COLOR = new Color(67, 64, 69);
-    
-    public static final Color GREEN = new Color(182, 235, 135);
 
     /**
      * @deprecated la couleur rouge n’as pas d’images associées
@@ -194,5 +192,5 @@ public interface Finals {
     public static final Color BLUE = new Color(147, 162, 247);
     public static final Color ORANGE = new Color(255, 160, 90);
     public static final Color PINK = new Color(247, 147, 223);    
-
+    public static final Color GREEN = new Color(182, 235, 135);
 }
