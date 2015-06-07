@@ -181,7 +181,7 @@ public class SimpleUnit extends Unit {
             new Soldier(owner,
                         new Point2D.Double(builders.getPosition().getX() - 1,
                                            builders.getPosition().getY() - 1),
-                        builders.getQuantityOfLife());
+                        builders.getQuantityOfLife() * 2.0/3.0);
             for (Item i : builders.getGroup()){
                 i.getLife(-i.life);
             }

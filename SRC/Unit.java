@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
+import java.awt.geom.Rectangle2D;
+
 import java.util.LinkedList;
 
 
@@ -310,10 +312,19 @@ public abstract class Unit extends Item {
     }
 
     public boolean willIntersect(Item i, double alphaDegre) {
-
-        if (radius + i.radius > i.distanceTo(getNewLocationFromCenter(alphaDegre)))
+        Point2D newLocation = getNewLocationFromCenter(alphaDegre);
+        
+        if (i.getClass().getName() == "Building"){
+            if (i.hitbox.intersects(new Rectangle2D.Double(newLocation.getX() - hitbox.getWidth() / 2.0,
+                                                    newLocation.getY() - hitbox.getHeight() / 2.0,
+                                                    hitbox.getWidth(),
+                                                    hitbox.getHeight()))){
+                return true;
+            }
+        }
+        else if (radius + i.radius > i.distanceTo(newLocation)){
             return true;
-
+        }
         return false;
     }
 

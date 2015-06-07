@@ -15,6 +15,7 @@ public class Camera extends JPanel{
     static double cameraWidth = Finals.screenWidth * 5 / 6;
     static double cameraHeight = Finals.screenHeight;
     public static int scale = 30;
+    private boolean computerBaseAlreadyPrinted;
     
     Mouse mouse;
     Key key;
@@ -30,6 +31,7 @@ public class Camera extends JPanel{
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
         this.addMouseWheelListener(mouse);
+        computerBaseAlreadyPrinted = false;
     }
 
 
@@ -81,6 +83,11 @@ public class Camera extends JPanel{
     public static int getYOnScreen(double yInGame){
         return (int) ((yInGame - cameraY)*scale);
     }
+    
+    public static int getLengthOnScreen(double lengthInGame){
+        return (int) (lengthInGame*scale);
+    }
+    
     public static void setScale(int i){
         scale+= i;
         if (cameraX + cameraWidth > Finals.WIDTH * scale)
@@ -124,9 +131,11 @@ public class Camera extends JPanel{
         
         for (Item i : Item.aliveItems) {
             if (i.isContained()){
-                i.print(g);
-
+                    i.print(g);
             }
+            else if (Building.buildings.contains(i))
+                i.print(g);
+            
         }
         for (Unit u : Unit.dyingUnits){
             u.printDieAnimation(g);
@@ -149,8 +158,11 @@ public class Camera extends JPanel{
             for (int j = 0 ; j<cameraHeight ; j++)
                 if (tab[i][j])
                     newImage.setRGB(i, j,RGB);
-        g.drawImage(newImage,0,0,this); 
-        IA.computer.base.print(g);
-                
+        g.drawImage(newImage,0,0,this);
+        
+        
+        Game.computer.base.printOverFog(g);
+        
+        
     }
 }
