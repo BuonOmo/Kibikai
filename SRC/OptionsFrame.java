@@ -1,5 +1,7 @@
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,8 +19,12 @@ public class OptionsFrame extends JFrame {
 	private JButton cancel;
 	private JLabel colorPlayerLabel;
 	private JLabel colorIALabel;
-	private JComboBox colorPlayerChoice; //TODO Voir si JColorChooser est mieux
+	private JComboBox colorPlayerChoice;
 	private JComboBox colorIAChoice;
+	
+	public static String colorPlayer;
+	public static String colorIA;
+	
 	
 	public OptionsFrame() {
 
@@ -31,29 +37,63 @@ public class OptionsFrame extends JFrame {
 		optFrameHeight = r.height;
     	optFrameWidth = r.width;
     	
+    	
     	//put the JPanel on (null) in order to locate the buttons wherever we want
     	JPanel panel = new JPanel();
     	panel.setLayout(null);
     	
-    	String[] colors = {"Blue", "Green", "Yellow"};
+    	
+    	//Initializing the components
+    	String[] colors = {"Blue", "Green", "Orange", "Pink"};
     	this.colorPlayerChoice = new JComboBox(colors);
     	this.colorIAChoice = new JComboBox(colors);
+    	this.colorPlayerLabel = new JLabel("Player's Color :");
+    	this.colorIALabel = new JLabel("IA's Color :");
+    	
     	
     	//Size and bounds of the components
-    	Dimension size = new Dimension(300, 40);
+    	Dimension size = new Dimension(200, 40);
     	colorPlayerChoice.setSize(size);
-    	colorPlayerChoice.setBounds(optFrameWidth / 2 - size.width / 2, optFrameHeight * 4 / 12 - size.height / 2, size.width, size.height);
+    	colorPlayerChoice.setBounds(optFrameWidth *7/12 - size.width /2, optFrameHeight * 4/12 - size.height /2, size.width, size.height);
     	colorIAChoice.setSize(size);
-    	colorIAChoice.setBounds(optFrameWidth / 2 - size.width / 2, optFrameHeight * 6 / 12 - size.height / 2, size.width, size.height);
+    	colorIAChoice.setBounds(optFrameWidth *7/12 - size.width /2, optFrameHeight * 6/12 - size.height /2, size.width, size.height);
+    	colorPlayerLabel.setBounds(optFrameWidth *5/12 - size.width /2, optFrameHeight * 4/12 - size.height /2, size.width, size.height);
+    	colorIALabel.setBounds(optFrameWidth *5/12 - size.width /2, optFrameHeight * 6/12 - size.height /2, size.width, size.height);
     	
+    	
+    	//Adding the components to the frame
     	panel.add(colorPlayerChoice);
     	panel.add(colorIAChoice);
+    	panel.add(colorPlayerLabel);
+    	panel.add(colorIALabel);
     	optFrame.add(panel);
+    	
+    	
+    	//Initializing the colors
+    	colorPlayer = "blue";
+    	colorIA = "orange";
+    	
+    	//Action Listeners of the components
+    	ActionListener playerColor = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        };
+        
+    	ActionListener IAColor = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        };
     	
     	//JFrame properties
     	optFrame.setTitle("OPTIONS");
     	optFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     	optFrame.setVisible(true);
+	}
+	
+	public static String getColorPlayer(){
+		return colorPlayer;
 	}
 
 }
