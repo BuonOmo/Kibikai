@@ -94,9 +94,9 @@ public class Building extends Item {
     	}else{
     		double alpha;
             for(Item i : u){
-    			alpha = 180 + Math.toRadians((Math.random()*180));
-    			i.setTarget(xS + (largeurCarreSpawnNecessaire*2 + i.hitbox.getMaxX())*Math.cos(alpha),
-                                    yS + (largeurCarreSpawnNecessaire*2 + i.hitbox.getMaxY())*Math.sin(alpha));
+    			alpha = Math.toRadians((Math.random()*180));
+    			i.setTarget(xS + (i.hitbox.getMaxX())*Math.cos(alpha),
+                                    yS + (i.hitbox.getMaxY())*Math.sin(alpha));
     		}
     		return false;
     	}
