@@ -10,10 +10,10 @@ import javax.swing.JPanel;
 
 public class Camera extends JPanel{
 
-    static double cameraX; //Position en x de la camera en pixel
-    static double cameraY; //Position en y de la camera en pixel
+    static double cameraX; //Position en x de la camera en pixel (en fait c’est pas en pixel a priori..)
+    static double cameraY; //Position en y de la camera en pixel (c’est meme sur je pense (hehe ça veut rien dire))
     static double cameraWidth = Finals.screenWidth * 5 / 6;
-    static double cameraHeight = Finals.screenHeight;
+    static double cameraHeight = Finals.screenHeight; // ça par contre c’est en pixel
     public static int scale = 30;
     private boolean computerBaseAlreadyPrinted;
     
@@ -77,17 +77,34 @@ public class Camera extends JPanel{
     }
     
     public static int getXOnScreen(double xInGame){
-        return (int) ((xInGame - cameraX)*scale);
+        return (int) (getLengthOnScreen(xInGame)*xInGame - cameraX*scale);
     }
     
     public static int getYOnScreen(double yInGame){
-        return (int) ((yInGame - cameraY)*scale);
+        return (int) (getLengthOnScreen(yInGame) - cameraY*scale);
     }
     
     public static int getLengthOnScreen(double lengthInGame){
         return (int) (lengthInGame*scale);
     }
     
+    public static double getXInGame(int XOnScreen){
+        return getLengthInGame(XOnScreen) + cameraX;
+    }
+    
+    public static double getYInGame(int YOnScreen){
+        return getLengthInGame(YOnScreen) + cameraY;
+    }
+    
+    public static double getLengthInGame(int lengthOnScreen){
+        return lengthOnScreen / scale;
+    }
+
+    /**
+     * @param i variation de l’echelle
+     * @deprecated L’echelle ne varie plus
+     */
+    @Deprecated
     public static void setScale(int i){
         scale+= i;
         if (cameraX + cameraWidth > Finals.WIDTH * scale)
