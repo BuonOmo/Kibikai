@@ -34,25 +34,22 @@ public class IA {
                         }
     }
     public static void execut(){
-    	//*****System.out.println("IA.execut : nb Sg "+SoldierGroup.list.size());
-        //for (SoldierGroup element : SoldierGroup.list){
+            //apllique l'IA au Groupe de soldat 
         for (int i = 0 ; i<SoldierGroup.list.size();i++ ){
            // element.ia.execut();
             if ((UI.time+i)%2==0)
             SoldierGroup.list.get(i).ia.execut();
         }
         
-      System.out.println("IA.execut : nb Sug "+SimpleUnitGroup.list.size());
-        System.out.println("IA.execut :timr "+UI.time);
-        //for (SimpleUnitGroup element : SimpleUnitGroup.list){
+        //apllique l'IA au Groupe de soldat 
         for (int i = 0 ;  i+1 < SimpleUnitGroup.list .size();i++){
-            if (SimpleUnitGroup.list.get(i).ia==null)
+            // petits verification 
+            /*if (SimpleUnitGroup.list.get(i).ia==null)
                 SimpleUnitGroup.list.remove(i);
             if (SimpleUnitGroup.list.get(i).group.size()==0)
-                SimpleUnitGroup.list.remove(i);
+                SimpleUnitGroup.list.remove(i);*/
             if ((UI.time+i)%5==0)
             SimpleUnitGroup.list.get(i).ia.execut();
-            //element.ia.execut();
         }
     }
    

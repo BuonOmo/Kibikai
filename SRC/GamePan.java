@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.net.URL;
+
 import java.util.LinkedList;
 
 import javax.swing.Box;
@@ -22,12 +24,12 @@ public class GamePan extends JPanel {
     private JPanel NbSuSelect = new JPanel();
     private JPanel NbSoSelect = new JPanel();
     private JPanel BaseSelect = new JPanel();
-    private JButton bExit = new JButton(new ImageIcon( "Exit.png"));
-    private JLabel iconSu  = new JLabel( new ImageIcon( "SimpelUnitGreen.png"));
-    private JLabel iconSo  = new JLabel( new ImageIcon( "SoldierGreen.png"));
-    private JLabel iconSuC  = new JLabel( new ImageIcon( "SimpelUnitCiant.png"));
-    private JLabel iconSoC  = new JLabel( new ImageIcon( "SoldierCiant.png"));
-    private JLabel iconBaseC  = new JLabel( new ImageIcon( "BaseCiant.png"));
+    private JButton bExit = new JButton(new ImageIcon( "IMG/GamePan/Exit.png"));
+    private JLabel iconSu  = new JLabel( new ImageIcon("IMG/GamePan/SU2.png"));
+    private JLabel iconSo  = new JLabel( new ImageIcon("IMG/GamePan/So2.png"));
+    private JLabel iconSuC  = new JLabel( new ImageIcon( "IMG/GamePan/SUS2.png"));
+    private JLabel iconSoC  = new JLabel( new ImageIcon( "IMG/GamePan/SoS2.png"));
+    private JLabel iconBaseC  = new JLabel( new ImageIcon( "IMG/GamePan/Base.png"));
     private JLabel lNbSu = new JLabel("0");
     private JLabel lNbSo = new JLabel("0");
     private JLabel lNbSuSelect = new JLabel("0");
