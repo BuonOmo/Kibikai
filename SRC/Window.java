@@ -103,7 +103,6 @@ public class Window extends JFrame {
         
         //Button actions
         newgameButton.addActionListener(start);
-        loadgameButton.addActionListener(load);
         optionsButton.addActionListener(options);
 
         

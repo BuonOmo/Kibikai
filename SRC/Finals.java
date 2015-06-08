@@ -8,22 +8,15 @@ public interface Finals {
     //________________parametres généraux_______________//
 
     /**
-     * nombre de soldat max !!
+     * nombre de soldats max
      */
     public static final int NUMBER_MAX_OF_SOLDIER = 20;
 
     /**
-     * nombre de US max !!
+     * nombre d'unites simples max
      */
     public static final int NUMBER_MAX_OF_SIMPLEUNIT = 20;
-
-
-    @Deprecated
-    /**
-     * transparence des unités (entre 0 et 255).
-     */
-    public static final int TRANSPARANCY = 80;
-
+    
 
     //______________________terrain______________________//
 
@@ -36,7 +29,7 @@ public interface Finals {
     //__________________ITEM_________________//
 
     /**
-     * Taille du cote dune unite simple en metres.
+     * Taille du cote d'une unite simple en metres.
      */
     public static final double SIDE = 1;
 
@@ -49,12 +42,20 @@ public interface Finals {
     //___________________BUILDING_____________________//
 
     /**
-     * Nombre d’US par secondes crées à l’origine par BA.
+     * Nombre d’US par secondes creees à l’origine par BA.
      */
     public static final double UNIT_PER_SECOND = 0.005;
     
+    /**
+     * 
+     */
     public static final double CREATION_INCREMENT = 3;
+    
+    /**
+     * 
+     */
     public static final int CREATION_TIME = 200;
+    
     /**
      * Rayon de vision (pour la brouillard) pour Building
      */
@@ -77,17 +78,17 @@ public interface Finals {
     //__________________SOLDIER__________________//
 
     /**
-     * Portee d’une attaque.
+     * Portee d’une attaque
      */
     public static final double ATTACK_RANGE = 1.3;
 
     /**
-     * Degats infliges par tour de jeu par une UM.
+     * Degats infliges par tour de jeu par un S
      */
     public static final double DAMAGE = 0.05;
     
     /**
-     * Rayon de vision (pour la brouillard) pour soldier
+     * Rayon de vision dans le brouillard pour soldier
      */
     public static final int VIEW_RAY_SOLDIER= 9;
 
@@ -106,7 +107,7 @@ public interface Finals {
     public static final double CREATION_RANGE = 3;
     
     /**
-     * Rayon de vision (pour la brouillard) pour simple unit
+     * Rayon de vision dans le brouillard pour simple unit
      */
     public static final int VIEW_RAY_SIMPLEUNIT= 3;
 
@@ -124,7 +125,7 @@ public interface Finals {
     public static final double IA_ALPHA = 0.9;
 
     /**
-     * Group distance max entre deux unites pour qu'elles soient considerees comme compactes.
+     * Distance max entre deux unites pour qu'elles soient considerees comme compactes.
      */
     public static final double Group_compactDim = 10;
 
@@ -173,31 +174,20 @@ public interface Finals {
      * Vitesse du scrolling (deplacement de la camera)
      */
     public static final int CAMERA_SPEED = 3;
-
-
-    //____________OPTIONS_____________//
-
-    
-    public static String namePlayer = "The Human";
     
     
-    //___________GRAPHISME__________//
+    //_____________GRAPHISM____________//
     
     public static final Color BACKGROUND_COLOR = new Color(74, 72, 76);
     public static final Color FOG_COLOR = new Color(67, 64, 69);
 
-    /**
-     * @deprecated la couleur rouge n’as pas d’images associées
-     */
-    @Deprecated
-    public static final Color RED = new Color(230, 117, 88);
     public static final Color BLUE = new Color(147, 162, 247);
     public static final Color ORANGE = new Color(255, 160, 90);
     public static final Color PINK = new Color(247, 147, 223);    
     public static final Color GREEN = new Color(182, 235, 135);
     
     
-    //___________MUSIQUE__________//
+    //______________MUSIC_____________//
     
     public static final String[] SONGS = {"SONGS/Röyksopp - What Else Is There.wav",
     									  "SONGS/Pretty Lights - Future Blind.wav",
