@@ -231,7 +231,7 @@ public class Game implements Finals {
      * @param s [0] = couleur du joueur : [1] = couleur de l’IA
      */
     static void setOptions(String[] s) {
-        ProcessBuilder pb = new ProcessBuilder("./setOptions.sh", s[0], s[1]);
+        ProcessBuilder pb = new ProcessBuilder("./setOptions.sh", s[0], s[1], s[2], s[3]);
         Process p;
         try {
             p = pb.start();
