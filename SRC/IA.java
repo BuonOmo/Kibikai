@@ -75,13 +75,18 @@ public class IA {
 			if (className == "Soldier"){
 				LinkedList <IAHistObj> histoList = ((Soldier)AllUnit.get(i)).histoList;
 				histoList.add(new IAHistObj(0,0,0));
-				for (int j = histoList.size()-3;j>=0;j--) rinforceQ(qIASoldier,nbSaveSol,histoList,j);
+                                Double R = histoList.get(histoList.size()-2).Reward;
+				for (int j = histoList.size()-3;j>=0;j--) {
+                                    R= rinforceQ(qIASoldier,nbSaveSol,histoList,j,R);
+                                }
 				histoList.clear();
 			}
 			if (className == "SimpleUnit"){
 				LinkedList <IAHistObj> histoList = ((SimpleUnit)AllUnit.get(i)).histoList;
-				histoList.add(new IAHistObj(0,0,0));
-				for (int j = histoList.size()-3;j>=0;j--)IA.rinforceQ(qIASimpleUnit,nbSaveSU, histoList, j);
+				histoList.add(new IAHistObj(0,0,0));                                Double R = histoList.get(histoList.size()-2).Reward;
+				for (int j = histoList.size()-3;j>=0;j--) {
+                                    R= rinforceQ(qIASimpleUnit,nbSaveSU,histoList,j,R);
+                                }
 				histoList.clear();   
 			} 
 
@@ -104,11 +109,18 @@ public class IA {
 	 * @param histoList
 	 * @param index
 	 */
-	public static void rinforceQ(Double [][] Q,Double [][] nbS, LinkedList <IAHistObj> histoList,int index ){
+	public static Double rinforceQ(Double [][] Q,Double [][] nbS, LinkedList <IAHistObj> histoList,int index , Double priviousReward ){
 		Double Qsa;
+                
+                // calcule de l'a Q max a l'éta suvant 
+                Double Qmax = -10.0;
+                for (Double Qnext : Q[histoList.get(index+1).Stait]){
+                    if (Qnext>Qmax)Qmax=Qnext;
+                }
+                
 
 		Qsa =histoList.get(index).Reward;
-		Qsa += Gamma*Q[histoList.get(index+1).Stait][histoList.get(index+1).Action-1];
+		Qsa += Gamma/2*(Qmax+priviousReward);
 		Qsa -= Q[histoList.get(index).Stait][histoList.get(index).Action-1];
 		Qsa = Qsa/(nbS [histoList.get(index).Stait][histoList.get(index).Action-1]+1);
 		Qsa += Q[histoList.get(index).Stait][histoList.get(index).Action-1];
@@ -121,6 +133,7 @@ public class IA {
 		if (Qsa<-10) Qsa =10.0;
 		nbS [histoList.get(index).Stait][histoList.get(index).Action-1]++;
 		Q[histoList.get(index).Stait][histoList.get(index).Action-1]=Qsa;
+                return priviousReward*Gamma/2+ histoList.get(index).Reward;
 	}
 
 
