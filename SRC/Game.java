@@ -1,4 +1,4 @@
-import java.awt.Color;
+﻿import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -142,6 +142,7 @@ public class Game implements Finals {
             public void actionPerformed(ActionEvent e) {
             	ui.dispose();
             	ui.setVisible(false); //pas sur que ca suffise, si dispose ne parvient pas a l'eliminer..
+		finDeJeu.dispose();
             }
         };
         ActionListener playAgain = new ActionListener() {
@@ -150,6 +151,7 @@ public class Game implements Finals {
             	ui.setVisible(false);
             	UI gui = new UI();      
                 gui.timer.start(); //a voir... 
+		finDeJeu.dispose();
             }
         };
         //ajout listeners
