@@ -24,7 +24,7 @@ public class Game implements Finals {
         
         setUI(gui);
         
-        setHuman(new Player("pink", BASE_LOCATION, namePlayer));
+        setHuman(new Player(OptionsFrame.colorPlayer, BASE_LOCATION, namePlayer));
         setComputer(new Player("green", new Point2D.Double(40, 40), "The Intelligence"));
         
 
