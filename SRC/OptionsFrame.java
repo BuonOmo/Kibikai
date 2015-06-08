@@ -101,7 +101,8 @@ public class OptionsFrame extends JFrame {
         
         ActionListener savingChanges = new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		//setOptions in the file
+        		String []s = {colorPlayer, colorIA};
+        		Game.setOptions(s);
         	}
         };
         
