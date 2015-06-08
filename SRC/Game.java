@@ -1,16 +1,19 @@
-﻿import java.awt.Color;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.geom.Point2D;
+
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 
 public class Game implements Finals {
 
@@ -19,6 +22,9 @@ public class Game implements Finals {
     static UI ui;
     static boolean firstRun = true;
     static String[] options;
+    static String whoWin;
+    static boolean over;
+    static PlayWave musicPlayer;
 
 
     /**
@@ -34,6 +40,11 @@ public class Game implements Finals {
     }
     
     public static void beginning(UI gui) {
+        musicPlayer = new PlayWave(true);
+        
+        
+        over = false;
+        
         options = getOptions();   
         setUI(gui);
         
@@ -48,8 +59,9 @@ public class Game implements Finals {
         
         IA.computer = computer;
         IA.player = human;
-        IA.beginning();                              
-
+        IA.beginning();     
+        
+        startMusic();
     }
 
     public static void middle() {
@@ -89,12 +101,20 @@ public class Game implements Finals {
     }
 
     public static void end() {
-        System.out.println("Game Over");
+        whoWin = (human.base.isDead()) ? "LOOSE" : "WIN" ;
+        over = true;
+        ui.timer.stop();
         IA.end();
-        Game.exit();
+        stopMusic();
     }
     
     public static void exit(){
+        if (!over){
+            ui.timer.stop();
+            IA.end();
+        }
+        ui.time = 0;
+        
         Item.aliveItems.clear();
         Item.deadItems.clear();
         Building.buildings.clear();
@@ -105,70 +125,15 @@ public class Game implements Finals {
         Unit.dyingUnits.clear();
         SimpleUnitGroup.list.clear();
         SoldierGroup.list.clear();
-        ui.time = 0;
-        ui.timer.stop();
         ui.dispose();
-        
-        //sortie de jeu: frame et panel
-        JFrame finDeJeu;
-        JPanel pFinDeJeu = new JPanel(null);
-        pFinDeJeu.setBackground(Color.BLUE);   
-        //regarde qui a gagne la partie
-        boolean victoire = true;
-        if(Game.human.base.isDead()){ 
-        	victoire = false;
-        }      
-        if(victoire){
-        	finDeJeu = new JFrame("You beat the game!");
-        }else{
-        	finDeJeu = new JFrame("You lost the game.");
-        }
-        //bouttons
-        JButton bExit = new JButton();
-        JButton bRejouer = new JButton();
-        bRejouer.setBounds(0,0,screenWidth/6,screenWidth/8-1);
-        bExit.setBounds(screenWidth/6,0, screenWidth/6,screenWidth/8);       
-        //taille ecriture
-        Font fontLarge = new Font(Font.DIALOG, Font.ITALIC, 25);
-        bExit.setFont(fontLarge);
-        bRejouer.setFont(fontLarge);
-        //fond et texte
-        bExit.setBackground(Color.RED);
-        bRejouer.setBackground(Color.BLUE);
-        bExit.setText("Quit.");
-        bRejouer.setText("Again!");
-        //listeners des boutons
-        ActionListener exit = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	ui.dispose();
-            	ui.setVisible(false); //pas sur que ca suffise, si dispose ne parvient pas a l'eliminer..
-		finDeJeu.dispose();
-            }
-        };
-        ActionListener playAgain = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	ui.dispose();
-            	ui.setVisible(false);
-            	UI gui = new UI();      
-                gui.timer.start(); //a voir... 
-		finDeJeu.dispose();
-            }
-        };
-        //ajout listeners
-        bExit.addActionListener(exit);
-        bExit.addActionListener(playAgain);
-        //on les ajoute au panel
-        pFinDeJeu.add(bRejouer);
-        pFinDeJeu.add(bExit); 
-        //frame
-        finDeJeu.setBounds(screenWidth/2-screenWidth/6,screenHeight/2-screenHeight/8, screenWidth/3,screenHeight/4);
-        finDeJeu.add(pFinDeJeu);
-        finDeJeu.setVisible(true);
-		finDeJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		finDeJeu.setResizable(false);
+        stopMusic();
     }
     
-    public static void scroll(){
+    static void startMusic(){
+        musicPlayer.start();
+    }
+    static void stopMusic(){
+        musicPlayer.stop();
     }
     
     //______________ACCESSEURS__________//

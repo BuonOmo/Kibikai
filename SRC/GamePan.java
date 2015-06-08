@@ -25,8 +25,7 @@ public class GamePan extends JPanel {
     private JPanel NbSoSelect = new JPanel();
     private JPanel BaseSelect = new JPanel();
     
-    private JPanel JSon = new JPanel();
-    private JButton blecteur = new JButton(new ImageIcon("IMG/GamePan/Son.png"));
+    private JButton blecteur = new JButton(new ImageIcon("IMG/GamePan/sound.png"));
     
     private JButton bExit = new JButton(new ImageIcon( "IMG/GamePan/Exit.png"));
     
@@ -47,8 +46,6 @@ public class GamePan extends JPanel {
     private Minimap minimap = new Minimap();
     private Box BoxSidBand = Box.createVerticalBox();
     Key key = new Key(Game.human);
-
-    static Thread lecteur;
 
 
     public GamePan(int Height,int Width ) {
@@ -91,18 +88,17 @@ public class GamePan extends JPanel {
         BaseSelect.add(lBaseSelect, null);
         BaseSelect.setVisible(false);
 
-        lecteur = new PlayWave(true);
-        lecteur.start();
-        JSon.setBackground(null);
-        JSon.add(blecteur, null);
-
         
-        BoxSidBand.add(bExit,null);
+
+        // le bouton bExit ne sert pas si on a la croix
+        //BoxSidBand.add(bExit,null);
+        BoxSidBand.add(blecteur, null);
         BoxSidBand.add(NbSu);
         BoxSidBand.add(NbSo,null);
         BoxSidBand.add(NbSuSelect, null);
         BoxSidBand.add(NbSoSelect, null);
         BoxSidBand.add(BaseSelect, null);
+        
 
         SidBand.add(BoxSidBand,null);
         
@@ -156,8 +152,8 @@ public class GamePan extends JPanel {
     }
     
     public static void pauseOrPlay(){
-    	((PlayWave) lecteur).invertLire();
-    	lecteur = new PlayWave(((PlayWave) lecteur).getLire());
-    	lecteur.start();
+    	Game.musicPlayer.invertLire();
+    	Game.musicPlayer = new PlayWave(Game.musicPlayer.getLire());
+    	Game.musicPlayer.start();
     }
 }

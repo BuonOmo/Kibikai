@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -180,6 +181,12 @@ public class Camera extends JPanel{
         
         
         Game.computer.base.printOverFog(g);
+        
+        if (Game.over){
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Impact",100,200));
+            g.drawString("YOU "+Game.whoWin,(int) cameraWidth/2 - 700,(int) cameraHeight/2 + 100);
+        }
         
         
     }
