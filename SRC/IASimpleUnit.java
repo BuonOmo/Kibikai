@@ -178,24 +178,7 @@ public class IASimpleUnit extends IAUnite {
                         */
                        
                        SimpleUnit.createSoldier(unitGroup.getPosition(), IA.computer, unitGroup.getPosition());
-                       /*boolean quit = false;
-                       for (Unit u : unitGroup.group){
-                           if (quit) break;
-                           for (SimpleUnit Su: Game.computer.simpleUnits){
-                                if (quit) break;
-                                if (Su.strategyincurs==5)
-                                    for (SimpleUnit Su2: IA.computer.simpleUnits){
-                                               if (Su.strategyincurs==5){
-                                               SimpleUnit su = (SimpleUnit)u;
-                                               su.createSoldier(Su,Su2);
-                                               quit = true;
-                                               break; 
-                                            }
-                                    }
-                           }
-                       }
                 break;
-*/
                 } 
         case 11: {           
             /*
@@ -219,24 +202,6 @@ public class IASimpleUnit extends IAUnite {
                       if (support==null){
                        SimpleUnit.createSoldier(unitGroup.getPosition(), IA.computer, IA.computer.base.target);
                       }
-                      else SimpleUnit.createSoldier(unitGroup.getPosition(), IA.computer, unitGroup.getPosition());
-                       /*boolean quit = false;
-                       for (Unit u : unitGroup.group){
-                           if (quit) break;
-                           for (SimpleUnit Su: Game.computer.simpleUnits){
-                                if (quit) break;
-                                if (Su.strategyincurs==5||Su.strategyincurs==15)
-                                    for (SimpleUnit Su2: IA.computer.simpleUnits){
-                                               if (Su.strategyincurs==5){
-                                               SimpleUnit su = (SimpleUnit)u;
-                                               su.createSoldier(Su,Su2);
-                                               quit = true;
-                                               break; 
-                                            }
-                                    }
-                           }
-                       }
-*/
                        break;
             }          
         }

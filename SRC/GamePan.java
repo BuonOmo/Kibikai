@@ -38,7 +38,6 @@ public class GamePan extends JPanel {
     private JLabel lNbSoSelect = new JLabel("0");
     private JLabel lBaseSelect = new JLabel(" ");
     
-    private JLabel campos = new JLabel ();
     
     
     public Camera camera = new Camera();
@@ -97,7 +96,6 @@ public class GamePan extends JPanel {
         BoxSidBand.add(NbSuSelect, null);
         BoxSidBand.add(NbSoSelect, null);
         BoxSidBand.add(BaseSelect, null);
-        BoxSidBand.add(campos,null);
 
         SidBand.add(BoxSidBand,null);
         // afin de quitter le jeu plus vite :)
@@ -138,7 +136,7 @@ public class GamePan extends JPanel {
         NbSoSelect.setVisible((solS>0));
         }
         BaseSelect.setVisible(Listeners.baseSelected);
-        campos.setText("("+(camera.cameraX+camera.cameraWidth/30)+" , "+(camera.cameraY+camera.cameraHeight/30)+")"+(minimap.getWidth()/((double)minimap.getHeight())));
+
 
         
     }
