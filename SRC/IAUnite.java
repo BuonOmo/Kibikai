@@ -41,24 +41,24 @@ public abstract class IAUnite {
     public void execut() {
         updateZone();
         int state = calculateStaite();
-        if (state > 431) {
-            System.out.println("ï¿½rreur ");
-        }
         int Strategy;
-        if (presentStrategy > 6) {
-            System.out.println("ï¿½rreur ");
-        }
-        if (previousStait != state || nbQualSrtategy >10) {
+        //si l'état a changer (étaté diéférant ou état idantique depuit longtemps)
+        if (previousStait != state || nbQualSrtategy >30) {
             nbQualSrtategy = 0;
+            //chois de la statégie 
             Strategy = chooseStrategy(state);
             presentStrategy = Strategy;
             previousStrategy = Strategy;
+            // ajout a l'historique de chaque unités
             createHisto(state, Strategy);
             updateyStrategy(Strategy);
         } else{
+            // (Strategy = previousStrategy + 10) permet d'appliquer les acction que nésésite les stratégie durables dans le temps 
             Strategy = previousStrategy + 10;
-        nbQualSrtategy++;
+            nbQualSrtategy++;
             }
+        // application de la stratégie 
+        
         applyStrategy(Strategy);
 
         previousStait = state;
@@ -77,8 +77,9 @@ public abstract class IAUnite {
             u.strategyincurs = strategy;
     }
 
-    public void updateZone() {
 
+    public void updateZone() {
+        //update simpleUnitPlyaerInZone3
         simpleUnitPlyaerInZone3.clear();
         for (int i = 0; i < IA.player.simpleUnits.size(); i++) {
             if (IA.player.units.get(i).getClass().getName() == "SimpleUnit") {
@@ -86,6 +87,9 @@ public abstract class IAUnite {
                     simpleUnitPlyaerInZone3.add((SimpleUnit) IA.player.units.get(i));
             }
         }
+        
+        
+        //update soldierPlyaerInZone3
         soldierPlyaerInZone3.clear();
         for (int i = 0; i < IA.player.soldiers.size(); i++) {
             if (IA.player.units.get(i).getClass().getName() == "Soldier") {
@@ -93,6 +97,10 @@ public abstract class IAUnite {
                     soldierPlyaerInZone3.add((Soldier) IA.player.units.get(i));
             }
         }
+        
+        
+        
+        //Update soldierPlyaerInZone2
         soldierPlyaerInZone2.clear();
         for (int i = 0; i < soldierPlyaerInZone3.size(); i++) {
             if (soldierPlyaerInZone3.get(i).getClass().getName() == "Soldier") {
@@ -100,6 +108,9 @@ public abstract class IAUnite {
                     soldierPlyaerInZone2.add(soldierPlyaerInZone3.get(i));
             }
         }
+        
+        
+        //Update soldierPlyaerInZone1
         soldierPlyaerInZone1.clear();
         for (Soldier s : soldierPlyaerInZone1) {
             for (Unit u2 : unitGroup.group) {
@@ -109,18 +120,9 @@ public abstract class IAUnite {
                 }
             }
         }
-        /*
-        for (int i = 0; i< soldierPlyaerInZone2.size();i++){
-            if (soldierPlyaerInZone2.get(i).getClass().getName()=="Soldier"){
-                for (int j = 0; j<unitGroup.group.size(); j++ ){
-                    if (unitGroup.group.get(j).distanceTo(soldierPlyaerInZone1.get(i))<R1) {
-                        soldierPlyaerInZone1.add(soldierPlyaerInZone2.get(i));
-                        break;
-                    }
-                }
-            }
-        }
-        */
+
+
+        // Update soldierComputerInZone3
         soldierComputerInZone3.clear();
         for (int i = 0; i < IA.computer.soldiers.size(); i++) {
             if (IA.computer.units.get(i).getClass().getName() == "Soldier") {
@@ -128,6 +130,10 @@ public abstract class IAUnite {
                     soldierComputerInZone3.add((Soldier) IA.computer.units.get(i));
             }
         }
+        
+        
+        
+        // Update soldierComputerInZone2
         soldierComputerInZone2.clear();
         for (int i = 0; i < soldierComputerInZone3.size(); i++) {
 
@@ -135,6 +141,8 @@ public abstract class IAUnite {
                 soldierComputerInZone2.add(soldierComputerInZone3.get(i));
 
         }
+        
+        //Update soldierComputerInZone1
         soldierComputerInZone1.clear();
         for (Soldier s : soldierComputerInZone2) {
             for (Unit u2 : unitGroup.group) {
@@ -144,20 +152,12 @@ public abstract class IAUnite {
                 }
             }
         }
-        /*for (int i = 0; i< soldierComputerInZone2.size();i++){
-            if (soldierComputerInZone2.get(i).getClass().getName()=="Soldier"){
-                for (int j = 0; j<unitGroup.group.size(); j++ ){
-                    if (unitGroup.group.get(j).distanceTo(soldierComputerInZone1.get(i))<R1) {
-                        soldierComputerInZone1.add(soldierComputerInZone2.get(i));
-                        break;
-                    }
-                }
-            }
-        }
-        */
-        //System.out.println("==> IAUnit.updateZone : nd soldier player in z3"+soldierPlyaerInZone3.size());
     }
 
+    /**
+     * @param state
+     * @param strategy
+     */
     public void createHisto(int state, int strategy) {
 
 
@@ -194,6 +194,4 @@ public abstract class IAUnite {
 
 
     }
-
-
 }

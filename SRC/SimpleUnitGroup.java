@@ -41,44 +41,9 @@ public class SimpleUnitGroup extends UnitGroup {
 
     //_________________________METHODES_______________________//
 
-/*public LinkedList<SimpleUnitGroup> divideInDenseGroups() {
-        LinkedList<SimpleUnitGroup> toReturn = new LinkedList<SimpleUnitGroup>();
-        toReturn.add(this);
-        while (toReturn.getLast().group.size() != 0) {
-            SimpleUnitGroup toAdd = toReturn.getLast().densePart();
-            toReturn.add(toAdd);
-        }
-        toReturn.remove(toReturn.size() - 1);
-        return toReturn;
-    }
-*/
-    // quel est l’objectif (précis) de cette méthode
-    // faire deux méthodes détachées (getDensePart part et densePart)
-/*      public SimpleUnitGroup densePart() {
-        LinkedList<SimpleUnit> copactGrp = new LinkedList<SimpleUnit>();
-        LinkedList<SimpleUnit> rest = new LinkedList(group);
-        densePartOfListe(copactGrp, rest, rest.get(0));
-
-        group.clear();
-        group.addAll(copactGrp);
-        return new SimpleUnitGroup(rest, owner);
-    }
-*/
-
-    private void densePartOfListe(LinkedList<SimpleUnit> copactGrp, LinkedList<SimpleUnit> rest, SimpleUnit s) {
-        rest.remove(s);
-        copactGrp.add(s);
-        // modifier le if
-        if (rest.size() != 0) {
-            int restSize = rest.size();
-            for (int i = restSize - 1; i >= 0; i--) {
-                if (s.distanceTo(rest.get(i)) < compactdim)
-                    densePartOfListe(copactGrp, rest, rest.get(i));
-            }
-        }
 
 
-    }
+
 
     public void add(SimpleUnitGroup sg) {
         if (sg.owner == owner) {
@@ -126,4 +91,44 @@ public class SimpleUnitGroup extends UnitGroup {
         }
         return true;
     }
+    //_________________________METHODES_NOT_USED_______________________//
+    private void densePartOfListe(LinkedList<SimpleUnit> copactGrp, LinkedList<SimpleUnit> rest, SimpleUnit s) {
+            rest.remove(s);
+            copactGrp.add(s);
+            // modifier le if
+            if (rest.size() != 0) {
+                int restSize = rest.size();
+                for (int i = restSize - 1; i >= 0; i--) {
+                    if (s.distanceTo(rest.get(i)) < compactdim)
+                        densePartOfListe(copactGrp, rest, rest.get(i));
+                }
+            }
+
+
+
+        }
+    
+    public LinkedList<SimpleUnitGroup> divideInDenseGroups() {
+            LinkedList<SimpleUnitGroup> toReturn = new LinkedList<SimpleUnitGroup>();
+            toReturn.add(this);
+            while (toReturn.getLast().group.size() != 0) {
+                SimpleUnitGroup toAdd = toReturn.getLast().densePart();
+                toReturn.add(toAdd);
+            }
+            toReturn.remove(toReturn.size() - 1);
+            return toReturn;
+        }
+    
+        // quel est l’objectif (précis) de cette méthode
+        // faire deux méthodes détachées (getDensePart part et densePart)
+      public SimpleUnitGroup densePart() {
+            LinkedList<SimpleUnit> copactGrp = new LinkedList<SimpleUnit>();
+            LinkedList<SimpleUnit> rest = new LinkedList(group);
+            densePartOfListe(copactGrp, rest, rest.get(0));
+
+            group.clear();
+            group.addAll(copactGrp);
+            return new SimpleUnitGroup(rest, owner);
+        }
+
 }

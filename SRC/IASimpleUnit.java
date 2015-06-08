@@ -6,6 +6,10 @@ public class IASimpleUnit extends IAUnite {
         super(simpleUnitGroupToSet);
         support = null;
     }
+
+    /**
+     * @return état entre 1 et 431
+     */
     public int calculateStaite() {
         
         int staite = 0;
@@ -43,25 +47,40 @@ public class IASimpleUnit extends IAUnite {
 
     public int chooseStrategy(int staite) {
         Double n = 0.0;
-        
+        // on calcule n , nombre de foi que staite a ue lieu
         for(Double i :IA.nbSaveSU[staite]) {
             n += i;
         }
+        
+        
+        
+        
         Double  sommeR=0.0;
+        // on calcule sommeR , diviseur de la loi de probabliité 
         for (Double x :IA.qIASimpleUnit[staite]){
             sommeR = sommeR +Math.exp((n+1)/(101+n)*x);
         }
+        
+        
+        
+        
         Double Rdm= Math.random()*sommeR;
         int i =0;
+        // on choisie la statégie avec une probablité de exp((n+1)/(101+n)*x)/SommeR
         for (Double x :IA.qIASimpleUnit[staite]){
             i++;
             if (Rdm<Math.exp((n+1)/(101+n)*x)) return i;
             Rdm=Rdm-Math.exp((n+1)/(101+n)*x);
         }
         
+        
+        //en cas d'érreurs on apllique la stratégie 1 
         return 1;
     }
 
+    /**
+     * @param strategy numaro de la strétgie a aplliquer 
+     */
     public void applyStrategy(int strategy) {
         switch (strategy){
         case 1:{
@@ -95,7 +114,7 @@ public class IASimpleUnit extends IAUnite {
         }
         case 3:{
             /*
-             * Soutenire un autre group d'unitï¿½ 
+             * Soutenire un autre group d'unite
              */ 
                    
                    
@@ -134,11 +153,11 @@ public class IASimpleUnit extends IAUnite {
         }
         case 4:{   
                    /*
-                    * donnï¿½ de la vie 
+                    * donnï¿½ de la vie a la base 
                     */
                    unitGroup.setTarget(IA.computer.base);
                    /*
-                    * if (support == null) unitGroup.setTarget(IA.computer.base);
+                    if (support == null) unitGroup.setTarget(IA.computer.base);
                    else{
                        for (Unit u : support.unitGroup.group){
                            if (3*Finals.LIFE-u.life>unitGroup.group.getLast().life){
@@ -155,7 +174,7 @@ public class IASimpleUnit extends IAUnite {
             
             case 5:{ 
                        /*
-                        * crï¿½ï¿½ unitï¿½s 
+                        * creation Soldats
                         */
                        boolean quit = false;
                        for (Unit u : unitGroup.group){
@@ -177,8 +196,8 @@ public class IASimpleUnit extends IAUnite {
                 } 
         case 11: {           
             /*
-             * Stratï¿½gie 1 appliquï¿½ au tours prï¿½cï¿½dant
-             * suivre le groupe supporeter 
+             * Strategie 1 applique au tours predant
+             * continue a suivre le groupe supporeter 
              */
             if (support==null) unitGroup.setTarget(IA.computer.base.getCenter());
             else{
@@ -191,8 +210,9 @@ public class IASimpleUnit extends IAUnite {
         }
         case 15 : { 
                        /*
-                        * crï¿½ï¿½ unitï¿½s 
-                        */
+                       * Strategie 5 applique au tours predant
+                       * continue a crée des Soldats
+                       */
                        boolean quit = false;
                        for (Unit u : unitGroup.group){
                            if (quit) break;
