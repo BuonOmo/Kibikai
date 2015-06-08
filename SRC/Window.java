@@ -48,10 +48,15 @@ public class Window extends JFrame {
         
         //Images of the buttons
         this.newgameButton = new JButton(new ImageIcon( "IMG/Window/play.png"));
+        this.loadgameButton = new JButton(new ImageIcon( "IMG/Window/Save.png"));
         this.optionsButton = new JButton(new ImageIcon( "IMG/Window/Options.png"));
         
         newgameButton.setBackground(Finals.BACKGROUND_COLOR);
+        loadgameButton.setBackground(Finals.BACKGROUND_COLOR);
         optionsButton.setBackground(Finals.BACKGROUND_COLOR);
+        
+        //sauvegarde pas prete
+        loadgameButton.setVisible(false);
         
         
         //Random Background
@@ -72,16 +77,19 @@ public class Window extends JFrame {
         //Location and size of the buttons
         newgameButton.setBounds((frameWidth / 2) - 20, (frameHeight / 2) - 20, 40, 40);
         optionsButton.setBounds((frameWidth / 2) - 20, frameHeight * 8 / 12 - 20, 40, 40);
+        loadgameButton.setBounds(frameWidth / 2 - 20, frameHeight * 10 / 12 - 20, 40, 40);
         
         
         //Add the buttons in the frame
         pnlButton.add(newgameButton);
+        pnlButton.add(loadgameButton);
         pnlButton.add(optionsButton);        
         frame.add(pnlButton);
 
         
         //ToolTipText (text that appears when you let the mouse on a button without clicking it)
         newgameButton.setToolTipText("Start a new game");
+        loadgameButton.setToolTipText("Load a previous game");
         optionsButton.setToolTipText("Change your preferences");
 
         
@@ -92,7 +100,11 @@ public class Window extends JFrame {
                 gui.timer.start();
             }
         };
-        
+        ActionListener load = new ActionListener() {
+            public void actionPerformed(ActionEvent e) { /*open game saves*/
+            	//TODO ouvrir une fenetre de JFileChooser pour les sauvegardes
+            }
+        };
         ActionListener options = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 @SuppressWarnings("unused")

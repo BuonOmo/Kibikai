@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 public class Minimap extends JPanel {
 
     double scale;
-    String[] options = Game.getOptions();
+    boolean fog = true;
     
     public Minimap() {
 
@@ -32,7 +32,7 @@ public class Minimap extends JPanel {
                 tab[i][j]=true ;
  
 
-        if(options[3]=="FogOn"){
+        if(fog){
         for (Item i : Game.human.items) {
                 i.fog(0,0, tab,scale );
         }
@@ -40,7 +40,7 @@ public class Minimap extends JPanel {
         for (Item i : Game.computer.units){
             i.printToMinimap(g, scale, 5);
         }
-        if(options[3]=="FogOn"){
+        if(fog){
         int RGB =Finals.FOG_COLOR.getRGB();
         for (int i = 0 ;i<Width; i++)
             for (int j = 0 ; j<Height ; j++)

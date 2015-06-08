@@ -1,16 +1,19 @@
-﻿import java.awt.Color;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.geom.Point2D;
+
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 
 public class Game implements Finals {
 
@@ -20,6 +23,9 @@ public class Game implements Finals {
     static UI ui;
     static boolean firstRun = true;
     static String[] options;
+    static String whoWin;
+    static boolean over;
+    static PlayWave musicPlayer;
 
 
     /**
@@ -34,7 +40,11 @@ public class Game implements Finals {
     }
     
     public static void beginning(UI gui) {
-    	
+
+        musicPlayer = new PlayWave(true);
+                
+        over = false;
+
         options = getOptions();   
         setUI(gui);
         
@@ -48,8 +58,9 @@ public class Game implements Finals {
         
         IA.computer = computer;
         IA.player = human;
-        IA.beginning();                              
-
+        IA.beginning();     
+        
+        startMusic();
     }
 
     public static void middle() {
@@ -64,12 +75,20 @@ public class Game implements Finals {
     }
 
     public static void end() {
-        System.out.println("Game Over");
+        whoWin = (human.base.isDead()) ? "LOOSE" : "WIN" ;
+        over = true;
+        ui.timer.stop();
         IA.end();
-        Game.exit();
+        stopMusic();
     }
     
     public static void exit(){
+        if (!over){
+            ui.timer.stop();
+            IA.end();
+        }
+        ui.time = 0;
+        
         Item.aliveItems.clear();
         Item.deadItems.clear();
         Building.buildings.clear();
@@ -80,8 +99,6 @@ public class Game implements Finals {
         Unit.dyingUnits.clear();
         SimpleUnitGroup.list.clear();
         SoldierGroup.list.clear();
-        ui.time = 0;
-        ui.timer.stop();
         ui.dispose();
         
         //sortie de jeu: frame et panel
@@ -146,8 +163,16 @@ public class Game implements Finals {
         finDeJeu.setVisible(true);
 		finDeJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		finDeJeu.setResizable(false);
+        
+		stopMusic();
     }
     
+    static void startMusic(){
+        musicPlayer.start();
+    }
+    static void stopMusic(){
+        musicPlayer.stop();
+    }
     
     //______________ACCESSEURS__________//
 
@@ -209,7 +234,7 @@ public class Game implements Finals {
      * @param s [0] = couleur du joueur : [1] = couleur de l’IA
      */
     static void setOptions(String[] s) {
-        ProcessBuilder pb = new ProcessBuilder("./setOptions.sh", s[0], s[1], s[2], s[3]);
+        ProcessBuilder pb = new ProcessBuilder("./setOptions.sh", s[0], s[1]);
         Process p;
         try {
             p = pb.start();

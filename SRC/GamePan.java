@@ -17,8 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 public class GamePan extends JPanel {
-	
-	String[] options = Game.getOptions();
 
     private JPanel SidBand = new JPanel();
     private JPanel NbSu = new JPanel();
@@ -27,8 +25,9 @@ public class GamePan extends JPanel {
     private JPanel NbSoSelect = new JPanel();
     private JPanel BaseSelect = new JPanel();
     
-    private JPanel JSon = new JPanel();
-    private JButton blecteur = new JButton(new ImageIcon("IMG/GamePan/Son.png"));
+    ImageIcon soundOn  = new ImageIcon("IMG/GamePan/sound.png");
+    ImageIcon soundOff = new ImageIcon("IMG/GamePan/mute.png");
+    JButton blecteur = new JButton(soundOn);
     
     private JButton bExit = new JButton(new ImageIcon( "IMG/GamePan/Exit.png"));
     
@@ -50,15 +49,15 @@ public class GamePan extends JPanel {
     private Box BoxSidBand = Box.createVerticalBox();
     Key key = new Key(Game.human);
 
-    static Thread lecteur;
-
 
     public GamePan(int Height,int Width ) {
         super();
         this.setLayout(null);
+        
         this.addKeyListener(key);
         this.setFocusable(true);
         this.requestFocus();
+        
         SidBand.setBounds(0,0,(int)(Width*0.2),(int)Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
         minimap.setBounds(0,Height-(int)(Width*0.2*Finals.HEIGHT/((double)Finals.WIDTH)),(int)(Width*0.2),
         					(int)(Width*0.2*Finals.HEIGHT/((double)Finals.WIDTH)));
@@ -93,18 +92,17 @@ public class GamePan extends JPanel {
         BaseSelect.add(lBaseSelect, null);
         BaseSelect.setVisible(false);
 
-        lecteur = new PlayWave(options[2]=="MusicOn");
-        lecteur.start();
-        JSon.setBackground(null);
-        JSon.add(blecteur, null);
-
         
-        BoxSidBand.add(bExit,null);
+
+        // le bouton bExit ne sert pas si on a la croix
+        //BoxSidBand.add(bExit,null);
+        BoxSidBand.add(blecteur, null);
         BoxSidBand.add(NbSu);
         BoxSidBand.add(NbSo,null);
         BoxSidBand.add(NbSuSelect, null);
         BoxSidBand.add(NbSoSelect, null);
         BoxSidBand.add(BaseSelect, null);
+        
 
         SidBand.add(BoxSidBand,null);
         
@@ -123,7 +121,8 @@ public class GamePan extends JPanel {
             }
         };
         blecteur.addActionListener(playPauseListener);
-
+        blecteur.setBorderPainted(false);
+        blecteur.setBackground(null);
         this.add(SidBand);
         this.add(camera);
         this.add(minimap);
@@ -157,9 +156,11 @@ public class GamePan extends JPanel {
 
     }
     
-    public static void pauseOrPlay(){
-    	((PlayWave) lecteur).invertLire();
-    	lecteur = new PlayWave(((PlayWave) lecteur).getLire());
-    	lecteur.start();
+    public void pauseOrPlay(){
+    	Game.musicPlayer.invertLire();
+    	Game.musicPlayer = new PlayWave(Game.musicPlayer.getLire());
+    	Game.musicPlayer.start();
+        blecteur.setIcon((Game.musicPlayer.lire) ? soundOn : soundOff);
+        this.requestFocus();
     }
 }

@@ -32,8 +32,6 @@ public class OptionsFrame extends JFrame {
 	
 	public static String colorPlayer;
 	public static String colorIA;
-	public static String musicOnOff;
-	public static String fogOnOff;
 	
 	
 	public OptionsFrame() {
@@ -43,11 +41,9 @@ public class OptionsFrame extends JFrame {
 		optFrame.setLocation(Finals.screenWidth / 8, Finals.screenHeight / 8);
 		
 		
-		//Initializing
+		//Initializing the colors
     	colorPlayer = "blue";
     	colorIA = "orange";
-    	musicOnOff = "MusicOn";
-    	fogOnOff = "FogOn";
     	
     	
 		//get the size of the created frame
@@ -63,31 +59,21 @@ public class OptionsFrame extends JFrame {
     	
     	//Initializing the components
     	String[] colors = {"blue", "green", "orange", "pink"};
-    	String[] colors2 = {"pink", "green", "orange", "blue"};
     	this.colorPlayerChoice = new JComboBox(colors);
-    	this.colorIAChoice = new JComboBox(colors2);
+    	this.colorIAChoice = new JComboBox(colors);
     	this.colorPlayerLabel = new JLabel("Player's Color :");
     	this.colorIALabel = new JLabel("IA's Color :");
     	this.saveChanges = new JButton("Save Changes");
     	this.cancel = new JButton("Cancel");
-    	this.music = new JCheckBox("Music");
-    	this.music.setSelected(true);
-    	this.fog = new JCheckBox("Fog of war");
-    	this.fog.setSelected(true);
-    	
     	
     	//Bounds of the components
     	Dimension size = new Dimension(200, 40);
-    	int w = size.width;  //width of a component
-    	int h = size.height; //height of a component
-    	colorPlayerChoice.setBounds(optFrameWidth *7/12 - w /2, optFrameHeight * 3/12 - h /2, w, h);
-    	colorIAChoice.setBounds(optFrameWidth *7/12 - w /2, optFrameHeight * 5/12 - h /2, w, h);
-    	colorPlayerLabel.setBounds(optFrameWidth *5/12 - w /2, optFrameHeight * 3/12 - h /2, w, h);
-    	colorIALabel.setBounds(optFrameWidth *5/12 - w /2, optFrameHeight * 5/12 - h /2, w, h);
-    	music.setBounds(optFrameWidth *5/12 - w /2, optFrameHeight * 13/24 - h /2, 150, h);
-    	fog.setBounds(optFrameWidth *5/12 - w /2, optFrameHeight * 15/24 - h /2, 150, h);
-    	saveChanges.setBounds(optFrameWidth *5/12 - w /2, optFrameHeight * 10/12 - h /2, 150, h);
-    	cancel.setBounds(optFrameWidth *7/12 - w /2, optFrameHeight * 10/12 - h /2, 150, h);
+    	colorPlayerChoice.setBounds(optFrameWidth *7/12 - size.width /2, optFrameHeight * 4/12 - size.height /2, size.width, size.height);
+    	colorIAChoice.setBounds(optFrameWidth *7/12 - size.width /2, optFrameHeight * 6/12 - size.height /2, size.width, size.height);
+    	colorPlayerLabel.setBounds(optFrameWidth *5/12 - size.width /2, optFrameHeight * 4/12 - size.height /2, size.width, size.height);
+    	colorIALabel.setBounds(optFrameWidth *5/12 - size.width /2, optFrameHeight * 6/12 - size.height /2, size.width, size.height);
+    	saveChanges.setBounds(optFrameWidth *5/12 - size.width /2, optFrameHeight * 10/12 - size.height /2, 150, size.height);
+    	cancel.setBounds(optFrameWidth *7/12 - size.width /2, optFrameHeight * 10/12 - size.height /2, 150, size.height);
     	
     	
     	//Adding the components to the frame
@@ -95,11 +81,8 @@ public class OptionsFrame extends JFrame {
     	panel.add(colorIAChoice);
     	panel.add(colorPlayerLabel);
     	panel.add(colorIALabel);
-    	panel.add(music);
-    	panel.add(fog);
     	panel.add(saveChanges);
     	panel.add(cancel);
-    	
     	optFrame.add(panel);
     	
     	
@@ -118,40 +101,19 @@ public class OptionsFrame extends JFrame {
         
         ActionListener savingChanges = new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String []s = {colorPlayer, colorIA, musicOnOff, fogOnOff};
+        		String []s = {colorPlayer, colorIA};
         		Game.setOptions(s);
-        		optFrame.dispose();
         	}
         };
         
         ActionListener cancelling = new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		optFrame.dispose();
-        	}
-        };
-        
-        ActionListener musicListener = new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		if(music.isSelected())
-        			musicOnOff="MusicOn";
-        		else
-        			musicOnOff="MusicOff";
-        	}
-        };
-        
-        ActionListener fogListener = new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		if(fog.isSelected())
-        			fogOnOff="FogOn";
-        		else
-        			fogOnOff="FogOff";
+        		//reinitialize options
         	}
         };
         
         colorPlayerChoice.addActionListener(colorPlayerListener);
         colorIAChoice.addActionListener(colorIAListener);
-        music.addActionListener(musicListener);
-        fog.addActionListener(fogListener);
         saveChanges.addActionListener(savingChanges);
         cancel.addActionListener(cancelling);
         

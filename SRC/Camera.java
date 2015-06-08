@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -15,10 +16,9 @@ public class Camera extends JPanel{
     static double cameraY; //Position en y de la camera
     static double cameraWidth = Finals.screenWidth *4/5;
     static double cameraHeight = Finals.screenHeight;
-
-    private boolean computerBaseAlreadyPrinted;
     
     Mouse mouse;
+
     Key key;
     
     
@@ -34,7 +34,6 @@ public class Camera extends JPanel{
         this.addMouseListener(mouse);
         this.addMouseMotionListener(mouse);
         this.addMouseWheelListener(mouse);
-        computerBaseAlreadyPrinted = false;
     }
 
     
@@ -203,5 +202,11 @@ public class Camera extends JPanel{
         g.drawImage(newImage,0,0,this);
         
         Game.computer.base.printOverFog(g);
+        
+        if (Game.over){
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Impact",100,200));
+            g.drawString("YOU "+Game.whoWin,(int) cameraWidth/2 - 700,(int) cameraHeight/2 + 100);
+        }    
     }
 }
