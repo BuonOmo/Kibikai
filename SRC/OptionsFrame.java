@@ -2,6 +2,10 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -91,6 +95,8 @@ public class OptionsFrame extends JFrame {
     	optFrame.setTitle("OPTIONS");
     	optFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     	optFrame.setVisible(true);
+    	
+    	
 	}
 	
 	public static String getColorPlayer(){
@@ -100,5 +106,10 @@ public class OptionsFrame extends JFrame {
 	public static void setColorPlayer(String color){
 		colorPlayer=color;
 	}
+	
+	public void setOptions (String[] infos){
+	}
+	
+	
 
 }

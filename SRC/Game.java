@@ -35,7 +35,7 @@ public class Game implements Finals {
         
         IA.computer = computer;
         IA.player = human;
-        IA.bigining();                              
+        IA.beginning();                              
 
     }
 
