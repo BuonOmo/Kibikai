@@ -17,10 +17,7 @@ public class Camera extends JPanel{
     static double cameraWidth = Finals.screenWidth *4/5;
     static double cameraHeight = Finals.screenHeight;
     
-    Mouse mouse;
-
-    Key key;
-    
+    Mouse mouse;    
     
     //_____________CONSTRUCTOR_____________//
 
@@ -180,28 +177,29 @@ public class Camera extends JPanel{
         for (Unit u : Unit.dyingUnits){
             u.printDieAnimation(g);
         }
-        
-        for (Item i : Game.human.items) {
-            if (i.isContained()){
-                i.fog(cameraX,cameraY, tab, scale);
+        if (Game.fog){ // ___________________________________________________________________//        
+            for (Item i : Game.human.items) {
+                if (i.isContained()){
+                    i.fog(cameraX,cameraY, tab, scale);
+                }
             }
-        }
-        
-        for (Unit i : Unit.dyingUnits) {
-            if (i.isContained() && i.owner.isHuman()){
-                i.fog(cameraX,cameraY, tab, scale);
-                //TODO gerer l’erreur de modification concourante de dyingUnits
+            for (Unit i : Unit.dyingUnits) {
+                if (i.isContained() && i.owner.isHuman()){
+                    i.fog(cameraX,cameraY, tab, scale);
+                    //TODO gerer l’erreur de modification concourante de dyingUnits
+                }
             }
-        }
         
-        int RGB =Finals.FOG_COLOR.getRGB();
-        for (int i = 0 ;i<cameraWidth; i++)
-            for (int j = 0 ; j<cameraHeight ; j++)
-                if (tab[i][j])
-                    newImage.setRGB(i, j,RGB);
-        g.drawImage(newImage,0,0,this);
         
-        Game.computer.base.printOverFog(g);
+            int RGB =Finals.FOG_COLOR.getRGB();
+            for (int i = 0 ;i<cameraWidth; i++)
+                for (int j = 0 ; j<cameraHeight ; j++)
+                    if (tab[i][j])
+                        newImage.setRGB(i, j,RGB);
+            g.drawImage(newImage,0,0,this);
+            
+            Game.computer.base.printOverFog(g);
+        } //________________________________________________________//
         
         if (Game.over){
             g.setColor(Color.WHITE);

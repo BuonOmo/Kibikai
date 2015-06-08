@@ -10,6 +10,8 @@ public class PlayWave extends Thread {
 	boolean lire;
 	public static int n;
 	private Position curPosition;
+        public static boolean alreadyExists = false;
+        public static PlayWave firstOne;
 	SourceDataLine auline;
 	String[] songs; //les noms des musiques
 	private final int EXTERNAL_BUFFER_SIZE = 5000; // mis en cache
@@ -21,6 +23,8 @@ public class PlayWave extends Thread {
 		lire = u;
 		curPosition = Position.NORMAL;
 		songs = Finals.SONGS.clone();
+                alreadyExists = true;
+                firstOne = this;
 	}
 	public void run(){
 		this.running();

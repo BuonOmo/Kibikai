@@ -27,7 +27,7 @@ public class GamePan extends JPanel {
     
     ImageIcon soundOn  = new ImageIcon("IMG/GamePan/sound.png");
     ImageIcon soundOff = new ImageIcon("IMG/GamePan/mute.png");
-    JButton blecteur = new JButton(soundOn);
+    JButton blecteur = new JButton(Game.options[2].equals("MusicOn") ? soundOn : soundOff );
     
     private JButton bExit = new JButton(new ImageIcon( "IMG/GamePan/Exit.png"));
     
@@ -109,7 +109,7 @@ public class GamePan extends JPanel {
         // afin de quitter le jeu plus vite :)
         ActionListener exit = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Game.exit();
+                //Game.exit();
             }
         };
         bExit.addActionListener(exit);

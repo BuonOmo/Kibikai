@@ -96,8 +96,10 @@ public class Window extends JFrame {
         //Action Listeners
         ActionListener start = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                UI gui = new UI();
+                UI gui;
+                gui = new UI();
                 gui.timer.start();
+                
             }
         };
         ActionListener load = new ActionListener() {

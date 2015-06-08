@@ -14,6 +14,7 @@ import javax.swing.Timer;
 public class UI extends JFrame{
 
     Timer timer;
+    static boolean alreadyOpened = false;
     static long time;
     BufferedImage ArrierePlan;
     Graphics buffer;
@@ -102,8 +103,9 @@ public class UI extends JFrame{
     }
 
     public static void main (String[] args){
-        UI gui = new UI();      
+        UI gui = new UI();        
         gui.timer.start();
+
     }
 
 }

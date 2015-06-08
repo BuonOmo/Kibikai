@@ -167,6 +167,8 @@ public class Building extends Item {
                 animationTimer = 0;
             }            
         }
+        else
+            setCreationTimer();
         return false;
     }
     

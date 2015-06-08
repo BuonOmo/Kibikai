@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 public class Minimap extends JPanel {
 
     double scale;
-    boolean fog = true;
     
     public Minimap() {
 
@@ -32,21 +31,21 @@ public class Minimap extends JPanel {
                 tab[i][j]=true ;
  
 
-        if(fog){
-        for (Item i : Game.human.items) {
-                i.fog(0,0, tab,scale );
-        }
+        if(Game.fog){
+            for (Item i : Game.human.items) {
+                    i.fog(0,0, tab,scale );
+            }
         }
         for (Item i : Game.computer.units){
             i.printToMinimap(g, scale, 5);
         }
-        if(fog){
-        int RGB =Finals.FOG_COLOR.getRGB();
-        for (int i = 0 ;i<Width; i++)
-            for (int j = 0 ; j<Height ; j++)
-                if (tab[i][j])
-                    newImage.setRGB(i, j,RGB);
-        g.drawImage(newImage,0,0,this); 
+        if(Game.fog){
+            int RGB =Finals.FOG_COLOR.getRGB();
+            for (int i = 0 ;i<Width; i++)
+                for (int j = 0 ; j<Height ; j++)
+                    if (tab[i][j])
+                        newImage.setRGB(i, j,RGB);
+            g.drawImage(newImage,0,0,this); 
         }
         
         for (Item i : IA.player.items){
