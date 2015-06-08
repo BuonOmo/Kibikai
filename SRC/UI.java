@@ -39,9 +39,10 @@ public class UI extends JFrame{
         gE.getDefaultScreenDevice().setFullScreenWindow(frame);
         */
         
+
         // Grand Ecran
         frame.setSize(Finals.screenWidth, Finals.screenHeight);
-        
+
         
         //Location and size of the frame
         frame.setResizable(false);

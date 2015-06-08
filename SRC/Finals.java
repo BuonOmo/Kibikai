@@ -180,7 +180,9 @@ public interface Finals {
     
     public static String namePlayer = "The Human";
     
+    
     //___________GRAPHISME__________//
+    
     public static final Color BACKGROUND_COLOR = new Color(74, 72, 76);
     public static final Color FOG_COLOR = new Color(67, 64, 69);
 
@@ -193,4 +195,11 @@ public interface Finals {
     public static final Color ORANGE = new Color(255, 160, 90);
     public static final Color PINK = new Color(247, 147, 223);    
     public static final Color GREEN = new Color(182, 235, 135);
+    
+    
+    //___________MUSIQUE__________//
+    
+    public static final String[] SONGS = {"SONGS/Röyksopp - What Else Is There.wav",
+    									  "SONGS/Pretty Lights - Future Blind.wav",
+    									  "SONGS/Daft Punk - Motherboard.wav"};
 }

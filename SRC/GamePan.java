@@ -25,6 +25,9 @@ public class GamePan extends JPanel {
     private JPanel NbSoSelect = new JPanel();
     private JPanel BaseSelect = new JPanel();
     
+    private JPanel JSon = new JPanel();
+    private JButton blecteur = new JButton(new ImageIcon("IMG/GamePan/Son.png"));
+    
     private JButton bExit = new JButton(new ImageIcon( "IMG/GamePan/Exit.png"));
     
     private JLabel iconSu  = new JLabel( new ImageIcon("IMG/GamePan/SU2.png"));
@@ -45,7 +48,7 @@ public class GamePan extends JPanel {
     private Box BoxSidBand = Box.createVerticalBox();
     Key key = new Key(Game.human);
 
-
+    static Thread lecteur;
 
 
     public GamePan(int Height,int Width ) {
@@ -55,7 +58,8 @@ public class GamePan extends JPanel {
         this.setFocusable(true);
         this.requestFocus();
         SidBand.setBounds(0,0,(int)(Width*0.2),(int)Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
-        minimap.setBounds(0,Height-(int)(Width*0.2*Finals.HEIGHT/((double)Finals.WIDTH)),(int)(Width*0.2),(int)(Width*0.2*Finals.HEIGHT/((double)Finals.WIDTH)));
+        minimap.setBounds(0,Height-(int)(Width*0.2*Finals.HEIGHT/((double)Finals.WIDTH)),(int)(Width*0.2),
+        					(int)(Width*0.2*Finals.HEIGHT/((double)Finals.WIDTH)));
         camera.setBounds ((int)(Width*0.2),0,(int)(Width*0.8),Height);
         SidBand.setBackground(new Color(240,240,240));
         BoxSidBand.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -87,7 +91,10 @@ public class GamePan extends JPanel {
         BaseSelect.add(lBaseSelect, null);
         BaseSelect.setVisible(false);
 
-
+        lecteur = new PlayWave(true);
+        lecteur.start();
+        JSon.setBackground(null);
+        JSon.add(blecteur, null);
 
         
         BoxSidBand.add(bExit,null);
@@ -98,6 +105,7 @@ public class GamePan extends JPanel {
         BoxSidBand.add(BaseSelect, null);
 
         SidBand.add(BoxSidBand,null);
+        
         // afin de quitter le jeu plus vite :)
         ActionListener exit = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -105,6 +113,14 @@ public class GamePan extends JPanel {
             }
         };
         bExit.addActionListener(exit);
+        
+        ActionListener playPauseListener = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pauseOrPlay();
+                
+            }
+        };
+        blecteur.addActionListener(playPauseListener);
 
         this.add(SidBand);
         this.add(camera);
@@ -137,8 +153,11 @@ public class GamePan extends JPanel {
         }
         BaseSelect.setVisible(Listeners.baseSelected);
 
-
-        
     }
-
+    
+    public static void pauseOrPlay(){
+    	((PlayWave) lecteur).invertLire();
+    	lecteur = new PlayWave(((PlayWave) lecteur).getLire());
+    	lecteur.start();
+    }
 }

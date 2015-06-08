@@ -55,7 +55,7 @@ public class Window extends JFrame {
         loadgameButton.setBackground(Finals.BACKGROUND_COLOR);
         optionsButton.setBackground(Finals.BACKGROUND_COLOR);
         
-        //sovgarde n'est pas préte
+        //sauvegarde pas prete
         loadgameButton.setVisible(false);
         
         
@@ -74,23 +74,10 @@ public class Window extends JFrame {
 
 
         
-        //Location and size of the newgameButton
-        newgameButton.setSize(300, 40);
-        Dimension size = newgameButton.getSize();
-        newgameButton.setBounds((frameWidth / 2) - 20, (frameHeight / 2) - 20 , 40,
-                                40);
-
-        
-        //Location and size of the loadgameButton
-        optionsButton.setSize(size);
-        optionsButton.setBounds((frameWidth / 2) - 20, frameHeight * 8 / 12 - 20, 40,
-                                 40);
-
-        
-        //Location and size of the optionsButton
-        loadgameButton.setSize(size);
-        loadgameButton.setBounds(frameWidth / 2 - 20, frameHeight * 10 / 12 - 20, 40,
-                                40);
+        //Location and size of the buttons
+        newgameButton.setBounds((frameWidth / 2) - 20, (frameHeight / 2) - 20, 40, 40);
+        optionsButton.setBounds((frameWidth / 2) - 20, frameHeight * 8 / 12 - 20, 40, 40);
+        loadgameButton.setBounds(frameWidth / 2 - 20, frameHeight * 10 / 12 - 20, 40, 40);
         
         
         //Add the buttons in the frame
