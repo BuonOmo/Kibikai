@@ -65,7 +65,7 @@ public class Minimap extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             // TODO corriger les positions x et y
-            Camera.setLocation(e.getX() * scale / Camera.scale, e.getY() * scale / Camera.scale);
+            Camera.setLocation(e.getX() / scale -Camera.cameraWidth/(2*Camera.scale), e.getY() / scale -Camera.cameraHeight/(2*Camera.scale));
         }
 
         @Override
