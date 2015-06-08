@@ -200,6 +200,6 @@ public class Building extends Item {
                    Camera.getLengthOnScreen(hitbox.getHeight()), 10, 10);
     }
     void setCreationTime(double life){
-        creationTime = (int) (140*Math.exp(0.02*(27 - life)) + 10);
+        creationTime = (int) ((CREATION_TIME - 10)*Math.exp(0.02*(27 - life)) + 10);
     }
 }

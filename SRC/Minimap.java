@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class Minimap extends JPanel {
     double scale;
-    boolean fog = false;
+    boolean fog = true;
     
     public Minimap() {
 

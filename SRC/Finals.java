@@ -54,7 +54,7 @@ public interface Finals {
     public static final double UNIT_PER_SECOND = 0.005;
     
     public static final double CREATION_INCREMENT = 3;
-    public static final int CREATION_TIME = 150;
+    public static final int CREATION_TIME = 200;
     /**
      * Rayon de vision (pour la brouillard) pour Building
      */
