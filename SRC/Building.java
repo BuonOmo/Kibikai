@@ -43,7 +43,7 @@ public class Building extends Item {
         //target.setLocation(topLeftCorner.getX() + 2*SIDE, topLeftCorner.getY() + 2*SIDE);
         setTarget(topLeftCorner.getX(), topLeftCorner.getY() + 5 * SIDE);
         buildings.add(this);
-        animationTimer = 9;
+        animationTimer = 10;
         creationTime = CREATION_TIME;
         setCreationTimer();
     }
@@ -141,7 +141,11 @@ public class Building extends Item {
         actualiseTarget();
 
         if (life > 2*LIFE) {
-            
+            if (animationTimer == 9){
+                goAndProcreate();
+                setCreationTimer();
+                animationTimer++;
+            }
             if (creationTimer == 0) {
                 animationTimer = 0;
             }
@@ -174,10 +178,6 @@ public class Building extends Item {
                             (int)((hitbox.getMaxY() - Camera.cameraY)*Camera.scale) - 40,
                             null);
                 animationTimer++;
-                if (animationTimer == 9){
-                    goAndProcreate();
-                    setCreationTimer();
-                }
             }
             else{
                 
