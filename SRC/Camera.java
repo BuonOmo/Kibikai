@@ -20,7 +20,6 @@ public class Camera extends JPanel{
     private boolean computerBaseAlreadyPrinted;
     
     Mouse mouse;
-    Key key;
     //_____________Constructeur_____________//
 
     /**
