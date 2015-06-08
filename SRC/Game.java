@@ -93,7 +93,6 @@ public class Game implements Finals {
         over = true;
         ui.timer.stop();
         IA.end();
-        stopMusic();
     }
     
     static void startMusic(){

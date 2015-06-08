@@ -101,11 +101,5 @@ public class UI extends JFrame{
             time ++;
     	}
     }
-
-    public static void main (String[] args){
-        UI gui = new UI();        
-        gui.timer.start();
-
-    }
-
+    
 }
