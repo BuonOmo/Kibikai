@@ -7,23 +7,23 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 public class Minimap extends JPanel {
-    double scale;
-    boolean fog = false;
+    public double scale;
+    boolean fog = true;
     
     public Minimap() {
 
     }
     public void paint(Graphics g){
         this.addMouseListener(new MinimapMouse());
-        int Height =(int)this.getSize().getHeight();
-        int Width = (int)this.getSize().getWidth();
+        double Height =this.getSize().getHeight();
+        double Width = this.getSize().getWidth();
         scale = Width/(Finals.WIDTH);
         g.setColor(Finals.BACKGROUND_COLOR);
-        g.fillRect(0, 0,Width,Height);
+        g.fillRect(0, 0,(int)Width,(int)Height);
         g.setColor(Color.BLACK);
 
-        boolean tab[][] = new boolean [Width][Height];
-        BufferedImage newImage = new BufferedImage(Width, Height,BufferedImage.TYPE_INT_ARGB);
+        boolean tab[][] = new boolean [(int)Width][(int)Height];
+        BufferedImage newImage = new BufferedImage((int)Width, (int)Height,BufferedImage.TYPE_INT_ARGB);
 
 
         for (int i = 0 ;i<Width; i++)
@@ -31,9 +31,10 @@ public class Minimap extends JPanel {
                 tab[i][j]=true ;
  
 
-        
+        if(fog){
         for (Item i : Game.human.items) {
                 i.fog(0,0, tab,scale );
+        }
         }
         for (Item i : Game.computer.units){
             i.printToMinimap(g, scale, 5);
@@ -52,7 +53,7 @@ public class Minimap extends JPanel {
         }
         IA.computer.base.printToMinimap(g,scale,5);
         g.setColor(Color.BLACK);
-        g.drawRect(0, 0,Width-1,Height-1);
+        g.drawRect(0, 0,(int)Width-1,(int)Height-1);
         g.setColor(Color.CYAN);
         g.drawRect((int)(Camera.cameraX*scale), (int)(Camera.cameraY*scale), (int)(Camera.cameraWidth*scale/Camera.scale), (int)(Camera.cameraHeight*scale/Camera.scale));
 

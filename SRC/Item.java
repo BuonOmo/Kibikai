@@ -172,6 +172,12 @@ public abstract class Item implements Finals {
     public Point2D getCenter() {
         return new Point2D.Double(hitbox.getCenterX(), hitbox.getCenterY());
     }
+    public double getWidth(){
+        return hitbox.getWidth();
+    }
+    public double getHeight(){
+        return hitbox.getHeight();
+    }
 
     public static LinkedList<Item> getItemInFrame(Rectangle2D frame) {
         LinkedList<Item> toReturn = new LinkedList<Item>();

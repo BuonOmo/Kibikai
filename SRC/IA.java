@@ -1,3 +1,5 @@
+import java.awt.geom.Point2D;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -34,11 +36,20 @@ public class IA {
                         }
     }
     public static void execut(){
+        // déplasser l'objectife de la base
+        
+        computer.base.setTarget(new Point2D.Double(computer.base.getCenter().getX(),computer.base.getCenter().getY()+computer.base.getHeight()*2));
+        
+        
+        
         //aplliquer l'IA au Groupe de soldat 
         for (int i = 0 ; i<SoldierGroup.list.size();i++ ){
             if ((UI.time+i)%2==0)
             SoldierGroup.list.get(i).ia.execut();
         }
+        
+        
+        
         
         //aplliquer l'IA au Groupe de soldat 
         for (int i = 0 ;  i+1 < SimpleUnitGroup.list .size();i++){

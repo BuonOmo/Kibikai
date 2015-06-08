@@ -40,7 +40,7 @@ public class Obstacle {
     
     void print(Graphics g){
         if(canBePrinted){
-            switch(frame.getClass().getName()){
+            /*switch(frame.getClass().getName()){
                 case ("Rectangle2D"):{
                     break;
                 }
@@ -53,6 +53,6 @@ public class Obstacle {
                     break;
                 }
             }
-        }
+        */}
     }
 }
