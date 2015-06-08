@@ -10,11 +10,12 @@ import javax.swing.JPanel;
 
 public class Camera extends JPanel{
 
+    public static int scale = 30;
     static double cameraX; //Position en x de la camera en pixel (en fait c’est pas en pixel a priori..)
     static double cameraY; //Position en y de la camera en pixel (c’est meme sur je pense (hehe ça veut rien dire))
-    static double cameraWidth = Finals.screenWidth * 5 / 6;
+    static double cameraWidth = Finals.screenWidth *4/5;
     static double cameraHeight = Finals.screenHeight; // ça par contre c’est en pixel
-    public static int scale = 30;
+
     private boolean computerBaseAlreadyPrinted;
     
     Mouse mouse;
@@ -45,15 +46,15 @@ public class Camera extends JPanel{
         cameraY = y;
 
         //Locks the camera when it's at the right or left edge
-        if (cameraX + cameraWidth > Finals.WIDTH * scale)
-            cameraX = Finals.WIDTH * scale - cameraWidth;
+        if (cameraX + cameraWidth/scale > Finals.WIDTH )
+            cameraX = Finals.WIDTH  - cameraWidth/scale;
 
         if (cameraX < 0)
             cameraX = 0;
 
         //Locks the camera when it's at the top or bottom edge
-        if (cameraY + cameraHeight > Finals.HEIGHT * scale)
-            cameraY = Finals.HEIGHT * scale - cameraHeight;
+        if (cameraY + cameraHeight/scale> Finals.HEIGHT)
+            cameraY = Finals.HEIGHT - cameraHeight/scale;
 
         if (cameraY < 0)
             cameraY = 0;

@@ -176,7 +176,9 @@ public class IASimpleUnit extends IAUnite {
                        /*
                         * creation Soldats
                         */
-                       boolean quit = false;
+                       
+                       SimpleUnit.createSoldier(unitGroup.getPosition(), IA.computer, unitGroup.getPosition());
+                       /*boolean quit = false;
                        for (Unit u : unitGroup.group){
                            if (quit) break;
                            for (SimpleUnit Su: Game.computer.simpleUnits){
@@ -193,6 +195,7 @@ public class IASimpleUnit extends IAUnite {
                            }
                        }
                 break;
+*/
                 } 
         case 11: {           
             /*
@@ -213,7 +216,11 @@ public class IASimpleUnit extends IAUnite {
                        * Strategie 5 applique au tours predant
                        * continue a crée des Soldats
                        */
-                       boolean quit = false;
+                      if (support==null){
+                       SimpleUnit.createSoldier(unitGroup.getPosition(), IA.computer, IA.computer.base.target);
+                      }
+                      else SimpleUnit.createSoldier(unitGroup.getPosition(), IA.computer, unitGroup.getPosition());
+                       /*boolean quit = false;
                        for (Unit u : unitGroup.group){
                            if (quit) break;
                            for (SimpleUnit Su: Game.computer.simpleUnits){
@@ -229,6 +236,7 @@ public class IASimpleUnit extends IAUnite {
                                     }
                            }
                        }
+*/
                        break;
             }          
         }

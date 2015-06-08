@@ -24,7 +24,9 @@ public class GamePan extends JPanel {
     private JPanel NbSuSelect = new JPanel();
     private JPanel NbSoSelect = new JPanel();
     private JPanel BaseSelect = new JPanel();
+    
     private JButton bExit = new JButton(new ImageIcon( "IMG/GamePan/Exit.png"));
+    
     private JLabel iconSu  = new JLabel( new ImageIcon("IMG/GamePan/SU2.png"));
     private JLabel iconSo  = new JLabel( new ImageIcon("IMG/GamePan/So2.png"));
     private JLabel iconSuC  = new JLabel( new ImageIcon( "IMG/GamePan/SUS2.png"));
@@ -35,11 +37,12 @@ public class GamePan extends JPanel {
     private JLabel lNbSuSelect = new JLabel("0");
     private JLabel lNbSoSelect = new JLabel("0");
     private JLabel lBaseSelect = new JLabel(" ");
-    private JCheckBox jCheckBox1 = new JCheckBox();
-    private JCheckBox jCheckBox2 = new JCheckBox();
-    private JProgressBar jProgressBar1 = new JProgressBar();
+    
+    private JLabel campos = new JLabel ();
+    
+    
     public Camera camera = new Camera();
-    private JPanel minimap = new Minimap();
+    private Minimap minimap = new Minimap();
     private Box BoxSidBand = Box.createVerticalBox();
     Key key = new Key(Game.human);
 
@@ -53,7 +56,7 @@ public class GamePan extends JPanel {
         this.setFocusable(true);
         this.requestFocus();
         SidBand.setBounds(0,0,(int)(Width*0.2),(int)Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
-        minimap.setBounds(0,Height-(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH),(int)(Width*0.2),(int)(Width*0.2*Finals.HEIGHT/Finals.WIDTH));
+        minimap.setBounds(0,Height-(int)(Width*0.2*Finals.HEIGHT/((double)Finals.WIDTH)),(int)(Width*0.2),(int)(Width*0.2*Finals.HEIGHT/((double)Finals.WIDTH)));
         camera.setBounds ((int)(Width*0.2),0,(int)(Width*0.8),Height);
         SidBand.setBackground(new Color(240,240,240));
         BoxSidBand.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -86,8 +89,6 @@ public class GamePan extends JPanel {
         BaseSelect.setVisible(false);
 
 
-        jCheckBox1.setText("jCheckBox1");
-        jCheckBox2.setText("jCheckBox2");
 
         
         BoxSidBand.add(bExit,null);
@@ -96,6 +97,7 @@ public class GamePan extends JPanel {
         BoxSidBand.add(NbSuSelect, null);
         BoxSidBand.add(NbSoSelect, null);
         BoxSidBand.add(BaseSelect, null);
+        BoxSidBand.add(campos,null);
 
         SidBand.add(BoxSidBand,null);
         // afin de quitter le jeu plus vite :)
@@ -136,6 +138,7 @@ public class GamePan extends JPanel {
         NbSoSelect.setVisible((solS>0));
         }
         BaseSelect.setVisible(Listeners.baseSelected);
+        campos.setText("("+(camera.cameraX+camera.cameraWidth/30)+" , "+(camera.cameraY+camera.cameraHeight/30)+")"+(minimap.getWidth()/((double)minimap.getHeight())));
 
         
     }
