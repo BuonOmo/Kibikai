@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 public class GamePan extends JPanel {
+	
+	String[] options = Game.getOptions();
 
     private JPanel SidBand = new JPanel();
     private JPanel NbSu = new JPanel();
@@ -87,7 +89,6 @@ public class GamePan extends JPanel {
         BaseSelect.add(iconBaseC,null);
         BaseSelect.add(lBaseSelect, null);
         BaseSelect.setVisible(false);
-
         
 
         // le bouton bExit ne sert pas si on a la croix
