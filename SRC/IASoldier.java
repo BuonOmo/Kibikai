@@ -84,21 +84,31 @@ public class IASoldier extends IAUnite {
     public int chooseStrategy(int staite) {
         
         /*
-         * prï¿½cotion pris puisqu'il y a ue des soucie a de dï¿½passement d'indice mais il dvrais tï¿½re aprï¿½sent rï¿½solsuts 
+         * precotion pris puisqu'il y a ue des soucie a de depassement d'indice mais il dvrais etre appresent resolsuts 
          */
         if (staite>431)  {
             return (int)Math.random()*6+1;
         }
-        Double n = 0.0;
         
+        
+        
+        Double n = 0.0;
+        // on calcule n , nombre de foi que staite a ue lieu
         for(Double i :IA.nbSaveSol[staite]) {
             n += i;
         }
+        
+        
+        
         Double  sommeR=0.0;
+        // on calcule sommeR , diviseur de la loi de probabliité 
         for (Double x :IA.qIASoldier[staite]){
             sommeR = sommeR +Math.exp((n+1)/(101+n)*x);
         }
+        
+        
         Double Rdm= Math.random()*sommeR;
+        // on choisie la statégie avec une probablité de exp((n+1)/(101+n)*x)/SommeR
         int i =0;
         for (Double x :IA.qIASoldier[staite]){
             i++;
@@ -106,6 +116,8 @@ public class IASoldier extends IAUnite {
             Rdm=Rdm-Math.exp((n+1)/(101+n)*x);
         }
         
+        
+        //en cas d'érreurs on apllique la stratégie 1 
         return 1;
         }
 
@@ -118,12 +130,19 @@ public class IASoldier extends IAUnite {
              */
             unitGroup.setTarget(IA.player.base.getCenter());
             break;
+        
+        
+        
         case 2:
             /*
-             * allï¿½ dï¿½fandre le qg alliï¿½ 
+             * aller defandre le qg allie 
              */
             unitGroup.setTarget(IA.computer.base.getCenter());
             break;
+        
+        
+        
+        
         case 3:
             /*
              * attaque timide 
@@ -242,6 +261,9 @@ public class IASoldier extends IAUnite {
             
                 break;
             }
+        
+        
+        
         case 4:{
                    /*
                     * attaque a tout pris !!
@@ -264,9 +286,15 @@ public class IASoldier extends IAUnite {
                        unitGroup.setTarget(target);
             break;
         }
+        
+        
+        
 
 
         case 5:{
+                /*
+                 * rejoindre un autre group
+                 */
             SoldierGroup allier =null;
             double distence = 10000000;
             for (SoldierGroup sg : SoldierGroup.list ){
@@ -284,7 +312,13 @@ public class IASoldier extends IAUnite {
 
                 break;
         }
+        
+        
+        
         case 6:{
+                  /*
+                   * synder le group; 
+                   */
                    if (!unitGroup.group.isEmpty()) {
                        SoldierGroup newsg = new SoldierGroup((Soldier)unitGroup.group.getFirst());
                        unitGroup.group.removeFirst();

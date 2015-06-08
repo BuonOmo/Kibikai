@@ -34,14 +34,13 @@ public class IA {
                         }
     }
     public static void execut(){
-            //apllique l'IA au Groupe de soldat 
+        //aplliquer l'IA au Groupe de soldat 
         for (int i = 0 ; i<SoldierGroup.list.size();i++ ){
-           // element.ia.execut();
             if ((UI.time+i)%2==0)
             SoldierGroup.list.get(i).ia.execut();
         }
         
-        //apllique l'IA au Groupe de soldat 
+        //aplliquer l'IA au Groupe de soldat 
         for (int i = 0 ;  i+1 < SimpleUnitGroup.list .size();i++){
             // petits verification 
             /*if (SimpleUnitGroup.list.get(i).ia==null)
@@ -76,6 +75,8 @@ public class IA {
             } 
 
         }
+        
+        //sovgarder pour le ranforcement; 
         try {
                             save ("SaveqIASoldier.txt",qIASoldier);
                             save ("SaveqIASimpleUnite.txt",qIASimpleUnit);
@@ -107,11 +108,13 @@ public class IA {
         nbS [histoList.get(index).Stait][histoList.get(index).Action-1]++;
         Q[histoList.get(index).Stait][histoList.get(index).Action-1]=Qsa;
     }
-    
-    
-    
-    
-    
+
+
+    /**
+     * @param fileName
+     * @param tabtoSave
+     * @throws IOException
+     */
     public static void save (String file, Double[][] toSave)throws IOException{
         File saveFile = new File(file);
         if(!saveFile.exists()){
@@ -129,45 +132,13 @@ public class IA {
         }
         scribe.close();
     }
-    public static void saveQIASoldierANDSimpleUnit() throws IOException{  
-           // Cr?e ou rase ? neuf les fichiers de sauvegarde
-            File saveFileSol = new File("SaveqIASoldier.txt");
-                    File saveFileSU = new File("SaveqIASimpleUnite.txt");
-                    
-                    if(!saveFileSol.exists()){
-                            saveFileSol.createNewFile();
-                    }else{
-                            saveFileSol.delete();
-                            saveFileSol.createNewFile();
-                    }
-                    if(!saveFileSU.exists()){
-                            saveFileSU.createNewFile();
-                    }else{
-                            saveFileSU.delete();
-                            saveFileSU.createNewFile();
-                    }
-                    //Initialise les FileWriter
-                    FileWriter scribeSol = new FileWriter(saveFileSol);
-                    FileWriter scribeSu = new FileWriter(saveFileSU);
-                    //Ecrit la hauteur et la lareur du tableau sur les deux premieres lignes des fichiers
-                    scribeSol.write(""+qIASoldier.length+"\n"+qIASoldier[0].length+"\n");
-                    scribeSu.write(""+qIASimpleUnit.length+"\n"+qIASimpleUnit[0].length+"\n");
-                    //Copie les information en format String, a raison d'une valeur par ligne
-                    for(int i=0;i<qIASoldier.length;i++){
-                            for(int k=0;k<qIASoldier[0].length;k++){
-                                    scribeSol.write(""+qIASoldier[i][k]+"\n");
-                            }
-                    }
-                    for(int i=0;i<qIASimpleUnit.length;i++){
-                            for(int k=0;k<qIASimpleUnit[0].length;k++){
-                                    scribeSu.write(""+qIASimpleUnit[i][k]+"\n");
-                            }
-                    }
-                    //Ferme les FileWriter
-                    scribeSol.close();
-                    scribeSu.close();
 
-       }
+
+    /**
+     * @param file
+     * @return Tab loded
+     * @throws FileNotFoundException
+     */
     public static Double[][] load(String file ) throws FileNotFoundException{
         Scanner scanner = new Scanner(new File(file)); 
                 int nBLignes = Integer.parseInt(scanner.nextLine());
@@ -181,33 +152,5 @@ public class IA {
                 scanner.close();
                 return toRetrne;
         
-    }
-    public static void loadQIASoldier() throws FileNotFoundException{
-    	 Scanner scanner = new Scanner(new File("SaveqIASoldier.txt")); 
-		 int nBLignes = Integer.parseInt(scanner.nextLine());
-		 int nBColonnes = Integer.parseInt(scanner.nextLine());
-		 Double[][] qIASoldierLoading = new Double[nBLignes][nBColonnes];
-			for(int i = 0; i<nBLignes;i++){
-				 for(int k = 0; k<nBColonnes;k++){
-					 qIASoldierLoading[i][k] = Double.parseDouble(scanner.nextLine());
-				 }
-			 }
-		 scanner.close();
-		 qIASoldier = qIASoldierLoading;        
-    }
-
-    public static void loadQIASimpleUnite() throws FileNotFoundException{
-    	 Scanner scanner = new Scanner(new File("SaveqIASimpleUnite.txt")); 
-         System.out.println("ca c'est bon");
-		 int nBLignes = Integer.parseInt(scanner.nextLine());
-		 int nBColonnes = Integer.parseInt(scanner.nextLine());
-		 Double[][] qIASimpleUnitLoading = new Double[nBLignes][nBColonnes];
-        for(int i = 0; i<nBLignes;i++){
-                 for(int k = 0; k<nBColonnes;k++){
-                     qIASimpleUnitLoading[i][k] = Double.parseDouble(scanner.nextLine());
-                 }
-         }
-		 scanner.close();
-		 qIASimpleUnit = qIASimpleUnitLoading;
     }
 }

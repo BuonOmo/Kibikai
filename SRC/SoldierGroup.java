@@ -35,7 +35,7 @@ public class SoldierGroup extends UnitGroup {
 
     //_______________MÉTHODES______________//
 
-    public LinkedList<SoldierGroup> divideInDenseGroups() {
+ public LinkedList<SoldierGroup> divideInDenseGroups() {
         LinkedList<SoldierGroup> toReturn = new LinkedList<SoldierGroup>();
         toReturn.add(this);
         while (toReturn.getLast().group.size() != 0) {
@@ -45,11 +45,12 @@ public class SoldierGroup extends UnitGroup {
         toReturn.remove(toReturn.size() - 1);
         return toReturn;
     }
+
     /*
      * garde la parti danse du group
      * et retourne la parti non danse
      */
-    public SoldierGroup densePart() {
+   public SoldierGroup densePart() {
         LinkedList<Soldier> copactGrp = new LinkedList<Soldier>();
         LinkedList<Soldier> rest = new LinkedList(group);
         densePartOfListe(copactGrp, rest, rest.get(0));
@@ -58,7 +59,8 @@ public class SoldierGroup extends UnitGroup {
         return new SoldierGroup(rest, owner);
     }
 
-    private void densePartOfListe(LinkedList<Soldier> copactGrp, LinkedList<Soldier> rest, Soldier s) {
+
+   private void densePartOfListe(LinkedList<Soldier> copactGrp, LinkedList<Soldier> rest, Soldier s) {
         rest.remove(s);
         copactGrp.add(s);
         if (rest.size() != 0) {
@@ -87,12 +89,12 @@ public class SoldierGroup extends UnitGroup {
             return false;
     }
 
-    public boolean isDense() {
+/*public boolean isDense() {
         if (this.densePart().group.size() == 0)
             return true;
         return false;
     }
-
+*/
     /* public LinkedList<Soldier> getgroup(){
         return group;
     }
