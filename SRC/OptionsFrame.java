@@ -107,9 +107,5 @@ public class OptionsFrame extends JFrame {
 		colorPlayer=color;
 	}
 	
-	public void setOptions (String[] infos){
-	}
-	
-	
 
 }

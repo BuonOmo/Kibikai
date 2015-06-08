@@ -1,11 +1,16 @@
 import java.awt.geom.Point2D;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Game implements Finals {
 
     //________________ATTRIBUTS_____________//
     static Player human, computer;
     static UI ui;
     static boolean firstRun = true;
+    static String[] options;
 
 
     /**
@@ -19,13 +24,13 @@ public class Game implements Finals {
         else
             middle();
     }
-
+    
     public static void beginning(UI gui) {
-        
+        options = getOptions();   
         setUI(gui);
         
-        setHuman(new Player(OptionsFrame.colorPlayer, BASE_LOCATION, namePlayer));
-        setComputer(new Player("green", new Point2D.Double(40, 40), "The Intelligence"));
+        setHuman(new Player(options[0], BASE_LOCATION, namePlayer));
+        setComputer(new Player(options[1], new Point2D.Double(40, 40), "The Intelligence"));
         
 
         for (int i = 0; i < 5; i++) {
@@ -115,7 +120,35 @@ public class Game implements Finals {
     static UI getUI() {
         return ui;
     }
-
+    
+    /**
+     * renvoi un tableau de taille de 2.
+     * @return [0] = couleur du joueur : [1] = couleur de l’IA
+     */
+    static String[] getOptions() {
+        String[] toReturn = new String[2];
+        int i=0;
+        ProcessBuilder pb = new ProcessBuilder("./getOptions.sh");
+        Process p;
+        try {
+            p = pb.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                toReturn[i] = line;
+                i++;
+            }
+            
+            return toReturn; 
+            
+        } catch (IOException e) {
+            System.out.println("fichier manquant : getOptions.sh");
+            System.exit(1);
+            return null;
+        }
+       
+    }
+    
     //___________MUTATEURS___________//
 
     static void setHuman(Player p) {
@@ -129,5 +162,25 @@ public class Game implements Finals {
     static void setUI(UI u){
         ui = u;
     }
+    /**
+     * recupère un tableau de taille 2.
+     * @param s [0] = couleur du joueur : [1] = couleur de l’IA
+     */
+    static void setOptions(String[] s) {
+        ProcessBuilder pb = new ProcessBuilder("./setOptions.sh", s[0], s[1]);
+        Process p;
+        try {
+            p = pb.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("fichier manquant : setOptions.sh");
+            System.exit(1);
+        }
 
+    }
+    
 }

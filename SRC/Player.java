@@ -85,16 +85,16 @@ public class Player implements Finals {
     void setColor(String c){
         setImages(c);
 
-            if (c=="green"){
+            if (c.equals("green")){
                 color = GREEN;
             }
-            if (c=="blue"){
+            if (c.equals("blue")){
                 color = BLUE;
             }
-            if (c=="orange"){
+            if (c.equals("orange")){
                 color = ORANGE;               
             }
-            if (c=="pink"){
+            if (c.equals("pink")){
                 color = PINK;                             
             }
     }
