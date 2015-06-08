@@ -77,7 +77,7 @@ public class Camera extends JPanel{
     }
     
     public static int getXOnScreen(double xInGame){
-        return (int) (getLengthOnScreen(xInGame)*xInGame - cameraX*scale);
+        return (int) (getLengthOnScreen(xInGame) - cameraX*scale);
     }
     
     public static int getYOnScreen(double yInGame){

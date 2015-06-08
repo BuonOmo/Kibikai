@@ -314,7 +314,15 @@ public abstract class Unit extends Item {
     public boolean willIntersect(Item i, double alphaDegre) {
         Point2D newLocation = getNewLocationFromCenter(alphaDegre);
         
-        if (i.getClass().getName() == "Building"){
+        if (i.hitbox.intersects(new Rectangle2D.Double(newLocation.getX() - hitbox.getWidth() / 2.0,
+                                                newLocation.getY() - hitbox.getHeight() / 2.0,
+                                                hitbox.getWidth(),
+                                                hitbox.getHeight())))
+            return true;
+        return false;
+        // Ancienne gestion des intersections
+        /*
+        if (truei.getClass().getName() == "Building"){
             if (i.hitbox.intersects(new Rectangle2D.Double(newLocation.getX() - hitbox.getWidth() / 2.0,
                                                     newLocation.getY() - hitbox.getHeight() / 2.0,
                                                     hitbox.getWidth(),
@@ -322,10 +330,12 @@ public abstract class Unit extends Item {
                 return true;
             }
         }
+        
         else if (radius + i.radius > i.distanceTo(newLocation)){
             return true;
         }
         return false;
+        */
     }
 
     /**
