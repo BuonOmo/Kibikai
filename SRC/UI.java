@@ -33,14 +33,9 @@ public class UI extends JFrame{
         
         
         // Plein ecran
-        
         frame.setUndecorated(true);
         GraphicsEnvironment gE = GraphicsEnvironment.getLocalGraphicsEnvironment();
         gE.getDefaultScreenDevice().setFullScreenWindow(frame);
-        
-        
-        
-        
         
         
         //Location and size of the frame
