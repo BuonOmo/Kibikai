@@ -2,11 +2,6 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -25,7 +20,9 @@ public class OptionsFrame extends JFrame {
 	private JButton cancel;
 	private JLabel colorPlayerLabel;
 	private JLabel colorIALabel;
+	@SuppressWarnings("rawtypes")
 	private JComboBox colorPlayerChoice;
+	@SuppressWarnings("rawtypes")
 	private JComboBox colorIAChoice;
 	private JCheckBox music;
 	private JCheckBox fog;
@@ -36,6 +33,10 @@ public class OptionsFrame extends JFrame {
 	public static String fogOnOff;
 	
 	
+	/**
+	 * Constructeur.
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public OptionsFrame() {
 
 		optFrame = new JFrame();
@@ -148,6 +149,7 @@ public class OptionsFrame extends JFrame {
         	}
         };
         
+        //Ajout des ActionListeners aux components
         colorPlayerChoice.addActionListener(colorPlayerListener);
         colorIAChoice.addActionListener(colorIAListener);
         music.addActionListener(musicListener);

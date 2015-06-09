@@ -1,11 +1,8 @@
 import java.awt.geom.Point2D;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
 import java.util.Scanner;
 
 public class Game implements Finals {
@@ -61,7 +58,7 @@ public class Game implements Finals {
 		fog = options[3].equals("FogOn");
 
 		setHuman(new Player(options[0], BASE_LOCATION, "The Human"));
-		setComputer(new Player(options[1], new Point2D.Double(40, 40), "The Intelligence"));
+		setComputer(new Player(options[1], new Point2D.Double(WIDTH-BASE_LOCATION_X, HEIGHT-BASE_LOCATION_Y), "The Intelligence"));
 
 		for (int i = 0; i < 5; i++) {
 			new SimpleUnit(human, new Point2D.Double(20, 5 + 2 * i));
@@ -105,6 +102,7 @@ public class Game implements Finals {
 		if (!musicPlayer.isAlive())
 			musicPlayer.start();
 	}
+	@SuppressWarnings("deprecation")
 	static void stopMusic(){
 		musicPlayer.stop();
 	}
@@ -141,7 +139,7 @@ public class Game implements Finals {
                      return toReturn;
                 
         } catch (FileNotFoundException e) {
-            System.out.println("érreure");
+            System.out.println("ï¿½rreure");
         }
 	         return null;
 	     } 

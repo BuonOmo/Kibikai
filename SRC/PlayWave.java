@@ -6,32 +6,46 @@ import javax.sound.sampled.*;
 
 public class PlayWave extends Thread {
 
-	private String filename;
-	boolean lire;
+	boolean play;
 	public static int n;
 	private Position curPosition;
-        public static boolean alreadyExists = false;
-        public static PlayWave firstOne;
+	public static boolean alreadyExists = false;
+	public static PlayWave firstOne;
 	SourceDataLine auline;
 	String[] songs; //les noms des musiques
 	private final int EXTERNAL_BUFFER_SIZE = 5000; // mis en cache
 	enum Position {LEFT, RIGHT, NORMAL};
+
+
+	//_____________CONSTRUCTEUR____________//
+
 	/**
+	 * Constructeur.
 	 * @param wavfile le nom du fichier son qui doit etre au format wav
 	 */
 	public PlayWave(boolean u) {
-		lire = u;
+		play = u;
 		curPosition = Position.NORMAL;
 		songs = Finals.SONGS.clone();
-                alreadyExists = true;
-                firstOne = this;
+		alreadyExists = true;
+		firstOne = this;
 	}
+
+	//_____________MÉTHODES____________//
+
+	/**
+	 * Lance la methode running().
+	 */
 	public void run(){
 		this.running();
 	}
+
+	/**
+	 * Lance la musique.
+	 */
 	public void running() {
 
-		while(lire){   	
+		while(play){   	
 			File soundFile = new File(songs[n%(songs.length)]);
 			if (!soundFile.exists()) {
 				System.err.println("Wave file not found: " + songs[n%(songs.length)]);
@@ -78,7 +92,7 @@ public class PlayWave extends Thread {
 			byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
 
 			try {
-				while (nBytesRead != -1 && lire) {
+				while (nBytesRead != -1 && play) {
 					nBytesRead = audioInputStream.read(abData, 0, abData.length);
 					if (nBytesRead >= 0) {
 						auline.write(abData, 0, nBytesRead);
@@ -94,11 +108,20 @@ public class PlayWave extends Thread {
 			n=+1;      
 		}
 	}
-	public void invertLire(){
-		lire=!lire;
+
+	/**
+	 * Change le boolean de play
+	 */
+	public void invertPlay(){
+		play=!play;
 	}
-	public boolean getLire(){
-		return lire;
+
+	/**
+	 * Obtenir l'etat de play
+	 * @return play
+	 */
+	public boolean getPlay(){
+		return play;
 	}
 
 }

@@ -23,7 +23,7 @@ public interface Finals {
     /**
      * Taille de la carte en metres.
      */
-    public static final int WIDTH = 60, HEIGHT = 60;
+    public static final int WIDTH = 200, HEIGHT = 200;
 
 
     //__________________ITEM_________________//
@@ -47,12 +47,12 @@ public interface Finals {
     public static final double UNIT_PER_SECOND = 0.005;
     
     /**
-     * 
+     * Incrementation de creation.
      */
     public static final double CREATION_INCREMENT = 3;
     
     /**
-     * 
+     * Temps de creation.
      */
     public static final int CREATION_TIME = 200;
     
@@ -161,8 +161,8 @@ public interface Finals {
     /**
      * Position du building humain
      */
-    public static final int BASE_LOCATION_X = 10;
-    public static final int BASE_LOCATION_Y = 10;
+    public static final int BASE_LOCATION_X = 20;
+    public static final int BASE_LOCATION_Y = 20;
     public static final Point2D.Double BASE_LOCATION = new Point2D.Double(BASE_LOCATION_X, BASE_LOCATION_Y);
 
     /**

@@ -165,10 +165,10 @@ public class GamePan extends JPanel {
 	 * Permet de mettre en pause ou en marche la musique
 	 */
 	public void pauseOrPlay(){
-		Game.musicPlayer.invertLire();
-		Game.musicPlayer = new PlayWave(Game.musicPlayer.getLire());
+		Game.musicPlayer.invertPlay();
+		Game.musicPlayer = new PlayWave(Game.musicPlayer.getPlay());
 		Game.musicPlayer.start();
-		blecteur.setIcon((Game.musicPlayer.lire) ? soundOn : soundOff);
+		blecteur.setIcon((Game.musicPlayer.play) ? soundOn : soundOff);
 		this.requestFocus();
 	}
 }

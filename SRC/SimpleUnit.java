@@ -1,7 +1,5 @@
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
