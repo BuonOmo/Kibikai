@@ -185,7 +185,8 @@ public interface Finals {
     //______________MUSIC_____________//
 
     public static final String[] SONGS = {
-        "SONGS/Royksopp- What Else Is There.wav", "SONGS/Pretty Lights - Future Blind.wav",
+        "SONGS/Royksopp- What Else Is There.wav", 
+        "SONGS/Pretty Lights - Future Blind.wav",
         "SONGS/Daft Punk - Motherboard.wav"
     };
 }

@@ -160,7 +160,7 @@ public class OptionsFrame extends JFrame {
 
 
         //JFrame properties
-        optFrame.setTitle("OPTIONS");
+        optFrame.setTitle("KIBIKÏ");
         optFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         optFrame.setVisible(true);
 

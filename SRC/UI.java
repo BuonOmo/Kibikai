@@ -56,7 +56,7 @@ public class UI extends JFrame {
         frame.add(gamepan);
 
         //JFrame properties
-        frame.setTitle("LUCA");
+        frame.setTitle("KiBiKi");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
         timer = new Timer(50, new TimerAction());

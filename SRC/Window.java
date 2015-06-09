@@ -127,7 +127,7 @@ public class Window extends JFrame {
 
 
         //JFrame properties
-        frame.setTitle("LUCA");
+        frame.setTitle("KIBIKÏ");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
