@@ -1,7 +1,12 @@
 import java.awt.geom.Point2D;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import java.util.Scanner;
 
 public class Game implements Finals {
 
@@ -122,7 +127,25 @@ public class Game implements Finals {
 	 * renvoie un tableau de taille de 4.
 	 * @return [0] = couleur du joueur : [1] = couleur de l’IA : [2] = Music on ou off : [3] = Fog on ou off
 	 */
-	static String[] getOptions() {
+	 public static String[] getOptions(){
+
+	         Scanner scanner;
+
+        try {
+            scanner = new Scanner(new File("options.txt"));
+            String[] toReturn = new String[4];
+                     for(int i = 0; i<4 ;i++){
+                        toReturn[i] = scanner.nextLine();
+                     }
+                     scanner.close();
+                     return toReturn;
+                
+        } catch (FileNotFoundException e) {
+            System.out.println("�rreure");
+        }
+	         return null;
+	     } 
+	/*static String[] getOptions() {
 		String[] toReturn = new String[4];
 		int i=0;
 		ProcessBuilder pb = new ProcessBuilder("./getOptions.sh");
@@ -145,7 +168,7 @@ public class Game implements Finals {
 		}
 
 	}
-	
+	*/
 
 	//___________MUTATEURS___________//
 
@@ -166,7 +189,26 @@ public class Game implements Finals {
 	 * recupère un tableau de taille 2.
 	 * @param s [0] = couleur du joueur : [1] = couleur de l’IA : [2] = Music on ou off : [3] = Fog on ou off
 	 */
-	static void setOptions(String[] s) {
+	 public static void setOptions ( String[] s){
+        try{
+	         File saveFile = new File("options.txt");
+	         if(!saveFile.exists()){
+	                 saveFile.createNewFile();
+	         }else{
+	                 saveFile.delete();
+	                 saveFile.createNewFile();
+	         }
+	         FileWriter scribe = new FileWriter(saveFile);
+	         for(int i=0;i<s.length;i++){
+                        scribe.write(""+s[i]+"\n");
+	         }
+	         scribe.close();
+
+        } catch (IOException e) {
+        }
+    }
+
+        /*static void setOptions(String[] s) {
 		ProcessBuilder pb = new ProcessBuilder("./setOptions.sh", s[0], s[1], s[2], s[3]);
 		Process p;
 		try {
@@ -182,5 +224,6 @@ public class Game implements Finals {
 		}
 
 	}
+*/
 
 }
