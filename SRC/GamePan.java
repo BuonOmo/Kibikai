@@ -45,6 +45,11 @@ public class GamePan extends JPanel {
 
 	//_____________CONSTRUCTOR_____________//
 
+	/**
+	 * Constructeur.
+	 * @param Height Hauteur
+	 * @param Width Largeur
+	 */
 	public GamePan(int Height,int Width ) {
 
 		super();
@@ -90,7 +95,7 @@ public class GamePan extends JPanel {
 		BaseSelect.setVisible(false);
 
 
-		// le bouton bExit ne sert pas si on a la croix
+		
 		BoxSidBand.add(blecteur, null);
 		BoxSidBand.add(NbSu);
 		BoxSidBand.add(NbSo,null);
@@ -103,6 +108,7 @@ public class GamePan extends JPanel {
 		
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// le bouton bExit ne sert pas si on a la croix
 			}
 		};
 
