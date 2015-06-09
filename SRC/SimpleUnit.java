@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class SimpleUnit extends Unit {
      * vrai si l’unitée est en train de créer un soldat.
      */
     boolean creating;
-    
+
     /**
      * Unités qui construisent un soldat (groupe de 3).
      */
@@ -28,18 +29,18 @@ public class SimpleUnit extends Unit {
      * @param targetToSet
      */
     public SimpleUnit(Player owner, Point2D topLeftCorner, Point2D targetToSet) {
-        
+
         super(owner, topLeftCorner, LIFE, 1, targetToSet);
-        
+
         life = LIFE;
-        viewRay =Finals.VIEW_RAY_SIMPLEUNIT;
+        viewRay = Finals.VIEW_RAY_SIMPLEUNIT;
         creating = false;
         aliveSimpleUnits.add(this);
-        
+
         if (owner != null) {
             owner.simpleUnits.add(this);
-            if (owner == Game.computer){
-                new SimpleUnitGroup(this,true);
+            if (owner == Game.computer) {
+                new SimpleUnitGroup(this, true);
             }
         }
     }
@@ -75,16 +76,16 @@ public class SimpleUnit extends Unit {
         target = targetToSet;
         creating = false;
     }
-    
-    
+
+
     /**
      * @param p point de création
      * @param u unités impliqueés
      * @return vraie si la création est possible
      */
-    public static boolean canCreate(Point2D p, SimpleUnit[] u){
-        
-    	LinkedList<Unit> otherUnits = new LinkedList<Unit>();
+    public static boolean canCreate(Point2D p, SimpleUnit[] u) {
+
+        LinkedList<Unit> otherUnits = new LinkedList<Unit>();
         for (Unit i : IA.computer.units) {
             if (i.distanceTo(p) <= (i.radius + 3 * SIDE)) {
                 otherUnits.add(i);
@@ -95,14 +96,14 @@ public class SimpleUnit extends Unit {
                 otherUnits.add(i);
             }
         }
-        for(int k=0;k<u.length;k++){
-        	otherUnits.remove(u[k]);
+        for (int k = 0; k < u.length; k++) {
+            otherUnits.remove(u[k]);
         }
-    	if(otherUnits.isEmpty()){
-		return true;  
-    	}else{
-    		return false;
-    	}
+        if (otherUnits.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -113,20 +114,18 @@ public class SimpleUnit extends Unit {
      */
     public static void createSoldier(SimpleUnit[] u, Point2D p) {
         if (u != null) {
-            if (u.length == 3 &&
-                u[0] != null && u[1] != null && u[2] != null &&
-                u[0].owner == u[1].owner && u[0].owner == u[2].owner &&
-                u[0] != u[1] && u[0] != u[2]) {
+            if (u.length == 3 && u[0] != null && u[1] != null && u[2] != null && u[0].owner == u[1].owner &&
+                u[0].owner == u[2].owner && u[0] != u[1] && u[0] != u[2]) {
 
                 SimpleUnitGroup b = new SimpleUnitGroup(u);
-                
-                
+
+
                 setTriangularTarget(u, p);
                 for (SimpleUnit element : u) {
                     element.creating = true;
                     element.builders = b;
                 }
-                
+
             }
         }
     }
@@ -146,7 +145,7 @@ public class SimpleUnit extends Unit {
      * @param o possesseur des unités
      */
     public static void createSoldier(Point2D p, Player o) {
-       createSoldier(p, o, p);
+        createSoldier(p, o, p);
     }
 
 
@@ -155,18 +154,16 @@ public class SimpleUnit extends Unit {
      * @return vraie si aliveItems est modifié
      */
     public boolean build() {
-        
+
         if ((builders.distanceTo(builders.getPosition()) <= CREATION_RANGE) && (builders.group.size() == 3) &&
-            (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER) && canCreate(target, builders.toSimpleUnit()) && 
+            (owner.soldiers.size() < NUMBER_MAX_OF_SOLDIER) && canCreate(target, builders.toSimpleUnit()) &&
             builders.isOnTarget() && !builders.hasDead()) {
-            new Soldier(owner,
-                        new Point2D.Double(builders.getPosition().getX() - 1,
-                                           builders.getPosition().getY() - 1),
-                        builders.getQuantityOfLife() * 2.0/3.0);
-            for (Item i : builders.getGroup()){
+            new Soldier(owner, new Point2D.Double(builders.getPosition().getX() - 1, builders.getPosition().getY() - 1),
+                        builders.getQuantityOfLife() * 2.0 / 3.0);
+            for (Item i : builders.getGroup()) {
                 i.getLife(-i.life);
             }
-            
+
             return true;
         }
 
@@ -214,7 +211,7 @@ public class SimpleUnit extends Unit {
             inOrder.add(toCheck.getFirst());
             int c = 0;
             for (SimpleUnit check : toCheck){
-                
+
                 for (SimpleUnit s : inOrder) {
                     if (check.distanceTo(p) < s.distanceTo(p) && check != s){
                         inOrder.add(c, check);
@@ -225,7 +222,7 @@ public class SimpleUnit extends Unit {
                     c++;
                 }
                 c=0;
-                
+
             }
             for (SimpleUnit i : inOrder){
                 toReturn[c] = i;
@@ -239,17 +236,17 @@ public class SimpleUnit extends Unit {
         */
     }
 
-     /**
-      * Renvoi les n plus proches unités simples d’un point appartenant au possesseur.
-      * @param n nombre d’unités du tableau à renvoyer
-      * @param p point ou on veut des unités proches
-      * @param o possesseur
-      * @return tableau d’unités simples de dimension n
-      */
+    /**
+     * Renvoi les n plus proches unités simples d’un point appartenant au possesseur.
+     * @param n nombre d’unités du tableau à renvoyer
+     * @param p point ou on veut des unités proches
+     * @param o possesseur
+     * @return tableau d’unités simples de dimension n
+     */
     public static SimpleUnit[] getNClosestSimpleUnitsFromO(int n, Point2D p, Player o) {
         return getNClosestSimpleUnitsInL(n, p, o.simpleUnits);
     }
-     
+
     /**
      * Renvoi l’unité simple la plus proche d’un point appartenant au possesseur.
      * @param p point de proximité
@@ -259,7 +256,7 @@ public class SimpleUnit extends Unit {
     public static SimpleUnit getClosestSimpleUnitsFromO(Point2D p, Player o) {
         return getNClosestSimpleUnitsFromO(1, p, o)[0];
     }
-    
+
     /**
      * Renvoi l’unité simple la plus proche d’un point venant d’un tableau.
      * @param p point de proximité
@@ -267,7 +264,7 @@ public class SimpleUnit extends Unit {
      * @return unité simple
      */
     public static SimpleUnit getClosestSimpleUnitInT(Point2D p, SimpleUnit[] t) {
-        
+
         if (t.length == 0)
             return null;
         SimpleUnit toReturn;
@@ -280,29 +277,29 @@ public class SimpleUnit extends Unit {
         }
         return toReturn;
     }
-    
+
     /**
      * Place les unités pour créer un soldat.
      * @param tab tableau de 3 unités simples
      * @param p point autour duquel sont distribués les unités
      */
-    public static void setTriangularTarget(SimpleUnit[] tab, Point2D p){
-        if (tab.length == 3){
-            
+    public static void setTriangularTarget(SimpleUnit[] tab, Point2D p) {
+        if (tab.length == 3) {
+
             double alpha = 0;
             Point2D targets[] = new Point2D[3];
 
-            
-            for (int i=0; i<3; i++){
-                targets[i]= new Point2D.Double(p.getX() + 1 * Math.cos(alpha), p.getY() + 1 * Math.sin(alpha));
-                alpha+= 2.0 * Math.PI / 3.0;
+
+            for (int i = 0; i < 3; i++) {
+                targets[i] = new Point2D.Double(p.getX() + 1 * Math.cos(alpha), p.getY() + 1 * Math.sin(alpha));
+                alpha += 2.0 * Math.PI / 3.0;
             }
-            
+
             setThreeTargets(tab, targets);
-            
+
         }
     }
-    
+
     /**
      * Soin de la 'targetI'.
      * @return vrai si modification de aliveItems
@@ -326,7 +323,7 @@ public class SimpleUnit extends Unit {
      * @return vrai si modification de aliveItems
      */
     public boolean isDestructed() {
-        
+
         if (!deadItems.contains(this)) {
             owner.deadUnits.add(this);
             deadItems.add(this);
@@ -341,7 +338,7 @@ public class SimpleUnit extends Unit {
         }
         return false;
     }
-    
+
     /**
      * Crée le brouillard de guerre autour de l’objet et modifie la portée du brouillard à la mort.
      * @param offsetX positionne x par rapport à la camera
@@ -349,26 +346,26 @@ public class SimpleUnit extends Unit {
      * @param tab tableau à modifier en fonction du brouillard
      * @param Scale echelle de la minimap ou de la camera
      */
-    public void fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
-        
+    public void fog(double offsetX, double offsetY, boolean[][] tab, double Scale) {
+
         // animation de destruction
-        if (this.isDead()){
-            viewRay-= VIEW_RAY_SIMPLEUNIT/6.0;
+        if (this.isDead()) {
+            viewRay -= VIEW_RAY_SIMPLEUNIT / 6.0;
         }
-        
-        double R = (viewRay+hitbox.getWidth())*Scale;
-        for (int i =(int) -R ; i <= (int) R ; i++)
-            for (int j = -(int)Math.sqrt(R*R-i*i) ; j <= (int)Math.sqrt(R*R-i*i) ; j++){
-                if ((int)((getCenter().getX() - offsetX) * Scale)+i>=0
-                    &&(int)((getCenter().getX() - offsetX) * Scale)+i<tab.length
-                    &&(int)((getCenter().getY() - offsetY) * Scale)+j>=0
-                    &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
-                    )
-                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j] = false;
-                        //=(Math.random() > 0.5) ? false : true;
+
+        double R = (viewRay + hitbox.getWidth()) * Scale;
+        for (int i = (int) -R; i <= (int) R; i++)
+            for (int j = -(int) Math.sqrt(R * R - i * i); j <= (int) Math.sqrt(R * R - i * i); j++) {
+                if ((int) ((getCenter().getX() - offsetX) * Scale) + i >= 0 &&
+                    (int) ((getCenter().getX() - offsetX) * Scale) + i < tab.length &&
+                    (int) ((getCenter().getY() - offsetY) * Scale) + j >= 0 &&
+                    (int) ((getCenter().getY() - offsetY) * Scale) + j < tab[0].length)
+                    tab[(int) ((getCenter().getX() - offsetX) * Scale) +
+                        i][(int) ((getCenter().getY() - offsetY) * Scale) + j] = false;
+                //=(Math.random() > 0.5) ? false : true;
             }
     }
-    
+
     /**
      * Execute le déplacement, le soin et la création d’une unité simple.
      * @return vrai si suppression dans aliveItems
@@ -380,45 +377,43 @@ public class SimpleUnit extends Unit {
             return build();
         return heal();
     }
-    
-    
+
+
     @Override
     public void print(Graphics g) {
-        
+
         int x, y;
         x = (int) ((hitbox.getX() - Camera.cameraX) * Camera.scale);
         y = (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale);
-        
-        
+
+
         if (selected)
-            g.drawImage(owner.simpleUnitAliveSelected.get((int) ((3.0 * life - 0.00001) / lifeMAX)),
-                        x, y, null);
+            g.drawImage(owner.simpleUnitAliveSelected.get((int) ((3.0 * life - 0.00001) / lifeMAX)), x, y, null);
         else
-            g.drawImage(owner.simpleUnitAlive.get((int) ((3.0 * life - 0.00001) / lifeMAX)),
-                        x, y, null);
-        
+            g.drawImage(owner.simpleUnitAlive.get((int) ((3.0 * life - 0.00001) / lifeMAX)), x, y, null);
+
     }
-    
-    
+
+
     //______________METHODES_NON_UTILISEES___________//
-    
+
     /**
      * @param u unités créant le soldat
      */
     public static void createSoldierOnBarycenter(SimpleUnit[] u) {
         boolean error = false;
-        for (int i=0; i<u.length; i++){
+        for (int i = 0; i < u.length; i++) {
             if (u[i] == null)
                 error = true;
         }
-        
+
         if (!error)
             createSoldier(u, UnitGroup.getPosition(u));
     }
-    
+
     @Override
     public void printDieAnimation(Graphics g) {
         // TODO Implement this method
     }
-    
+
 }

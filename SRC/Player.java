@@ -19,19 +19,19 @@ public class Player implements Finals {
     ArrayList<Soldier> soldiers = new ArrayList<Soldier>();
     ArrayList<SimpleUnit> simpleUnits = new ArrayList<SimpleUnit>();
     LinkedList<Unit> deadUnits = new LinkedList<Unit>(); //a traiter avec la future class Unit.isDestructed()//
-    
-    
+
+
     ArrayList<BufferedImage> soldierAlive = new ArrayList<BufferedImage>(3);
     ArrayList<BufferedImage> soldierAliveSelected = new ArrayList<BufferedImage>(3);
     ArrayList<BufferedImage> soldierCreation = new ArrayList<BufferedImage>(8);
     ArrayList<BufferedImage> soldierDeath = new ArrayList<BufferedImage>(6);
     ArrayList<BufferedImage> soldierDeathSelected = new ArrayList<BufferedImage>(6);
-    
+
     ArrayList<BufferedImage> simpleUnitAlive = new ArrayList<BufferedImage>(3);
     ArrayList<BufferedImage> simpleUnitAliveSelected = new ArrayList<BufferedImage>(3);
-    
+
     ArrayList<BufferedImage> simpleUnitCreation = new ArrayList<BufferedImage>(9);
-    
+
     static int soldierCreationOffset = -19;
 
     @Deprecated
@@ -53,58 +53,58 @@ public class Player implements Finals {
         simpleUnits = new ArrayList<SimpleUnit>(NUMBER_MAX_OF_SIMPLEUNIT);
         setColor(colorToSet);
     }
-    
-    private void setImages(String c){
+
+    private void setImages(String c) {
         try {
-            for (int i=0; i<3; i++){
-                soldierAlive.add(ImageIO.read(new File("IMG/"+c+"/Soldier/"+i+".png")));
-                soldierAliveSelected.add(ImageIO.read(new File("IMG/"+c+"/Soldier_selected/"+i+".png")));
-                
-                simpleUnitAlive.add(ImageIO.read(new File("IMG/"+c+"/SimpleUnit/"+i+".png")));
-                simpleUnitAliveSelected.add(ImageIO.read(new File("IMG/"+c+"/SimpleUnit_selected/"+i+".png")));
+            for (int i = 0; i < 3; i++) {
+                soldierAlive.add(ImageIO.read(new File("IMG/" + c + "/Soldier/" + i + ".png")));
+                soldierAliveSelected.add(ImageIO.read(new File("IMG/" + c + "/Soldier_selected/" + i + ".png")));
+
+                simpleUnitAlive.add(ImageIO.read(new File("IMG/" + c + "/SimpleUnit/" + i + ".png")));
+                simpleUnitAliveSelected.add(ImageIO.read(new File("IMG/" + c + "/SimpleUnit_selected/" + i + ".png")));
             }
-            
-            for (int i=1;i<9;i++)
-                soldierCreation.add(ImageIO.read(new File("IMG/"+c+"/Soldier_creation/"+i+".png")));
-            
-            for (int i=1; i<7; i++){
-                soldierDeath.add(ImageIO.read(new File("IMG/death/Soldier/"+i+".png")));
-                soldierDeathSelected.add(ImageIO.read(new File("IMG/death/Soldier_selected/"+i+".png")));
+
+            for (int i = 1; i < 9; i++)
+                soldierCreation.add(ImageIO.read(new File("IMG/" + c + "/Soldier_creation/" + i + ".png")));
+
+            for (int i = 1; i < 7; i++) {
+                soldierDeath.add(ImageIO.read(new File("IMG/death/Soldier/" + i + ".png")));
+                soldierDeathSelected.add(ImageIO.read(new File("IMG/death/Soldier_selected/" + i + ".png")));
             }
-            
-            for (int i=1;i<10;i++){
-                simpleUnitCreation.add(ImageIO.read(new File("IMG/"+c+"/SimpleUnit_creation/"+i+".png")));
+
+            for (int i = 1; i < 10; i++) {
+                simpleUnitCreation.add(ImageIO.read(new File("IMG/" + c + "/SimpleUnit_creation/" + i + ".png")));
             }
-            
-        }catch (IOException e) {
-           System.out.println("erreur d’écriture");
+
+        } catch (IOException e) {
+            System.out.println("erreur d’écriture");
         }
 
     }
-    
-    void setColor(String c){
+
+    void setColor(String c) {
         setImages(c);
 
-            if (c.equals("green")){
-                color = GREEN;
-            }
-            if (c.equals("blue")){
-                color = BLUE;
-            }
-            if (c.equals("orange")){
-                color = ORANGE;               
-            }
-            if (c.equals("pink")){
-                color = PINK;                             
-            }
+        if (c.equals("green")) {
+            color = GREEN;
+        }
+        if (c.equals("blue")) {
+            color = BLUE;
+        }
+        if (c.equals("orange")) {
+            color = ORANGE;
+        }
+        if (c.equals("pink")) {
+            color = PINK;
+        }
     }
 
-    void setColor(){
-        String[] random = {"green", "blue", "orange", "pink"};
-        setColor(random[(int)(4*Math.random())]);
+    void setColor() {
+        String[] random = { "green", "blue", "orange", "pink" };
+        setColor(random[(int) (4 * Math.random())]);
     }
-    
-    boolean isHuman(){
+
+    boolean isHuman() {
         return (this == Game.human);
     }
 }

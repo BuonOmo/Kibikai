@@ -16,7 +16,7 @@ public interface Finals {
      * nombre d'unites simples max
      */
     public static final int NUMBER_MAX_OF_SIMPLEUNIT = 20;
-    
+
 
     //______________________terrain______________________//
 
@@ -45,21 +45,21 @@ public interface Finals {
      * Nombre d’US par secondes creees à l’origine par BA.
      */
     public static final double UNIT_PER_SECOND = 0.005;
-    
+
     /**
      * Incrementation de creation.
      */
     public static final double CREATION_INCREMENT = 3;
-    
+
     /**
      * Temps de creation.
      */
     public static final int CREATION_TIME = 200;
-    
+
     /**
      * Rayon de vision (pour la brouillard) pour Building
      */
-    public static final int VIEW_RAY_BUILDING= 5;
+    public static final int VIEW_RAY_BUILDING = 5;
 
 
     //_____________________UNIT______________________//
@@ -86,11 +86,11 @@ public interface Finals {
      * Degats infliges par tour de jeu par un S
      */
     public static final double DAMAGE = 0.05;
-    
+
     /**
      * Rayon de vision dans le brouillard pour soldier
      */
-    public static final int VIEW_RAY_SOLDIER= 9;
+    public static final int VIEW_RAY_SOLDIER = 9;
 
 
     //_________________SIMPLEUNIT_______________//
@@ -105,11 +105,11 @@ public interface Finals {
      * Portee pour la création d’une UM.
      */
     public static final double CREATION_RANGE = 3;
-    
+
     /**
      * Rayon de vision dans le brouillard pour simple unit
      */
-    public static final int VIEW_RAY_SIMPLEUNIT= 3;
+    public static final int VIEW_RAY_SIMPLEUNIT = 3;
 
 
     //__________________IA____________________//
@@ -169,22 +169,23 @@ public interface Finals {
      * Vitesse du scrolling (deplacement de la camera)
      */
     public static final int CAMERA_SPEED = 3;
-    
-    
+
+
     //_____________GRAPHISM____________//
-    
+
     public static final Color BACKGROUND_COLOR = new Color(74, 72, 76);
     public static final Color FOG_COLOR = new Color(67, 64, 69);
 
     public static final Color BLUE = new Color(147, 162, 247);
     public static final Color ORANGE = new Color(255, 160, 90);
-    public static final Color PINK = new Color(247, 147, 223);    
+    public static final Color PINK = new Color(247, 147, 223);
     public static final Color GREEN = new Color(182, 235, 135);
-    
-    
+
+
     //______________MUSIC_____________//
-    
-    public static final String[] SONGS = {"SONGS/Royksopp- What Else Is There.wav",
-    									  "SONGS/Pretty Lights - Future Blind.wav",
-    									  "SONGS/Daft Punk - Motherboard.wav"};
+
+    public static final String[] SONGS = {
+        "SONGS/Royksopp- What Else Is There.wav", "SONGS/Pretty Lights - Future Blind.wav",
+        "SONGS/Daft Punk - Motherboard.wav"
+    };
 }

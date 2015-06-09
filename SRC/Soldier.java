@@ -36,8 +36,8 @@ public class Soldier extends Unit {
     public Soldier(Player owner, Point2D topLeftCorner) {
         this(owner, topLeftCorner, LIFE * 2);
     }
-    
-    public Soldier(Player owner, Point2D topLeftCorner, Item targetIToSet){
+
+    public Soldier(Player owner, Point2D topLeftCorner, Item targetIToSet) {
         this(owner, topLeftCorner);
         setTarget(targetIToSet);
     }
@@ -76,36 +76,32 @@ public class Soldier extends Unit {
         int x, y;
         x = (int) ((hitbox.getX() - Camera.cameraX) * Camera.scale);
         y = (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale);
-        
-        
+
+
         if (UI.time - this.firstAppearance < 8)
             g.drawImage(owner.soldierCreation.get((int) (UI.time - this.firstAppearance)),
                         Player.soldierCreationOffset + x, Player.soldierCreationOffset + y, null);
-        else{
+        else {
             if (selected)
-                g.drawImage(owner.soldierAliveSelected.get((int) ((3.0 * life - 0.00001) / lifeMAX)),
-                        x, y, null);
+                g.drawImage(owner.soldierAliveSelected.get((int) ((3.0 * life - 0.00001) / lifeMAX)), x, y, null);
             else
-                g.drawImage(owner.soldierAlive.get((int) ((3.0 * life - 0.00001) / lifeMAX)),
-                        x, y, null);
-            
+                g.drawImage(owner.soldierAlive.get((int) ((3.0 * life - 0.00001) / lifeMAX)), x, y, null);
+
         }
     }
-    
-    public void printDieAnimation(Graphics g){
+
+    public void printDieAnimation(Graphics g) {
         int x, y;
         x = (int) ((hitbox.getX() - Camera.cameraX) * Camera.scale - 10);
         y = (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale - 10);
-        
+
         if (selected)
-            g.drawImage(owner.soldierDeathSelected.get(dieTimer),
-                        x, y, null);
+            g.drawImage(owner.soldierDeathSelected.get(dieTimer), x, y, null);
         else
-            g.drawImage(owner.soldierDeath.get(dieTimer),
-                        x, y, null);
-        
+            g.drawImage(owner.soldierDeath.get(dieTimer), x, y, null);
+
         dieTimer++;
-        
+
     }
 
     public boolean isDestructed() {
@@ -117,10 +113,10 @@ public class Soldier extends Unit {
             owner.items.remove(this);
             owner.units.remove(this);
             owner.soldiers.remove(this);
-            
+
             dyingUnits.add(this);
             stop();
-            
+
             return true;
         }
         return false;
@@ -133,41 +129,39 @@ public class Soldier extends Unit {
      * @param tab tableau à modifier en fonction du brouillard
      * @param Scale echelle de la minimap ou de la camera
      */
-    public void fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
-        
+    public void fog(double offsetX, double offsetY, boolean[][] tab, double Scale) {
+
         // animations de creation et destruction
-        if (this.isDead()){
-            viewRay-= VIEW_RAY_SOLDIER/6.0;
+        if (this.isDead()) {
+            viewRay -= VIEW_RAY_SOLDIER / 6.0;
+        } else if (viewRay < VIEW_RAY_SOLDIER) {
+            viewRay += VIEW_RAY_SOLDIER / 9.0;
         }
-        else if (viewRay < VIEW_RAY_SOLDIER){
-            viewRay+= VIEW_RAY_SOLDIER/9.0;
-        }
-        
-        double R = (viewRay+hitbox.getWidth())*Scale;
-        for (int i =(int) -R ; i <= (int) R ; i++)
-            for (int j = -(int)Math.sqrt(R*R-i*i) ; j <= (int)Math.sqrt(R*R-i*i) ; j++){
-                if ((int)((getCenter().getX() - offsetX) * Scale)+i>=0
-                    &&(int)((getCenter().getX() - offsetX) * Scale)+i<tab.length
-                    &&(int)((getCenter().getY() - offsetY) * Scale)+j>=0
-                    &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
-                    )
-                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j] = false;
-                        //=(Math.random() > 0.5) ? false : true;
+
+        double R = (viewRay + hitbox.getWidth()) * Scale;
+        for (int i = (int) -R; i <= (int) R; i++)
+            for (int j = -(int) Math.sqrt(R * R - i * i); j <= (int) Math.sqrt(R * R - i * i); j++) {
+                if ((int) ((getCenter().getX() - offsetX) * Scale) + i >= 0 &&
+                    (int) ((getCenter().getX() - offsetX) * Scale) + i < tab.length &&
+                    (int) ((getCenter().getY() - offsetY) * Scale) + j >= 0 &&
+                    (int) ((getCenter().getY() - offsetY) * Scale) + j < tab[0].length)
+                    tab[(int) ((getCenter().getX() - offsetX) * Scale) +
+                        i][(int) ((getCenter().getY() - offsetY) * Scale) + j] = false;
+                //=(Math.random() > 0.5) ? false : true;
             }
     }
-    
+
     /**
      * Execute le deplacement et l’attaque des soldats.
      * @return vrai si suppression dans aliveItems
      */
     public boolean execute() {
-        
+
         actualiseTarget();
-        if (targetI != null && !hasSameOwner(targetI)){
+        if (targetI != null && !hasSameOwner(targetI)) {
             if (!isCloseTo(targetI, ATTACK_RANGE))
                 move();
-        }
-        else {
+        } else {
             move();
         }
         return attack();

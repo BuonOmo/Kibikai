@@ -46,8 +46,7 @@ public abstract class Item implements Finals {
      * @param height hauteur de la hitbox
      */
     public Item(Player ownerToSet, Point2D topLeftCorner, double width, double height) {
-        this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), width, height),
-             null);
+        this(ownerToSet, new Rectangle2D.Double(topLeftCorner.getX(), topLeftCorner.getY(), width, height), null);
     }
 
     /**
@@ -92,14 +91,15 @@ public abstract class Item implements Finals {
      * @param targetToSet
      */
     public void setTarget(Item targetToSet) {
-        
+
         setTarget(targetToSet.getCenter());
         targetI = targetToSet;
     }
-    
-    public void setRadius(){
+
+    public void setRadius() {
         radius = this.distanceTo(new Point2D.Double(hitbox.getX(), hitbox.getY()));
     }
+
     /**
      * Permet de suivre une cible mouvante.
      */
@@ -131,7 +131,7 @@ public abstract class Item implements Finals {
      */
     public double distanceTo(Point2D p) {
         double x = hitbox.getCenterX(), y = hitbox.getCenterY();
-        
+
         return Math.sqrt((p.getX() - x) * (p.getX() - x) + (p.getY() - y) * (p.getY() - y));
     }
 
@@ -156,7 +156,7 @@ public abstract class Item implements Finals {
             return true;
         return false;
     }
-    
+
     /**
      *
      * @param p
@@ -172,10 +172,12 @@ public abstract class Item implements Finals {
     public Point2D getCenter() {
         return new Point2D.Double(hitbox.getCenterX(), hitbox.getCenterY());
     }
-    public double getWidth(){
+
+    public double getWidth() {
         return hitbox.getWidth();
     }
-    public double getHeight(){
+
+    public double getHeight() {
         return hitbox.getHeight();
     }
 
@@ -203,6 +205,7 @@ public abstract class Item implements Finals {
         }
         return toReturn;
     }
+
     /**
      * Met à jour les listes lors de la mort.
      * @return vrai si modification de aliveItems
@@ -229,12 +232,12 @@ public abstract class Item implements Finals {
         return (i.owner == owner);
     }
 
-     /**
-      * Execute les actions par tour d’un objet.
-      * @return vrai si suppression dans aliveItems
-      */
+    /**
+     * Execute les actions par tour d’un objet.
+     * @return vrai si suppression dans aliveItems
+     */
     public abstract boolean execute();
-    
+
     /**
      * @return couleur à afficher dans la minimap
      */
@@ -243,19 +246,19 @@ public abstract class Item implements Finals {
             return new Color(0, 255, 255);
         return owner.color;
     }
-    
+
     /**
      * Affiche l’objet
      * @param g
      */
     public abstract void print(Graphics g);
-    
-    public void printToMinimap(Graphics g, double Scale, double ScaleI ){
-            g.setColor(getColor());
-            g.fillRoundRect((int) (hitbox.getCenterX() * Scale-hitbox.getWidth() * ScaleI/2),
-                            (int) (hitbox.getCenterY() * Scale-hitbox.getHeight() * ScaleI/2),
-                            (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI), (10), (10));
-        }
+
+    public void printToMinimap(Graphics g, double Scale, double ScaleI) {
+        g.setColor(getColor());
+        g.fillRoundRect((int) (hitbox.getCenterX() * Scale - hitbox.getWidth() * ScaleI / 2),
+                        (int) (hitbox.getCenterY() * Scale - hitbox.getHeight() * ScaleI / 2),
+                        (int) (hitbox.getWidth() * ScaleI), (int) (hitbox.getHeight() * ScaleI), (10), (10));
+    }
 
     public String toString() {
         return this.getClass().getName() + " at [" + getCenter().getX() + ", " + getCenter().getY() + "]";
@@ -299,8 +302,8 @@ public abstract class Item implements Finals {
      * @param x position x du centre
      * @param y position y du centre
      */
-    public void setLocationFromCenter(double x, double y){
-        setLocation(x - hitbox.getWidth()/2, y - hitbox.getHeight()/2);
+    public void setLocationFromCenter(double x, double y) {
+        setLocation(x - hitbox.getWidth() / 2, y - hitbox.getHeight() / 2);
     }
 
     /**
@@ -329,59 +332,60 @@ public abstract class Item implements Finals {
      * @param tab tableau à modifier en fonction du brouillard
      * @param Scale echelle de la minimap ou de la camera
      */
-    public void fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
-        double R = (viewRay+hitbox.getWidth())*Scale;
-        for (int i =(int) -R ; i <= (int) R ; i++){
-            for (int j = -(int)Math.sqrt(R*R-i*i) ; j <= (int)Math.sqrt(R*R-i*i) ; j++){
-                if ((int)((getCenter().getX() - offsetX) * Scale)+i>=0
-                    &&(int)((getCenter().getX() - offsetX) * Scale)+i<tab.length
-                    &&(int)((getCenter().getY() - offsetY) * Scale)+j>=0
-                    &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
-                    )
-                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j] = false;
-                    //=(Math.random() > 0.5) ? false : true; // mettre à la place de false pour un brouillard swag
+    public void fog(double offsetX, double offsetY, boolean[][] tab, double Scale) {
+        double R = (viewRay + hitbox.getWidth()) * Scale;
+        for (int i = (int) -R; i <= (int) R; i++) {
+            for (int j = -(int) Math.sqrt(R * R - i * i); j <= (int) Math.sqrt(R * R - i * i); j++) {
+                if ((int) ((getCenter().getX() - offsetX) * Scale) + i >= 0 &&
+                    (int) ((getCenter().getX() - offsetX) * Scale) + i < tab.length &&
+                    (int) ((getCenter().getY() - offsetY) * Scale) + j >= 0 &&
+                    (int) ((getCenter().getY() - offsetY) * Scale) + j < tab[0].length)
+                    tab[(int) ((getCenter().getX() - offsetX) * Scale) +
+                        i][(int) ((getCenter().getY() - offsetY) * Scale) + j] = false;
+                //=(Math.random() > 0.5) ? false : true; // mettre à la place de false pour un brouillard swag
             }
         }
     }
 
-    public static void setThreeTargets(Item t, Item u, Item v, Point2D a, Point2D b, Point2D c){
+    public static void setThreeTargets(Item t, Item u, Item v, Point2D a, Point2D b, Point2D c) {
         double d1;
         double d2;
         double d3;
-        double d=Finals.screenWidth*Finals.screenWidth*3;
-        Point2D[] targets = {a,b,c};
-        for(int i=0;i<3;i++){
-            d1=t.distanceTo(targets[i]);
-            for(int j=0;j<2;j++){
-                d2=u.distanceTo(targets[(i+1)%3]);
-                d3=v.distanceTo(targets[(i+2)%3]);
-                if((d1*d1+d2*d2+d3*d3)<d){
+        double d = Finals.screenWidth * Finals.screenWidth * 3;
+        Point2D[] targets = { a, b, c };
+        for (int i = 0; i < 3; i++) {
+            d1 = t.distanceTo(targets[i]);
+            for (int j = 0; j < 2; j++) {
+                d2 = u.distanceTo(targets[(i + 1) % 3]);
+                d3 = v.distanceTo(targets[(i + 2) % 3]);
+                if ((d1 * d1 + d2 * d2 + d3 * d3) < d) {
                     t.setTarget(targets[i]);
-                    u.setTarget(targets[(i+1)%3]);
-                    v.setTarget(targets[(i+2)%3]);					
-                    d=d1*d1+d2*d2+d3*d3;
+                    u.setTarget(targets[(i + 1) % 3]);
+                    v.setTarget(targets[(i + 2) % 3]);
+                    d = d1 * d1 + d2 * d2 + d3 * d3;
                 }
-                    
+
             }
         }
     }
-    public static void setThreeTargets(Item [] it, Point2D [] targets){
+
+    public static void setThreeTargets(Item[] it, Point2D[] targets) {
         double d1;
         double d2;
         double d3;
-        double d=Finals.screenWidth*Finals.screenWidth*3;
-        for(int i=0;i<3;i++){
-            d1=it[0].distanceTo(targets[i]);
-            for(int j=0;j<2;j++){
-                d2=it[1].distanceTo(targets[(i+1)%3]);
-                d3=it[2].distanceTo(targets[(i+2)%3]);
-                if((d1*d1+d2*d2+d3*d3)<d){
+        double d = Finals.screenWidth * Finals.screenWidth * 3;
+        for (int i = 0; i < 3; i++) {
+            d1 = it[0].distanceTo(targets[i]);
+            for (int j = 0; j < 2; j++) {
+                d2 = it[1].distanceTo(targets[(i + 1) % 3]);
+                d3 = it[2].distanceTo(targets[(i + 2) % 3]);
+                if ((d1 * d1 + d2 * d2 + d3 * d3) < d) {
                     it[0].setTarget(targets[i]);
-                    it[1].setTarget(targets[(i+1)%3]);
-                    it[2].setTarget(targets[(i+2)%3]);                                      
-                    d=d1*d1+d2*d2+d3*d3;
+                    it[1].setTarget(targets[(i + 1) % 3]);
+                    it[2].setTarget(targets[(i + 2) % 3]);
+                    d = d1 * d1 + d2 * d2 + d3 * d3;
                 }
-                    
+
             }
         }
     }

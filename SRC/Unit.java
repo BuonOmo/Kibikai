@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
-
 import java.awt.geom.Rectangle2D;
 
 import java.util.LinkedList;
@@ -13,28 +12,28 @@ public abstract class Unit extends Item {
      * Liste permettant d’attribuer des récompenses aux unités de l’IA pour le Q learning.
      */
     public LinkedList<IAHistObj> histoList = new LinkedList<IAHistObj>();
-    
+
     /**
      * Liste pour l’affichage d’animations des unités mourrantes.
      */
     public static LinkedList<Unit> dyingUnits = new LinkedList<Unit>();
-    
+
     /**
      * Vie maximale d’une unité
      */
     double lifeMAX;
-    
+
     /**
-     * Temps d’arrivée sur le jeu, permet de gerer les animations 
+     * Temps d’arrivée sur le jeu, permet de gerer les animations
      * de création et les récompenses attribuées.
      */
     double firstAppearance;
-    
+
     /**
      * Stratégie de l’unité si c’est une IA.
      */
     int strategyincurs = 0;
-    
+
     /**
      * compteur pour l’animation de mort.
      */
@@ -54,7 +53,7 @@ public abstract class Unit extends Item {
         stop();
         dieTimer = 0;
     }
-    
+
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
@@ -63,8 +62,8 @@ public abstract class Unit extends Item {
     public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int side) {
         this(owner, topLeftCorner, lifeMAXToSet, side, side);
     }
-    
-    
+
+
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
@@ -76,17 +75,18 @@ public abstract class Unit extends Item {
         this(owner, topLeftCorner, lifeMAXToSet, side);
         setTarget(targetToSet);
     }
-    
+
     //________________MÉTHODES_______________//
 
     /**
      * @return vraie si très proche de l’objectif (0.2 unité de jeu)
      */
-    public boolean isOnTarget(){
+    public boolean isOnTarget() {
         if (this.isCloseTo(target, 0.2))
             return true;
         return false;
     }
+
     /**
      * arrête le mouvement d’une unité.
      */
@@ -108,18 +108,18 @@ public abstract class Unit extends Item {
         return false;
     }
 
-    
+
     @Override
     public Color getColor() {
 
         double percent;
-        
+
         percent = (life + lifeMAX / 2.0) / (1.5 * lifeMAX);
-        percent = (percent > 1 ) ? 1 : (percent < 0 ) ? 0: percent;
-        
+        percent = (percent > 1) ? 1 : (percent < 0) ? 0 : percent;
+
         if (selected)
             return new Color(0, (int) (255 * percent), (int) (255 * percent));
-        
+
         return new Color((int) (owner.color.getRed() * percent), (int) (owner.color.getGreen() * percent),
                          (int) (owner.color.getBlue() * percent));
     }
@@ -128,12 +128,12 @@ public abstract class Unit extends Item {
      * Gère le déplacement d’une unité.
      */
     public void move() {
-        
+
         Point2D d;
         d = new Point2D.Double();
         d.setLocation(setVector());
         hitbox.setFrame(hitbox.getX() + d.getX(), hitbox.getY() + d.getY(), hitbox.getWidth(), hitbox.getHeight());
-        
+
     }
 
     /**
@@ -171,7 +171,7 @@ public abstract class Unit extends Item {
             vector.setLocation(DISTANCE_TO_MOVE * Math.cos(getAlphaOffset() - alpha),
                                DISTANCE_TO_MOVE * Math.sin(getAlphaOffset() - alpha));
         else
-            vector.setLocation(target.getX() - hitbox.getCenterX(), target.getY() -hitbox.getCenterY());
+            vector.setLocation(target.getX() - hitbox.getCenterX(), target.getY() - hitbox.getCenterY());
         return vector;
     }
 
@@ -181,7 +181,7 @@ public abstract class Unit extends Item {
      * @return vecteur de déplacement unitaire
      */
     private Point2D getVector() {
-        
+
         if (distanceTo(target) > DISTANCE_TO_MOVE)
             return new Point2D.Double((target.getX() - hitbox.getCenterX()) * DISTANCE_TO_MOVE /
                                       this.distanceTo(target),
@@ -189,9 +189,9 @@ public abstract class Unit extends Item {
                                       this.distanceTo(target));
         else
             return new Point2D.Double(0, 0);
-        
+
     }
-    
+
     /**
      * Choisi un vecteur de déplacement possible en fonction des obstacles.
      * @return vecteur unitaire de déplacement
@@ -226,7 +226,7 @@ public abstract class Unit extends Item {
             }
         }
         */
-        
+
         // Gestion des objets
         double alpha;
         alpha = 0;
@@ -316,15 +316,14 @@ public abstract class Unit extends Item {
      */
     public boolean willIntersect(Item i, double alphaDegre) {
         Point2D newLocation = getNewLocationFromCenter(alphaDegre);
-        
+
         if (i.hitbox.intersects(new Rectangle2D.Double(newLocation.getX() - hitbox.getWidth() / 2.0,
-                                                newLocation.getY() - hitbox.getHeight() / 2.0,
-                                                hitbox.getWidth(),
-                                                hitbox.getHeight())))
+                                                       newLocation.getY() - hitbox.getHeight() / 2.0, hitbox.getWidth(),
+                                                       hitbox.getHeight())))
             return true;
         return false;
     }
-    
+
     /**
      * @return offset entre l’axe horizontal et l’axe Unité / Objectif
      */
@@ -336,12 +335,12 @@ public abstract class Unit extends Item {
             return offset + Math.PI;
         return offset;
     }
-    
+
     /**
      * Supprime definitivement l’unité après son animation de fin de vie.
      */
-    public void die(){
-        if (isDead() && viewRay <=0){
+    public void die() {
+        if (isDead() && viewRay <= 0) {
             dyingUnits.remove(this);
         }
     }
