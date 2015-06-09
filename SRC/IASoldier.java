@@ -192,9 +192,8 @@ public class IASoldier extends IAUnite {
 					}
 				}
 				if (soldierPlayerInZone1.size()== 0){
-					if (soldierPlayerInZone2.size()>soldierComputerInZone2.size()) {
+					if (soldierPlayerInZone2.size()>soldierComputerInZone2.size())
 						unitGroup.setTarget(IA.computer.base.getCenter());
-					}
 					else{
 						if (soldierPlayerInZone2.size()!= 0){
 							double distance =  soldierPlayerInZone2.get(0).distanceTo(unitGroup.getPosition());
@@ -210,9 +209,8 @@ public class IASoldier extends IAUnite {
 						}
 					}
 					if (soldierPlayerInZone2.size()== 0){
-						if (soldierPlayerInZone2.size()== 0){
+						if (soldierPlayerInZone2.size()== 0)
 							unitGroup.setTarget(unitGroup.getPosition());
-						}
 						else {
 							SoldierGroup PlayerZone3 = new SoldierGroup(soldierPlayerInZone3,IA.player);
 							LinkedList <SoldierGroup> PlayerZone3Groups = PlayerZone3.divideInDenseGroups();
@@ -227,17 +225,14 @@ public class IASoldier extends IAUnite {
 									smolerSoldierGroup = PlayerZone3Groups.get(i);
 								}
 							}
-							if (smolerSoldierGroup.group.size()<unitGroup.group.size()){
+							if (smolerSoldierGroup.group.size()<unitGroup.group.size())
 								unitGroup.setTarget(smolerSoldierGroup.getPosition());
-							}
+								
 							else{
-								if (soldierPlayerInZone3.size()>soldierComputerInZone3.size()) {
+								if (soldierPlayerInZone3.size()>soldierComputerInZone3.size())
 									unitGroup.setTarget(IA.computer.base.getCenter());
-								}
 								else{
-									/*
-									 * ajouter soldierGroup au group alli� le plus proche 
-									 */
+									//Ajoute soldierGroup au groupe allie le plus proche
 									double distance =  SoldierGroup.list.get(0).distanceTo(unitGroup);
 									SoldierGroup group = SoldierGroup.list.get(0);
 									for(SoldierGroup i : SoldierGroup.list){

@@ -12,176 +12,190 @@ import java.util.LinkedList;
 
 public class Mouse extends Listeners implements MouseListener, MouseMotionListener, MouseWheelListener {
 
-    static boolean leftPressed, dragging;
-    static Point2D draggBeginning;
-    static Rectangle2D draggingSquare;
-    static int click = 0;
+	static boolean leftPressed, dragging;
+	static Point2D draggBeginning;
+	static Rectangle2D draggingSquare;
+	static int click = 0;
 
-    public Mouse(Player player) {
-        super(player);
-        leftPressed = false;
-        dragging = false;
-        draggBeginning = new Point2D.Double();
-        draggingSquare = new Rectangle2D.Double();
-    }
+	//_____________CONSTRUCTEUR____________//
 
-    //_____________MÉTHODES____________//
-
-    /**
-     * Méthode appelée au premier tour de jeu afin de récuperer les bordures.
-     * @param e premier click reçu
-     */
-    public static void firstClick(MouseEvent e) {
-        init = false;
-        border.setLocation((double) (MouseInfo.getPointerInfo().getLocation().getX() - e.getX()) / Camera.scale,
-                           (double) (MouseInfo.getPointerInfo().getLocation().getY() - e.getY()) / Camera.scale);
-    }
+	/**
+	 * Constructeur.
+	 * @param player joueur
+	 */
+	public Mouse(Player player) {
+		super(player);
+		leftPressed = false;
+		dragging = false;
+		draggBeginning = new Point2D.Double();
+		draggingSquare = new Rectangle2D.Double();
+	}
 
 
-    /**
-     * Méthode appelée sur un clic droit.
-     */
-    private void rightClick() {
-        
-        if (selected.size() == 3){
-            createSoldier();
-        }
-        else{
-            setTarget();
-        }
-    }
+	//_____________MÉTHODES____________//
 
-    /**
-     * Méthode appelée sur un clic gauche.
-     */
-    private void leftClick() {
-        
-        if (!shiftPressed){
-            unSelectAll();
-        }
-        getItemFromOwner();
-        if (canSelect != null)
-            select(canSelect);
-
-    }
-
-    public void createSoldier() {
-
-        // crée parfois plus d’unités qu’il n’en faut (sauf dans le cas de 3 unités selectionnées)
-        // mettre >= 3 pour avoir le cas général
-        if (selected.size() == 3) {
-
-            LinkedList<SimpleUnit> simpleUnitSelected = new LinkedList<SimpleUnit>();
-            for (Item i : selected.getGroup()) {
-                if (i.getClass().getName() == "SimpleUnit") {
-                    simpleUnitSelected.add((SimpleUnit) i);
-                }
-            }
-
-            while (simpleUnitSelected.size() >= 3) {
-                SimpleUnit[] getClosest;
-                getClosest = SimpleUnit.getNClosestSimpleUnitsFromList(3, mouseWithCameraOffset(), simpleUnitSelected);
-                //System.out.println(getClosest.length);
-                SimpleUnit.createSoldier(getClosest, mouseWithCameraOffset());
-                
-                for (SimpleUnit toRemove : getClosest){
-                    simpleUnitSelected.remove(toRemove);
-                }
-
-            }
-
-        }
-    }
-    //_______________ÉCOUTEURS____________//
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
+	/**
+	 * Methode appelee au premier tour de jeu afin de recuperer les bordures.
+	 * @param e premier click reçu
+	 */
+	public static void firstClick(MouseEvent e) {
+		init = false;
+		border.setLocation((double) (MouseInfo.getPointerInfo().getLocation().getX() - e.getX()) / Camera.scale,
+				(double) (MouseInfo.getPointerInfo().getLocation().getY() - e.getY()) / Camera.scale);
+	}
 
 
-        switch (e.getModifiers()) {
-        case InputEvent.BUTTON1_MASK:
-            {
-                leftClick();
-                break;
-            }
-            /**
-             * Pour le bouton du milieu :
-            case InputEvent.BUTTON2_MASK: {
-                System.out.println("Hey bitch let me be printed");
-                break;
-            }
-             */
-        case InputEvent.BUTTON3_MASK:
-            {
-                rightClick();
-                break;
-            }
-        }
+	/**
+	 * Methode appelee sur un clic droit.
+	 */
+	private void rightClick() {
 
-    }
+		if (selected.size() == 3){
+			createSoldier();
+		}
+		else{
+			setTarget();
+		}
+	}
 
-    @Override
-    public void mousePressed(MouseEvent e) {
+	/**
+	 * Methode appelee sur un clic gauche.
+	 */
+	private void leftClick() {
 
-        if (init)
-            firstClick(e);
+		if (!shiftPressed){
+			unSelectAll();
+		}
+		getItemFromOwner();
+		if (canSelect != null)
+			select(canSelect);
 
-        switch (e.getModifiers()) {
-        case InputEvent.BUTTON1_MASK:
-            {
-                dragging = true;
-                draggBeginning.setLocation(mouseWithCameraOffset());
-                break;
-            }
-        }
-    }
+	}
 
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-        dragging = false;
-        draggBeginning.setLocation(0, 0);
-        draggingSquare.setFrame(0, 0, 0, 0);
-    }
+	/**
+	 * Rassemble 3 US pour creer un soldier.
+	 */
+	public void createSoldier() {
 
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-        // TODO Implement this method
-    }
+		// cree parfois plus d’unités qu’il n’en faut (sauf dans le cas de 3 unités selectionnées)
+		// mettre >= 3 pour avoir le cas général
+		if (selected.size() == 3) {
 
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-        // TODO Implement this method
-    }
+			LinkedList<SimpleUnit> simpleUnitSelected = new LinkedList<SimpleUnit>();
+			for (Item i : selected.getGroup())
+				if (i.getClass().getName() == "SimpleUnit")
+					simpleUnitSelected.add((SimpleUnit) i);
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
+			while (simpleUnitSelected.size() >= 3) {
+				SimpleUnit[] getClosest;
+				getClosest = SimpleUnit.getNClosestSimpleUnitsFromList(3, mouseWithCameraOffset(), simpleUnitSelected);
+				//System.out.println(getClosest.length);
+				SimpleUnit.createSoldier(getClosest, mouseWithCameraOffset());
 
-        if (dragging) {
-            draggingSquare.setRect((draggBeginning.getX() < mouseWithCameraOffset().getX()) ? 
-                                                    draggBeginning.getX() : mouseWithCameraOffset().getX(),
-                                   (draggBeginning.getY() < mouseWithCameraOffset().getY()) ?
-                                                    draggBeginning.getY() : mouseWithCameraOffset().getY(),
-                                   Math.abs(draggBeginning.getX() - mouseWithCameraOffset().getX()),
-                                   Math.abs(draggBeginning.getY() - mouseWithCameraOffset().getY()));
-            selectOnly(draggingSquare);
-            /*
-            draggingSquare.setRect((draggBeginning.getX() < mouse().getX()) ? draggBeginning.getX() : mouse().getX(),
-                                   (draggBeginning.getY() < mouse().getY()) ? draggBeginning.getY() : mouse().getY(),
-                                   Math.abs(draggBeginning.getX() - mouse().getX()),
-                                   Math.abs(draggBeginning.getY() - mouse().getY()));
-            */
-        }
-    }
+				for (SimpleUnit toRemove : getClosest)
+					simpleUnitSelected.remove(toRemove);
+			}
+		}
+	}
+	
+	
+	//_______________ÉCOUTEURS_____________//
 
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // TODO Implement this method
-    }
+	/**
+	 * Actions associees aux clics de la souris.
+	 */
+	@Override
+	public void mouseClicked(MouseEvent e) {
 
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {        
-        // mouvement d’echelle
-        //Camera.setScale(e.getWheelRotation());
-    }
+		switch (e.getModifiers()) {
+
+		case InputEvent.BUTTON1_MASK:
+		{
+			leftClick();
+			break;
+		}
+
+		case InputEvent.BUTTON3_MASK:
+		{
+			rightClick();
+			break;
+		}
+		}
+	}
+
+	/**
+	 * Actions liees a l'appui d'un bouton de la souris.
+	 */
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+		if (init)
+			firstClick(e);
+
+		switch (e.getModifiers()) {
+		case InputEvent.BUTTON1_MASK:
+		{
+			dragging = true;
+			draggBeginning.setLocation(mouseWithCameraOffset());
+			break;
+		}
+		}
+	}
+
+	/**
+	 * Actions liees au relachement d'un bouton de la souris.
+	 */
+	@Override
+	public void mouseReleased(MouseEvent mouseEvent) {
+		dragging = false;
+		draggBeginning.setLocation(0, 0);
+		draggingSquare.setFrame(0, 0, 0, 0);
+	}
+
+	/**
+	 * Actions liees a l'entree de la souris dans un component.
+	 */
+	@Override
+	public void mouseEntered(MouseEvent mouseEvent) {
+	}
+
+	/**
+	 * Actions liees a la sortie de la souris dans un component.
+	 */
+	@Override
+	public void mouseExited(MouseEvent mouseEvent) {
+	}
+
+	/**
+	 * Actions liees au drag de la souris
+	 */
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+		if (dragging) {
+			draggingSquare.setRect((draggBeginning.getX() < mouseWithCameraOffset().getX()) ? 
+					draggBeginning.getX() : mouseWithCameraOffset().getX(),
+					(draggBeginning.getY() < mouseWithCameraOffset().getY()) ?
+							draggBeginning.getY() : mouseWithCameraOffset().getY(),
+							Math.abs(draggBeginning.getX() - mouseWithCameraOffset().getX()),
+							Math.abs(draggBeginning.getY() - mouseWithCameraOffset().getY()));
+			selectOnly(draggingSquare);
+		}
+	}
+
+	/**
+	 * Actions liees au mouvement de la souris.
+	 */
+	@Override
+	public void mouseMoved(MouseEvent e) {
+	}
+
+	/**
+	 * Actions liees a de la souris.
+	 */
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {        
+		// Laisse la possibilite d'un mouvement d’echelle
+	}
 
 }

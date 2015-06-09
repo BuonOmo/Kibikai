@@ -58,6 +58,7 @@ public class IASimpleUnit extends IAUnite {
 		return State;
 	}
 
+	
 	/**
 	 * Choisit la strategie a adopter
 	 * @param State etat dans lequel est la SU
@@ -109,6 +110,7 @@ public class IASimpleUnit extends IAUnite {
 			break;
 		}
 
+		
 		//Scinder le groupe en deux
 		case 2:{  
 
@@ -125,6 +127,7 @@ public class IASimpleUnit extends IAUnite {
 			break;
 		}
 
+		
 		//Soutenir un autre group d'unite
 		case 3:{ 
 
@@ -161,12 +164,14 @@ public class IASimpleUnit extends IAUnite {
 			break;
 		}
 
+		
 		//Donne de la vie a la base
 		case 4:{   
 			unitGroup.setTarget(IA.computer.base);
 			break;
 		}
 
+		
 		//Creation Soldats
 		case 5:{
 			SimpleUnit.createSoldier(unitGroup.getPosition(), IA.computer, unitGroup.getPosition());
@@ -187,6 +192,7 @@ public class IASimpleUnit extends IAUnite {
 
 		}
 
+		
 		//Starategie 5 appliquee au tour precedent : continue a creer des soldats
 		case 15 : { 
 			if (support==null)
