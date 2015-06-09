@@ -37,8 +37,6 @@ public class GamePan extends JPanel {
 	private JLabel lNbSoSelect = new JLabel("0");
 	private JLabel lBaseSelect = new JLabel(" ");
 
-
-
 	public Camera camera = new Camera();
 	private Minimap minimap = new Minimap();
 	private Box BoxSidBand = Box.createVerticalBox();
@@ -100,20 +98,17 @@ public class GamePan extends JPanel {
 		BoxSidBand.add(NbSoSelect, null);
 		BoxSidBand.add(BaseSelect, null);
 
-
 		SidBand.add(BoxSidBand,null);
 
-		// afin de quitter le jeu plus vite
+		
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Game.exit();
 			}
 		};
 
 		ActionListener playPauseListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pauseOrPlay();
-
 			}
 		};
 
@@ -130,7 +125,7 @@ public class GamePan extends JPanel {
 	//______________METHODS______________//
 
 	/**
-	 * 
+	 * Actualise les donnees
 	 */
 	public void UpDate(){
 		if (IA.player!=null){

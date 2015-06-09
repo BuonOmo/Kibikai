@@ -9,61 +9,61 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class IA {
-	
+
 	public static double Gamma = Finals.IA_GAMMA;
-	public static double Alpa = Finals.IA_ALPHA;
+	
 	public static Double [][] qIASoldier ;
 	public static Double [][] qIASimpleUnit ;
 	public static Double [][] nbSaveSol ;
 	public static Double [][] nbSaveSU ;
 
 	public static Player computer;
-	public static Player player;
-	static Object tab; 
+	public static Player player; 	
 
+
+	/**
+	 * Recupere les fichiers de QLearning.
+	 */
 	public static void beginning () {
-
 
 		try {
 			nbSaveSol =load( "savenbSaveSol.txt");
 			nbSaveSU =load( "savenbSaveSU.txt");
 			qIASoldier=load("SaveqIASoldier.txt");
 			qIASimpleUnit=load("SaveqIASimpleUnite.txt");
-			//loadQIASoldier();
-			//loadQIASimpleUnite();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * Applique le comportement a faire a toutes les unites.
+	 */
 	public static void execut(){
-		// deplacer l'objectif de la base
 
+		// Deplace l'endroit d'apparition des unites
 		computer.base.setTarget(new Point2D.Double(computer.base.getCenter().getX(),computer.base.getCenter().getY()+computer.base.getHeight()*2));
 
 
-
-		//appliquer l'IA au Groupe de soldat 
+		//Applique l'IA au Groupe de soldats 
 		for (int i = 0 ; i<SoldierGroup.list.size();i++ ){
 			if ((UI.time+i)%2==0)
 				SoldierGroup.list.get(i).ia.execut();
 		}
 
-
-
-
-		//appliquer l'IA au Groupe de soldat 
+		//Applique l'IA au Groupe de SU
 		for (int i = 0 ;  i+1 < SimpleUnitGroup.list .size();i++){
-			// petite verification 
-			/*if (SimpleUnitGroup.list.get(i).ia==null)
-                SimpleUnitGroup.list.remove(i);
-            if (SimpleUnitGroup.list.get(i).group.size()==0)
-                SimpleUnitGroup.list.remove(i);*/
 			if ((UI.time+i)%5==0)
 				SimpleUnitGroup.list.get(i).ia.execut();
 		}
 	}
 
+
+	/**
+	 * Methode appelee a la fin du jeu.
+	 * Met a jour les fichiers de QLearning.
+	 */
 	public static void end(){
 
 		LinkedList <Unit> AllUnit = computer.units;
@@ -76,18 +76,20 @@ public class IA {
 			if (className == "Soldier"){
 				LinkedList <IAHistObj> histoList = ((Soldier)AllUnit.get(i)).histoList;
 				histoList.add(new IAHistObj(0,0,0));
-                                Double R = histoList.get(histoList.size()-2).Reward;
+				Double R = histoList.get(histoList.size()-2).Reward;
 				for (int j = histoList.size()-3;j>=0;j--) {
-                                    R= rinforceQ(qIASoldier,nbSaveSol,histoList,j,R);
-                                }
+					R= reinforceQ(qIASoldier,nbSaveSol,histoList,j,R);
+				}
 				histoList.clear();
 			}
+
 			if (className == "SimpleUnit"){
 				LinkedList <IAHistObj> histoList = ((SimpleUnit)AllUnit.get(i)).histoList;
-				histoList.add(new IAHistObj(0,0,0));                                Double R = histoList.get(histoList.size()-2).Reward;
+				histoList.add(new IAHistObj(0,0,0));                                
+				Double R = histoList.get(histoList.size()-2).Reward;
 				for (int j = histoList.size()-3;j>=0;j--) {
-                                    R= rinforceQ(qIASimpleUnit,nbSaveSU,histoList,j,R);
-                                }
+					R= reinforceQ(qIASimpleUnit,nbSaveSU,histoList,j,R);
+				}
 				histoList.clear();   
 			} 
 
@@ -99,49 +101,49 @@ public class IA {
 			save ("SaveqIASimpleUnite.txt",qIASimpleUnit);
 			IA.save("savenbSaveSU.txt", nbSaveSU);
 			IA.save("savenbSaveSol.txt", nbSaveSol);
-			//saveQIASoldierANDSimpleUnit();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * @param Q
-	 * @param histoList
-	 * @param index
-	 */
-	public static Double rinforceQ(Double [][] Q,Double [][] nbS, LinkedList <IAHistObj> histoList,int index , Double priviousReward ){
-		Double Qsa;
-                
-                // calcule de l'a Q max a l'�ta suvant 
-                Double Qmax = -10.0;
-                for (Double Qnext : Q[histoList.get(index+1).Stait]){
-                    if (Qnext>Qmax)Qmax=Qnext;
-                }
-                
 
+
+	/**
+	 * Permet de calculer la nouvelle valeur de recompense d'une case du Qlearning.
+	 * @param Q tableau du QLearning
+	 * @param nbS nombre de fois ou la valeur Qsa a ete mise a jour
+	 * @param histoList historique de la partie d'une unite
+	 * @param index emplacement de la case a changer
+	 * @param previousReward recompense precedente de la case a changer
+	 */
+	public static Double reinforceQ(Double [][] Q, Double [][] nbS, LinkedList <IAHistObj> histoList, int index, Double previousReward ){
+		
+		//Case a modifier dans les tableaux
+		Double Qsa;
+
+		//Calcul de la plus grosse recompense Q max a l'etat suivant 
+		Double Qmax = -10.0;
+		for (Double Qnext : Q[histoList.get(index+1).State]){
+			if (Qnext>Qmax)Qmax=Qnext;
+		}
+		
 		Qsa =histoList.get(index).Reward;
-		Qsa += Gamma/2*(Qmax+priviousReward);
-		Qsa -= Q[histoList.get(index).Stait][histoList.get(index).Action-1];
-		Qsa = Qsa/(nbS [histoList.get(index).Stait][histoList.get(index).Action-1]+1);
-		Qsa += Q[histoList.get(index).Stait][histoList.get(index).Action-1];
-		//Qsa= Q[histoList.get(index).Stait][histoList.get(index).Action-1]
-		//+(1/(nbS [histoList.get(index).Stait][histoList.get(index).Action-1]+1))
-		//*(histoList.get(index).Reward+Gamma*Q[histoList.get(index+1).Stait][histoList.get(index+1).Action-1]
-		//-Q[histoList.get(index).Stait][histoList.get(index).Action-1]);
+		Qsa += Gamma/2*(Qmax+previousReward);
+		Qsa -= Q[histoList.get(index).State][histoList.get(index).Action-1];
+		Qsa = Qsa/(nbS [histoList.get(index).State][histoList.get(index).Action-1]+1);
+		Qsa += Q[histoList.get(index).State][histoList.get(index).Action-1];
 
 		if (Qsa>10) Qsa =10.0;
 		if (Qsa<-10) Qsa =10.0;
-		nbS [histoList.get(index).Stait][histoList.get(index).Action-1]++;
-		Q[histoList.get(index).Stait][histoList.get(index).Action-1]=Qsa;
-                return priviousReward*Gamma/2+ histoList.get(index).Reward;
+		nbS [histoList.get(index).State][histoList.get(index).Action-1]++;
+		Q[histoList.get(index).State][histoList.get(index).Action-1]=Qsa;
+		return previousReward*Gamma/2+ histoList.get(index).Reward;
 	}
 
 
 	/**
-	 * @param fileName
-	 * @param tabtoSave
-	 * @throws IOException
+	 * Sauvegarde les fichiers de l'IA.
+	 * @param file nom du fichier
+	 * @param toSave la valeur a sauvegarder
 	 */
 	public static void save (String file, Double[][] toSave)throws IOException{
 		File saveFile = new File(file);
@@ -163,22 +165,23 @@ public class IA {
 
 
 	/**
-	 * @param file
-	 * @return Tab loded
-	 * @throws FileNotFoundException
+	 * Permet de lire les valeurs d'un fichier sous sa forme de tableau.
+	 * @param file nom du fichier
+	 * @return le tableau charge
 	 */
-	public static Double[][] load(String file ) throws FileNotFoundException{
+	public static Double[][] load(String file) throws FileNotFoundException{
+		
 		Scanner scanner = new Scanner(new File(file)); 
-		int nBLignes = Integer.parseInt(scanner.nextLine());
-		int nBColonnes = Integer.parseInt(scanner.nextLine());
-		Double[][] toRetrne = new Double[nBLignes][nBColonnes];
-		for(int i = 0; i<nBLignes;i++){
-			for(int k = 0; k<nBColonnes;k++){
-				toRetrne[i][k] = Double.parseDouble(scanner.nextLine());
+		int nBLines = Integer.parseInt(scanner.nextLine());
+		int nBColumns = Integer.parseInt(scanner.nextLine());
+		Double[][] toReturn = new Double[nBLines][nBColumns];
+		for(int i = 0; i<nBLines;i++){
+			for(int k = 0; k<nBColumns;k++){
+				toReturn[i][k] = Double.parseDouble(scanner.nextLine());
 			}
 		}
 		scanner.close();
-		return toRetrne;
+		return toReturn;
 
 	}
 }

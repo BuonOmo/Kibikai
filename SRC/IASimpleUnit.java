@@ -8,47 +8,47 @@ public class IASimpleUnit extends IAUnite {
     }
 
     /**
-     * @return état entre 1 et 431
+     * @return ï¿½tat entre 1 et 431
      */
-    public int calculateStaite() {
+    public int calculateState() {
         
-        int staite = 0;
+        int State = 0;
         if (support!=null){
             // strategie de groupes soutenue (0;5)
-            staite = support.presentStrategy-1;
+            State = support.presentStrategy-1;
             
             //superiorite numerique du groupe supporte dans la zone 1(0;6)
-            if (support.soldierComputerInZone1.size()>support.soldierPlyaerInZone1.size()) staite=staite+6;
+            if (support.soldierComputerInZone1.size()>support.soldierPlyaerInZone1.size()) State=State+6;
             
             //superiorite numerique du groupe supporte dans la zone 3(0;12)
-            if (support.soldierComputerInZone3.size()>support.soldierPlyaerInZone3.size()) staite=staite+12;
+            if (support.soldierComputerInZone3.size()>support.soldierPlyaerInZone3.size()) State=State+12;
         }
         
         
         //bat attaquer (0;24)
         for (Soldier i : IA.player.soldiers){
             if (IA.computer.base.isCloseTo(i,Finals.ATTACK_RANGE)){
-                staite=24+staite;
+                State=24+State;
                 break;
             }
         }
         // pas de groupe supporte (0) et taille du groupe supportee  (48;96)
         if (support !=null){
-            if (support.unitGroup.group.size()<0.3*Finals.NUMBER_MAX_OF_SOLDIER)staite=48+staite;
-            else staite=96+staite;
+            if (support.unitGroup.group.size()<0.3*Finals.NUMBER_MAX_OF_SOLDIER)State=48+State;
+            else State=96+State;
         }
         //taille de this (0;144;288)
-        if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.2)staite= 144+staite;
-        else if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.08)staite= 288+staite;
+        if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.2)State= 144+State;
+        else if (unitGroup.numberUnit()<(double)Finals.NUMBER_MAX_OF_SIMPLEUNIT*0.08)State= 288+State;
 
         
-        return staite;
+        return State;
     }
 
-    public int chooseStrategy(int staite) {
+    public int chooseStrategy(int State) {
         Double n = 0.0;
-        // on calcule n , nombre de foi que staite a ue lieu
-        for(Double i :IA.nbSaveSU[staite]) {
+        // on calcule n , nombre de foi que State a ue lieu
+        for(Double i :IA.nbSaveSU[State]) {
             n += i;
         }
         
@@ -56,8 +56,8 @@ public class IASimpleUnit extends IAUnite {
         
         
         Double  sommeR=0.0;
-        // on calcule sommeR , diviseur de la loi de probabliité 
-        for (Double x :IA.qIASimpleUnit[staite]){
+        // on calcule sommeR , diviseur de la loi de probabliitï¿½ 
+        for (Double x :IA.qIASimpleUnit[State]){
             sommeR = sommeR +Math.exp((n+1)/(101+n)*x);
         }
         
@@ -66,20 +66,20 @@ public class IASimpleUnit extends IAUnite {
         
         Double Rdm= Math.random()*sommeR;
         int i =0;
-        // on choisie la statégie avec une probablité de exp((n+1)/(101+n)*x)/SommeR
-        for (Double x :IA.qIASimpleUnit[staite]){
+        // on choisie la statï¿½gie avec une probablitï¿½ de exp((n+1)/(101+n)*x)/SommeR
+        for (Double x :IA.qIASimpleUnit[State]){
             i++;
             if (Rdm<Math.exp((n+1)/(101+n)*x)) return i;
             Rdm=Rdm-Math.exp((n+1)/(101+n)*x);
         }
         
         
-        //en cas d'érreurs on apllique la stratégie 1 
+        //en cas d'ï¿½rreurs on apllique la stratï¿½gie 1 
         return 1;
     }
 
     /**
-     * @param strategy numaro de la strétgie a aplliquer 
+     * @param strategy numaro de la strï¿½tgie a aplliquer 
      */
     public void applyStrategy(int strategy) {
         switch (strategy){
@@ -134,13 +134,13 @@ public class IASimpleUnit extends IAUnite {
             
             
             if (group!=null){// si il exsite un groupe de soldat proche 
-                if (group.ia.support == null){// si le group de soldat n'as pas de soutien on crée un groupe de soutien dans la quelle on plasse une unité simple
+                if (group.ia.support == null){// si le group de soldat n'as pas de soutien on crï¿½e un groupe de soutien dans la quelle on plasse une unitï¿½ simple
                     SimpleUnitGroup sicition = new SimpleUnitGroup((SimpleUnit)unitGroup.group.get(0),true);
                     unitGroup.remove(unitGroup.group.get(0)); 
                     sicition.ia.support=group.ia;
                     group.ia.support=sicition.ia;
                 }
-                else  if (unitGroup.group.size()!=0)// si il rest au moin une unité aolrs on fait motier moiter avec les unité réstants.
+                else  if (unitGroup.group.size()!=0)// si il rest au moin une unitï¿½ aolrs on fait motier moiter avec les unitï¿½ rï¿½stants.
                 for (int i= unitGroup.group.size()-1; i>0;i--){ // lesser le if sous se format la (risque d'emerde avec le remouve )
                     if ((i+1)%2==0) {
                         group.ia.support.unitGroup.group.add((SimpleUnit)unitGroup.group.get(i));
@@ -197,7 +197,7 @@ public class IASimpleUnit extends IAUnite {
         case 15 : { 
                        /*
                        * Strategie 5 applique au tours predant
-                       * continue a crée des Soldats
+                       * continue a crï¿½e des Soldats
                        */
                       if (support==null){
                        SimpleUnit.createSoldier(unitGroup.getPosition(), IA.computer, IA.computer.base.target);

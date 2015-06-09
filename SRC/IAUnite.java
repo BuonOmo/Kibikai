@@ -4,7 +4,7 @@ public abstract class IAUnite {
     private int nbQualSrtategy;
     protected UnitGroup unitGroup;
     public int presentStrategy;
-    public int previousStait;
+    public int previousState;
     public int previousStrategy;
     public UnitGroup previousUnitGroup;
     public double previousLife;
@@ -40,35 +40,35 @@ public abstract class IAUnite {
 
     public void execut() {
         updateZone();
-        int state = calculateStaite();
+        int state = calculateState();
         int Strategy;
-        //si l'état a changer (étaté diéférant ou état idantique depuit longtemps)
-        if (previousStait != state || nbQualSrtategy >30) {
+        //si l'ï¿½tat a changer (ï¿½tatï¿½ diï¿½fï¿½rant ou ï¿½tat idantique depuit longtemps)
+        if (previousState != state || nbQualSrtategy >30) {
             nbQualSrtategy = 0;
-            //chois de la statégie 
+            //chois de la statï¿½gie 
             Strategy = chooseStrategy(state);
             presentStrategy = Strategy;
             previousStrategy = Strategy;
-            // ajout a l'historique de chaque unités
+            // ajout a l'historique de chaque unitï¿½s
             createHisto(state, Strategy);
             updateyStrategy(Strategy);
         } else{
-            // (Strategy = previousStrategy + 10) permet d'appliquer les acction que nésésite les stratégie durables dans le temps 
+            // (Strategy = previousStrategy + 10) permet d'appliquer les acction que nï¿½sï¿½site les stratï¿½gie durables dans le temps 
             Strategy = previousStrategy + 10;
             nbQualSrtategy++;
             }
-        // application de la stratégie 
+        // application de la stratï¿½gie 
         
         applyStrategy(Strategy);
 
-        previousStait = state;
+        previousState = state;
 
 
     }
 
-    public abstract int calculateStaite();
+    public abstract int calculateState();
 
-    public abstract int chooseStrategy(int staite);
+    public abstract int chooseStrategy(int State);
 
     public abstract void applyStrategy(int strategy);
 

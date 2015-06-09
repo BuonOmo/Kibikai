@@ -1,12 +1,12 @@
 
 public class IAHistObj {
-    public int Stait;
+    public int State;
     public int Action;
     public double Reward;
     public long Time;
 
     public IAHistObj(int st, int ac, double re, long t) {
-        Stait = st;
+        State = st;
         Action = ac;
         Reward = re;
         Time = t;

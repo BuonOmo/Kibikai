@@ -1,4 +1,4 @@
-green
+blue
 orange
-MusicOff
+MusicOn
 FogOn

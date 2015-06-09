@@ -11,7 +11,7 @@ public class IASoldier extends IAUnite {
        
         super(soldierGroupToSet);
     }
-    public int calculateStaite() {
+    public int calculateState() {
         /*
          * Etat de la carte autour du groupe entre (0;432)
          */
@@ -81,43 +81,43 @@ public class IASoldier extends IAUnite {
         return state;
     }
 
-    public int chooseStrategy(int staite) {
+    public int chooseStrategy(int State) {
         
         /*
          * precotion pris puisqu'il y a ue des soucie a de depassement d'indice mais il dvrais etre appresent resolsuts 
          */
-        if (staite>431)  {
+        if (State>431)  {
             return (int)Math.random()*6+1;
         }
         
         
         
         Double n = 0.0;
-        // on calcule n , nombre de foi que staite a ue lieu
-        for(Double i :IA.nbSaveSol[staite]) {
+        // on calcule n , nombre de foi que State a ue lieu
+        for(Double i :IA.nbSaveSol[State]) {
             n += i;
         }
         
         
         
         Double  sommeR=0.0;
-        // on calcule sommeR , diviseur de la loi de probabliité 
-        for (Double x :IA.qIASoldier[staite]){
+        // on calcule sommeR , diviseur de la loi de probabliitï¿½ 
+        for (Double x :IA.qIASoldier[State]){
             sommeR = sommeR +Math.exp((n+1)/(101+n)*x);
         }
         
         
         Double Rdm= Math.random()*sommeR;
-        // on choisie la statégie avec une probablité de exp((n+1)/(101+n)*x)/SommeR
+        // on choisie la statï¿½gie avec une probablitï¿½ de exp((n+1)/(101+n)*x)/SommeR
         int i =0;
-        for (Double x :IA.qIASoldier[staite]){
+        for (Double x :IA.qIASoldier[State]){
             i++;
             if (Rdm<Math.exp((n+1)/(101+n)*x)) return i;
             Rdm=Rdm-Math.exp((n+1)/(101+n)*x);
         }
         
         
-        //en cas d'érreurs on apllique la stratégie 1 
+        //en cas d'ï¿½rreurs on apllique la stratï¿½gie 1 
         return 1;
         }
 
