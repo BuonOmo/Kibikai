@@ -203,7 +203,10 @@ public abstract class Item implements Finals {
         }
         return toReturn;
     }
-
+    /**
+     * Met à jour les listes lors de la mort.
+     * @return vrai si modification de aliveItems
+     */
     public boolean isDestructed() {
         //TODO au niveau Unit et Batiment ne pas oublier de traiter Plyer.Units et Plyer.deadUnits
         if (!deadItems.contains(this)) {
@@ -226,17 +229,25 @@ public abstract class Item implements Finals {
         return (i.owner == owner);
     }
 
-    /**
-     * @return vraie si il y a des remove dans aliveItem
-     */
+     /**
+      * Execute les actions par tour d’un objet.
+      * @return vrai si suppression dans aliveItems
+      */
     public abstract boolean execute();
-
+    
+    /**
+     * @return couleur à afficher dans la minimap
+     */
     public Color getColor() {
         if (selected)
             return new Color(0, 255, 255);
         return owner.color;
     }
-
+    
+    /**
+     * Affiche l’objet
+     * @param g
+     */
     public abstract void print(Graphics g);
     
     public void printToMinimap(Graphics g, double Scale, double ScaleI ){
@@ -310,19 +321,27 @@ public abstract class Item implements Finals {
         }
         return false;
     }
-    public boolean[][] fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
+
+    /**
+     * Crée le brouillard de guerre autour de l’objet.
+     * @param offsetX positionne x par rapport à la camera
+     * @param offsetY positionne y par rapport à la camera
+     * @param tab tableau à modifier en fonction du brouillard
+     * @param Scale echelle de la minimap ou de la camera
+     */
+    public void fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
         double R = (viewRay+hitbox.getWidth())*Scale;
-        for (int i =(int) -R ; i <= (int) R ; i++)
+        for (int i =(int) -R ; i <= (int) R ; i++){
             for (int j = -(int)Math.sqrt(R*R-i*i) ; j <= (int)Math.sqrt(R*R-i*i) ; j++){
                 if ((int)((getCenter().getX() - offsetX) * Scale)+i>=0
                     &&(int)((getCenter().getX() - offsetX) * Scale)+i<tab.length
                     &&(int)((getCenter().getY() - offsetY) * Scale)+j>=0
                     &&(int)((getCenter().getY() - offsetY) * Scale)+j<tab[0].length
                     )
-                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j]=false;
-                        //=(Math.random() > 0.5) ? false : true; // mettre à la place de false pour un brouillard swag
+                    tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j] = false;
+                    //=(Math.random() > 0.5) ? false : true; // mettre à la place de false pour un brouillard swag
             }
-        return tab;
+        }
     }
 
     public static void setThreeTargets(Item t, Item u, Item v, Point2D a, Point2D b, Point2D c){

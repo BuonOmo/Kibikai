@@ -151,7 +151,10 @@ public class Building extends Item {
         return false;
     }
 
-    
+    /**
+     * Execute la création d’unité simples par tour.
+     * @return vrai si suppression dans aliveItems
+     */
     public boolean execute() {
     	
         creationTimer--;

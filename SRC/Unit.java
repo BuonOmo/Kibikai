@@ -9,16 +9,36 @@ import java.util.LinkedList;
 
 public abstract class Unit extends Item {
 
+    /**
+     * Liste permettant d’attribuer des récompenses aux unités de l’IA pour le Q learning.
+     */
     public LinkedList<IAHistObj> histoList = new LinkedList<IAHistObj>();
+    
+    /**
+     * Liste pour l’affichage d’animations des unités mourrantes.
+     */
     public static LinkedList<Unit> dyingUnits = new LinkedList<Unit>();
+    
+    /**
+     * Vie maximale d’une unité
+     */
     double lifeMAX;
+    
+    /**
+     * Temps d’arrivée sur le jeu, permet de gerer les animations 
+     * de création et les récompenses attribuées.
+     */
     double firstAppearance;
+    
+    /**
+     * Stratégie de l’unité si c’est une IA.
+     */
     int strategyincurs = 0;
     
     /**
      * compteur pour l’animation de mort.
      */
-    int c;
+    int dieTimer;
 
     /**
      * @param owner
@@ -31,10 +51,10 @@ public abstract class Unit extends Item {
         lifeMAX = lifeMAXToSet;
         owner.units.add(this);
         firstAppearance = UI.time;
-        setTarget(this.getCenter());
-        c = 0;
+        stop();
+        dieTimer = 0;
     }
-
+    
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
@@ -43,19 +63,25 @@ public abstract class Unit extends Item {
     public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int side) {
         this(owner, topLeftCorner, lifeMAXToSet, side, side);
     }
-
+    
+    
     /**
      * @param owner Possesseur de l’objet
      * @param topLeftCorner
+     * @param lifeMAXToSet
      * @param side coté de la hitbox
+     * @param targetToSet point à associer en cible
      */
     public Unit(Player owner, Point2D topLeftCorner, double lifeMAXToSet, int side, Point2D targetToSet) {
         this(owner, topLeftCorner, lifeMAXToSet, side);
         setTarget(targetToSet);
     }
-
+    
     //________________MÉTHODES_______________//
 
+    /**
+     * @return vraie si très proche de l’objectif (0.2 unité de jeu)
+     */
     public boolean isOnTarget(){
         if (this.isCloseTo(target, 0.2))
             return true;
@@ -65,12 +91,13 @@ public abstract class Unit extends Item {
      * arrête le mouvement d’une unité.
      */
     public void stop() {
-        target = this.getCenter();
+        setTarget(this.getCenter());
     }
 
     /**
      * Gère la vie d’une unité.
      * @param amount vie ajoutée (- pour en enlever)
+     * @return vraie si un élement de aliveItem à été modifié
      */
     public boolean getLife(double amount) {
         life += amount;
@@ -81,10 +108,15 @@ public abstract class Unit extends Item {
         return false;
     }
 
+    
     @Override
     public Color getColor() {
-        double percent = ((life + lifeMAX / 2.0) / (1.5 * lifeMAX));
+
+        double percent;
+        
+        percent = (life + lifeMAX / 2.0) / (1.5 * lifeMAX);
         percent = (percent > 1 ) ? 1 : (percent < 0 ) ? 0: percent;
+        
         if (selected)
             return new Color(0, (int) (255 * percent), (int) (255 * percent));
         
@@ -96,41 +128,28 @@ public abstract class Unit extends Item {
      * Gère le déplacement d’une unité.
      */
     public void move() {
-        // deplace l’objet de la distance renvoyée par canMove
+        
         Point2D d;
         d = new Point2D.Double();
         d.setLocation(setVector());
         hitbox.setFrame(hitbox.getX() + d.getX(), hitbox.getY() + d.getY(), hitbox.getWidth(), hitbox.getHeight());
+        
     }
 
-
-    public abstract boolean execute();
-    
+    /**
+     * Affiche l’animation de mort d’une unité.
+     * @param g
+     */
     public abstract void printDieAnimation(Graphics g);
 
     //________MÉTHODES POUR LE DÉPLACEMENT______//
 
     /**
-     * permet de trouver le point d’arrivée du déplacement en fonction
+     * Permet de trouver le point d’arrivée du déplacement en fonction
      * d’un angle alpha par rapport au vecteur unité/objectif.
-     * @param alpha angle du déplacement par rapport à la droite Objet-Cible
+     * @param alphaDegre angle du déplacement par rapport à la droite Objet-Cible
      * @return point d’arrivé du déplacement
      */
-
-    public Point2D getShortTarget(double alpha) {
-
-        Point2D shortTarget;
-        shortTarget = new Point2D.Double();
-
-        double x, y;
-        x = (double) (target.getX() - hitbox.getCenterX()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
-        y = (double) (target.getY() - hitbox.getCenterY()) * (double) DISTANCE_TO_MOVE / this.distanceTo(target);
-
-        shortTarget.setLocation(Math.cos(alpha + getAlphaOffset()) * x + hitbox.getCenterX(),
-                                Math.sin(alpha) * y + hitbox.getCenterY());
-        return shortTarget;
-    }
-
     public Point2D getNewLocationFromCenter(double alphaDegre) {
         Point2D d;
         d = getVector(alphaDegre);
@@ -138,7 +157,7 @@ public abstract class Unit extends Item {
     }
 
     /**
-     * permet de trouver le vecteur du déplacement en fonction
+     * Permet de trouver le vecteur du déplacement en fonction
      * d’un angle alpha par rapport au vecteur unité/objectif.
      * @param alpha angle du déplacement par rapport à la droite Objet-Cible
      * @return point d’arrivé du déplacement
@@ -162,8 +181,7 @@ public abstract class Unit extends Item {
      * @return vecteur de déplacement unitaire
      */
     private Point2D getVector() {
-
-        // evite le tremblement
+        
         if (distanceTo(target) > DISTANCE_TO_MOVE)
             return new Point2D.Double((target.getX() - hitbox.getCenterX()) * DISTANCE_TO_MOVE /
                                       this.distanceTo(target),
@@ -171,8 +189,13 @@ public abstract class Unit extends Item {
                                       this.distanceTo(target));
         else
             return new Point2D.Double(0, 0);
+        
     }
-
+    
+    /**
+     * Choisi un vecteur de déplacement possible en fonction des obstacles.
+     * @return vecteur unitaire de déplacement
+     */
     Point2D setVector() {
         LinkedList<Item> obstacle;
         obstacle = new LinkedList<Item>(aliveItems);
@@ -226,28 +249,17 @@ public abstract class Unit extends Item {
     }
 
     /**
-     * Donne les deux points possible de déplacement de l’unité en fonction d’un Item qui fait obstacle.
+     * Calcul les intersections entre deux cercles.
      * @param other Un autre item qui est proche du premier (methode a n'utiliser que si il y a intersection,
      * sinon tableau vide renvoyé).
      * @return tableau de Point 2D contenant les intersections entres les deux cerles entourant les items.
      */
-    public Point2D.Double[] getIntersect(Item other) {
+    public Point2D.Double[] getIntersect(double R0, double R1, Point2D P1, Point2D P2) {
 
-        double x0 = this.getCenter().getX();
-        double y0 = this.getCenter().getY();
-        double x1 = other.getCenter().getX();
-        double y1 = other.getCenter().getY();
-        /*
-        double x0Coin = this.hitbox.getX();
-        double y0Coin = this.hitbox.getY();
-        double x1Coin = other.hitbox.getX();
-        double y1Coin = other.hitbox.getY();
-        */
-
-        //double R0 = Math.sqrt((x0Coin-x0)*(x0Coin-x0)+(y0Coin-y0)*(y0Coin-y0));
-        double R0 = DISTANCE_TO_MOVE;
-        //double R1 = Math.sqrt((x1Coin-x1)*(x1Coin-x1)+(y1Coin-y1)*(y1Coin-y1));
-        double R1 = radius + other.radius;
+        double x0 = P1.getX();
+        double y0 = P1.getY();
+        double x1 = P2.getX();
+        double y1 = P2.getY();
 
         double deltaX = x0 - x1;
         double deltaY = y0 - y1;
@@ -298,19 +310,10 @@ public abstract class Unit extends Item {
 
 
     /**
-     * Vérifie s’il y a intersection entre un Item et la nouvelle position (fictive) de l’unité.
-     * @param other autre Item
-     * @return true s’il y a intersection
+     * @param i objet génant
+     * @param alphaDegre angle de déplacement courant de l’unité
+     * @return vrai s’il y aura intersection au tour suivant
      */
-    public boolean intersect(Item other) {
-
-        if (DISTANCE_TO_MOVE + radius + other.radius > distanceTo(other))
-            return true;
-
-        return false;
-
-    }
-
     public boolean willIntersect(Item i, double alphaDegre) {
         Point2D newLocation = getNewLocationFromCenter(alphaDegre);
         
@@ -320,43 +323,11 @@ public abstract class Unit extends Item {
                                                 hitbox.getHeight())))
             return true;
         return false;
-        // Ancienne gestion des intersections
-        /*
-        if (truei.getClass().getName() == "Building"){
-            if (i.hitbox.intersects(new Rectangle2D.Double(newLocation.getX() - hitbox.getWidth() / 2.0,
-                                                    newLocation.getY() - hitbox.getHeight() / 2.0,
-                                                    hitbox.getWidth(),
-                                                    hitbox.getHeight()))){
-                return true;
-            }
-        }
-        
-        else if (radius + i.radius > i.distanceTo(newLocation)){
-            return true;
-        }
-        return false;
-        */
     }
-
+    
     /**
-     * @param shortTarget
-     * @return angle du déplacement par rapport à la droite Objet-Cible
+     * @return offset entre l’axe horizontal et l’axe Unité / Objectif
      */
-    public double findAngle(Point2D shortTarget) {
-        if (shortTarget == null)
-            return 0.0;
-        Point2D zero;
-        zero = getShortTarget(0.0);
-        zero.setLocation(zero.getX() - hitbox.getCenterX(), zero.getY() - hitbox.getCenterY());
-
-        Point2D sT;
-        sT = new Point2D.Double(shortTarget.getX() - hitbox.getCenterX(), shortTarget.getY() - hitbox.getCenterY());
-
-        return Math.acos(((zero.getX() - hitbox.getCenterX()) * (sT.getX() - hitbox.getCenterX()) +
-                          (zero.getY() - hitbox.getCenterY()) * (sT.getY() - hitbox.getCenterY())) /
-                         (DISTANCE_TO_MOVE * DISTANCE_TO_MOVE));
-    }
-
     public double getAlphaOffset() {
         Point2D vect = getVector();
         double offset;
@@ -365,77 +336,10 @@ public abstract class Unit extends Item {
             return offset + Math.PI;
         return offset;
     }
-
-    /**
-     * @param obstacle liste de tout les obstacles possible
-     * @param shortTarget vecteur unitaire de déplacement
-     * @return l’unitée peut faire un déplacement unitaire
-     */
-    public Item findObstacle(LinkedList<Item> obstacle, Point2D shortTarget) {
-
-        for (Item element : obstacle)
-            if (this.intersect(element))
-                return element;
-
-        return null;
-    }
-
-    /**
-     * Vérifie si l’unité peut se déplacer.
-     * @return point d’arrivée du déplacement unitaire (null si l’unité est coincée
-     */
-    public Point2D canMove() {
-
-        // angle de déplacement positif minimum
-        double alpha;
-        alpha = 0;
-
-        // angle de déplacement négatif minimum
-        double beta;
-        beta = 0;
-
-        // liste des obstacles à contourner
-        LinkedList<Item> obstacle;
-        obstacle = new LinkedList<Item>(aliveItems);
-        obstacle.remove(this);
-
-        // vecteur unitaire de déplacement
-        Point2D shortTarget;
-
-        // obstacle rencontré
-        Item toAvoid;
-
-        // variable temporaire pour simplifier les calculs
-        double temp;
-
-        do {
-            // setShortTarget pour le minimum des deux angles
-            shortTarget = getShortTarget((alpha < Math.abs(beta)) ? alpha : beta);
-
-            toAvoid = findObstacle(obstacle, shortTarget);
-
-            if (toAvoid == null)
-                return shortTarget;
-
-            // enleve l’obstacle de la liste des obstacles une fois qu’il a été traité
-            obstacle.remove(toAvoid);
-
-            //setAlpha et setBeta
-            Point2D[] intersection = getIntersect(toAvoid);
-            for (int i = 0; i < 2; i++) {
-                // les deux angles possible de contournement de l’obstacle
-                temp = findAngle(intersection[i]);
-
-                beta = (temp < beta) ? temp : beta;
-                alpha = (temp > alpha) ? temp : alpha;
-            }
-
-        } while (alpha < 180.0 || beta > -180.0); // mettre un "et" logique ici ?
-
-        // impossible de se déplacer
-        return null;
-    }
     
+    /**
+     * Supprime definitivement l’unité après son animation de fin de vie.
+     */
     public void die(){
         if (isDead() && viewRay <=0){
             dyingUnits.remove(this);
