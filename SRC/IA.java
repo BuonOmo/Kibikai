@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class IA {
+	
 	public static double Gamma = Finals.IA_GAMMA;
 	public static double Alpa = Finals.IA_ALPHA;
 	public static Double [][] qIASoldier ;
@@ -18,7 +19,7 @@ public class IA {
 
 	public static Player computer;
 	public static Player player;
-	static Object tab; //le joueur est adversaire de l'IA//
+	static Object tab; 
 
 	public static void beginning () {
 
@@ -112,7 +113,7 @@ public class IA {
 	public static Double rinforceQ(Double [][] Q,Double [][] nbS, LinkedList <IAHistObj> histoList,int index , Double priviousReward ){
 		Double Qsa;
                 
-                // calcule de l'a Q max a l'éta suvant 
+                // calcule de l'a Q max a l'ï¿½ta suvant 
                 Double Qmax = -10.0;
                 for (Double Qnext : Q[histoList.get(index+1).Stait]){
                     if (Qnext>Qmax)Qmax=Qnext;

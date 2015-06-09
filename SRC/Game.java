@@ -1,19 +1,7 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import java.awt.geom.Point2D;
-
 import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 
 public class Game implements Finals {
 
@@ -160,7 +148,7 @@ public class Game implements Finals {
     }
     /**
      * recupère un tableau de taille 2.
-     * @param s [0] = couleur du joueur : [1] = couleur de l’IA
+     * @param s [0] = couleur du joueur : [1] = couleur de l’IA : [2] = Music on ou off : [3] = Fog on ou off
      */
     static void setOptions(String[] s) {
         ProcessBuilder pb = new ProcessBuilder("./setOptions.sh", s[0], s[1], s[2], s[3]);
