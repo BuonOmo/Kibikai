@@ -98,13 +98,13 @@ public class Soldier extends Unit {
         y = (int) ((hitbox.getY() - Camera.cameraY) * Camera.scale - 10);
         
         if (selected)
-            g.drawImage(owner.soldierDeathSelected.get(c),
+            g.drawImage(owner.soldierDeathSelected.get(dieTimer),
                         x, y, null);
         else
-            g.drawImage(owner.soldierDeath.get(c),
+            g.drawImage(owner.soldierDeath.get(dieTimer),
                         x, y, null);
-        System.out.println(c);
-        c++;
+        
+        dieTimer++;
         
     }
 
@@ -126,8 +126,14 @@ public class Soldier extends Unit {
         return false;
     }
 
-    @Override
-    public boolean[][] fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
+    /**
+     * Crée le brouillard de guerre autour de l’objet et modifie la portée du brouillard à la naissance et à la mort.
+     * @param offsetX positionne x par rapport à la camera
+     * @param offsetY positionne y par rapport à la camera
+     * @param tab tableau à modifier en fonction du brouillard
+     * @param Scale echelle de la minimap ou de la camera
+     */
+    public void fog ( double offsetX, double offsetY, boolean[][] tab, double Scale){
         
         // animations de creation et destruction
         if (this.isDead()){
@@ -148,9 +154,12 @@ public class Soldier extends Unit {
                     tab[(int)((getCenter().getX() - offsetX) * Scale)+i][(int)((getCenter().getY() - offsetY) * Scale)+j] = false;
                         //=(Math.random() > 0.5) ? false : true;
             }
-        return tab;
     }
     
+    /**
+     * Execute le deplacement et l’attaque des soldats.
+     * @return vrai si suppression dans aliveItems
+     */
     public boolean execute() {
         
         actualiseTarget();

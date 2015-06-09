@@ -88,7 +88,7 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
 
 			while (simpleUnitSelected.size() >= 3) {
 				SimpleUnit[] getClosest;
-				getClosest = SimpleUnit.getNClosestSimpleUnitsFromList(3, mouseWithCameraOffset(), simpleUnitSelected);
+				getClosest = SimpleUnit.getNClosestSimpleUnitsInL(3, mouseWithCameraOffset(), simpleUnitSelected);
 				//System.out.println(getClosest.length);
 				SimpleUnit.createSoldier(getClosest, mouseWithCameraOffset());
 
@@ -197,5 +197,4 @@ public class Mouse extends Listeners implements MouseListener, MouseMotionListen
 	public void mouseWheelMoved(MouseWheelEvent e) {        
 		// Laisse la possibilite d'un mouvement d’echelle
 	}
-
 }
