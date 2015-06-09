@@ -115,14 +115,9 @@ public interface Finals {
     //__________________IA____________________//
 
     /**
-     * IA, Discount factor, attenuation.
+     * Attenuation des experiences de l'IA dans son comportement
      */
     public static final double IA_GAMMA = 0.9;
-
-    /**
-     * IA, Learning rate, taux d'apprentissage.
-     */
-    public static final double IA_ALPHA = 0.9;
 
     /**
      * Distance max entre deux unites pour qu'elles soient considerees comme compactes.
