@@ -215,4 +215,7 @@ public abstract class IAUnite {
 
 
 	}
+        public void createHisto() {
+            createHisto(previousState, presentStrategy);
+        }
 }
