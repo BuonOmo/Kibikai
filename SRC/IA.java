@@ -65,10 +65,22 @@ public class IA {
 	 * Met a jour les fichiers de QLearning.
 	 */
 	public static void end(){
+                // métre a jour les historiques une derniére foie 
+        for (SoldierGroup sg : SoldierGroup.list){
+				sg.ia.createHisto();
+		}
+        for (SimpleUnitGroup sug :SimpleUnitGroup.list){
+				sug.ia.createHisto();
+		}
+        
+        
+
 
 		LinkedList <Unit> AllUnit = computer.units;
 		AllUnit.addAll(computer.deadUnits);
 		System.out.println("IA.end : allUnit.siz AllUnit.size()"+AllUnit.size());
+
+
 
 		for (int i = 0; i<AllUnit.size();i++){
 			System.out.print("|");
